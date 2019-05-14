@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
+    android:layout_margin="30dp">
+
+    <TextView
+        android:id="@+id/title_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp"
+        android:text="验证码登录"
+        android:textColor="@color/c000000"
+        android:textSize="@dimen/text_size_28"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/title_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="手机号"
+        android:textColor="@color/c000000"
+        android:textSize="@dimen/text_size_16"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/title_1" />
+
+    <TextView
+        android:id="@+id/title_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="44dp"
+        android:text="+86"
+        android:textColor="@color/c1B35FD"
+        android:textSize="@dimen/text_size_15"
+        app:layout_constraintLeft_toRightOf="@id/title_2"
+        app:layout_constraintTop_toBottomOf="@id/title_1" />
+    <ImageView
+        app:layout_constraintTop_toTopOf="@id/title_3"
+        android:layout_width="11dp"
+        android:layout_height="6dp"
+        android:background="@mipmap/down"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintLeft_toRightOf="@id/title_3"
+        app:layout_constraintTop_toBottomOf="@id/title_1"/>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/c_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入手机号"
+        android:inputType="number"
+        android:singleLine="true"
+        app:layout_constraintTop_toBottomOf="@id/title_3" />
+
+    <TextView
+        android:id="@+id/title_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawablePadding_10"
+
+        android:text="验证码"
+        android:textColor="@color/c000000"
+        android:textSize="@dimen/text_size_16"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/c_phone"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/c_getCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawablePadding_10"
+        android:text="获取验证码"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/c_phone" />
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/c_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入验证码"
+        android:inputType="number"
+        android:singleLine="true"
+        app:layout_constraintTop_toBottomOf="@id/title_4" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/title_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawablePadding_10"
+
+        android:text="密码"
+        android:textColor="@color/c000000"
+        android:textSize="@dimen/text_size_16"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/c_code"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:visibility="gone"
+        android:layout_marginRight="20dp"
+        android:id="@+id/title_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawablePadding_10"
+        android:background="@mipmap/password"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintTop_toTopOf="@id/title_5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/c_code" />
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:id="@+id/c_passwords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:singleLine="true"
+        app:layout_constraintTop_toBottomOf="@id/title_6" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/title_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawablePadding_15"
+        android:paddingTop="@dimen/drawablePadding_10"
+        android:text="确定密码"
+        android:textColor="@color/c000000"
+        android:textSize="@dimen/text_size_16"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/c_passwords"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:visibility="gone"
+        android:layout_marginRight="20dp"
+        android:id="@+id/title_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawablePadding_10"
+        android:background="@mipmap/password"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintTop_toTopOf="@id/title_7"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/c_passwords" />
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:id="@+id/c_user_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:singleLine="true"
+        app:layout_constraintTop_toBottomOf="@id/title_8" />
+
+    <TextView
+
+        android:id="@+id/c_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="注册"
+        android:textColor="@color/c2C6CFD"
+        android:textSize="@dimen/text_size_15"
+        app:layout_constraintTop_toBottomOf="@id/c_user_password"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+
+        android:id="@+id/c_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="密码登录"
+        android:textColor="@color/c2C6CFD"
+        android:textSize="@dimen/text_size_15"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/c_user_password" />
+
+
+    <Button
+        tools:ignore="MissingConstraints"
+        android:id="@+id/c_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/shape"
+        android:gravity="center"
+        android:text="登录"
+        android:src="@drawable/shape"
+        android:textColor="@color/cffffff"
+        android:textSize="@dimen/text_size_18"
+        app:layout_constraintTop_toBottomOf="@id/c_register" />
+
+    <ImageView
+
+        android:id="@+id/c_wechat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="46dp"
+        android:background="@mipmap/wechat"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/qq"
+        app:layout_constraintTop_toBottomOf="@id/c_login_button" />
+
+    <ImageView
+
+        android:id="@+id/qq"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="46dp"
+        android:background="@mipmap/qq"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/c_wechat"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/c_login_button" />
+
+    <ImageView
+
+        android:id="@+id/alipay"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="46dp"
+        android:background="@mipmap/aliapy"
+        app:layout_constraintLeft_toRightOf="@id/qq"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/c_login_button" />
+
+
+    <ImageView
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/user_message"
+        android:id="@+id/select"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="@dimen/padding_15"
+        android:background="@mipmap/select"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/c_login_button" />
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/user_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_15"
+        android:text="《用户注册协议》"
+        android:textColor="@color/cff4347fa"
+        android:textSize="@dimen/text_size_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/c_login_button" />
+
+</android.support.constraint.ConstraintLayout>

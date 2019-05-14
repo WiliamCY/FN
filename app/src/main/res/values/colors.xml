@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <!-- 线线颜色-->
+    <color name="stroke_line">#ededed</color>
+    <color name="background_yellow">#fbd415</color>
+    <color name="textcolor_black">#163045</color>
+    <color name="cffffff">#ffffff</color>
+    <color name="c999999">#999999</color>
+    <color name="c000000">#000000</color>
+    <color name="cB56C46">#B56C46</color>
+    <color name="cff333333">#ff333333</color>
+    <color name="cE91C1C">#E91C1C</color>
+    <color name="c1B35FD">#1B35FD</color>
+    <color name="c333333">#333333</color>
+    <color name="c2C6CFD">#2C6CFD</color>
+    <color name="cA26E47">#A26E47</color>
+    <color name="cff4347fa">#ff4347fa</color>
+
+</resources>
