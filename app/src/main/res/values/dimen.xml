@@ -220,6 +220,7 @@
     <dimen name="layout_height_15">15dp</dimen>
     <dimen name="layout_height_16">16dp</dimen>
     <dimen name="layout_height_18">18dp</dimen>
+    <dimen name="layout_height_20">20dp</dimen>
     <dimen name="layout_height_23">23dp</dimen>
     <dimen name="layout_height_36">36dp</dimen>
     <dimen name="layout_height_37">37dp</dimen>

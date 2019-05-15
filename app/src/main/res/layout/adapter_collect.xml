@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints"
+    android:layout_margin="@dimen/margin_15">
+
+    <ImageView
+        android:id="@+id/collect_logo"
+        android:layout_width="167dp"
+        android:layout_height="144dp"
+        android:background="@mipmap/collect_logo"
+ />
+    <android.support.constraint.ConstraintLayout
+
+        android:background="@color/cEEEEEE"
+        app:layout_constraintTop_toBottomOf="@id/collect_logo"
+        android:layout_width="167dp"
+        android:layout_height="88dp">
+<TextView
+    android:layout_marginTop="@dimen/paddingTop_10"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginLeft="@dimen/paddingLeft_10"
+    android:id="@+id/collect_title1"
+    android:textSize="@dimen/text_size_12"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/layout_height_23"
+    android:text="瓷器"
+    android:textColor="@color/cffffff"
+    android:background="@drawable/shape_reds"/>
+
+        <TextView
+            app:layout_constraintTop_toTopOf="@id/collect_title1"
+            android:layout_marginLeft="@dimen/paddingLeft_20"
+            app:layout_constraintLeft_toRightOf="@id/collect_title1"
+            android:id="@+id/collect_title2"
+            android:textSize="@dimen/text_size_12"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/layout_height_23"
+            android:text="唐代"
+            android:textColor="@color/cffffff"
+            android:background="@drawable/shape_blues"/>
+        <TextView
+            android:id="@+id/collect_title3"
+            android:textSize="@dimen/text_size_15"
+            android:layout_marginTop="@dimen/paddingTop_5"
+            app:layout_constraintTop_toBottomOf="@id/collect_title1"
+            android:singleLine="true"
+            android:text="我是简介简介简介……"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+     <TextView
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintLeft_toLeftOf="parent"
+         android:layout_marginLeft="@dimen/marginLeft_10"
+         app:layout_constraintTop_toBottomOf="@id/collect_title3"
+         android:textColor="@color/cA40000"
+         android:textSize="@dimen/text_size_15"
+         android:text="¥1000"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="@dimen/marginRight_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/collect_title3"
+              app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="@dimen/layout_width_15"
+            android:layout_height="@dimen/layout_height_15"
+            android:background="@mipmap/collect_remober"/>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

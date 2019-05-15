@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="293dp"
+    android:layout_margin="@dimen/margin_15"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/adapter_order_title_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="等待买家付款"
+        android:textColor="@color/cDA0505"
+        android:textSize="@dimen/text_size_15" />
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/marginTop_5"
+        android:background="@color/cEEEEEE"
+        app:layout_constraintTop_toBottomOf="@id/adapter_order_title_1"
+      />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/adapter_order_title_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/paddingTop_20"
+        android:text="您购买的物品正在派送中，请注意查收！
+2019-05-06     09:20"
+        app:layout_constraintTop_toBottomOf="@id/view2" />
+
+    <ImageView
+        android:id="@+id/adapter_order_title_3"
+        android:layout_width="@dimen/layout_width_100"
+        android:layout_height="@dimen/layout_height_100"
+        android:layout_marginTop="@dimen/paddingTop_10"
+        android:background="@mipmap/collect_logo"
+        app:layout_constraintTop_toBottomOf="@id/adapter_order_title_2" />
+
+    <TextView
+        android:id="@+id/adapter_order_title_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/marginRight_10"
+        android:text="共2件商品 实付款:"
+        app:layout_constraintEnd_toStartOf="@id/adapter_order_title_5"
+        app:layout_constraintTop_toBottomOf="@id/adapter_order_title_3" />
+
+    <TextView
+        android:layout_marginRight="@dimen/paddingRight_10"
+        android:id="@+id/adapter_order_title_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¥1500"
+        android:textColor="@color/cDA0505"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/adapter_order_title_4" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/marginTop_5"
+        android:background="@color/cEEEEEE"
+        app:layout_constraintTop_toBottomOf="@id/adapter_order_title_5" />
+
+    <TextView
+        android:visibility="gone"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_14"
+        android:layout_marginRight="@dimen/paddingRight_20"
+        android:id="@+id/adapter_order_1"
+        android:layout_width="79dp"
+        android:layout_height="23dp"
+        android:background="@drawable/textview_border_blacks"
+        android:text="删除订单"
+        android:textColor="@color/c333333"
+        app:layout_constraintEnd_toStartOf="@id/adapter_order_2"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+    <TextView
+        android:visibility="gone"
+        android:textSize="@dimen/text_size_14"
+        android:id="@+id/adapter_order_2"
+        android:layout_width="79dp"
+        android:layout_height="23dp"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/paddingRight_20"
+        android:background="@drawable/textview_border_blacks"
+        android:text="查看物流"
+        android:textColor="@color/c333333"
+        app:layout_constraintEnd_toStartOf="@id/adapter_order_3"
+       app:layout_constraintTop_toTopOf="@id/adapter_order_1" />
+
+    <TextView
+        android:visibility="gone"
+        android:textSize="@dimen/text_size_14"
+        android:id="@+id/adapter_order_3"
+        android:layout_width="79dp"
+        android:layout_height="23dp"
+        android:gravity="center"
+        android:background="@drawable/textview_border_blacks"
+        android:text="评价"
+        android:textColor="@color/c333333"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/adapter_order_1" />
+
+    <TextView
+
+        android:gravity="center"
+        android:textSize="@dimen/text_size_14"
+        android:layout_marginRight="@dimen/paddingRight_20"
+        android:id="@+id/adapter_order_4"
+        android:layout_width="79dp"
+        android:layout_height="23dp"
+        android:background="@drawable/textview_border_reads"
+        android:text="去支付"
+        android:textColor="@color/c333333"
+        app:layout_constraintEnd_toStartOf="@id/adapter_order_2"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+
+</android.support.constraint.ConstraintLayout>

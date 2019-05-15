@@ -177,7 +177,7 @@
         android:background="@drawable/shape_red"
         android:gravity="center"
         android:src="@drawable/shape"
-        android:text="申请证书"
+        android:text="退出登录"
         android:textColor="@color/cffffff"
         android:textSize="@dimen/text_size_18" />
 
