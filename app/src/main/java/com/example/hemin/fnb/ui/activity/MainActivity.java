@@ -1,5 +1,6 @@
 package com.example.hemin.fnb.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -64,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         imgProtruding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-          Toast.makeText(getApplicationContext(),"点击上传",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),PublishingCollections.class);
+                startActivity(intent);
 
             }
         });

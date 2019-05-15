@@ -39,7 +39,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="2dp"
         android:text="登陆/注册"
-        android:textColor="@color/cff333333"
+        android:textColor="@color/c333333"
         android:textStyle="bold" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="2dp"
         android:text="填写签名让更多藏友认识你"
-        android:textColor="@color/cff333333"
+        android:textColor="@color/c333333"
     />
     <include
         android:layout_marginTop="30dp"

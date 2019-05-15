@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.ChangeLogo"
+    tools:ignore="MissingConstraints">
+    
+    <ImageView
+        android:id="@+id/change_user_logo"
+        android:layout_width="match_parent"
+        android:layout_height="375dp"
+        android:background="@mipmap/change_user_logo"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/change_button1"
+        android:layout_marginLeft="@dimen/marginLeft_20"
+        android:layout_marginRight="@dimen/paddingRight_20"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_55"
+        android:text="更换头像"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/c333333"
+        android:background="@drawable/textview_borders"
+        android:layout_marginTop="@dimen/paddingTop_30"
+        app:layout_constraintTop_toBottomOf="@id/change_user_logo"/>
+
+
+    <TextView
+        android:id="@+id/change_button2"
+        android:layout_marginLeft="@dimen/marginLeft_20"
+        android:layout_marginRight="@dimen/paddingRight_20"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_55"
+        android:text="取消"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/c333333"
+        android:background="@drawable/textview_borders"
+        android:layout_marginTop="@dimen/paddingTop_30"
+        app:layout_constraintTop_toBottomOf="@id/change_button1"/>
+
+</android.support.constraint.ConstraintLayout>

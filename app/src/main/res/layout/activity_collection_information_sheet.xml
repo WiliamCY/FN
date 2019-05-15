@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/padding_15"
+    tools:context=".ui.activity.CollectionInformationSheet"
+    tools:ignore="MissingConstraints">
+
+    <ImageView
+        android:id="@+id/cis_logo"
+        android:layout_width="@dimen/layout_height_40"
+        android:layout_height="@dimen/layout_width_40"
+        android:background="@mipmap/cis_logo" />
+
+    <TextView
+        android:id="@+id/cis_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginLeft_10"
+        android:layout_marginTop="@dimen/marginTop_9"
+        android:text="鉴定单号：12345689255555"
+        app:layout_constraintLeft_toRightOf="@id/cis_logo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="@dimen/layout_width_48"
+        android:layout_height="@dimen/layout_height_23"
+        android:background="@mipmap/cis_boolean"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cis_number" />
+
+    <ImageView
+        android:id="@+id/cis_logo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_height_40"
+        android:background="@mipmap/cis_medal"
+        app:layout_constraintEnd_toStartOf="@+id/cis_logo2"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <ImageView
+        android:id="@+id/cis_logo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/cis_value"
+        app:layout_constraintEnd_toStartOf="@+id/cis_logo3"
+        app:layout_constraintStart_toEndOf="@+id/cis_logo1"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo"
+        app:layout_constraintTop_toTopOf="@id/cis_logo1" />
+
+    <ImageView
+        android:id="@+id/cis_logo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/cis_years"
+        app:layout_constraintEnd_toStartOf="@+id/cis_logo4"
+        app:layout_constraintStart_toEndOf="@+id/cis_logo2"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo"
+        app:layout_constraintTop_toTopOf="@id/cis_logo1" />
+
+    <ImageView
+        android:id="@+id/cis_logo4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/cis_status"
+        app:layout_constraintEnd_toStartOf="@+id/cis_logo5"
+        app:layout_constraintStart_toEndOf="@+id/cis_logo3"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo"
+        app:layout_constraintTop_toTopOf="@id/cis_logo1" />
+
+    <ImageView
+        android:id="@+id/cis_logo5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/cis_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cis_logo4"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo"
+        app:layout_constraintTop_toTopOf="@id/cis_logo1" />
+
+    <TextView
+        android:id="@+id/cis_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="真品"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_13"
+        app:layout_constraintLeft_toLeftOf="@id/cis_logo1"
+        app:layout_constraintRight_toRightOf="@id/cis_logo1"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo1" />
+
+    <TextView
+        android:id="@+id/cis_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="真品"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_13"
+        app:layout_constraintLeft_toLeftOf="@id/cis_logo2"
+        app:layout_constraintRight_toRightOf="@id/cis_logo2"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo2" />
+
+    <TextView
+        android:id="@+id/cis_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="真品"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_13"
+        app:layout_constraintLeft_toLeftOf="@id/cis_logo3"
+        app:layout_constraintRight_toRightOf="@id/cis_logo3"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo3" />
+
+
+    <TextView
+        android:id="@+id/cis_text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="真品"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_13"
+        app:layout_constraintLeft_toLeftOf="@id/cis_logo4"
+        app:layout_constraintRight_toRightOf="@id/cis_logo4"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo4" />
+
+    <TextView
+        android:id="@+id/cis_text5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="真品"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_13"
+        app:layout_constraintLeft_toLeftOf="@id/cis_logo5"
+        app:layout_constraintRight_toRightOf="@id/cis_logo5"
+        app:layout_constraintTop_toBottomOf="@id/cis_logo5" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_5"
+        android:layout_marginTop="@dimen/marginTop_20"
+        android:background="@color/cEEEEEE"
+        app:layout_constraintTop_toBottomOf="@id/cis_text1" />
+
+    <TextView
+        android:id="@+id/expert_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="152dp"
+        android:layout_marginTop="@dimen/marginTop_15"
+        android:background="@drawable/textview_border"
+        android:text="专家评语"
+        android:textColor="@color/c999999"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintTop_toBottomOf="@id/view1"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <RelativeLayout
+
+        android:id="@+id/re"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_120"
+        android:layout_marginTop="@dimen/paddingTop_20"
+        android:background="@color/cEEEEEE"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/expert_reviews">
+
+        <ImageView
+            android:id="@+id/cis_certificate"
+            android:layout_width="99dp"
+            android:layout_height="@dimen/layout_height_70"
+            android:background="@mipmap/cis_certificate" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/marginLeft_20"
+            android:id="@+id/cis_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cis_certificate"
+            android:layout_marginTop="@dimen/paddingTop_5"
+            android:text="鉴定证书"
+            android:textColor="@color/c000000"
+            android:textSize="@dimen/text_size_15"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_marginTop="@dimen/paddingTop_15"
+            android:id="@+id/cis_law"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginLeft_10"
+            android:layout_marginBottom="54dp"
+            android:layout_toRightOf="@id/cis_certificate"
+            android:text="本证书具有法律效力"
+            android:textColor="@color/c333333"
+            android:textSize="@dimen/text_size_12"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_below="@id/cis_law"
+            android:layout_toRightOf="@id/cis_certificate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本证书可用于："
+            android:textColor="@color/cEEEEEE"
+            android:textSize="@dimen/text_size_12"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <Button
+
+        tools:ignore="MissingConstraints"
+        android:id="@+id/cis_book_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_40"
+        android:layout_marginTop="@dimen/paddingTop_30"
+        android:background="@drawable/shape_red"
+        android:gravity="center"
+        android:text="申请证书"
+        android:src="@drawable/shape"
+        android:textColor="@color/cffffff"
+        android:textSize="@dimen/text_size_18"
+        app:layout_constraintTop_toBottomOf="@id/re" />
+
+    <Button
+
+        tools:ignore="MissingConstraints"
+        android:id="@+id/cis_insure_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_40"
+        android:layout_marginTop="@dimen/paddingTop_20"
+        android:background="@drawable/shape_red"
+        android:gravity="center"
+        android:text="藏品保险"
+        android:src="@drawable/shape"
+        android:textColor="@color/cffffff"
+        android:textSize="@dimen/text_size_18"
+        app:layout_constraintTop_toBottomOf="@id/cis_book_button" />
+    
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/cis_books"
+        android:layout_marginTop="@dimen/marginTop_20"
+        app:layout_constraintTop_toBottomOf="@id/expert_reviews"
+        android:background="@mipmap/cis_book"
+        android:layout_width="match_parent"
+        android:layout_height="197dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/paddingTop_15"
+        app:layout_constraintTop_toBottomOf="@id/cis_books"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="证书须知"
+        android:textColor="@color/c1B35FD"
+        android:textSize="@dimen/text_size_15"/>
+
+
+    <TextView
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/paddingTop_15"
+        app:layout_constraintTop_toBottomOf="@id/cis_books"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="证书编号：123456789"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_15"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints">
+
+
+<LinearLayout
+    android:gravity="center"
+    android:background="@color/c000000"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_height_50">
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/layout_height_30"
+        android:gravity="center"
+        android:text="正在鉴定"
+        android:textColor="@color/cffffff"
+
+
+        />
+
+
+    <TextView
+        android:gravity="center"
+        android:textSize="15sp"
+        android:id="@+id/title2"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/layout_height_30"
+        android:textColor="@color/cDEDEDE"
+        android:text="鉴定结束"
+
+    />
+</LinearLayout>
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:background="@color/c000000"
+        android:id="@+id/magic_indicator2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_30" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+</LinearLayout>

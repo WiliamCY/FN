@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
+import com.example.hemin.fnb.ui.activity.MyAppraisa;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +80,8 @@ public class TabMyFragment extends Fragment {
             case R.id.card_2:
                 break;
             case R.id.card_3:
+                    Intent intent = new Intent(getActivity(), MyAppraisa.class);
+                    startActivity(intent);
                 break;
             case R.id.card_4:
                 break;

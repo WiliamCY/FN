@@ -46,6 +46,7 @@
     <dimen name="marginRight_16">16dp</dimen>
     <dimen name="marginRight_18">18dp</dimen>
     <dimen name="marginRight_20">20dp</dimen>
+    <dimen name="marginRight_40">40dp</dimen>
 
     <!--marginTop -->
     <dimen name="marginTop_1">1dp</dimen>
@@ -101,9 +102,12 @@
     <dimen name="marginBottom_20">20dp</dimen>
     <dimen name="marginBottom_30">30dp</dimen>
     <!--layout_margin -->
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_7">7dp</dimen>
     <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_11">11dp</dimen>
     <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
     <!--paddingLeft -->
     <dimen name="paddingLeft_5">5dp</dimen>
     <dimen name="paddingLeft_6">6dp</dimen>
@@ -181,6 +185,7 @@
     <dimen name="paddingBottom_18">18dp</dimen>
     <dimen name="paddingBottom_19">19dp</dimen>
     <dimen name="paddingBottom_20">20dp</dimen>
+    <dimen name="paddingBottom_40">40dp</dimen>
 
     <!-- drawablePadding-->
     <dimen name="drawablePadding_6">6dp</dimen>
@@ -204,6 +209,7 @@
 
 
     <!-- layout_height-->
+    <dimen name="layout_height_5">5dp</dimen>
     <dimen name="layout_height_6">6dp</dimen>
     <dimen name="layout_height_7">7dp</dimen>
     <dimen name="layout_height_8">8dp</dimen>
@@ -212,22 +218,61 @@
     <dimen name="layout_height_11">11dp</dimen>
     <dimen name="layout_height_13">13dp</dimen>
     <dimen name="layout_height_15">15dp</dimen>
+    <dimen name="layout_height_16">16dp</dimen>
+    <dimen name="layout_height_18">18dp</dimen>
+    <dimen name="layout_height_23">23dp</dimen>
+    <dimen name="layout_height_36">36dp</dimen>
+    <dimen name="layout_height_37">37dp</dimen>
     <dimen name="layout_height_45">45dp</dimen>
     <dimen name="layout_minHeight_40">40dp</dimen>
     <dimen name="layout_height_26">26dp</dimen>
     <dimen name="layout_height_30">30dp</dimen>
     <dimen name="layout_height_35">35dp</dimen>
+    <dimen name="layout_height_40">40dp</dimen>
     <dimen name="layout_height_44">44dp</dimen>
     <dimen name="layout_height_48">48dp</dimen>
     <dimen name="layout_height_50">50dp</dimen>
     <dimen name="layout_height_55">55dp</dimen>
     <dimen name="layout_height_60">60dp</dimen>
+    <dimen name="layout_height_65">65dp</dimen>
+    <dimen name="layout_height_70">70dp</dimen>
+    <dimen name="layout_height_75">75dp</dimen>
     <dimen name="layout_height_80">80dp</dimen>
     <dimen name="layout_height_90">90dp</dimen>
     <dimen name="layout_height_100">100dp</dimen>
     <dimen name="layout_height_120">120dp</dimen>
     <dimen name="layout_height_150">150dp</dimen>
     <dimen name="layout_height_180">180dp</dimen>
+
+
+    <!-- layout_width-->
+    <dimen name="layout_width_6">6dp</dimen>
+    <dimen name="layout_width_7">7dp</dimen>
+    <dimen name="layout_width_8">8dp</dimen>
+    <dimen name="layout_width_9">9dp</dimen>
+    <dimen name="layout_width_10">10dp</dimen>
+    <dimen name="layout_width_11">11dp</dimen>
+    <dimen name="layout_width_13">13dp</dimen>
+    <dimen name="layout_width_15">15dp</dimen>
+    <dimen name="layout_width_45">45dp</dimen>
+    <dimen name="layout_width_40">40dp</dimen>
+    <dimen name="layout_width_26">26dp</dimen>
+    <dimen name="layout_width_30">30dp</dimen>
+    <dimen name="layout_width_35">35dp</dimen>
+    <dimen name="layout_width_38">38dp</dimen>
+    <dimen name="layout_width_44">44dp</dimen>
+    <dimen name="layout_width_48">48dp</dimen>
+    <dimen name="layout_width_50">50dp</dimen>
+    <dimen name="layout_width_55">55dp</dimen>
+    <dimen name="layout_width_65">65dp</dimen>
+    <dimen name="layout_width_70">70dp</dimen>
+    <dimen name="layout_width_75">75dp</dimen>
+    <dimen name="layout_width_80">80dp</dimen>
+    <dimen name="layout_width_90">90dp</dimen>
+    <dimen name="layout_width_100">100dp</dimen>
+    <dimen name="layout_width_120">120dp</dimen>
+    <dimen name="layout_width_150">150dp</dimen>
+    <dimen name="layout_widtht_180">180dp</dimen>
 
 
     <!-- google上啦加载下拉刷新 -->

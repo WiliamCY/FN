@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
+    android:layout_margin="@dimen/margin_15"
+    tools:context=".ui.activity.ChangeName">
+
+    
+    <EditText
+        android:textColor="@color/c999999"
+        android:gravity="center"
+        android:background="@drawable/textview_border"
+        android:textSize="@dimen/text_size_15"
+        android:hint="请输入4-24个字符，但不包括@./等无效字符"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_55"
+     />
+
+
+    <Button
+        android:layout_marginBottom="@dimen/paddingBottom_40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/c_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_36"
+        android:background="@drawable/shape_red"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/cffffff"
+        android:textSize="@dimen/text_size_15"
+        />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hemin.fnb">
-  <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
+        <activity android:name=".ui.activity.MyMessage"></activity>
+        <activity android:name=".ui.activity.NoticeSetting" />
+        <activity android:name=".ui.activity.ChangeName" />
+        <activity android:name=".ui.activity.ChangeMobile" />
+        <activity android:name=".ui.activity.UserSetting" />
+        <activity android:name=".ui.activity.ChangeLogo" />
+        <activity android:name=".ui.activity.UserMessage" />
+        <activity android:name=".ui.activity.OrderActivity" />
+        <activity android:name=".ui.activity.CollectionInformationSheet" />
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,10 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.CodeLoginActivity"/>
-        <activity android:name=".ui.activity.RegisterActivity"/>
-        <activity android:name=".ui.activity.PasswordActivity"/>
-        <activity android:name=".ui.activity.ForgetPasswordActivity"/>
+        <activity android:name=".ui.activity.CodeLoginActivity" />
+        <activity android:name=".ui.activity.RegisterActivity" />
+        <activity android:name=".ui.activity.PasswordActivity" />
+        <activity android:name=".ui.activity.ForgetPasswordActivity" />
+        <activity android:name=".ui.activity.PublishingCollections" />
+        <activity android:name=".ui.activity.CollectionInformation" />
+        <activity android:name=".ui.activity.MyAppraisa" />
     </application>
 
 </manifest>
