@@ -8,9 +8,9 @@ import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
 
-public interface LoginContract {
+public interface ForgetContract {
     interface Model {
-        Flowable<BaseObjectBean> login(Context context,RequestBody body);
+        Flowable<BaseObjectBean> forget(Context context, RequestBody body);
     }
 
     //获取验证码
@@ -33,7 +33,7 @@ public interface LoginContract {
 
     interface Presenter {
 
-        void login(Context context, RequestBody body);
+        void Forget(Context context, RequestBody body);
         void getCode(String mobile);
 
     }

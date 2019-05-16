@@ -8,14 +8,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseMvpActivity;
+import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.contract.ForgetContract;
+import com.example.hemin.fnb.ui.contract.PwLoginContract;
+import com.example.hemin.fnb.ui.presenter.ForgetPresenter;
+import com.example.hemin.fnb.ui.presenter.PasswordPresenter;
+import com.example.hemin.fnb.ui.util.ProgressDialog;
+import com.example.hemin.fnb.ui.util.Utils;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> implements ForgetContract.View {
     @BindView(R.id.title_1)
     TextView title1;
     @BindView(R.id.title_2)
@@ -58,15 +69,23 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     ImageView select;
     @BindView(R.id.user_message)
     TextView userMessage;
+    private Utils.TimeCount timeCount;
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_code_login);
-        ButterKnife.bind(this);
-        initView();
+    public int getLayoutId() {
+        return R.layout.activity_code_login;
     }
-    private void  initView(){
+
+    @Override
+    public void initView() {
+        mPresenter = new ForgetPresenter();
+        mPresenter.attachView(this);
+        ButterKnife.bind(this);
+        initViews();
+    }
+
+    private void  initViews(){
         title1.setText("修改密码");
         cLoginButton.setText("提交");
         cRegister.setVisibility(View.GONE);
@@ -88,12 +107,32 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
+                if(getPhone() == null || Utils.isPhoneNumber(getPhone())== false) {
+                    Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                mPresenter.getCode(getPhone());
+                timeCount = new Utils.TimeCount(60000,1000, cGetCode);
+                timeCount.start();
                 break;
             case R.id.title_6:
                 break;
             case R.id.title_8:
                 break;
             case R.id.c_login_button:
+                if(getCode()== null || getPhone()==null || Utils.isPhoneNumber(getPhone()) == false || getPassword() == null || getPasswords() == null){
+                    Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT).show();
+                }else {
+                    if(!getPassword().equals(getPasswords())){
+                        Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT).show();
+                    }
+                    return;
+                }
+                HashMap<String,String> paramsMap= new HashMap<>();
+                paramsMap.put("mobile",getPhone());
+                paramsMap.put("code",getCode());
+                paramsMap.put("newPassword",getPassword());
+                mPresenter.Forget(this,Utils.RetrofitHead(paramsMap));
                 break;
             case R.id.c_wechat:
                 break;
@@ -102,5 +141,36 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             case R.id.alipay:
                 break;
         }
+    }
+    private String getCode(){
+        return cCode.getText().toString().trim();
+    }
+    private String getPhone(){
+        return cPhone.getText().toString().trim();
+    }
+    private String getPassword(){
+        return cPasswords.getText().toString().trim();
+    }
+    private String getPasswords(){
+        return  cUserPassword.getText().toString().trim();
+    }
+    @Override
+    public void onSuccess(BaseObjectBean bean) {
+        Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+        ProgressDialog.getInstance().show(this);
+    }
+
+    @Override
+    public void hideLoading() {
+        ProgressDialog.getInstance().dismiss();
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
     }
 }

@@ -9,14 +9,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseMvpActivity;
+import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.contract.ForgetContract;
+import com.example.hemin.fnb.ui.contract.PwLoginContract;
+import com.example.hemin.fnb.ui.presenter.ForgetPresenter;
+import com.example.hemin.fnb.ui.presenter.PasswordPresenter;
+import com.example.hemin.fnb.ui.util.ProgressDialog;
+import com.example.hemin.fnb.ui.util.Utils;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PasswordActivity extends AppCompatActivity {
+public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> implements PwLoginContract.View {
     @BindView(R.id.title_1)
     TextView title1;
     @BindView(R.id.title_2)
@@ -60,14 +71,21 @@ public class PasswordActivity extends AppCompatActivity {
     @BindView(R.id.user_message)
     TextView userMessage;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_code_login);
-        ButterKnife.bind(this);
-        initView();
+    public int getLayoutId() {
+        return R.layout.activity_code_login;
     }
-    private void initView(){
+
+    @Override
+    public void initView() {
+        mPresenter = new PasswordPresenter();
+        mPresenter.attachView(this);
+        ButterKnife.bind(this);
+        initViews();
+    }
+
+    private void initViews(){
         title1.setText("密码登录");
         title4.setVisibility(View.GONE);
         cGetCode.setVisibility(View.GONE);
@@ -78,7 +96,7 @@ public class PasswordActivity extends AppCompatActivity {
         cPassword.setText("忘记密码");
     }
 
-    @OnClick({R.id.c_register, R.id.c_password, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
+    @OnClick({R.id.c_getCode,R.id.c_register, R.id.c_password, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_register:
@@ -90,6 +108,14 @@ public class PasswordActivity extends AppCompatActivity {
                 startActivity(password);
                 break;
             case R.id.c_login_button:
+                if(getPhone() == null  || getPassword() == null || Utils.isPhoneNumber(getPhone()) == false){
+                    Toast.makeText(this, "请输入完整或者手机格式不正确", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                HashMap<String,String> hashMap = new HashMap<>();
+                hashMap.put("username", getPhone());
+                hashMap.put("password", getPassword());
+                mPresenter.pwLogn(this, Utils.RetrofitHead(hashMap));
                 break;
             case R.id.c_wechat:
                 break;
@@ -97,6 +123,35 @@ public class PasswordActivity extends AppCompatActivity {
                 break;
             case R.id.alipay:
                 break;
+            case R.id.c_getCode:
+
+                break;
         }
+    }
+  private String getPhone(){
+        return  cPhone.getText().toString().trim();
+  }
+  private String getPassword(){
+        return  cPasswords.getText().toString();
+  }
+
+    @Override
+    public void onSuccess(BaseObjectBean bean) {
+        Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
     }
 }

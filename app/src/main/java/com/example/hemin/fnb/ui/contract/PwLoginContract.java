@@ -8,15 +8,12 @@ import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
 
-public interface LoginContract {
+public interface PwLoginContract {
     interface Model {
-        Flowable<BaseObjectBean> login(Context context,RequestBody body);
+        Flowable<BaseObjectBean> pwLogin(Context context, RequestBody body);
     }
 
-    //获取验证码
-    interface GetCodeModel {
-        Flowable<BaseObjectBean> getCodes(String mobile);
-    }
+
 
     interface View extends BaseView {
         @Override
@@ -33,8 +30,7 @@ public interface LoginContract {
 
     interface Presenter {
 
-        void login(Context context, RequestBody body);
-        void getCode(String mobile);
+        void pwLogn(Context context, RequestBody body);
 
     }
 

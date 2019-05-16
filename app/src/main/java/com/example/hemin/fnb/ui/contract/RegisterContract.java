@@ -34,7 +34,6 @@ public interface RegisterContract {
     }
 
     interface Presenter {
-    //获取验证码
         void register(Context context,RequestBody body);
         //获取验证码
         void getCode(String mobile);

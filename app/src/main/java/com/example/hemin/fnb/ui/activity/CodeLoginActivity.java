@@ -9,14 +9,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseMvpActivity;
+import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.contract.LoginContract;
+import com.example.hemin.fnb.ui.presenter.LoginPresenter;
+import com.example.hemin.fnb.ui.util.ProgressDialog;
+import com.example.hemin.fnb.ui.util.Utils;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.RequestBody;
 
-public class CodeLoginActivity extends AppCompatActivity {
+public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginContract.View {
     @BindView(R.id.c_phone)
     EditText cPhone;
     @BindView(R.id.c_getCode)
@@ -35,13 +46,18 @@ public class CodeLoginActivity extends AppCompatActivity {
     ImageView qq;
     @BindView(R.id.alipay)
     ImageView alipay;
+    private Utils.TimeCount timeCount;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_code_login);
-        ButterKnife.bind(this);
+    public int getLayoutId() {
+        return R.layout.activity_code_login;
+    }
 
+    @Override
+    public void initView() {
+        mPresenter = new LoginPresenter();
+        mPresenter.attachView(this);
+        ButterKnife.bind(this);
 
     }
 
@@ -49,6 +65,13 @@ public class CodeLoginActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
+                if(getPhone() == null || Utils.isPhoneNumber(getPhone())== false) {
+                    Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                mPresenter.getCode(getPhone());
+                timeCount = new Utils.TimeCount(60000,1000, cGetCode);
+                timeCount.start();
                 break;
             case R.id.c_register:
                 Intent register = new Intent(this,RegisterActivity.class);
@@ -59,6 +82,15 @@ public class CodeLoginActivity extends AppCompatActivity {
                 startActivity(password);
                 break;
             case R.id.c_login_button:
+                if(getCode()== null || getPhone()==null || Utils.isPhoneNumber(getPhone()) == false){
+                    Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                HashMap<String,String> paramsMap= new HashMap<>();
+                paramsMap.put("mobile",getPhone());
+                paramsMap.put("password",getCode());
+                paramsMap.put("code",getCode());
+                mPresenter.login(this,Utils.RetrofitHead(paramsMap));
                 break;
             case R.id.c_wechat:
                 break;
@@ -68,4 +100,32 @@ public class CodeLoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    public void onSuccess(BaseObjectBean bean) {
+        Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+        ProgressDialog.getInstance().show(this);
+    }
+
+    @Override
+    public void hideLoading() {
+        ProgressDialog.getInstance().dismiss();
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
+    }
+
+    private String getPhone(){
+       return cPhone.getText().toString().trim();
+    }
+    private String getCode(){
+        return cCode.getText().toString().trim();
+    }
+
 }

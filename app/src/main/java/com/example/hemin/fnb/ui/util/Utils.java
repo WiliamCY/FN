@@ -4,7 +4,12 @@ import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.util.HashMap;
 import java.util.regex.Pattern;
+
+import okhttp3.RequestBody;
 
 public class Utils {
 
@@ -33,6 +38,13 @@ public class Utils {
             btn_count.setText("获取验证码");
 
         }
+
+    }
+    public  static RequestBody RetrofitHead(HashMap hashMap){
+        Gson gson = new Gson();
+        String strEntity = gson.toJson(hashMap);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
+        return body;
 
     }
 

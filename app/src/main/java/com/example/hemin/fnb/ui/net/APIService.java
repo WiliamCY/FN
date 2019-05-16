@@ -14,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -26,8 +27,18 @@ public interface APIService {
      */
 
     @GET("/user/sms/Login")
-    Flowable<BaseObjectBean> login(@Query("mobile") String mobile,
-                                              @Query("code") String code);
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean> login(@Body RequestBody body);
+
+    /**
+     * 登陆
+     * @return
+     */
+
+    @GET("/user/sms/Login")
+    Flowable<BaseObjectBean<LoginBean>> logins(@Query("mobile") String mobile,
+                                   @Query("code") String code);
+
 
     /**
      * 获取验证码
@@ -43,4 +54,19 @@ public interface APIService {
     @POST("user/save")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Flowable<BaseObjectBean> register(@Body RequestBody body);
+
+  /**
+   * 忘记密码
+   * */
+  @PUT("user/ipdatePwd")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean> forget(@Body RequestBody body);
+
+  /**
+   * 登录
+   * */
+  @POST("user/login")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean> pWlogin(@Body RequestBody body);
+
 }

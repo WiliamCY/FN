@@ -119,16 +119,11 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                     Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Gson gson = new Gson();
                 HashMap<String,String> paramsMap= new HashMap<>();
                 paramsMap.put("mobile",getMobile());
-
                 paramsMap.put("password",getPassword());
                 paramsMap.put("code",getCode());
-                String strEntity = gson.toJson(paramsMap);
-                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
-
-                mPresenter.register(this,body);
+                mPresenter.register(this,Utils.RetrofitHead(paramsMap));
                 break;
             case R.id.user_message:
                 break;
@@ -145,11 +140,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
  }
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT).show();
-        if(bean.getErrorCode() ==0){
-
-
-        }
+        Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
