@@ -2,6 +2,7 @@ package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.fragment.TabFindFragment;
 import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMyFragment;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     private static String homepage = "findFragment";
     FrameLayout activityMaterialDesign;
-    private List<Fragment> fragmentList = new ArrayList<>();
+    private List<BaseFragment> fragmentList = new ArrayList<>();
     private TabFindFragment tabFindFragment;
     private TabShopFragment tabShopFragment;
     private TabMessageFragment tabMessageFragment;

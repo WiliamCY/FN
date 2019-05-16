@@ -65,7 +65,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/drawablePadding_10"
-
         android:text="验证码"
         android:textColor="@color/c000000"
         android:textSize="@dimen/text_size_16"
@@ -75,7 +74,7 @@
 
     <TextView
         android:id="@+id/c_getCode"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/layout_width_150"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/drawablePadding_10"
         android:text="获取验证码"

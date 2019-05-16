@@ -1,21 +1,29 @@
 package com.example.hemin.fnb.ui.activity;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseMvpActivity;
+import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.contract.RegisterContract;
+import com.example.hemin.fnb.ui.presenter.RegisterPresenter;
+import com.example.hemin.fnb.ui.util.ProgressDialog;
+import com.example.hemin.fnb.ui.util.Utils;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.RequestBody;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> implements RegisterContract.View {
     @BindView(R.id.title_1)
     TextView title1;
     @BindView(R.id.title_2)
@@ -58,17 +66,25 @@ public class RegisterActivity extends AppCompatActivity {
     ImageView select;
     @BindView(R.id.user_message)
     TextView userMessage;
+    private Utils.TimeCount timeCount;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_code_login);
-        ButterKnife.bind(this);
-        initView();
+    public int getLayoutId() {
+        return R.layout.activity_code_login;
 
     }
 
-    private void initView() {
+    @Override
+    public void initView() {
+        mPresenter = new RegisterPresenter();
+        mPresenter.attachView(this);
+        ButterKnife.bind(this);
+        initViews();
+
+    }
+
+
+    private void initViews() {
         title1.setText("注册");
         cLoginButton.setText("注册");
         qq.setVisibility(View.GONE);
@@ -88,13 +104,67 @@ public class RegisterActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
+                if(getMobile() == null || Utils.isPhoneNumber(getMobile())== false) {
+                    Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                    mPresenter.getCode(getMobile());
+                timeCount = new Utils.TimeCount(60000,1000, cGetCode);
+                timeCount.start();
                 break;
             case R.id.title_6:
                 break;
             case R.id.c_login_button:
+                if(getMobile() == null || Utils.isPhoneNumber(getMobile()) == false || getCode() == null || getPassword() == null){
+                    Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Gson gson = new Gson();
+                HashMap<String,String> paramsMap= new HashMap<>();
+                paramsMap.put("mobile",getMobile());
+
+                paramsMap.put("password",getPassword());
+                paramsMap.put("code",getCode());
+                String strEntity = gson.toJson(paramsMap);
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
+
+                mPresenter.register(this,body);
                 break;
             case R.id.user_message:
                 break;
         }
+    }
+ private String getMobile(){
+        return cPhone.getText().toString().trim();
+ }
+ private String getCode(){
+        return  cCode.getText().toString().trim();
+ }
+ private String getPassword(){
+        return  cPasswords.getText().toString().trim();
+ }
+    @Override
+    public void onSuccess(BaseObjectBean bean) {
+        Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT).show();
+        if(bean.getErrorCode() ==0){
+
+
+        }
+    }
+
+    @Override
+    public void showLoading() {
+        ProgressDialog.getInstance().show(this);
+    }
+
+    @Override
+    public void hideLoading() {
+        ProgressDialog.getInstance().dismiss();
+
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
     }
 }

@@ -16,13 +16,19 @@ import android.widget.Toast;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
 import com.example.hemin.fnb.ui.activity.MyAppraisa;
+import com.example.hemin.fnb.ui.base.BaseFragment;
+import com.example.hemin.fnb.ui.base.BaseMvpFragment;
+import com.example.hemin.fnb.ui.contract.MainContract;
+import com.example.hemin.fnb.ui.presenter.MainPresenter;
+import com.uber.autodispose.AutoDisposeConverter;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class TabMyFragment extends Fragment {
+public class TabMyFragment extends  Fragment{
     @BindView(R.id.setting)
     ImageView setting;
     @BindView(R.id.user_logo)
@@ -57,11 +63,8 @@ public class TabMyFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
+
 
     @OnClick({R.id.setting, R.id.user_logo, R.id.qm, R.id.card_1, R.id.card_2, R.id.card_3, R.id.card_4, R.id.card_5})
     public void onViewClicked(View view) {
@@ -89,4 +92,7 @@ public class TabMyFragment extends Fragment {
                 break;
         }
     }
+
+
+
 }
