@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FNB</string>
     <string name="progress_please_wait">正在加载.....</string>
+    <string name="app_fileprovider_authorities">com.sample.fileprovider</string>
 </resources>

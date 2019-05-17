@@ -41,6 +41,19 @@
         <activity android:name=".ui.activity.PublishingCollections" />
         <activity android:name=".ui.activity.CollectionInformation" />
         <activity android:name=".ui.activity.MyAppraisa" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="@string/app_fileprovider_authorities"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities"> //避免冲突
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider_path"
+                tools:replace="android:resource"/> //避免冲突
+        </provider>
+
     </application>
+
 
 </manifest>
