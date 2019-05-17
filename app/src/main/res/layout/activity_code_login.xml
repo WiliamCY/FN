@@ -122,6 +122,7 @@
         app:layout_constraintTop_toBottomOf="@id/c_code" />
 
     <EditText
+     android:inputType="textPassword"
         android:layout_marginTop="10dp"
         android:visibility="gone"
         android:id="@+id/c_passwords"
@@ -160,6 +161,7 @@
         app:layout_constraintTop_toBottomOf="@id/c_passwords" />
 
     <EditText
+        android:inputType="textPassword"
         android:layout_marginTop="10dp"
         android:visibility="gone"
         android:id="@+id/c_user_password"

@@ -2,6 +2,7 @@ package com.example.hemin.fnb.ui.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
@@ -31,12 +32,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.View >implements
 
 
     @Override
-    public void login(Context context, RequestBody body) {
+    public void login(final Context context, String mobile , String code) {
         if(!isViewAttached()){
             return;
         }
         mView.showLoading();
-        model.login(context, body)
+        model.login(context, mobile,code)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {

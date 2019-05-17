@@ -90,7 +90,7 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
                 paramsMap.put("mobile",getPhone());
                 paramsMap.put("password",getCode());
                 paramsMap.put("code",getCode());
-                mPresenter.login(this,Utils.RetrofitHead(paramsMap));
+                mPresenter.login(this,getPhone(),getCode());
                 break;
             case R.id.c_wechat:
                 break;

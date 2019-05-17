@@ -10,7 +10,7 @@ import okhttp3.RequestBody;
 
 public interface LoginContract {
     interface Model {
-        Flowable<BaseObjectBean> login(Context context,RequestBody body);
+        Flowable<BaseObjectBean> login(Context context,String mobile, String code);
     }
 
     //获取验证码
@@ -33,7 +33,7 @@ public interface LoginContract {
 
     interface Presenter {
 
-        void login(Context context, RequestBody body);
+        void login(Context context, String mobile,String code);
         void getCode(String mobile);
 
     }

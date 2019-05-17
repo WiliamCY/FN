@@ -113,7 +113,7 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
                     return;
                 }
                 HashMap<String,String> hashMap = new HashMap<>();
-                hashMap.put("username", getPhone());
+                    hashMap.put("username", getPhone());
                 hashMap.put("password", getPassword());
                 mPresenter.pwLogn(this, Utils.RetrofitHead(hashMap));
                 break;
@@ -138,16 +138,28 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     @Override
     public void onSuccess(BaseObjectBean bean) {
         Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        if(bean.getErrorCode() == 0){
+            finish();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            setResult(2);
+            finish();
+        }
     }
 
     @Override
     public void showLoading() {
-
+        ProgressDialog.getInstance().show(this);
     }
 
     @Override
     public void hideLoading() {
-
+        ProgressDialog.getInstance().dismiss();
     }
 
     @Override

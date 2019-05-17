@@ -19,6 +19,9 @@ import com.example.hemin.fnb.ui.fragment.TabFindFragment;
 import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMyFragment;
 import com.example.hemin.fnb.ui.fragment.TabShopFragment;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -67,11 +70,28 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         imgProtruding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),PublishingCollections.class);
+                Intent intent = new Intent(getApplicationContext(), PublishingCollections.class);
                 startActivity(intent);
 
             }
         });
+        XXPermissions.with(this)
+                .constantRequest() //可设置被拒绝后继续申请，直到用户授权或者永久拒绝
+                //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES) //支持请求6.0悬浮窗权限8.0请求安装权限
+                .permission(Permission.Group.STORAGE, Permission.Group.CALENDAR) //不指定权限则自动获取清单中的危险权限
+                .request(new OnPermission() {
+
+                    @Override
+                    public void hasPermission(List<String> granted, boolean isAll) {
+
+                    }
+
+                    @Override
+                    public void noPermission(List<String> denied, boolean quick) {
+
+                    }
+                });
+//    }
     }
 
     @Override

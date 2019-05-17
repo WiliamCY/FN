@@ -12,8 +12,8 @@ import okhttp3.RequestBody;
 public class LoginModel implements LoginContract.Model,LoginContract.GetCodeModel{
 
     @Override
-    public Flowable<BaseObjectBean> login(Context context, RequestBody body) {
-        return RetrofitClient.getInstance().getApi().login(body);
+    public Flowable<BaseObjectBean> login(Context context, String mobile ,String code) {
+        return RetrofitClient.getInstance().getApi().login(mobile,code);
     }
 
     @Override

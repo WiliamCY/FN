@@ -3,6 +3,7 @@ package com.example.hemin.fnb.ui.net;
 
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.LoginBean;
+import com.example.hemin.fnb.ui.bean.UserDateBean;
 
 import org.intellij.lang.annotations.Flow;
 
@@ -28,7 +29,8 @@ public interface APIService {
 
     @GET("/user/sms/Login")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean> login(@Body RequestBody body);
+    Flowable<BaseObjectBean> login(@Query("mobile") String mobile,
+                                   @Query("code") String code);
 
     /**
      * 登陆
@@ -58,7 +60,7 @@ public interface APIService {
   /**
    * 忘记密码
    * */
-  @PUT("user/ipdatePwd")
+  @PUT("user/updatePwd")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Flowable<BaseObjectBean> forget(@Body RequestBody body);
 

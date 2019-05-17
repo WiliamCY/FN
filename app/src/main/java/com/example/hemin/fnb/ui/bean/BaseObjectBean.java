@@ -1,24 +1,22 @@
 package com.example.hemin.fnb.ui.bean;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-/**
- * @author azheng
- * @date 2018/4/24.
- * GitHub：https://github.com/RookieExaminer
- * Email：wei.azheng@foxmail.com
- * Description：对象
- */
+import java.lang.reflect.Type;
+import java.security.Timestamp;
+
 public class BaseObjectBean<T> {
 
-    /**
-     * status : 1
-     * msg : 获取成功
-     * result : {} 对象
-     */
+
 
     private int code;
+
     private String msg;
+
     private T data;
 
     public int getErrorCode() {

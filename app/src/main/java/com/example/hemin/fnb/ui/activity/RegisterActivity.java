@@ -1,5 +1,8 @@
 package com.example.hemin.fnb.ui.activity;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +14,7 @@ import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.RegisterContract;
+import com.example.hemin.fnb.ui.fragment.TabMyFragment;
 import com.example.hemin.fnb.ui.presenter.RegisterPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
@@ -140,7 +144,10 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
  }
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        if(bean.getErrorCode() == 0) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

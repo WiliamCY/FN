@@ -10,6 +10,7 @@ import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.RegisterContract;
+import com.example.hemin.fnb.ui.fragment.TabMyFragment;
 import com.example.hemin.fnb.ui.model.RegisterModel;
 import com.example.hemin.fnb.ui.net.RxScheduler;
 
@@ -42,10 +43,6 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View >impl
                           public void accept(BaseObjectBean bean) throws Exception {
                               mView.onSuccess(bean);
                               mView.hideLoading();
-                              if(bean.getErrorCode() == 0){
-                                  Intent intent = new Intent(context, CodeLoginActivity.class);
-                                              context.startActivity(intent);
-                              }
 
 
                           }

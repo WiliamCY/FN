@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
+import com.example.hemin.fnb.ui.activity.MainActivity;
 import com.example.hemin.fnb.ui.activity.MyAppraisa;
+import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.contract.MainContract;
@@ -53,13 +55,6 @@ public class TabMyFragment extends  Fragment{
         View view = inflater.inflate(R.layout.fragment_tab_my, container, false);
         unbinder = ButterKnife.bind(this, view);
         userLogo = view.findViewById(R.id.user_logo);
-        userLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(getActivity(),CodeLoginActivity.class);
-                startActivity(intent);
-            }
-        });
         return view;
     }
 
@@ -72,8 +67,7 @@ public class TabMyFragment extends  Fragment{
             case R.id.setting:
                 break;
             case R.id.user_logo:
-                Toast.makeText(getActivity(),"1",Toast.LENGTH_SHORT).show();
-                Intent login = new Intent(getActivity(),CodeLoginActivity.class);
+                Intent login = new Intent(getActivity(), PasswordActivity.class);
                 startActivity(login);
                 break;
             case R.id.qm:
@@ -92,6 +86,7 @@ public class TabMyFragment extends  Fragment{
                 break;
         }
     }
+
 
 
 

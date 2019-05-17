@@ -120,12 +120,10 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
             case R.id.title_8:
                 break;
             case R.id.c_login_button:
-                if(getCode()== null || getPhone()==null || Utils.isPhoneNumber(getPhone()) == false || getPassword() == null || getPasswords() == null){
+                if(getCode() == null || getPhone() == null || getPassword() == null || getPasswords() == null || Utils.isPhoneNumber(getPhone()) == false){
                     Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT).show();
-                }else {
-                    if(!getPassword().equals(getPasswords())){
-                        Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT).show();
-                    }
+                }else if(!getPassword().equals(getPasswords())){
+                    Toast.makeText(this, "输入的密码不一致", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 HashMap<String,String> paramsMap= new HashMap<>();

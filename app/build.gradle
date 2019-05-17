@@ -49,4 +49,5 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     //jetbrains 注解
     implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'com.hjq:xxpermissions:5.5'
 }

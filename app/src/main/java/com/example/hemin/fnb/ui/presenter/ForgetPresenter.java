@@ -1,7 +1,9 @@
 package com.example.hemin.fnb.ui.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.ForgetContract;
@@ -29,7 +31,7 @@ public class ForgetPresenter extends BasePresenter<ForgetContract.View >implemen
 
 
     @Override
-    public void Forget(Context context, RequestBody body) {
+    public void Forget(final Context context, RequestBody body) {
         if(!isViewAttached()){
             return;
         }
@@ -42,6 +44,8 @@ public class ForgetPresenter extends BasePresenter<ForgetContract.View >implemen
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
+                        Intent intent = new Intent(context, PasswordActivity.class);
+                        context.startActivity(intent);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
