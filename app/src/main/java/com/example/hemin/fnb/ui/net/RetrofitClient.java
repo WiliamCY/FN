@@ -25,8 +25,10 @@ public class RetrofitClient {
 
     private static volatile RetrofitClient instance;
     private APIService apiService;
-    private static String baseUrl = "http://10.10.10.66:8080/";
+//    private static String baseUrl = "http://10.10.10.66:8080/";
 //    private static  String baseUrl = "https://www.funwl.com/";
+//private static String baseUrl = "https://www.funwl.com/";
+private static String baseUrl = "http://qq1273106281.oicp.io:47141/";
 
     private RetrofitClient() {
     }
@@ -52,9 +54,9 @@ public class RetrofitClient {
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
                 Request original = chain.request();
-                Request.Builder requestBuilder = original.newBuilder()
+                Request.Builder requestBuilder = original.newBuilder();
                         //添加Token
-                        .header("Content-Type", "application/json;charset=UTF-8");
+//                        .header("usERa", "application/json;charset=UTF-8");
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
             }

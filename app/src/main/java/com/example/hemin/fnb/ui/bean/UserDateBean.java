@@ -7,14 +7,72 @@ public class UserDateBean {
     private String expires_in;
     private User user;
 
-   class User {
+  public class User {
         private String userId;
         private String nickname;
         private String url;
         private String mobile;
         private String birthday;
         private String signature;
-    }
+        private String sex;
+
+      public String getUserId() {
+          return userId;
+      }
+
+      public String getBirthday() {
+          return birthday;
+      }
+
+      public String getMobile() {
+          return mobile;
+      }
+
+      public String getNickname() {
+          return nickname;
+      }
+
+      public String getSignature() {
+          return signature;
+      }
+
+      public String getUrl() {
+          return url;
+      }
+
+      public void setBirthday(String birthday) {
+          this.birthday = birthday;
+      }
+
+      public void setMobile(String mobile) {
+          this.mobile = mobile;
+      }
+
+      public void setNickname(String nickname) {
+          this.nickname = nickname;
+      }
+
+      public void setSignature(String signature) {
+          this.signature = signature;
+      }
+
+      public void setUrl(String url) {
+          this.url = url;
+      }
+
+      public void setUserId(String userId) {
+          this.userId = userId;
+      }
+
+      public String getSex() {
+          return sex;
+      }
+
+      public void setSex(String sex) {
+          this.sex = sex;
+      }
+
+  }
 
     public String getAuthorization() {
         return Authorization;
@@ -55,4 +113,5 @@ public class UserDateBean {
     public void setUser(User user) {
         this.user = user;
     }
+
 }
