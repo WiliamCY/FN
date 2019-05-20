@@ -166,4 +166,9 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     public void onError(Throwable throwable) {
 
     }
+
+    @Override
+    public boolean isFullScreen() {
+        return true;
+    }
 }

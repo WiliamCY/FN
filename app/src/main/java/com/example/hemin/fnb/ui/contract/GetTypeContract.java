@@ -21,7 +21,7 @@ public interface GetTypeContract {
         Flowable<BaseObjectBean> postImage(Context context, Map token, MultipartBody.Part partList);
     }
     interface  AddImageButton{
-        Flowable<BaseObjectBean> submitImage(Context context, RequestBody body);
+        Flowable<BaseObjectBean> submitImage(Context context, Map token,RequestBody body);
     }
 
     interface View  extends BaseView{
@@ -39,7 +39,7 @@ public interface GetTypeContract {
     interface GetTytpePresebter{
          void getType(Context context,Map token);
         void postImage(Context context, Map token, MultipartBody.Part partList);
-        void  submitImage(Context context,RequestBody body);
+        void  submitImage(Context context,Map map,RequestBody body);
     }
 
 }

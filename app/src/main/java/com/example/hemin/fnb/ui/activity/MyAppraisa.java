@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.util.ExamplePagerAdapter;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -35,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyAppraisa extends AppCompatActivity {
+public class MyAppraisa extends BaseActivity {
 
     @BindView(R.id.view_pager2)
     ViewPager viewPager2;
@@ -51,15 +52,6 @@ public class MyAppraisa extends AppCompatActivity {
     private List<String> mDataList3 = Arrays.asList(date3);
     private ExamplePagerAdapter mExamplePagerAdapter;
 
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_appraisa);
-        ButterKnife.bind(this);
-        initView2(mDataList2);
-
-    }
 
 
     private void initView2(final List<String> date) {
@@ -129,5 +121,22 @@ public class MyAppraisa extends AppCompatActivity {
                 initView2(mDataList3);
                 break;
         }
+    }
+
+    @Override
+    public boolean isFullScreen() {
+        return true;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.my_appraisa;
+    }
+
+    @Override
+    public void initView() {
+        ButterKnife.bind(this);
+        initView2(mDataList2);
+
     }
 }

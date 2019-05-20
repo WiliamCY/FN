@@ -168,6 +168,10 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     }
 
     @Override
+    public boolean isFullScreen() {
+        return true;
+    }
+    @Override
     public void onError(Throwable throwable) {
 
     }

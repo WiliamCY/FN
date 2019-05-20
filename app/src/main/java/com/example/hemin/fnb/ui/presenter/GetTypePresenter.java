@@ -99,12 +99,12 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
     }
 
     @Override
-    public void submitImage(Context context, RequestBody body) {
+    public void submitImage(Context context,Map token, RequestBody body) {
            if(!isViewAttached()){
                return;
            }
            mView.showLoading();
-           modle3.submitImage(context,body)
+           modle3.submitImage(context,token,body)
                    .subscribe(new Consumer<BaseObjectBean>() {
                        @Override
                        public void accept(BaseObjectBean bean) throws Exception {

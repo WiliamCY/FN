@@ -121,6 +121,11 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
 
     }
 
+    @Override
+    public boolean isFullScreen() {
+        return true;
+    }
+
     private String getPhone(){
        return cPhone.getText().toString().trim();
     }

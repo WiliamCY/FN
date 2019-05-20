@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="StatusView">
+        <attr name="is_status_gradient" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="DachshundTabLayout">
+        <attr name="ddIndicatorHeight" format="dimension" />
+        <attr name="ddIndicatorColor" format="color" />
+        <attr name="ddIndicator" format="color" />
+        <attr name="ddCenterAlign" format="boolean" />
+        <attr name="ddSelectTextBold" format="boolean" />
+        <attr name="ddAnimatedIndicator" format="enum">
+            <enum name="dachshund" value="0" />
+            <enum name="pointMove" value="1" />
+            <enum name="lineMove" value="2" />
+            <enum name="pointFade" value="3" />
+            <enum name="lineFade" value="4" />
+        </attr>
+    </declare-styleable>
+    <attr name="rv_backgroundColor" format="color" />
+    <!-- 圆角矩形背景色press -->
+    <attr name="rv_backgroundPressColor" format="color" />
+    <!-- 圆角弧度,单位dp-->
+    <attr name="rv_cornerRadius" format="dimension" />
+    <!-- 圆角弧度,单位dp-->
+    <attr name="rv_strokeWidth" format="dimension" />
+    <!-- 圆角边框颜色-->
+    <attr name="rv_strokeColor" format="color" />
+    <!-- 圆角边框颜色press -->
+    <attr name="rv_strokePressColor" format="color" />
+    <!-- 文字颜色press-->
+    <attr name="rv_textPressColor" format="color" />
+    <!-- 圆角弧度是高度一半-->
+    <attr name="rv_isRadiusHalfHeight" format="boolean" />
+    <!-- 圆角矩形宽高相等,取较宽高中大值-->
+    <attr name="rv_isWidthHeightEqual" format="boolean" />
+    <!-- 圆角弧度,单位dp,TopLeft-->
+    <attr name="rv_cornerRadius_TL" format="dimension" />
+    <!-- 圆角弧度,单位dp,TopRight-->
+    <attr name="rv_cornerRadius_TR" format="dimension" />
+    <!-- 圆角弧度,单位dp,BottomLeft-->
+    <attr name="rv_cornerRadius_BL" format="dimension" />
+    <!-- 圆角弧度,单位dp,BottomRight-->
+    <attr name="rv_cornerRadius_BR" format="dimension" />
+    <!-- 是否有Ripple效果,api21+有效-->
+    <attr name="rv_isRippleEnable" format="boolean" />
+
+    <attr name="sl_state_default" format="reference"/>
+    <attr name="sl_state_enabled" format="reference"/>
+    <attr name="sl_state_pressed" format="reference"/>
+    <attr name="sl_state_selected" format="reference"/>
+    <attr name="sl_state_focused" format="reference"/>
+    <attr name="sl_state_hovered" format="reference"/>
+    <attr name="sl_state_checkable" format="reference"/>
+    <attr name="sl_state_checked" format="reference"/>
+    <attr name="sl_state_activated" format="reference"/>
+    <attr name="sl_state_type" format="enum">
+        <enum name="src" value="0" />
+        <enum name="background" value="1" />
+        <enum name="drawableLeft" value="2" />
+        <enum name="drawableRight" value="3" />
+        <enum name="drawableTop" value="4" />
+        <enum name="drawableBottom" value="5" />
+    </attr>
+    <attr name="sl_state_default_color" format="color"/>
+    <attr name="sl_state_enabled_color" format="color"/>
+    <attr name="sl_state_pressed_color" format="color"/>
+    <attr name="sl_state_selected_color" format="color"/>
+    <attr name="sl_state_focused_color" format="color"/>
+    <attr name="sl_state_hovered_color" format="color"/>
+    <attr name="sl_state_checkable_color" format="color"/>
+    <attr name="sl_state_checked_color" format="color"/>
+    <attr name="sl_state_activated_color" format="color"/>
+    <attr name="sl_state_anim" format="boolean"/>
+    <declare-styleable name="RoundTextView">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_textPressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
+    </declare-styleable>
+
+    <declare-styleable name="StateListImageView">
+    <attr name="sl_state_default" />
+    <attr name="sl_state_enabled" />
+    <attr name="sl_state_pressed" />
+    <attr name="sl_state_selected"/>
+    <attr name="sl_state_focused" />
+    <attr name="sl_state_hovered"/>
+    <attr name="sl_state_checkable"/>
+    <attr name="sl_state_checked" />
+    <attr name="sl_state_activated"/>
+    <attr name="sl_state_type"/>
+    <attr name="sl_state_anim"/>
+</declare-styleable>
+
+    <declare-styleable name="StateListTextView">
+        <attr name="sl_state_default" />
+        <attr name="sl_state_enabled" />
+        <attr name="sl_state_pressed" />
+        <attr name="sl_state_selected"/>
+        <attr name="sl_state_focused" />
+        <attr name="sl_state_hovered"/>
+        <attr name="sl_state_checkable"/>
+        <attr name="sl_state_checked" />
+        <attr name="sl_state_activated"/>
+        <attr name="sl_state_type"/>
+        <attr name="sl_state_anim"/>
+        <attr name="sl_state_default_color" />
+        <attr name="sl_state_enabled_color"/>
+        <attr name="sl_state_pressed_color" />
+        <attr name="sl_state_selected_color"/>
+        <attr name="sl_state_focused_color"/>
+        <attr name="sl_state_hovered_color"/>
+        <attr name="sl_state_checkable_color"/>
+        <attr name="sl_state_checked_color"/>
+        <attr name="sl_state_activated_color"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="RoundLinearLayout">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundRelativeLayout">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundFrameLayout">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
+    </declare-styleable>
+
+
+
+</resources>

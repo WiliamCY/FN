@@ -99,6 +99,6 @@ public interface APIService {
      * 提交图鉴
      * */
     @POST("app/collection/add")
-    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean>  submitImage (@Body RequestBody body);
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean>  submitImage (@HeaderMap Map<String,String> heard,@Body RequestBody body);
 }

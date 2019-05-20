@@ -132,7 +132,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                     Toast.makeText(this,"请输入完整",Toast.LENGTH_SHORT).show();
                     return;
                 }
-               String url1 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/kap3glz7qy";
+                String url1 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/kap3glz7qy";
                 String url2 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/p6mknzgqs9";
                 String url3 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/p64zhv7w3a";
                 String url4 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/nlc4zbfuqx";
@@ -143,7 +143,9 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                   map2.put("imagesDetails",getEdittect());
                   map2.put("imagesUrl ",url);
                   map2.put("userId ","34");
-                  mPresenter.submitImage(this, Utils.RetrofitHead(map2));
+                  HashMap<String,String> token = new HashMap<>();
+                  token.put("Authorization","usERa"+getToken());
+                  mPresenter.submitImage(this, token,Utils.RetrofitHead(map2));
                 break;
         }
     }
@@ -249,5 +251,10 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
          optionsPickerView.setPicker(typeName);
 
         optionsPickerView.show();
+    }
+
+    @Override
+    public boolean isFullScreen() {
+        return true;
     }
 }

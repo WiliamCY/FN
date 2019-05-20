@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.fragment.TabFindFragment;
 import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        StatusBarUtil.setTranslucent(this);
         initView();
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

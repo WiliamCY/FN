@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.RegisterContract;
@@ -164,5 +165,10 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     @Override
     public void onError(Throwable throwable) {
 
+    }
+
+    @Override
+    public boolean isFullScreen() {
+        return true;
     }
 }
