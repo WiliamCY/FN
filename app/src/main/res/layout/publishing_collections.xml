@@ -7,25 +7,30 @@
     android:layout_margin="@dimen/padding_15"
     tools:ignore="MissingConstraints">
 
-    <ImageView
-        android:id="@+id/pc_photo"
-        android:layout_width="56dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/marginTop_25"
-        android:background="@mipmap/pc_photo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+   <ImageView
+       android:id="@+id/pc_photo"
+       android:layout_width="56dp"
+       android:layout_height="48dp"
+       android:layout_marginLeft="@dimen/marginLeft_20"
+       android:layout_marginTop="20dp"
+       android:background="@mipmap/pc_photo"
+       app:layout_constraintStart_toEndOf="@id/imageview_recyclerview"
+       app:layout_constraintTop_toTopOf="parent" />
+ <android.support.v7.widget.RecyclerView
+     app:layout_constraintTop_toTopOf="parent"
+     android:layout_marginTop="@dimen/marginTop_20"
+     android:id="@+id/imageview_recyclerview"
+     android:layout_width="wrap_content"
+     android:layout_height="@dimen/layout_height_100"/>
     <TextView
+        app:layout_constraintStart_toEndOf="@id/imageview_recyclerview"
         android:id="@+id/pc_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTop_10"
         android:text="添加藏品图片"
         android:textColor="@color/cff999999"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/marginLeft_15"
         app:layout_constraintTop_toBottomOf="@id/pc_photo" />
 
     <TextView
@@ -46,7 +51,7 @@
         android:layout_height="5dp"
         android:layout_marginTop="10dp"
         android:background="@color/cEEEEEE"
-        app:layout_constraintTop_toBottomOf="@id/pc_add_rember" />
+        app:layout_constraintTop_toBottomOf="@id/imageview_recyclerview" />
 
     <TextView
         android:id="@+id/title1"
@@ -135,14 +140,12 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_red"
         android:gravity="center"
-        android:src="@drawable/shape_red"
         android:text="提交鉴定"
         android:textColor="@color/cffffff"
         android:textSize="@dimen/text_size_15"
-        app:layout_constraintTop_toBottomOf="@id/Technological_process"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@id/Technological_process" />
 
 
 

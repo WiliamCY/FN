@@ -41,16 +41,17 @@
         <activity android:name=".ui.activity.PublishingCollections" />
         <activity android:name=".ui.activity.CollectionInformation" />
         <activity android:name=".ui.activity.MyAppraisa" />
+        <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"></activity>//选择图片
+        <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"></activity>//预览图片
+        <!-- targetSDKVersion >= 24时才需要添加这个provider，provider的authorities属性的值为${applicationId}.fileprovider，请开发者根据自己的${applicationId}来设置这个值 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="@string/app_fileprovider_authorities"
+            android:authorities="${applicationId}.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true"
-            tools:replace="android:authorities"> //避免冲突
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/fileprovider_path"
-                tools:replace="android:resource"/> //避免冲突
+                android:resource="@xml/file_paths" />
         </provider>
 
     </application>
