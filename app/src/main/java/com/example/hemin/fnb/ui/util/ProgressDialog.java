@@ -5,13 +5,7 @@ import android.content.Context;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.hemin.fnb.R;
 
-/**
- * @author azheng
- * @date 2018/5/24.
- * GitHub：https://github.com/RookieExaminer
- * Email：wei.azheng@foxmail.com
- * Description：圆形进度条Dialog
- */
+
 public class ProgressDialog {
 
     private static volatile ProgressDialog instance;

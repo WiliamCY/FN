@@ -3,6 +3,7 @@ package com.example.hemin.fnb.ui.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 
 import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
@@ -56,13 +57,13 @@ public class LoginPresenter extends BasePresenter<LoginContract.View >implements
 
     }
     @Override
-    public void getCode(String mobile) {
+    public void getCode(Context context, String mobile) {
         if(!isViewAttached()){
             return;
         }
 
         mView.showLoading();
-        modle2.getCodes(mobile)
+        modle2.getCodes(context,mobile)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {

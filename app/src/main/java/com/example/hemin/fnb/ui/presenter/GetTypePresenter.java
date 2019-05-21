@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.hemin.fnb.ui.activity.PublishingCollections;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.bean.TypeBean;
 import com.example.hemin.fnb.ui.contract.GetTypeContract;
 import com.example.hemin.fnb.ui.model.GetTypeModel;
@@ -25,7 +26,9 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
     private GetTypeContract.Model modle2;
     private GetTypeContract.AddImageButton modle3;
     private List<String> names = new ArrayList<>();
+    private List<String> ids = new ArrayList<>();
     private String typeName, typeId, typeUpdate, typeCreate;
+
 
     public GetTypePresenter() {
         modle = new GetTypeModel();
@@ -56,9 +59,10 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                                            typeCreate = typeList.get(i).getCreateTime();
                                            typeUpdate = typeList.get(i).getUpdateTime();
                                            names.add(typeName);
+                                           ids.add(typeId);
                                        }
 
-                                       mView.getDate(names);
+                                       mView.getDate(names,ids);
 
                                    }
 
@@ -83,9 +87,9 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
-                        String url = (String) bean.getResult();
-                        System.out.println(url);
-                        Log.d("imageurlreturn", url);
+                        ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
+                        String urls = url.getUrl();
+                       mView.getPostImageUrls(urls);
 
 
                     }
@@ -105,14 +109,14 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
            }
            mView.showLoading();
            modle3.submitImage(context,token,body)
+                   .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
+                   .as(mView.<BaseObjectBean>bindAutoDispose())
                    .subscribe(new Consumer<BaseObjectBean>() {
                        @Override
                        public void accept(BaseObjectBean bean) throws Exception {
                            mView.onSuccess(bean);
                            mView.hideLoading();
-                           String url = (String) bean.getResult();
-                           System.out.println(url);
-                           Log.d("imageurlreturn", url);
+
 
 
                        }

@@ -14,12 +14,7 @@ import java.lang.reflect.Type;
 
 import io.reactivex.functions.Consumer;
 
-/**
- * Created by DK
- * on 2019/05/17
- *
- * @description
- */
+
 public abstract class MyConsumer<T> implements Consumer<BaseObjectBean> {
     private BaseObjectBean baseObjectBean = new BaseObjectBean();
 

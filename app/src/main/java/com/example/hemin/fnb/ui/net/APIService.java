@@ -2,6 +2,7 @@ package com.example.hemin.fnb.ui.net;
 
 
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.bean.LoginBean;
 import com.example.hemin.fnb.ui.bean.TypeBean;
 import com.example.hemin.fnb.ui.bean.UserDateBean;
@@ -93,12 +94,12 @@ public interface APIService {
     @Multipart
     @POST("sys/upload/add")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean> postImage(@HeaderMap Map<String,String> heard,@Part  MultipartBody.Part partList);
+    Flowable<BaseObjectBean<ImageUrlBean.DataBean>> postImage(@HeaderMap Map<String,String> heard,@Part  MultipartBody.Part partList);
 
     /**
      * 提交图鉴
      * */
     @POST("app/collection/add")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean>  submitImage (@HeaderMap Map<String,String> heard,@Body RequestBody body);
+    Flowable<BaseObjectBean>  submitImage (@HeaderMap Map<String,String> heard, @Body RequestBody body);
 }

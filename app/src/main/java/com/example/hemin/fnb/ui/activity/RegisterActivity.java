@@ -113,7 +113,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                     Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                    mPresenter.getCode(getMobile());
+                    mPresenter.getCode(this,getMobile());
                 timeCount = new Utils.TimeCount(60000,1000, cGetCode);
                 timeCount.start();
                 break;
@@ -146,9 +146,9 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     @Override
     public void onSuccess(BaseObjectBean bean) {
         if(bean.getErrorCode() == 0) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+         Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT).show();
         }
+        ProgressDialog.getInstance().dismiss();
     }
 
     @Override

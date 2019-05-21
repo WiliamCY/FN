@@ -1,6 +1,5 @@
 package com.example.hemin.fnb.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -22,22 +21,16 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.adapter.ImageViewAdapter;
-import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.GetTypeContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.GetTypePresenter;
-import com.example.hemin.fnb.ui.presenter.PasswordPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
-import com.zzti.fengyongge.imagepicker.PhotoPreviewActivity;
 import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
-import com.zzti.fengyongge.imagepicker.model.PhotoModel;
-import com.zzti.fengyongge.imagepicker.util.CommonUtils;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -94,8 +87,14 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     TextView title7;
     @BindView(R.id.imageview_recyclerview)
     RecyclerView imageviewRecyclerview;
+    @BindView(R.id.image_add_button)
+    ImageView imageAddButton;
     private Button button;
     private String cachePath;
+    private List<String> imagePath = new ArrayList<String>();
+    private List<String> imageUrls = new ArrayList<>();
+    private ImageViewAdapter adapter = new ImageViewAdapter();
+    private String typeIds;
 
     @Override
     public int getLayoutId() {
@@ -111,7 +110,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     }
 
 
-    @OnClick({R.id.pc_photo, R.id.pc_button, R.id.submission})
+    @OnClick({R.id.pc_photo, R.id.pc_button, R.id.submission, R.id.image_add_button})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.pc_photo:
@@ -120,7 +119,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("limit", 12);//number是选择图片的数量
                 startActivityForResult(intent, 0);
-             break;
+                break;
             case R.id.pc_button:
                 Map<String, String> map = new HashMap<>();
                 map.put("Authorization", "usERa" + getToken());
@@ -128,25 +127,30 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
 
                 break;
             case R.id.submission:
-                if(getEdittect() == null ){
-                    Toast.makeText(this,"请输入完整",Toast.LENGTH_SHORT).show();
+                if (getEdittect() == null) {
+                    Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (adapter.getItemCount() < 5 || adapter.getItemCount() > 12) {
+                    Toast.makeText(this, "图片在5-12张范围之内", Toast.LENGTH_SHORT).show();
+
                     return;
                 }
-                String url1 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/kap3glz7qy";
-                String url2 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/p6mknzgqs9";
-                String url3 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/p64zhv7w3a";
-                String url4 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/nlc4zbfuqx";
-                String url5 = "https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/gk5y3buhmv";
-                String url = url1+","+url2+","+url3+","+url4+","+url5;
-                HashMap<String,String> map2 = new HashMap<>();
-                  map2.put("collectionType ","1");
-                  map2.put("imagesDetails",getEdittect());
-                  map2.put("imagesUrl ",url);
-                  map2.put("userId ","34");
-                  HashMap<String,String> token = new HashMap<>();
-                  token.put("Authorization","usERa"+getToken());
-                  mPresenter.submitImage(this, token,Utils.RetrofitHead(map2));
+                SharedPreferences sp = getSharedPreferences("userDate", MODE_PRIVATE);
+                String id = sp.getString("userId", "");
+                HashMap<String, String> map2 = new HashMap<>();
+                map2.put("collectionType", typeIds);
+                map2.put("imagesDetails", getEdittect());
+                map2.put("imagesUrl", imageUrls.toString().trim());
+                map2.put("userId", id);
+                HashMap<String, String> token = new HashMap<>();
+                token.put("Authorization", "usERa" + getToken());
+                mPresenter.submitImage(this, token, Utils.RetrofitHead(map2));
                 break;
+            case R.id.image_add_button:
+                Intent intent2 = new Intent(this, PhotoSelectorActivity.class);
+                intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent2.putExtra("limit", 12);//number是选择图片的数量
+                startActivityForResult(intent2, 0);
         }
     }
 
@@ -157,28 +161,51 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 if (data != null) {
                     Map<String, String> map = new HashMap<>();
                     map.put("Authorization", "usERa" + getToken());
-                    final List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
-                    for(int i = 0;i<paths.size();i++){
+                    List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
+                    addImageView(paths);
+                    for (int i = 0; i < paths.size(); i++) {
                         File file = new File(paths.get(i));
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
-                        mPresenter.postImage(this,map,imageBodyPart);
+                        mPresenter.postImage(this, map, imageBodyPart);
                     }
                     //处理代码
                     Log.d("photoPath", paths.toString());
-                    if (paths.size() > 5) {
+                    if (paths.size() > 12) {
                         pcPhoto.setVisibility(View.GONE);
                         pcAdd.setVisibility(View.GONE);
                     }
 
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-                    imageviewRecyclerview.setLayoutManager(linearLayoutManager);
-                    linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
-                    final ImageViewAdapter adapter = new ImageViewAdapter(paths, this);
-                    imageviewRecyclerview.setAdapter(adapter);
-                    adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
-                        @Override
-                        public void onItemClick(int position, String path) {
+
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void addImageView(List<String> path) {
+        for (int i = 0; i < path.size(); i++) {
+            if (Arrays.asList(imagePath).contains(path.get(i))) {
+                Toast.makeText(this, path.get(i).toString() + "已经存在", Toast.LENGTH_SHORT).show();
+            } else {
+                imagePath.add(path.get(i));
+                Log.d("imagePath", path.toString());
+                imageviewRecyclerview.setVisibility(View.VISIBLE);
+                pcPhoto.setVisibility(View.GONE);
+                pcAdd.setVisibility(View.GONE);
+                imageAddButton.setVisibility(View.VISIBLE);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                imageviewRecyclerview.setLayoutManager(linearLayoutManager);
+                linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
+//                   String dates = "["+imagePath.toString().trim().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"", "")+"]".trim();
+                Log.d("imagePaths", imagePath.toString());
+                adapter = new ImageViewAdapter(imagePath, this);
+                imageviewRecyclerview.setAdapter(adapter);
+                adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, String path) {
 //                            List<PhotoModel> single_photos = new ArrayList<PhotoModel>();
 ////PhotoModel 开发者将自己本地bean的list封装成PhotoModel的list，PhotoModel属性源码可查看
 //                            Bundle bundle = new Bundle();
@@ -187,15 +214,12 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
 //                            Log.d("positions", String.valueOf(position));
 //                            bundle.putBoolean("isSave",false);//isSave表示是否可以保存预览图片，建议只有预览网络图片时设置true
 //                            CommonUtils.launchActivity(PublishingCollections.this, PhotoPreviewActivity.class, bundle);
+                        String deleteImagePath = path;
 
-                        }
-                    });
-                }
-                break;
-            default:
-                break;
+                    }
+                });
+            }
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private String getToken() {
@@ -212,8 +236,9 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
             ProgressDialog.getInstance().dismiss();
         }
     }
-    private String  getEdittect(){
-        return  titl4.getText().toString();
+
+    private String getEdittect() {
+        return titl4.getText().toString();
     }
 
     @Override
@@ -230,17 +255,25 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     public void onError(Throwable throwable) {
 
     }
-    public void getDate(List<String> date){
-        initOptionPicker(date);
+
+    public void getPostImageUrls(String urils) {
+        imageUrls.add(urils);
+
+
     }
-    private void  initOptionPicker(final List<String> typeName){
+
+    public void getDate(List<String> date,List<String> ids) {
+        initOptionPicker(date,ids);
+    }
+
+    private void initOptionPicker(final List<String> typeName,final List<String> ids) {
         OptionsPickerView optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 pcButton.setText(typeName.get(options1));
-
+                 typeIds = ids.get(options1);
             }
-        })                .setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
+        }).setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setDividerColor(Color.BLACK)
                 .setCancelText("取消")
@@ -248,7 +281,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 .setTextColorCenter(Color.BLACK)
                 .setContentTextSize(20)
                 .build();
-         optionsPickerView.setPicker(typeName);
+        optionsPickerView.setPicker(typeName);
 
         optionsPickerView.show();
     }
@@ -256,5 +289,12 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     @Override
     public boolean isFullScreen() {
         return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.hemin.fnb.ui.base.BaseView;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.bean.TypeBean;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface GetTypeContract {
          Flowable<BaseObjectBean<List<TypeBean.DataBean>>> getType(Context context, Map token);
     }
     interface Model {
-        Flowable<BaseObjectBean> postImage(Context context, Map token, MultipartBody.Part partList);
+        Flowable<BaseObjectBean<ImageUrlBean.DataBean>> postImage(Context context, Map token, MultipartBody.Part partList);
     }
     interface  AddImageButton{
         Flowable<BaseObjectBean> submitImage(Context context, Map token,RequestBody body);

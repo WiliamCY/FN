@@ -15,7 +15,7 @@ public interface LoginContract {
 
     //获取验证码
     interface GetCodeModel {
-        Flowable<BaseObjectBean> getCodes(String mobile);
+        Flowable<BaseObjectBean> getCodes(Context context,String mobile);
     }
 
     interface View extends BaseView {
@@ -34,7 +34,7 @@ public interface LoginContract {
     interface Presenter {
 
         void login(Context context, String mobile,String code);
-        void getCode(String mobile);
+        void getCode(Context context,String mobile);
 
     }
 

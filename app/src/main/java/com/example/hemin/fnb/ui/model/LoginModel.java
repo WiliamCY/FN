@@ -17,7 +17,7 @@ public class LoginModel implements LoginContract.Model,LoginContract.GetCodeMode
     }
 
     @Override
-    public Flowable<BaseObjectBean> getCodes(String mobile) {
+    public Flowable<BaseObjectBean> getCodes(Context context,String mobile) {
         return RetrofitClient.getInstance().getApi().getCode(mobile);
     }
 }

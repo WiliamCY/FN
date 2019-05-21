@@ -18,7 +18,7 @@ public interface RegisterContract {
     }
     //获取验证码
     interface  GetCodeModel{
-        Flowable<BaseObjectBean> getCodes(String mobile);
+        Flowable<BaseObjectBean> getCodes(Context context,String mobile);
     }
     interface View extends BaseView {
         @Override
@@ -36,6 +36,6 @@ public interface RegisterContract {
     interface Presenter {
         void register(Context context,RequestBody body);
         //获取验证码
-        void getCode(String mobile);
+        void getCode(Context context,String mobile);
     }
 }

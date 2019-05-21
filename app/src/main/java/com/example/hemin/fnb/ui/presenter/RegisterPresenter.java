@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
+import com.example.hemin.fnb.ui.activity.MainActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.RegisterContract;
@@ -43,8 +44,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View >impl
                           public void accept(BaseObjectBean bean) throws Exception {
                               mView.onSuccess(bean);
                               mView.hideLoading();
-
-
+                              Intent intent = new Intent(context, MainActivity.class);
+                              context.startActivity(intent);
                           }
                       }, new Consumer<Throwable>() {
                           @Override
@@ -57,14 +58,15 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View >impl
     }
 
 
+
     @Override
-    public void getCode(String mobile) {
+    public void getCode(final Context context, String mobile) {
              if(!isViewAttached()){
                  return;
              }
 
         mView.showLoading();
-        model.getCodes(mobile)
+        model.getCodes(context,mobile)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
@@ -72,6 +74,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View >impl
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

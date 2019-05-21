@@ -14,7 +14,7 @@ import okhttp3.RequestBody;
 
 public class RegisterModel implements RegisterContract.GetCodeModel,RegisterContract.RegisterModle {
     @Override
-    public Flowable<BaseObjectBean> getCodes(String mobile) {
+    public Flowable<BaseObjectBean> getCodes(Context context,String mobile) {
         return RetrofitClient.getInstance().getApi().getCode(mobile);
     }
 

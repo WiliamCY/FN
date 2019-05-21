@@ -69,7 +69,7 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
                     Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mPresenter.getCode(getPhone());
+                mPresenter.getCode(this,getPhone());
                 timeCount = new Utils.TimeCount(60000,1000, cGetCode);
                 timeCount.start();
                 break;

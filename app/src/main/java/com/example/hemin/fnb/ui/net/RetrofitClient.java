@@ -27,8 +27,8 @@ public class RetrofitClient {
     private APIService apiService;
 //    private static String baseUrl = "http://10.10.10.66:8080/";
 //    private static  String baseUrl = "https://www.funwl.com/";
-//private static String baseUrl = "https://www.funwl.com/";
-private static String baseUrl = "http://qq1273106281.oicp.io:47141/";
+private static String baseUrl = "https://www.funwl.com/";
+//private static String baseUrl = "http://qq1273106281.oicp.io:47141/";
 
     private RetrofitClient() {
     }
