@@ -103,6 +103,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
 
     @Override
     public void initView() {
+        ButterKnife.bind(this);
         mPresenter = new GetTypePresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
@@ -291,10 +292,5 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
         return true;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }
