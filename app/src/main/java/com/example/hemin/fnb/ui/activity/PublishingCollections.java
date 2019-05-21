@@ -89,6 +89,8 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     RecyclerView imageviewRecyclerview;
     @BindView(R.id.image_add_button)
     ImageView imageAddButton;
+    @BindView(R.id.imageNumber)
+    TextView imageViewNumber;
     private Button button;
     private String cachePath;
     private List<String> imagePath = new ArrayList<String>();
@@ -148,9 +150,13 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 mPresenter.submitImage(this, token, Utils.RetrofitHead(map2));
                 break;
             case R.id.image_add_button:
+                if(adapter.getItemCount()>11){
+                    Toast.makeText(this, "放置图片已经最大值",Toast.LENGTH_SHORT ).show();
+                    return;
+                }
                 Intent intent2 = new Intent(this, PhotoSelectorActivity.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent2.putExtra("limit", 12);//number是选择图片的数量
+                intent2.putExtra("limit", 12-adapter.getItemCount());//number是选择图片的数量
                 startActivityForResult(intent2, 0);
         }
     }
@@ -164,6 +170,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                     map.put("Authorization", "usERa" + getToken());
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
                     addImageView(paths);
+                    imageViewNumber.setText(adapter.getItemCount()+"/12");
                     for (int i = 0; i < paths.size(); i++) {
                         File file = new File(paths.get(i));
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -172,9 +179,9 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                     }
                     //处理代码
                     Log.d("photoPath", paths.toString());
-                    if (paths.size() > 12) {
-                        pcPhoto.setVisibility(View.GONE);
-                        pcAdd.setVisibility(View.GONE);
+                    if (adapter.getItemCount() > 11) {
+//                       imageAddButton.setVisibility(View.GONE);
+                        Toast.makeText(this, "添加的图片已经是最大值了", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -196,6 +203,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 imageviewRecyclerview.setVisibility(View.VISIBLE);
                 pcPhoto.setVisibility(View.GONE);
                 pcAdd.setVisibility(View.GONE);
+                imageViewNumber.setVisibility(View.VISIBLE);
                 imageAddButton.setVisibility(View.VISIBLE);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                 imageviewRecyclerview.setLayoutManager(linearLayoutManager);

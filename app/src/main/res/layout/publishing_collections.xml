@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,30 +18,48 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/layout_height_100">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/imageview_recyclerview"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="@dimen/layout_height_100"
         android:layout_marginTop="@dimen/marginTop_20"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/image_add_button"
+
    />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
     <ImageView
-        app:layout_constraintTop_toTopOf="@id/imageview_recyclerview"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_weight="1"
+       android:visibility="gone"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="@dimen/marginLeft_10"
+        android:layout_marginTop="@dimen/marginTop_40"
         android:id="@+id/image_add_button"
         android:layout_width="@dimen/layout_width_40"
         android:layout_height="@dimen/layout_height_40"
-        android:layout_marginLeft="@dimen/marginLeft_10"
-        android:layout_marginTop="@dimen/paddingTop_20"
         android:background="@drawable/shape_add"
         android:src="@mipmap/add_image"
-          app:layout_constraintEnd_toStartOf="@id/imageview_recyclerview"
         />
+        <TextView
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/marginLeft_15"
+            android:id="@+id/imageNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textSize="15sp"
+            android:background="#05050505"
+            android:layout_gravity="bottom"
+            />
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/pc_add"
@@ -72,7 +91,7 @@
         android:layout_height="5dp"
         android:layout_marginTop="10dp"
         android:background="@color/cEEEEEE"
-        app:layout_constraintTop_toBottomOf="@id/imageview_recyclerview" />
+        app:layout_constraintTop_toBottomOf="@id/linear" />
 
     <TextView
         android:id="@+id/title1"

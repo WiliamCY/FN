@@ -35,12 +35,12 @@ public class ImageViewAdapter extends RecyclerView.Adapter<ImageViewAdapter.View
     @Override
     public ImageViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_imageview,parent,false);
-//        ViewHolder holder = new ViewHolder(view);
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        int widthPixels = metrics.widthPixels;
-        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        layoutParams.width=widthPixels/5;
-        ViewHolder holder=new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
+//        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+//        int widthPixels = metrics.widthPixels;
+//        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+//        layoutParams.width=widthPixels/5;
+//        ViewHolder holder=new ViewHolder(view);
 
         return holder;
     }
