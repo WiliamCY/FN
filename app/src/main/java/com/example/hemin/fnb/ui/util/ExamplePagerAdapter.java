@@ -7,7 +7,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 public class ExamplePagerAdapter extends PagerAdapter {
@@ -38,6 +39,7 @@ public class ExamplePagerAdapter extends PagerAdapter {
         container.addView(textView);
         return textView;
     }
+
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {

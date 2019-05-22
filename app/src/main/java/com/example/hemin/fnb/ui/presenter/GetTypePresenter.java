@@ -28,6 +28,7 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
     private List<String> names = new ArrayList<>();
     private List<String> ids = new ArrayList<>();
     private String typeName, typeId, typeUpdate, typeCreate;
+    private  int picLength = 0;
 
 
     public GetTypePresenter() {
@@ -78,6 +79,10 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
         if (!isViewAttached()) {
             return;
         }
+
+        if(picLength>=2){
+            mView.hideLoading();
+        }
         mView.showLoading();
         modle2.postImage(context, token, partList)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
@@ -86,8 +91,12 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
-                        ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
+//                        mView.hideLoading();
+                        picLength++;
+                      if(picLength>=2){
+                          mView.hideLoading();
+                      }
+                      ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
                         String urls = url.getUrl();
                        mView.getPostImageUrls(urls);
 

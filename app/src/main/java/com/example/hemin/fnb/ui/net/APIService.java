@@ -1,6 +1,7 @@
 package com.example.hemin.fnb.ui.net;
 
 
+import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.bean.LoginBean;
@@ -102,4 +103,18 @@ public interface APIService {
     @POST("app/collection/add")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Flowable<BaseObjectBean>  submitImage (@HeaderMap Map<String,String> heard, @Body RequestBody body);
+
+    /**
+     * 正在鉴定
+     * */
+    @GET("app/collection/getMyCollection/{current}/{size}/{collectionAudit}/{userId}")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>>  appraisa (@HeaderMap Map<String,String> heard, @Path("current") long current,@Path("size") long size,@Path("collectionAudit") long collectionAudit,@Path("userId") long  userId );
+
+    /**
+     * 鉴定结束
+     * */
+    @GET("app/collection/getMyCollectionResults/{current}/{size}/{collectionAudit}/{userId}")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>>  appraisas(@HeaderMap Map<String,String> heard, @Path("current") long current,@Path("size") long size,@Path("collectionAudit") long collectionAudit,@Path("userId") long  userId );
 }

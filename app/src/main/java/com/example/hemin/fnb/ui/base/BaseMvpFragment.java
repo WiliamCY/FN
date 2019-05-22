@@ -1,13 +1,14 @@
 package com.example.hemin.fnb.ui.base;
 
-/**
- * @author azheng
- * @date 2018/4/24.
- * GitHub：https://github.com/RookieExaminer
- * Email：wei.azheng@foxmail.com
- * Description：
- */
-public abstract class BaseMvpFragment<T extends BasePresenter>  extends     BaseFragment implements BaseView{
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
+
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.AutoDisposeConverter;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
+
+
+public abstract class BaseMvpFragment<T extends BasePresenter>  extends   BaseFragment implements BaseView{
 
     protected T mPresenter;
 
@@ -18,5 +19,16 @@ public abstract class BaseMvpFragment<T extends BasePresenter>  extends     Base
             mPresenter.detachView();
         }
         super.onDestroyView();
+    }
+    /**
+     * 绑定生命周期 防止MVP内存泄漏
+     *
+     * @param <T>
+     * @return
+     */
+    @Override
+    public <T> AutoDisposeConverter<T> bindAutoDispose() {
+        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider
+                .from(this, Lifecycle.Event.ON_DESTROY));
     }
 }

@@ -44,14 +44,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-//import com.lwkandroid.imagepicker.ImagePicker;
-//import com.lwkandroid.imagepicker.data.ImageBean;
-//import com.lwkandroid.imagepicker.data.ImagePickType;
-//import com.lwkandroid.imagepicker.utils.GlideImagePickerDisplayer;
-//import com.lwkandroid.imagepicker.ImagePicker;
-//import com.lwkandroid.imagepicker.data.ImageBean;
-//import com.lwkandroid.imagepicker.data.ImagePickType;
-//import com.lwkandroid.imagepicker.utils.GlideImagePickerDisplayer;
 
 public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> implements GetTypeContract.View {
     private final int REQUEST_CODE = 111;
@@ -97,6 +89,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     private List<String> imageUrls = new ArrayList<>();
     private ImageViewAdapter adapter = new ImageViewAdapter();
     private String typeIds;
+    private int i = 0;
 
     @Override
     public int getLayoutId() {

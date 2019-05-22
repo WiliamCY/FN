@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,9 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.adapter.BaseFragmentPagerAdapter;
 import com.example.hemin.fnb.ui.base.BaseActivity;
+import com.example.hemin.fnb.ui.fragment.AppraisaFragment;
 import com.example.hemin.fnb.ui.util.ExamplePagerAdapter;
 
+import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -29,6 +35,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,24 +45,22 @@ import butterknife.OnClick;
 
 public class MyAppraisa extends BaseActivity {
 
-    @BindView(R.id.view_pager2)
-    ViewPager viewPager2;
     @BindView(R.id.title1)
     TextView title1;
     @BindView(R.id.title2)
     TextView title2;
-    private static final String[] date2 = new String[]{"全部", "仅鉴定", "有证书", "有保单"};
+    private static final String[] date3 = new String[]{"全部", "仅鉴定", "有证书", "有保单"};
     @BindView(R.id.magic_indicator2)
     MagicIndicator magicIndicator;
     private List<String> mDataList2 = Arrays.asList(date2);
-    private static final String[] date3 = new String[]{"全部", "审核中", "鉴定中", "鉴定失败"};
+    private static final String[] date2 = new String[]{"全部", "审核中", "鉴定中", "鉴定失败"};
     private List<String> mDataList3 = Arrays.asList(date3);
-    private ExamplePagerAdapter mExamplePagerAdapter;
+    private boolean status = true;
+    private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
+    private List<Fragment> mFragments = new ArrayList<Fragment>();
 
 
-
-    private void initView2(final List<String> date) {
-//        magicIndicator.setBackgroundResource(R.drawable.round_indicator_bg);
+    private void initView2(final List<String> date, final boolean status) {
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -75,7 +80,9 @@ public class MyAppraisa extends BaseActivity {
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        viewPager2.setCurrentItem(index);
+                mFragmentContainerHelper.handlePageSelected(index);
+                switchPages(index);
+
                     }
                 });
                 badgePagerTitleView.setInnerPagerTitleView(simplePagerTitleView);
@@ -86,7 +93,6 @@ public class MyAppraisa extends BaseActivity {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
-//                linePagerIndicator.setColors(Color.WHITE);
                 return linePagerIndicator;
             }
         });
@@ -99,10 +105,7 @@ public class MyAppraisa extends BaseActivity {
                 return UIUtil.dip2px(getApplication(), 15);
             }
         });
-        ViewPagerHelper.bind(magicIndicator, viewPager2);
-
-        mExamplePagerAdapter = new ExamplePagerAdapter(date);
-        viewPager2.setAdapter(mExamplePagerAdapter);
+        mFragmentContainerHelper.attachMagicIndicator(magicIndicator);
     }
 
 
@@ -111,14 +114,18 @@ public class MyAppraisa extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title1:
+                status = true;
                 title2.setTextColor(Color.rgb(176, 176, 176));
                 title1.setTextColor(Color.rgb(255, 255, 255));
-                initView2(mDataList2);
+                initView2(mDataList2, status);
+                initFragment(mDataList2,status);
                 break;
             case R.id.title2:
+                status = false;
                 title1.setTextColor(Color.rgb(176, 176, 176));
                 title2.setTextColor(Color.rgb(255, 255, 255));
-                initView2(mDataList3);
+                initView2(mDataList3, status);
+                initFragment(mDataList2,status);
                 break;
         }
     }
@@ -136,7 +143,43 @@ public class MyAppraisa extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        initView2(mDataList2);
-
+        initView2(mDataList2, status);
+        initFragment(mDataList2,status);
+        mFragmentContainerHelper.handlePageSelected(1,false);
+        switchPages(1);
     }
+
+    private void initFragment(List<String> date,boolean status) {
+        for (int i = 0; i < date.size(); i++) {
+            AppraisaFragment fragment = new AppraisaFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("index", date.get(i));
+            bundle.putBoolean("status", status);
+            fragment.setArguments(bundle);
+            mFragments.add(fragment);
+        }
+    }
+    private void switchPages(int index) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment;
+        for (int i = 0, j = mFragments.size(); i < j; i++) {
+            if (i == index) {
+                continue;
+            }
+            fragment = mFragments.get(i);
+            if (fragment.isAdded()) {
+                fragmentTransaction.hide(fragment);
+            }
+        }
+        fragment = mFragments.get(index);
+        if (fragment.isAdded()) {
+            fragmentTransaction.show(fragment);
+        } else {
+            fragmentTransaction.add(R.id.fragment_container, fragment);
+        }
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+
 }

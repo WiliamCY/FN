@@ -18,6 +18,7 @@ import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
 import com.example.hemin.fnb.ui.activity.MainActivity;
 import com.example.hemin.fnb.ui.activity.MyAppraisa;
 import com.example.hemin.fnb.ui.activity.PasswordActivity;
+import com.example.hemin.fnb.ui.activity.UserSetting;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.contract.MainContract;
@@ -65,6 +66,8 @@ public class TabMyFragment extends  Fragment{
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
+                Intent userSetting = new Intent(getActivity(), UserSetting.class);
+                 startActivity(userSetting);
                 break;
             case R.id.user_logo:
                 Intent login = new Intent(getActivity(), PasswordActivity.class);
