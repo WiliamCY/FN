@@ -3,31 +3,9 @@ package com.example.hemin.fnb.ui.bean;
 import java.util.List;
 
 public class AppraisaBean {
-    /**
-     * code : 0
-     * msg : 请求成功
-     * data : {"total":2,"size":10,"pages":1,"current":1,"records":[{"collectionId":5,"collectionNum":"432260195","imagesUrl":"[https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/dyk6bgxast","collectionAudit":"0","createTime":"2019-05-21"},{"collectionId":6,"collectionNum":"432287330","imagesUrl":"[https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/dyk6bgxast","collectionAudit":"0","createTime":"2019-05-21"}]}
-     */
 
-    private int code;
-    private String msg;
     private DataBean data;
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public DataBean getData() {
         return data;

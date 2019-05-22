@@ -109,7 +109,7 @@ public interface APIService {
      * */
     @GET("app/collection/getMyCollection/{current}/{size}/{collectionAudit}/{userId}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>>  appraisa (@HeaderMap Map<String,String> heard, @Path("current") long current,@Path("size") long size,@Path("collectionAudit") long collectionAudit,@Path("userId") long  userId );
+    Flowable<BaseObjectBean<AppraisaBean.DataBean>>  appraisa (@HeaderMap Map<String,String> heard, @Path("current") long current,@Path("size") long size,@Path("collectionAudit") long collectionAudit,@Path("userId") long  userId );
 
     /**
      * 鉴定结束

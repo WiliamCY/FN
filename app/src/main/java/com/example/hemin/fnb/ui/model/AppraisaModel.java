@@ -15,7 +15,7 @@ import io.reactivex.Flowable;
 public class AppraisaModel implements AppraisaContract.modle,AppraisaContract.modles {
 
     @Override
-    public Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>> Appraisa( Map token, long current, long size, long collectionAudit, long userId) {
+    public Flowable<BaseObjectBean<AppraisaBean.DataBean>> Appraisa( Map token, long current, long size, long collectionAudit, long userId) {
         return RetrofitClient.getInstance().getApi().appraisa(token,current,size,collectionAudit,userId);
     }
 
