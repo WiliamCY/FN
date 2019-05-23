@@ -11,6 +11,7 @@ import com.example.hemin.fnb.ui.contract.CollectionContract;
 import com.example.hemin.fnb.ui.model.CollectionModel;
 import com.example.hemin.fnb.ui.net.RxScheduler;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,12 +42,20 @@ public class CollectionPresenter extends BasePresenter<CollectionContract.View> 
                         String ctName = date.getCtName();
                         String collectionDetails = date.getCollectionDetails();
                        List<ColletionBean.DataBean.ListBean > list = date.getList();
-                       for(int i =0 ;i<list.size();i++){
-                           String imagesId = list.get(i).getImagesId();
-                           String imagesUrl = list.get(i).getImagesUrl();
-                           String ieId = list.get(i).getIeId();
-                           String ieName = list.get(i).getIeName();
-                       }
+//                       for(int i =0 ;i<list.size();i++){
+//                           String imagesId = list.get(i).getImagesId();
+//                           String imagesUrl = list.get(i).getImagesUrl();
+//                           String ieId = list.get(i).getIeId();
+//                           String ieName = list.get(i).getIeName();
+//
+//                       }
+                        Map<String,String> map = new HashMap<>();
+                           map.put("collectionId",collectionId);
+                           map.put("collectionNum",collectionNum);
+                           map.put("ctName", ctName);
+                           map.put("collectionDetails",collectionDetails);
+                        mView.Date(map);
+                        mView.ListDate(list);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

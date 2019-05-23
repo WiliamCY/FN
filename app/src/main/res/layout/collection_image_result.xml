@@ -10,7 +10,6 @@
     <ImageView
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/collection_image"
-        android:background="@mipmap/wzdn"
         android:layout_width="93dp"
         android:layout_height="88dp"
     />

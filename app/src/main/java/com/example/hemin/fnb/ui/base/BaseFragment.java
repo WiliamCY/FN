@@ -1,5 +1,6 @@
 package com.example.hemin.fnb.ui.base;
 
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,6 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
     private Unbinder unBinder;
-    protected View rootView;
-    private boolean isVisibleToUser;
-    protected boolean isLoadData;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,45 +24,29 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        if(rootView == null){
-            rootView = inflater.inflate(this.getLayoutId(), container, false);
-            if(!isLazyLoad() || isVisibleToUser){
-                         loadViewData(savedInstanceState);
-            }
-        }
-        return rootView;
-    }
-    private void loadViewData(@Nullable Bundle savedInstanceState){
-        unBinder = ButterKnife.bind(this, rootView);
-        isLoadData = true;
-        initView(savedInstanceState);
-
-
-    }
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        this.isVisibleToUser = isVisibleToUser;
-        if(isVisibleToUser && isLazyLoad() && rootView !=null && !isLoadData){
-            loadViewData(null);
-        }
-    }
-    protected  boolean isLazyLoad(){
-        return false;
+        View view = inflater.inflate(this.getLayoutId(), container, false);
+        unBinder = ButterKnife.bind(this, view);
+        initView(view);
+        return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unBinder.unbind();
+        try {
+            unBinder.unbind();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
-    protected abstract void initView(@Nullable Bundle savedInstanceState);
-//    /**
-//     * 初始化视图
-//     *
-//     * @param view
-//     */
-//    protected abstract void initView(View view);
+
+    /**
+     * 初始化视图
+     *
+     * @param view
+     */
+    protected abstract void initView(View view);
 
     protected abstract int getLayoutId();
 }

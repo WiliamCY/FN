@@ -35,39 +35,11 @@ import butterknife.Unbinder;
 
 public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> implements AppraisaContract.View {
 
-    public static final String EXTRA_TEXT = "extra_text";
     @BindView(R.id.apr_recylcerview)
     RecyclerView aprRecylcerview;
-    Unbinder unbinder;
-    @BindView(R.id.text)
-    TextView text;
-    Unbinder unbinder1;
     private AppRaisaAdapter adapter;
-    private List<AppraisaBean.DataBean.RecordsBean> lists = new ArrayList<>();
 
 
-    protected void initView(@Nullable Bundle savedInstanceState) {
-        mPresenter = new AppraisaPresenter();
-        mPresenter.attachView(this);
-        ButterKnife.bind(getActivity());
-        boolean status = this.getArguments().getBoolean("status");
-        int indexNumber = this.getArguments().getInt("indexNumber");
-        Log.d("indexNumbers", String.valueOf(indexNumber));
-        SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
-        String tokenType = sp.getString("tokenType", "");
-        String Authorization = sp.getString("Authorization", "");
-        String userId = sp.getString("userId", "");
-        Map<String, String> map = new HashMap<>();
-        map.put("Authorization", tokenType + Authorization);
-        if (status == true) {
-            mPresenter.Appraisa(map, 1, 10, indexNumber, Long.parseLong(userId));
-
-
-        } else {
-            mPresenter.Appraisas(getActivity(), map, 1, 1, 1, Long.parseLong(userId));
-        }
-
-    }
 
     private void initRecyclerView(final List<AppraisaBean.DataBean.RecordsBean> bean) {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
@@ -94,29 +66,30 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     }
 
-//    @Override
-//        protected void initView(View view) {
-//        adapter = new AppRaisaAdapter();
-//        mPresenter = new AppraisaPresenter();
-//        mPresenter.attachView(this);
-//        ButterKnife.bind(getActivity());
-//        boolean status = getArguments().getBoolean("status");
-//        int index = getArguments().getInt("index");
-//        SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
-//        String tokenType = sp.getString("tokenType", "");
-//        String Authorization = sp.getString("Authorization", "");
-//        String userId = sp.getString("userId", "");
-//        Map<String, String> map = new HashMap<>();
-//        map.put("Authorization", tokenType + Authorization);
-//        if (status == true) {
-//            mPresenter.Appraisa( map, 10, 10, index, Long.parseLong(userId));
-//                adapter.notifyDataSetChanged();
-//
-//        } else {
-//            mPresenter.Appraisas( getActivity(),map, 1, 1, index, Long.parseLong(userId));
-//        }
-//    }
 
+    @Override
+    protected void initView(View view) {
+        mPresenter = new AppraisaPresenter();
+        mPresenter.attachView(this);
+        ButterKnife.bind(getActivity());
+        boolean status = this.getArguments().getBoolean("status");
+        int indexNumber = this.getArguments().getInt("indexNumber");
+        Log.d("indexNumbers", String.valueOf(indexNumber));
+        SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        String tokenType = sp.getString("tokenType", "");
+        String Authorization = sp.getString("Authorization", "");
+        String userId = sp.getString("userId", "");
+        Map<String, String> map = new HashMap<>();
+        map.put("Authorization", tokenType + Authorization);
+        if (status == true) {
+            mPresenter.Appraisa(map, 1, 10, indexNumber, Long.parseLong(userId));
+
+
+        } else {
+            mPresenter.Appraisas(getActivity(), map, 1, 10, indexNumber, Long.parseLong(userId));
+        }
+
+    }
 
     @Override
     protected int getLayoutId() {
@@ -140,10 +113,6 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     @Override
     public void Date(List<AppraisaBean.DataBean.RecordsBean> date) {
-//        lists.clear();
-//        lists.addAll(date);
-//        adapter.notifyDataSetChanged();
-        text.setText(date.toString());
         initRecyclerView(date);
 
 
@@ -156,17 +125,4 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 }

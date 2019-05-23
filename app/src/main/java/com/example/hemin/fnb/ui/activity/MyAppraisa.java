@@ -53,12 +53,13 @@ public class MyAppraisa extends BaseActivity {
     private List<String> mDataList3 = Arrays.asList(date3);
     private boolean status = true;
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
+    private AppraisaFragment fragment  = new AppraisaFragment();
     private void initDate() {
         initFragment( 0, status);
         initView2(mDataList2, status);
     }
 
-    private void initView2(List<String> date, final boolean status) {
+    private void initView2(final List<String> date, final boolean status) {
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
@@ -66,7 +67,7 @@ public class MyAppraisa extends BaseActivity {
 
             @Override
             public int getCount() {
-                return mDataList2.size();
+                return date.size();
             }
 
             @Override
@@ -75,7 +76,7 @@ public class MyAppraisa extends BaseActivity {
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setNormalColor(Color.GRAY);
                 simplePagerTitleView.setSelectedColor(Color.WHITE);
-                simplePagerTitleView.setText(mDataList2.get(index));
+                simplePagerTitleView.setText(date.get(index));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -116,13 +117,15 @@ public class MyAppraisa extends BaseActivity {
                 status = true;
                 title2.setTextColor(Color.rgb(176, 176, 176));
                 title1.setTextColor(Color.rgb(255, 255, 255));
-//                initFragment(mDataList2,status);
+                initFragment( 0, true);
+                initView2(mDataList2,true);
                 break;
             case R.id.title2:
                 status = false;
                 title1.setTextColor(Color.rgb(176, 176, 176));
                 title2.setTextColor(Color.rgb(255, 255, 255));
-//                initFragment(mDataList2,status);
+                initFragment( 0, false);
+                initView2(mDataList3,false);
                 break;
         }
     }
@@ -147,19 +150,20 @@ public class MyAppraisa extends BaseActivity {
 
 
     private void initFragment( int indexx, boolean status) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        AppraisaFragment fragment = new AppraisaFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("indexNumber", indexx);
-        bundle.putBoolean("status", status);
-        fragment.setArguments(bundle);
+        if(fragment != null) {
+            fragmentTransaction.hide(fragment);
+            fragment = new AppraisaFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("indexNumber", indexx);
+            bundle.putBoolean("status", status);
+            fragment.setArguments(bundle);
+            fragmentTransaction.add(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
 
-            fragmentTransaction.replace(R.id.fragment_container,fragment);
-
-
-        fragmentTransaction.commit();
-
+        }
     }
 
     @Override

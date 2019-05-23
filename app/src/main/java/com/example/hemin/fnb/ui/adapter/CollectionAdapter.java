@@ -3,12 +3,14 @@ package com.example.hemin.fnb.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.bean.ColletionBean;
 
@@ -18,9 +20,7 @@ import java.util.List;
 public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.ViewHolder> {
     private List<ColletionBean.DataBean.ListBean> listBeans = new ArrayList<>();
     private Context context;
-    public CollectionAdapter(){
 
-    }
     public  CollectionAdapter(Context context,List<ColletionBean.DataBean.ListBean> list ){
         this.context = context;
         this.listBeans = list;
@@ -36,6 +36,9 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull CollectionAdapter.ViewHolder holder, int position) {
        ColletionBean.DataBean.ListBean bean = listBeans.get(position);
+        Log.d("collectImage", bean.getImagesUrl());
+       Glide.with(context).load(bean.getImagesUrl()).into(holder.coolectImage);
+       holder.collectResult.setText(bean.getIeName());
 
     }
 

@@ -17,7 +17,7 @@ public interface AppraisaContract {
      Flowable<BaseObjectBean<AppraisaBean.DataBean>> Appraisa( Map token,long current,long size,long collectionAudit,long userId );
     }
     interface  modles{
-        Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>> Appraisas(Context context, Map token,long current,long size,long collectionAudit,long userId );
+        Flowable<BaseObjectBean<AppraisaBean.DataBean>> Appraisas(Context context, Map token,long current,long size,long collectionAudit,long userId );
     }
 
     interface View extends BaseView {

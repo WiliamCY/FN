@@ -171,4 +171,5 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     public boolean isFullScreen() {
         return true;
     }
+
 }

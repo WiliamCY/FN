@@ -68,6 +68,9 @@ public class AppraisaPresenter extends BasePresenter<AppraisaContract.View> impl
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
+                        AppraisaBean.DataBean beans = (AppraisaBean.DataBean) bean.getResult();
+                        List<AppraisaBean.DataBean.RecordsBean> dates =  beans.getRecords();
+                        mView.Date(dates);
 
                     }
                 }, new Consumer<Throwable>() {

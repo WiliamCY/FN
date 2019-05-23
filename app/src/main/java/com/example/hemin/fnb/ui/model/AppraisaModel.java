@@ -21,7 +21,7 @@ public class AppraisaModel implements AppraisaContract.modle,AppraisaContract.mo
 
 
     @Override
-    public Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>> Appraisas(Context context, Map token, long current, long size, long collectionAudit, long userId) {
-        return RetrofitClient.getInstance().getApi().appraisa(token,current,size,collectionAudit,userId);
+    public Flowable<BaseObjectBean<AppraisaBean.DataBean>> Appraisas(Context context, Map token, long current, long size, long collectionAudit, long userId) {
+        return RetrofitClient.getInstance().getApi().appraisas(token,current,size,collectionAudit,userId);
     }
 }
