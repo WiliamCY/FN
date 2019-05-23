@@ -41,14 +41,7 @@ public class AppraisaPresenter extends BasePresenter<AppraisaContract.View> impl
                         mView.onSuccess(bean);
                         mView.hideLoading();
                      AppraisaBean.DataBean beans = (AppraisaBean.DataBean) bean.getResult();
-                     List<AppraisaBean.DataBean.RecordsBean> dates = beans.getRecords();
-                         for(int i = 0 ;i<dates.size();i++){
-//                             String c = beans.get(i).getCollectionAudit();
-//                             String v = beans.get(i).getCreateTime();
-//                             String b = beans.get(i).getImagesUrl();
-
-
-                         }
+                     List<AppraisaBean.DataBean.RecordsBean> dates =  beans.getRecords();
                         mView.Date(dates);
                     }
                 }, new Consumer<Throwable>() {

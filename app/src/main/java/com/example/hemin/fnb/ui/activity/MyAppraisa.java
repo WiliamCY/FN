@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -145,8 +146,8 @@ public class MyAppraisa extends BaseActivity {
         ButterKnife.bind(this);
         initView2(mDataList2, status);
         initFragment(mDataList2,status);
-        mFragmentContainerHelper.handlePageSelected(1,false);
-        switchPages(1);
+        mFragmentContainerHelper.handlePageSelected(0,false);
+        switchPages(0);
     }
 
     private void initFragment(List<String> date,boolean status) {
@@ -154,6 +155,7 @@ public class MyAppraisa extends BaseActivity {
             AppraisaFragment fragment = new AppraisaFragment();
             Bundle bundle = new Bundle();
             bundle.putString("index", date.get(i));
+            Log.d("1", date.get(i));
             bundle.putBoolean("status", status);
             fragment.setArguments(bundle);
             mFragments.add(fragment);

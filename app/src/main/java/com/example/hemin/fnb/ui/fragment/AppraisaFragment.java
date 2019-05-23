@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +38,6 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
     RecyclerView aprRecylcerview;
     Unbinder unbinder;
     private AppRaisaAdapter adapter = new AppRaisaAdapter();
-    private List<AppraisaBean.DataBean.RecordsBean> dates = new ArrayList<>();
 
     @Override
     protected void initView(@Nullable Bundle savedInstanceState) {
@@ -52,24 +53,24 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
         Map<String, String> map = new HashMap<>();
         map.put("Authorization", tokenType + Authorization);
         if (status == true) {
-            mPresenter.Appraisa( map, 1, 1, index,9);
-            initRecyclerView(dates);
+           Log.d("indexx:", String.valueOf(index));
+            mPresenter.Appraisa( map, 1, 10, index,9);
+
 
         } else {
             mPresenter.Appraisas( getActivity(),map, 1, 1, index, Long.parseLong(userId));
-            initRecyclerView(dates);
         }
     }
     private void initRecyclerView(List<AppraisaBean.DataBean.RecordsBean> bean){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        aprRecylcerview.setLayoutManager(linearLayoutManager);
-        linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        aprRecylcerview.setLayoutManager(layoutManager);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
         adapter = new AppRaisaAdapter(getActivity(), bean);
         aprRecylcerview.setAdapter(adapter);
     }
 
     @Override
-    protected void initView(View view) {
+        protected void initView(View view) {
         mPresenter = new AppraisaPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
@@ -83,11 +84,10 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
         map.put("Authorization", tokenType + Authorization);
         if (status == true) {
             mPresenter.Appraisa( map, 1, 1, index, 9);
-            initRecyclerView(dates);
+
 
         } else {
             mPresenter.Appraisas( getActivity(),map, 1, 1, index, Long.parseLong(userId));
-            initRecyclerView(dates);
         }
     }
 
@@ -113,9 +113,9 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
     }
 
     @Override
-    public List<AppraisaBean.DataBean.RecordsBean> Date(List<AppraisaBean.DataBean.RecordsBean> date) {
-        this.dates = date;
-        return dates;
+    public void Date(List<AppraisaBean.DataBean.RecordsBean> date) {
+        initRecyclerView(date);
+
     }
 
 
@@ -124,15 +124,6 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     }
 
-
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        // TODO: inflate a fragment view
-//        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-//        unbinder = ButterKnife.bind(this, rootView);
-//        return rootView;
-//    }
 
     @Override
     public void onDestroyView() {

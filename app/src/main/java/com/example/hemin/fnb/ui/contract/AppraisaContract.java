@@ -14,7 +14,7 @@ import okhttp3.RequestBody;
 
 public interface AppraisaContract {
     interface  modle{
-     Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>> Appraisa( Map token,long current,long size,long collectionAudit,long userId );
+     Flowable<BaseObjectBean<AppraisaBean.DataBean>> Appraisa( Map token,long current,long size,long collectionAudit,long userId );
     }
     interface  modles{
         Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>> Appraisas(Context context, Map token,long current,long size,long collectionAudit,long userId );
@@ -26,7 +26,7 @@ public interface AppraisaContract {
 
         @Override
         void hideLoading();
-        List<AppraisaBean.DataBean.RecordsBean> Date(List<AppraisaBean.DataBean.RecordsBean> list);
+        void Date(List<AppraisaBean.DataBean.RecordsBean> list);
         @Override
         void onError(Throwable throwable);
 
