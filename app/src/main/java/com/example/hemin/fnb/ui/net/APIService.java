@@ -3,6 +3,7 @@ package com.example.hemin.fnb.ui.net;
 
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.ColletionBean;
 import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.bean.LoginBean;
 import com.example.hemin.fnb.ui.bean.TypeBean;
@@ -117,4 +118,11 @@ public interface APIService {
     @GET("app/collection/getMyCollectionResults/{current}/{size}/{collectionAudit}/{userId}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Flowable<BaseObjectBean<List<AppraisaBean.DataBean>>>  appraisas(@HeaderMap Map<String,String> heard, @Path("current") long current,@Path("size") long size,@Path("collectionAudit") long collectionAudit,@Path("userId") long  userId );
+
+    /**
+     * 获取鉴定的详情
+     * */
+    @GET("app/collection/getCollection")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean<ColletionBean.DataBean>>  getColldetionMessage(@HeaderMap Map<String,String> heard, @Query("collectionId") String id );
 }

@@ -59,12 +59,12 @@ public abstract class BaseFragment extends Fragment {
         unBinder.unbind();
     }
     protected abstract void initView(@Nullable Bundle savedInstanceState);
-    /**
-     * 初始化视图
-     *
-     * @param view
-     */
-    protected abstract void initView(View view);
+//    /**
+//     * 初始化视图
+//     *
+//     * @param view
+//     */
+//    protected abstract void initView(View view);
 
     protected abstract int getLayoutId();
 }

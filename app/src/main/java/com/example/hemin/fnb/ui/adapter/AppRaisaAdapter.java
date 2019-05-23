@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
+import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.nostra13.universalimageloader.utils.L;
 
 import java.util.ArrayList;
@@ -21,12 +22,16 @@ import java.util.List;
 public class AppRaisaAdapter extends RecyclerView.Adapter<AppRaisaAdapter.ViewHolder> {
     private List<AppraisaBean.DataBean.RecordsBean> list = new ArrayList<>();
     private Context context;
+    private OnRecyclerItemClickListener monItemClickListener;
     public  AppRaisaAdapter(Context context,List<AppraisaBean.DataBean.RecordsBean> list){
         this.context = context;
         this.list = list;
     }
     public  AppRaisaAdapter(){
 
+    }
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
+        monItemClickListener=listener;
     }
     @NonNull
     @Override
@@ -73,6 +78,14 @@ public class AppRaisaAdapter extends RecyclerView.Adapter<AppRaisaAdapter.ViewHo
                 app_number = view.findViewById(R.id.title1);
                 app_status = view.findViewById(R.id.title2);
                 app_comit = view.findViewById(R.id.title3);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (monItemClickListener!=null){
+                        monItemClickListener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
                 }
 
 

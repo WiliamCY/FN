@@ -79,17 +79,17 @@ public class AppraisaBean {
              * createTime : 2019-05-21
              */
 
-            private int collectionId;
+            private String collectionId;
             private String collectionNum;
             private String imagesUrl;
             private String collectionAudit;
             private String createTime;
 
-            public int getCollectionId() {
+            public String getCollectionId() {
                 return collectionId;
             }
 
-            public void setCollectionId(int collectionId) {
+            public void setCollectionId(String collectionId) {
                 this.collectionId = collectionId;
             }
 

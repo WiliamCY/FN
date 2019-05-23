@@ -219,6 +219,11 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                         String deleteImagePath = path;
 
                     }
+
+                    @Override
+                    public void onItemClick(int Position) {
+
+                    }
                 });
             }
         }
