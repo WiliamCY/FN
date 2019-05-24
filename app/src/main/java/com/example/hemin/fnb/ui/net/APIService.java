@@ -81,7 +81,7 @@ public interface APIService {
    * */
   @POST("user/login")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean> pWlogin(@Body RequestBody body);
+    Flowable<BaseObjectBean<UserDateBean.DataBean>> pWlogin(@Body RequestBody body);
   /**
    * 藏品分类
    * */
@@ -125,4 +125,12 @@ public interface APIService {
     @GET("app/collection/getCollection")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Flowable<BaseObjectBean<ColletionBean.DataBean>>  getColldetionMessage(@HeaderMap Map<String,String> heard, @Query("collectionId") String id );
+
+    /**
+     * 退出
+     * */
+    @GET("user/logout")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean>  exit(@HeaderMap Map<String,String> heard, @Query("userId") String id );
+
 }

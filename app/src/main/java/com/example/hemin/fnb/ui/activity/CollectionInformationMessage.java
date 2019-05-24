@@ -1,29 +1,28 @@
 package com.example.hemin.fnb.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.LinearLayout;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.adapter.AppRaisaAdapter;
-import com.example.hemin.fnb.ui.adapter.CollectionAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
-import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ColletionBean;
 import com.example.hemin.fnb.ui.contract.CollectionContract;
-import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.CollectionPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
+import com.example.hemin.fnb.ui.util.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +32,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CollectionInformationMessage extends BaseMvpActivity<CollectionPresenter> implements CollectionContract.View {
-    @BindView(R.id.collect_recyclerview)
-    RecyclerView recyclerView;
+    @BindView(R.id.type)
+    TextView type;
+    @BindView(R.id.image)
+    ImageView images;
+    @BindView(R.id.text)
+    TextView text;
+//    @BindView(R.id.collect_recyclerview)
+//    RecyclerView recyclerView;
 
     @Override
     public int getLayoutId() {
@@ -43,23 +48,28 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
 
     @Override
     public void initView() {
-          mPresenter = new CollectionPresenter();
-          mPresenter.attachView(this);
+        mPresenter = new CollectionPresenter();
+        mPresenter.attachView(this);
         ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
         String id = bundle.getString("id");
-        SharedPreferences sp =this.getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        SharedPreferences sp = this.getSharedPreferences("userDate", Context.MODE_PRIVATE);
         String tokenType = sp.getString("tokenType", "");
         String Authorization = sp.getString("Authorization", "");
         Map<String, String> map = new HashMap<>();
         map.put("Authorization", tokenType + Authorization);
-        mPresenter.getColldetionMessage(this,map,id);
+        mPresenter.getColldetionMessage(this, map, id);
+    }
+
+    @Override
+    public boolean isFullScreen() {
+        return  true;
     }
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if(bean.getErrorCode() == 0) {
-            Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT).show();
+        if (bean.getErrorCode() == 0) {
+            Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
         ProgressDialog.getInstance().dismiss();
     }
@@ -77,20 +87,47 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
     @Override
     public void ListDate(List<ColletionBean.DataBean.ListBean> bean) {
 
-           initRecyclerView(bean);
+//           initRecyclerView(bean);
     }
-    private void initRecyclerView(final List<ColletionBean.DataBean.ListBean> bean) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        CollectionAdapter adapter = new CollectionAdapter(this,bean);
-        recyclerView.setAdapter(adapter);
-    }
+//    private void initRecyclerView(final List<ColletionBean.DataBean.ListBean> bean) {
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        CollectionAdapter adapter = new CollectionAdapter(this,bean);
+//        recyclerView.setAdapter(adapter);
+//    }
 
     @Override
     public void onError(Throwable throwable) {
 
     }
-    public  void Date(Map map){
 
+    public void Date(Map map) {
+      String ctName = map.get("ctName").toString();
+      String image = map.get("image").toString();
+      String collectionDetails = map.get("collectionDetails").toString();
+      type.setText(ctName);
+      text.setText(collectionDetails);
+        Glide.with(this).load(image.trim()).listener(mRequestListener).into(images);
+    }
+    RequestListener mRequestListener = new RequestListener() {
+        @Override
+        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
+            Log.d("adawdawd", "onException: " + e.toString()+"  model:"+model+" isFirstResource: "+isFirstResource);
+            images.setImageResource(R.mipmap.ic_launcher);
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
+            Log.e("",  "model:"+model+" isFirstResource: "+isFirstResource);
+            return false;
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

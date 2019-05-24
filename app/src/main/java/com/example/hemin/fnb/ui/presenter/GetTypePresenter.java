@@ -2,6 +2,7 @@ package com.example.hemin.fnb.ui.presenter;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.ui.activity.PublishingCollections;
 import com.example.hemin.fnb.ui.base.BasePresenter;
@@ -13,6 +14,9 @@ import com.example.hemin.fnb.ui.model.GetTypeModel;
 import com.example.hemin.fnb.ui.model.ImageUpdateModel;
 import com.example.hemin.fnb.ui.model.SubImageModel;
 import com.example.hemin.fnb.ui.net.RxScheduler;
+import com.example.hemin.fnb.ui.util.Utils;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -75,14 +79,12 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
     }
 
     //    @Override
-    public void postImage(Context context, Map token, MultipartBody.Part partList) {
+    public void postImage(final Context context, Map token, MultipartBody.Part partList) {
         if (!isViewAttached()) {
             return;
         }
 
-        if(picLength>=2){
-            mView.hideLoading();
-        }
+
         mView.showLoading();
         modle2.postImage(context, token, partList)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
@@ -91,11 +93,15 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-//                        mView.hideLoading();
+                        mView.hideLoading();
                         picLength++;
+                        if(picLength>=2){
+                            mView.hideLoading();
+                        }
                       if(picLength>=2){
                           mView.hideLoading();
                       }
+                 Utils.DeleteFolder("storage/emulated/0/imagepicker");
                       ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
                         String urls = url.getUrl();
                        mView.getPostImageUrls(urls);
@@ -138,5 +144,6 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                    });
 
     }
+
 
 }

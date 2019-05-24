@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -59,6 +60,12 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
         mPresenter.attachView(this);
         ButterKnife.bind(this);
 
+    }
+
+
+    @Override
+    public boolean isFullScreen() {
+        return true;
     }
 
     @OnClick({R.id.c_getCode, R.id.c_register, R.id.c_password, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
@@ -121,10 +128,7 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
 
     }
 
-    @Override
-    public boolean isFullScreen() {
-        return true;
-    }
+
 
     private String getPhone(){
        return cPhone.getText().toString().trim();

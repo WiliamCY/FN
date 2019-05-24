@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
+   android:background="@color/cDEDEDE">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_150"
+        android:background="@color/c313131">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="315dp"
+            android:layout_height="@dimen/layout_height_30"
+            android:background="@drawable/shape_con"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/find_logo"
+                android:layout_marginLeft="@dimen/marginLeft_8"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/paddingTop_3"
+                android:layout_width="@dimen/layout_width_15"
+                android:layout_height="@dimen/layout_height_15"
+                android:background="@mipmap/find_logo" />
+
+            <EditText
+                android:textColor="@color/cffffff"
+                app:layout_constraintTop_toTopOf="@id/find_logo"
+                android:textSize="@dimen/text_size_12"
+                android:background="@null"
+                android:layout_marginLeft="@dimen/marginLeft_8"
+                app:layout_constraintLeft_toRightOf="@id/find_logo"
+             android:textColorHint="@color/cffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="请输入关键字/编号/类别"/>
+            
+            <View
+                android:layout_marginTop="@dimen/paddingTop_3"
+                app:layout_constraintTop_toTopOf="@id/find_message"
+                android:layout_marginRight="@dimen/marginRight_11"
+             app:layout_constraintEnd_toStartOf="@id/find_message"
+                android:background="@color/cffffff"
+                android:layout_width="2dp"
+                android:layout_height="17dp"/>
+            <ImageView
+                android:id="@+id/find_message"
+                android:layout_marginRight="@dimen/marginRight_10"
+                app:layout_constraintRight_toRightOf="parent"
+                android:background="@mipmap/find_messgae"
+                android:layout_width="@dimen/layout_width_20"
+                android:layout_height="@dimen/layout_height_20" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.RecyclerView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="320dp"
+        android:layout_height="508dp"/>
+
+</android.support.constraint.ConstraintLayout>

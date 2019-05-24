@@ -4,12 +4,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseActivity;
 
-public class UserMessage extends AppCompatActivity {
+public class UserMessage extends BaseActivity {
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_message);
+    public int getLayoutId() {
+        return R.layout.activity_user_message;
+    }
+
+    @Override
+    public void initView() {
+
     }
 }

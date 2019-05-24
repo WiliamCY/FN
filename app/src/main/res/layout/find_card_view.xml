@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    card_view:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/find_logo"
+            android:layout_width="match_parent"
+            android:layout_height="580dp"
+            android:background="@mipmap/yqh" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/paddingTop_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_1"
+                    android:layout_width="@dimen/layout_width_16"
+                    android:layout_height="@dimen/layout_height_16"
+                    android:background="@mipmap/find_good" />
+
+                <TextView
+                    android:id="@+id/title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/marginLeft_8"
+                    android:text="2356" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_2"
+                    android:layout_width="@dimen/layout_width_16"
+                    android:layout_height="@dimen/layout_height_16"
+                    android:background="@mipmap/find_see" />
+
+                <TextView
+                    android:id="@+id/title_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/marginLeft_8"
+                    android:text="2356" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_3"
+                    android:layout_width="@dimen/layout_width_16"
+                    android:layout_height="@dimen/layout_height_16"
+                    android:background="@mipmap/find_heart" />
+
+                <TextView
+                    android:id="@+id/title_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/marginLeft_8"
+                    android:text="2356" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/find_button"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/c003297"
+            android:layout_marginTop="@dimen/paddingTop_20"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查看排行榜"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

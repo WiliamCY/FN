@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
@@ -23,8 +23,8 @@ import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.AppraisaContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.AppraisaPresenter;
+import com.example.hemin.fnb.ui.util.Utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +37,12 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     @BindView(R.id.apr_recylcerview)
     RecyclerView aprRecylcerview;
+    @BindView(R.id.image)
+    ImageView image;
+    @BindView(R.id.title)
+    TextView title;
+    Unbinder unbinder;
     private AppRaisaAdapter adapter;
-
 
 
     private void initRecyclerView(final List<AppraisaBean.DataBean.RecordsBean> bean) {
@@ -113,6 +117,11 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     @Override
     public void Date(List<AppraisaBean.DataBean.RecordsBean> date) {
+        if(date.size() == 0){
+            aprRecylcerview.setVisibility(View.GONE);
+            image.setVisibility(View.VISIBLE);
+            title.setVisibility(View.VISIBLE);
+        }
         initRecyclerView(date);
 
 
@@ -125,4 +134,17 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

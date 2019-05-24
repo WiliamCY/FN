@@ -11,7 +11,7 @@ import okhttp3.RequestBody;
 
 public interface PwLoginContract {
     interface Model {
-        Flowable<BaseObjectBean> pwLogin(Context context, RequestBody body);
+        Flowable<BaseObjectBean<UserDateBean.DataBean>> pwLogin(Context context, RequestBody body);
     }
 
 

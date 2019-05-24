@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -77,6 +78,8 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
         return R.layout.activity_code_login;
     }
 
+
+
     @Override
     public void initView() {
         mPresenter = new ForgetPresenter();
@@ -84,6 +87,7 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
         ButterKnife.bind(this);
         initViews();
     }
+
 
     private void  initViews(){
         title1.setText("修改密码");
@@ -167,10 +171,7 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
         ProgressDialog.getInstance().dismiss();
     }
 
-    @Override
-    public boolean isFullScreen() {
-        return true;
-    }
+
     @Override
     public void onError(Throwable throwable) {
 

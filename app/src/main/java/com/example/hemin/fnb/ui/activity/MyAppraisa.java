@@ -8,8 +8,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +19,9 @@ import android.widget.TextView;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.fragment.AppraisaFragment;
+import com.example.hemin.fnb.ui.util.StatusUtils;
+import com.example.hemin.fnb.ui.util.Utils;
+import com.jaeger.library.StatusBarUtil;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -130,10 +135,8 @@ public class MyAppraisa extends BaseActivity {
         }
     }
 
-    @Override
-    public boolean isFullScreen() {
-        return true;
-    }
+
+
 
     @Override
     public int getLayoutId() {
@@ -141,15 +144,14 @@ public class MyAppraisa extends BaseActivity {
     }
 
     @Override
-    public void initView() {
+    public void initView( ) {
         ButterKnife.bind(this);
         initDate();
-
     }
 
 
 
-    private void initFragment( int indexx, boolean status) {
+    private void initFragment(int indexx, boolean status) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -166,12 +168,6 @@ public class MyAppraisa extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
 
 

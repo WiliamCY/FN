@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
@@ -19,7 +19,6 @@
     <color name="cff4347fa">#ff4347fa</color>
     <color name="cff999999">#ff999999</color>
     <color name="c4C65C4">#4C65C4</color>
-    <color name="cEEEEEE">#EEEEEE</color>
     <color name="c4D6EEF">#4D6EEF</color>
     <color name="cDEDEDE">#DEDEDE</color>
     <color name="c313131">#313131</color>
@@ -29,5 +28,22 @@
     <color name="cA50404">#A50404</color>
     <color name="cA40000">#A40000</color>
     <color name="cDA0505">#DA0505</color>
+    <color name="c003297">#003297</color>
     <color name="cD0915E">#D0915E</color>
+    <color name="cEEEEEE">#EEEEEE</color>
+    <color name="AEB3C0">#AEB3C0</color>
+
+
+    <color name="black">#000000</color>
+
+    <color name="line_default_color">#e5e5e5</color>
+
+    <color name="list_view_item_org">#f8f8f8</color>
+
+    <color name="list_view_item_white">#ffffff</color>
+
+    <color name="background_tab_pressed">#e5e5e5</color>
+
+    <color name="action_sheet_blue">#037BFF</color>
+
 </resources>

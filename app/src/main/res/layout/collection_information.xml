@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:ignore="MissingConstraints"
+    android:layout_height="match_parent"
     android:layout_margin="15dp"
-    android:layout_height="match_parent">
+    tools:ignore="MissingConstraints">
 
     <TextView
 
@@ -13,115 +13,176 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="藏品分类"
-        android:textSize="@dimen/text_size_15"
-        android:textStyle="bold"
         android:textColor="@color/c333333"
-      />
+        android:textSize="@dimen/text_size_15"
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/c333333"
         android:textSize="@dimen/text_size_15"
-        android:textColor="@color/c333333"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="硬币"/>
-    
-    
+        app:layout_constraintRight_toRightOf="parent" />
+
+
     <ImageView
-        android:id="@+id/ci_image"
-        android:background="@mipmap/yb"
-        android:layout_marginTop="@dimen/marginTop_20"
-        app:layout_constraintTop_toBottomOf="@id/title1"
+        android:id="@+id/image"
         android:layout_width="82dp"
-        android:layout_height="82dp" />
+        android:layout_height="82dp"
+        android:layout_marginTop="@dimen/marginTop_20"
+
+        app:layout_constraintTop_toBottomOf="@id/title1" />
+
     <TextView
-        android:textStyle="bold"
         android:id="@+id/title2"
-        app:layout_constraintTop_toBottomOf="@id/title1"
-        android:textSize="18sp"
-        android:textColor="@color/c333333"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="宝贝描述:"
         android:layout_marginLeft="20dp"
-        app:layout_constraintTop_toTopOf="@id/ci_image"
-        app:layout_constraintLeft_toRightOf="@id/ci_image"/>
+        android:text="宝贝描述:"
+        android:textColor="@color/c333333"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/title1"
+        app:layout_constraintTop_toTopOf="@id/image" />
+
     <TextView
-        android:layout_marginLeft="@dimen/marginLeft_20"
-        app:layout_constraintLeft_toRightOf="@id/ci_image"
-        app:layout_constraintTop_toBottomOf="@id/title2"
-         android:maxLines="3"
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="高0.3厘米，宽3.2厘米，硬币表面有
-一些常年抚摸留下的包浆和些微划伤，
-但并不严重，之前都是放在一些……"/>
+        android:layout_marginLeft="@dimen/marginLeft_20"
+        android:maxLines="3"
+        app:layout_constraintLeft_toRightOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/title2" />
+
     <View
         android:id="@+id/view1"
-        android:layout_marginTop="@dimen/paddingTop_10"
-        app:layout_constraintTop_toBottomOf="@id/ci_image"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@color/cEEEEEE"/>
+        android:layout_marginTop="@dimen/paddingTop_10"
+        android:background="@color/cEEEEEE"
+        app:layout_constraintTop_toBottomOf="@id/image" />
 
     <TextView
         android:id="@+id/title3"
-        android:layout_marginTop="@dimen/paddingTop_10"
-        app:layout_constraintTop_toBottomOf="@id/view1"
-        android:textSize="@dimen/text_size_15"
-        android:textColor="@color/c000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="鉴定流程"/>
+        android:layout_marginTop="@dimen/paddingTop_10"
+        android:text="鉴定流程"
+        android:textColor="@color/c000000"
+        android:textSize="@dimen/text_size_15"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
 
 
     <ImageView
 
         android:id="@+id/step_2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_height_50"
+        android:layout_height="@dimen/layout_height_80"
         android:layout_marginTop="8dp"
         android:background="@mipmap/step_2"
-        app:layout_constraintTop_toBottomOf="@id/title3"
-        />
+        app:layout_constraintTop_toBottomOf="@id/title3" />
 
     <View
         android:id="@+id/view2"
-        android:layout_marginTop="@dimen/paddingTop_10"
-        app:layout_constraintTop_toBottomOf="@id/step_2"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@color/cEEEEEE"/>
+        android:layout_marginTop="@dimen/paddingTop_10"
+        android:background="@color/cEEEEEE"
+        app:layout_constraintTop_toBottomOf="@id/step_2" />
 
     <TextView
         android:id="@+id/title4"
-        android:layout_marginTop="@dimen/paddingTop_10"
-        app:layout_constraintTop_toBottomOf="@id/view2"
-        android:textSize="20sp"
-       app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/marginLeft_10"
-        android:textColor="@color/c000000"
+        android:layout_marginTop="@dimen/paddingTop_10"
         android:text="审核结果"
+        android:textColor="@color/c000000"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view2" />
+
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/paddingTop_10"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/title4">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/collect_recyclerview"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
+
+        <!--</LinearLayout>-->
+
+    <!--</android.support.v4.widget.NestedScrollView>-->
+    <ImageView
+        android:layout_marginTop="@dimen/paddingTop_30"
+        app:layout_constraintLeft_toLeftOf="@id/title4"
+        android:background="@mipmap/customer_service"
+        app:layout_constraintTop_toBottomOf="@id/title4"
+        android:id="@+id/image1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <android.support.v4.widget.NestedScrollView
-        android:layout_marginTop="@dimen/paddingTop_10"
-        app:layout_constraintTop_toBottomOf="@id/title4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/collect_recyclerview"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    <TextView
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/c333333"
+        android:id="@+id/titles1"
+        android:layout_marginTop="@dimen/paddingTop_30"
+        android:layout_marginLeft="@dimen/marginLeft_40"
+        app:layout_constraintTop_toTopOf="@id/image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="图片已经审核"
+        app:layout_constraintLeft_toRightOf="@id/image1"/>
 
 
 
-   </LinearLayout>
+    <ImageView
+        android:layout_marginTop="@dimen/paddingTop_30"
+        app:layout_constraintLeft_toLeftOf="@id/image1"
+        android:background="@mipmap/expert"
+        app:layout_constraintTop_toBottomOf="@id/image1"
+        android:id="@+id/image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:singleLine="true"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/c333333"
+        android:layout_marginTop="@dimen/paddingTop_30"
+        android:layout_marginLeft="@dimen/marginLeft_40"
+        app:layout_constraintTop_toTopOf="@id/image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="专家正在鉴定"
+        app:layout_constraintLeft_toRightOf="@id/image1"/>
 
-    </android.support.v4.widget.NestedScrollView>
 
+
+    <ImageView
+        android:layout_marginTop="@dimen/paddingTop_30"
+        app:layout_constraintLeft_toLeftOf="@id/image1"
+        android:background="@mipmap/end_of_identification"
+        app:layout_constraintTop_toBottomOf="@id/image2"
+        android:id="@+id/image3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/c333333"
+        android:layout_marginTop="@dimen/paddingTop_30"
+        android:layout_marginLeft="@dimen/marginLeft_40"
+        app:layout_constraintTop_toTopOf="@id/image3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="鉴定结束"
+        app:layout_constraintLeft_toRightOf="@id/image1"/>
 </android.support.constraint.ConstraintLayout>

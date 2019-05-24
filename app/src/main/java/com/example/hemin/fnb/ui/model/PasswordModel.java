@@ -12,7 +12,7 @@ import okhttp3.RequestBody;
 
 public class PasswordModel implements PwLoginContract.Model {
     @Override
-    public Flowable<BaseObjectBean> pwLogin(Context context, RequestBody body) {
+    public Flowable<BaseObjectBean<UserDateBean.DataBean>> pwLogin(Context context, RequestBody body) {
         return RetrofitClient.getInstance().getApi().pWlogin(body);
     }
 }

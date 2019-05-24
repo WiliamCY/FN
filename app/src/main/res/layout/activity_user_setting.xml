@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/marginRight_10"
             android:layout_toLeftOf="@id/setting_button3"
-            android:text="138*******926" />
+         />
 
         <ImageView
             android:id="@+id/setting_button3"
@@ -170,7 +170,7 @@
     <Button
         android:layout_marginLeft="@dimen/paddingLeft_30"
         android:layout_marginRight="@dimen/paddingRight_20"
-        android:id="@+id/cis_book_button"
+        android:id="@+id/cis_exit_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_40"
         android:layout_marginTop="100dp"

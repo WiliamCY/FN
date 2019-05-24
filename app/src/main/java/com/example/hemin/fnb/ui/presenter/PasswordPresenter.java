@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.hemin.fnb.ui.activity.MainActivity;
 import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
@@ -36,49 +37,85 @@ public class PasswordPresenter extends BasePresenter<PasswordActivity> implement
         if (!isViewAttached()) {
             return;
         }
-
         mView.showLoading();
         model.pwLogin(context, body)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
-                .subscribe(new MyConsumer<UserDateBean>() {
+                .subscribe(new Consumer<BaseObjectBean>() {
 
                     @Override
-                    public void accept(UserDateBean bean, boolean success, BaseObjectBean baseObjectBean) {
-                        // code == 0 bean 是重新处理以后的数据
-                        mView.onSuccess(baseObjectBean);
+                    public void accept(BaseObjectBean beans) throws Exception {
+                        mView.onSuccess(beans);
                         mView.hideLoading();
-//                        UserDateBean result = gson.fromJson(jsonObject.getJSONObject("data").toString(), UserDateBean.class);
-                        String Authorization = bean.getAuthorization();
-                        String tokenType = bean.getToken_type();
-                        String expiresIn = bean.getExpires_in();
-                        UserDateBean.User user = bean.getUser();
-                        String userId = user.getUserId();
-                        String nickName = user.getNickname();
-                        String url = user.getUrl();
-                        String mobile = user.getMobile();
-                        String birthday = user.getBirthday();
-                        String signature = user.getSignature();
-                        String sex = user.getSex();
-                        SharedPreferences.Editor editor = context.getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
-                        editor.putString("Authorization", Authorization);
-                        editor.putString("tokenType", tokenType);
-                        editor.putString("expiresIn", expiresIn);
-                        editor.putString("userId", userId);
-                        editor.putString("nickName", nickName);
-                        editor.putString("url", url);
-                        editor.putString("mobile", mobile);
-                        editor.putString("birthday", birthday);
-                        editor.putString("signature", signature);
-                        editor.putString("sex", sex);
-                        editor.putBoolean("key", false);
-                        editor.commit();
+                        UserDateBean.DataBean bean = (UserDateBean.DataBean) beans.getResult();
+                           String Authorization = bean.getAuthorization();
+                            String tokenType = bean.getToken_type();
+                            String expiresIn = bean.getExpires_in();
+                            UserDateBean.DataBean.UserBean user = bean.getUser();
+                            String userId = user.getUserId();
+                            String nickName = user.getNickname();
+                            String url = user.getUrl();
+                            String mobile = user.getMobile();
+                            String birthday = user.getBirthday();
+                            String signature = user.getSignature();
+                            String sex = user.getSex();
+                            SharedPreferences.Editor editor = context.getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
+                            editor.putString("Authorization", Authorization);
+                            editor.putString("tokenType", tokenType);
+                            editor.putString("expiresIn", expiresIn);
+                            editor.putString("userId", userId);
+                            editor.putString("nickName", nickName);
+                            editor.putString("url", url);
+                            editor.putString("mobile", mobile);
+                            editor.putString("birthday", birthday);
+                            editor.putString("signature", signature);
+                            editor.putString("sex", sex);
+                            editor.putBoolean("key", false);
+                            editor.commit();
+                            Intent intent = new Intent(context, MainActivity.class);
+                            context.startActivity(intent);
                     }
 
-                    @Override
-                    public void accept_error(String bean, boolean success, String message) {
-                        //不是 code == 0 失败
-                    }
+//                    @Override
+//                    public void accept(UserDateBean bean, boolean success, BaseObjectBean baseObjectBean) {
+//                        // code == 0 bean 是重新处理以后的数据
+//
+//                        if(baseObjectBean.getErrorCode() == 0){
+//                            String Authorization = bean.getAuthorization();
+//                            String tokenType = bean.getToken_type();
+//                            String expiresIn = bean.getExpires_in();
+//                            UserDateBean.User user = bean.getUser();
+//                            String userId = user.getUserId();
+//                            String nickName = user.getNickname();
+//                            String url = user.getUrl();
+//                            String mobile = user.getMobile();
+//                            String birthday = user.getBirthday();
+//                            String signature = user.getSignature();
+//                            String sex = user.getSex();
+//                            SharedPreferences.Editor editor = context.getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
+//                            editor.putString("Authorization", Authorization);
+//                            editor.putString("tokenType", tokenType);
+//                            editor.putString("expiresIn", expiresIn);
+//                            editor.putString("userId", userId);
+//                            editor.putString("nickName", nickName);
+//                            editor.putString("url", url);
+//                            editor.putString("mobile", mobile);
+//                            editor.putString("birthday", birthday);
+//                            editor.putString("signature", signature);
+//                            editor.putString("sex", sex);
+//                            editor.putBoolean("key", false);
+//                            editor.commit();
+//                            Intent intent = new Intent(context, MainActivity.class);
+//                            context.startActivity(intent);
+//                        }
+////                        UserDateBean result = gson.fromJson(jsonObject.getJSONObject("data").toString(), UserDateBean.class);
+//
+//                    }
+
+//                    @Override
+//                    public void accept_error(String bean, boolean success, String message) {
+//                        //不是 code == 0 失败
+//                    }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {

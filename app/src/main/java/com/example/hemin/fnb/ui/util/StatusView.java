@@ -62,4 +62,5 @@ public class StatusView extends View {
     public int getBarSize() {
         return mBarSize;
     }
+
 }

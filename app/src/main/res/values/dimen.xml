@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+    <dimen name="dialog_radius">15dp</dimen>
     <dimen name="ToolBarBackTextPadiing">12dp</dimen>
     <dimen name="ToolBarMainTextSize">15sp</dimen>
     <!-- 字体大小 -->
@@ -154,6 +154,8 @@
     <dimen name="paddingRight_30">30dp</dimen>
 
     <!--paddingTop -->
+    <dimen name="paddingTop_2">2dp</dimen>
+    <dimen name="paddingTop_3">3dp</dimen>
     <dimen name="paddingTop_5">5dp</dimen>
     <dimen name="paddingTop_6">6dp</dimen>
     <dimen name="paddingTop_7">7dp</dimen>
@@ -248,6 +250,7 @@
     <dimen name="layout_height_100">100dp</dimen>
     <dimen name="layout_height_120">120dp</dimen>
     <dimen name="layout_height_150">150dp</dimen>
+    <dimen name="layout_height_170">170dp</dimen>
     <dimen name="layout_height_180">180dp</dimen>
 
 
@@ -260,6 +263,8 @@
     <dimen name="layout_width_11">11dp</dimen>
     <dimen name="layout_width_13">13dp</dimen>
     <dimen name="layout_width_15">15dp</dimen>
+    <dimen name="layout_width_16">16dp</dimen>
+    <dimen name="layout_width_20">20dp</dimen>
     <dimen name="layout_width_45">45dp</dimen>
     <dimen name="layout_width_40">40dp</dimen>
     <dimen name="layout_width_26">26dp</dimen>

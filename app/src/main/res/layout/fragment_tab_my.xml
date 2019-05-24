@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true">
 
-<ImageView
-    android:id="@+id/my_background"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@mipmap/user_background"/>
+    <ImageView
+        android:id="@+id/my_background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@mipmap/user_background" />
 
     <ImageView
         android:id="@+id/setting"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
         android:background="@mipmap/setting" />
 
     <ImageView
-      android:id="@+id/user_logo"
+        android:id="@+id/user_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/my_background"
@@ -30,33 +30,33 @@
         app:layout_constraintTop_toBottomOf="@id/my_background" />
 
     <TextView
-        android:textSize="18sp"
         android:id="@+id/login"
-      android:paddingTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="2dp"
+        android:paddingTop="5dp"
         android:text="登陆/注册"
         android:textColor="@color/c333333"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/qm"
-        android:paddingTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/login"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="2dp"
+        android:paddingTop="5dp"
         android:text="填写签名让更多藏友认识你"
-        android:textColor="@color/c333333"
-    />
+        android:textColor="@color/c333333" />
+
     <include
-        android:layout_marginTop="30dp"
-        android:layout_height="match_parent"
+        layout="@layout/my_function"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/qm"
-        layout="@layout/my_function"/>
+        android:layout_marginTop="30dp" />
 </RelativeLayout>

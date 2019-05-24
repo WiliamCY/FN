@@ -71,7 +71,6 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     @BindView(R.id.user_message)
     TextView userMessage;
 
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_code_login;
@@ -85,7 +84,7 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
         initViews();
     }
 
-    private void initViews(){
+    private void initViews() {
         title1.setText("密码登录");
         title4.setVisibility(View.GONE);
         cGetCode.setVisibility(View.GONE);
@@ -96,24 +95,24 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
         cPassword.setText("忘记密码");
     }
 
-    @OnClick({R.id.c_getCode,R.id.c_register, R.id.c_password, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
+    @OnClick({R.id.c_getCode, R.id.c_register, R.id.c_password, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_register:
-                Intent register = new Intent(this,RegisterActivity.class);
+                Intent register = new Intent(this, RegisterActivity.class);
                 startActivity(register);
                 break;
             case R.id.c_password:
-                Intent password = new Intent(this,ForgetPasswordActivity.class);
+                Intent password = new Intent(this, ForgetPasswordActivity.class);
                 startActivity(password);
                 break;
             case R.id.c_login_button:
-                if(getPhone() == null  || getPassword() == null || Utils.isPhoneNumber(getPhone()) == false){
+                if (getPhone() == null || getPassword() == null || Utils.isPhoneNumber(getPhone()) == false) {
                     Toast.makeText(this, "请输入完整或者手机格式不正确", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                HashMap<String,String> hashMap = new HashMap<>();
-                    hashMap.put("username", getPhone());
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("username", getPhone());
                 hashMap.put("password", getPassword());
                 mPresenter.pwLogn(this, Utils.RetrofitHead(hashMap));
                 break;
@@ -128,19 +127,19 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
                 break;
         }
     }
-  private String getPhone(){
-        return  cPhone.getText().toString().trim();
-  }
-  private String getPassword(){
-        return  cPasswords.getText().toString();
-  }
+
+    private String getPhone() {
+        return cPhone.getText().toString().trim();
+    }
+
+    private String getPassword() {
+        return cPasswords.getText().toString();
+    }
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
         Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
-        if(bean.getErrorCode() == 0){
-            finish();
-        }
+
     }
 
     @Override
@@ -166,9 +165,5 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     public void onError(Throwable throwable) {
 
     }
-
-    @Override
-    public boolean isFullScreen() {
-        return true;
-    }
 }
+

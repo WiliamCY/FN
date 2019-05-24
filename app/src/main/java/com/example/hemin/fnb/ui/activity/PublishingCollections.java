@@ -97,8 +97,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     }
 
     @Override
-    public void initView() {
-        ButterKnife.bind(this);
+    public void initView( ) {
         mPresenter = new GetTypePresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
@@ -201,7 +200,6 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                 imageviewRecyclerview.setLayoutManager(linearLayoutManager);
                 linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
-//                   String dates = "["+imagePath.toString().trim().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"", "")+"]".trim();
                 Log.d("imagePaths", imagePath.toString());
                 adapter = new ImageViewAdapter(imagePath, this);
                 imageviewRecyclerview.setAdapter(adapter);
@@ -238,10 +236,8 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if (bean.getErrorCode() == 0) {
+
             Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
-            ProgressDialog.getInstance().dismiss();
-        }
     }
 
     private String getEdittect() {
@@ -291,11 +287,6 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
         optionsPickerView.setPicker(typeName);
 
         optionsPickerView.show();
-    }
-
-    @Override
-    public boolean isFullScreen() {
-        return true;
     }
 
 

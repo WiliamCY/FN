@@ -1,13 +1,18 @@
 package com.example.hemin.fnb.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -20,6 +25,10 @@ import com.example.hemin.fnb.ui.fragment.TabFindFragment;
 import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMyFragment;
 import com.example.hemin.fnb.ui.fragment.TabShopFragment;
+
+
+import com.example.hemin.fnb.ui.util.AlertDialog;
+import com.example.hemin.fnb.ui.util.Utils;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
@@ -29,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
+public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener{
 
     private static String homepage = "findFragment";
     FrameLayout activityMaterialDesign;
@@ -44,20 +53,32 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private RadioGroup mRadioButtonRg;
     private FragmentTransaction transaction1;
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//
+//    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        initView();
-        if (savedInstanceState == null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            tabFindFragment = new TabFindFragment();
-            fragmentManager.beginTransaction().replace(R.id.fl, tabFindFragment, homepage).commit();
-        }
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
-    private void initView() {
+    @Override
+    public void initView() {
+        ButterKnife.bind(this);
+        initViews();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        tabFindFragment = new TabFindFragment();
+        fragmentManager.beginTransaction().replace(R.id.fl, tabFindFragment, homepage).commit();
+        Utils.initLogins(this);
+
+    }
+
+
+
+    private void initViews() {
         mRadioButtonRg = (RadioGroup) findViewById(R.id.rg_oper);
         mRadioButtonRg.setOnCheckedChangeListener(this);
         fm = getSupportFragmentManager();
@@ -93,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 });
 //    }
     }
+
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -150,5 +172,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         transaction1.commit();
     }
+
 
 }
