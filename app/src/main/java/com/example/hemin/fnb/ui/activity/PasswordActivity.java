@@ -141,6 +141,11 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     @Override
     public void onSuccess(BaseObjectBean bean) {
         Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        if(bean.getErrorCode() == 0){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 

@@ -11,6 +11,6 @@
     app:layout_constraintBottom_toBottomOf="parent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="暂无数据"
+    android:text="发下"
     tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>

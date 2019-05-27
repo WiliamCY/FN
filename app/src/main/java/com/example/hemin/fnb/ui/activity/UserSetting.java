@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
@@ -83,7 +84,14 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-
+         if(bean.getErrorCode() == 0){
+             SharedPreferences sharedPreferences = this.getSharedPreferences("userDate", MODE_PRIVATE);
+             sharedPreferences.edit().clear().commit();
+             Toast.makeText(getApplicationContext(),"退出成功",Toast.LENGTH_SHORT).show();
+             Intent intent1 = new Intent(this, PasswordActivity.class);
+             startActivity(intent1);
+             finish();
+         }
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.adapter.ImageViewAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
+import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.GetTypeContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
@@ -46,7 +47,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 
-public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> implements GetTypeContract.View {
+public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> implements GetTypeContract.View {
     private final int REQUEST_CODE = 111;
     @BindView(R.id.pc_photo)
     ImageView pcPhoto;
@@ -93,18 +94,19 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     private int i = 0;
 
     @Override
+    protected void initView(View view) {
+        mPresenter = new GetTypePresenter();
+        mPresenter.attachView(this);
+        ButterKnife.bind(getActivity());
+
+        cachePath = getActivity().getExternalFilesDir(null) + "/mypics/photos/";
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.publishing_collections;
     }
 
-    @Override
-    public void initView( ) {
-        mPresenter = new GetTypePresenter();
-        mPresenter.attachView(this);
-        ButterKnife.bind(this);
-
-        cachePath = getExternalFilesDir(null) + "/mypics/photos/";
-    }
 
 
     @OnClick({R.id.pc_photo, R.id.pc_button, R.id.submission, R.id.image_add_button})
@@ -112,7 +114,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
         switch (view.getId()) {
             case R.id.pc_photo:
                 //发起图片选择
-                Intent intent = new Intent(this, PhotoSelectorActivity.class);
+                Intent intent = new Intent(getActivity(), PhotoSelectorActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("limit", 12);//number是选择图片的数量
                 startActivityForResult(intent, 0);
@@ -120,19 +122,18 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
             case R.id.pc_button:
                 Map<String, String> map = new HashMap<>();
                 map.put("Authorization", "usERa" + getToken());
-                mPresenter.getType(this, map);
+                mPresenter.getType(getActivity(), map);
 
                 break;
             case R.id.submission:
                 if (pcButton.getText().equals("选择分类")||TextUtils.isEmpty(getEdittect())) {
-                    Utils.showMyToast(Toast.makeText(this,"请输入完整",Toast.LENGTH_SHORT),400);
+                    Utils.showMyToast(Toast.makeText(getActivity(),"请输入完整",Toast.LENGTH_SHORT),400);
                     return;
                 } else if (adapter.getItemCount() < 5 || adapter.getItemCount() > 12) {
-                    Utils.showMyToast(Toast.makeText(this,"图片在5-12张范围之内",Toast.LENGTH_SHORT),400);
-
+                    Utils.showMyToast(Toast.makeText(getActivity(),"图片在5-12张范围之内",Toast.LENGTH_SHORT),400);
                     return;
                 }
-                SharedPreferences sp = getSharedPreferences("userDate", MODE_PRIVATE);
+                SharedPreferences sp = getActivity().getSharedPreferences("userDate", getActivity().MODE_PRIVATE);
                 String id = sp.getString("userId", "");
                 HashMap<String, String> map2 = new HashMap<>();
                 map2.put("collectionType", typeIds);
@@ -141,14 +142,14 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 map2.put("userId", id);
                 HashMap<String, String> token = new HashMap<>();
                 token.put("Authorization", "usERa" + getToken());
-                mPresenter.submitImage(this, token, Utils.RetrofitHead(map2));
+                mPresenter.submitImage(getActivity(), token, Utils.RetrofitHead(map2));
                 break;
             case R.id.image_add_button:
                 if(adapter.getItemCount()>11){
-                    Utils.showMyToast(Toast.makeText(this,"放置图片已经最大值",Toast.LENGTH_SHORT),400);
+                    Utils.showMyToast(Toast.makeText(getActivity(),"放置图片已经最大值",Toast.LENGTH_SHORT),400);
                     return;
                 }
-                Intent intent2 = new Intent(this, PhotoSelectorActivity.class);
+                Intent intent2 = new Intent(getActivity(), PhotoSelectorActivity.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent2.putExtra("limit", 12-adapter.getItemCount());//number是选择图片的数量
                 startActivityForResult(intent2, 0);
@@ -163,19 +164,20 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                     Map<String, String> map = new HashMap<>();
                     map.put("Authorization", "usERa" + getToken());
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
+                    Log.d("imagePath",paths.toString());
                     addImageView(paths);
                     imageViewNumber.setText(adapter.getItemCount()+"/12");
                     for (int i = 0; i < paths.size(); i++) {
                         File file = new File(paths.get(i));
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
-                        mPresenter.postImage(this, map, imageBodyPart);
+                        mPresenter.postImage(getActivity(), map, imageBodyPart);
                     }
                     //处理代码
                     Log.d("photoPath", paths.toString());
                     if (adapter.getItemCount() > 11) {
 //                       imageAddButton.setVisibility(View.GONE);
-                        Utils.showMyToast(Toast.makeText(this,"添加的图片已经是最大值了",Toast.LENGTH_SHORT),400);
+                        Utils.showMyToast(Toast.makeText(getActivity(),"添加的图片已经是最大值了",Toast.LENGTH_SHORT),400);
                     }
 
 
@@ -191,7 +193,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
         for (int i = 0; i < path.size(); i++) {
             if (Arrays.asList(imagePath).contains(path.get(i))) {
 
-                Utils.showMyToast(Toast.makeText(this,"已经存在",Toast.LENGTH_SHORT),400);
+                Utils.showMyToast(Toast.makeText(getActivity(),"已经存在",Toast.LENGTH_SHORT),400);
             } else {
                 imagePath.add(path.get(i));
                 Log.d("imagePath", path.toString());
@@ -200,11 +202,11 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 pcAdd.setVisibility(View.GONE);
                 imageViewNumber.setVisibility(View.VISIBLE);
                 imageAddButton.setVisibility(View.VISIBLE);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                 imageviewRecyclerview.setLayoutManager(linearLayoutManager);
                 linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
                 Log.d("imagePaths", imagePath.toString());
-                adapter = new ImageViewAdapter(imagePath, this);
+                adapter = new ImageViewAdapter(imagePath, getActivity());
                 imageviewRecyclerview.setAdapter(adapter);
                 adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
                     @Override
@@ -231,7 +233,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     }
 
     private String getToken() {
-        SharedPreferences sp = this.getSharedPreferences("userDate", MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences("userDate", getActivity().MODE_PRIVATE);
         String c = sp.getString("Authorization", "");
         System.out.println(c);
         return sp.getString("Authorization", "");
@@ -239,8 +241,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-
-            Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
     }
 
     private String getEdittect() {
@@ -249,7 +250,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
 
     @Override
     public void showLoading() {
-        ProgressDialog.getInstance().show(this);
+        ProgressDialog.getInstance().show(getActivity());
     }
 
     @Override
@@ -273,14 +274,14 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     }
 
     private void initOptionPicker(final List<String> typeName,final List<String> ids) {
-        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 pcButton.setText(typeName.get(options1));
                  typeIds = ids.get(options1);
             }
-        }).setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
-                .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
+        }).setSubmitColor(ContextCompat.getColor(getActivity(), R.color.c4D6EEF))
+                .setCancelColor(ContextCompat.getColor(getActivity(), R.color.c4D6EEF))
                 .setDividerColor(Color.BLACK)
                 .setCancelText("取消")
                 .setSubmitText("确定")

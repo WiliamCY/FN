@@ -44,7 +44,13 @@ public class AppRaisaAdapter extends RecyclerView.Adapter<AppRaisaAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull AppRaisaAdapter.ViewHolder holder, int position) {
                    AppraisaBean.DataBean.RecordsBean bean = list.get(position);
-                  Glide.with(context).load(bean.getImagesUrl()).into(holder.collect_logo);
+                   String c = bean.getImagesUrl().trim();
+                   if(bean.getImagesUrl().trim().contains("[") ){
+                         c = bean.getImagesUrl().replace("[","").trim();
+                   }else if(bean.getImagesUrl().trim().contains("]")){
+                        c = bean.getImagesUrl().replace("]","").trim();
+                   }
+                  Glide.with(context).load(c).into(holder.collect_logo);
                   holder.app_comit.setText(bean.getCreateTime());
                   holder.app_number.setText(bean.getCollectionNum());
                   switch (bean.getCollectionAudit()){

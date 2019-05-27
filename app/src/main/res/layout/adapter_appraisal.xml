@@ -11,7 +11,6 @@
         android:id="@+id/collect_logo"
         android:layout_width="167dp"
         android:layout_height="144dp"
-        android:background="@mipmap/collect_logo"
         />
     <android.support.constraint.ConstraintLayout
 

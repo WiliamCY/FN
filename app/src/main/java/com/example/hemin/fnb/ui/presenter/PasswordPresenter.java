@@ -72,8 +72,8 @@ public class PasswordPresenter extends BasePresenter<PasswordActivity> implement
                             editor.putString("sex", sex);
                             editor.putBoolean("key", false);
                             editor.commit();
-                            Intent intent = new Intent(context, MainActivity.class);
-                            context.startActivity(intent);
+
+
                     }
 
 //                    @Override

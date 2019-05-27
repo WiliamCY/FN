@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.CollectionInformationMessage;
@@ -23,6 +24,7 @@ import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.AppraisaContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.AppraisaPresenter;
+import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 
 import java.util.HashMap;
@@ -102,17 +104,17 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-
+        Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showLoading() {
-
+        ProgressDialog.getInstance().show(getActivity());
     }
 
     @Override
     public void hideLoading() {
-
+        ProgressDialog.getInstance().dismiss();
     }
 
     @Override

@@ -94,16 +94,15 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                 .subscribe(new Consumer<BaseObjectBean>() {
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
-//                        mView.onSuccess(bean);
-//                        mView.hideLoading();
+                        mView.onSuccess(bean);
 //                        picLength++;
-//                        if(picLength>=2){
+//                        if(picLength>1){
 //                            mView.hideLoading();
 //                        }
 //                      if(picLength>=2){
 //                          mView.hideLoading();
 //                      }
-                 Utils.DeleteFolder("storage/emulated/0/imagepicker");
+
                       ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
                         String urls = url.getUrl();
                        mView.getPostImageUrls(urls);
@@ -114,7 +113,7 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }
@@ -136,7 +135,7 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
 
                            Intent intent = new Intent(context, MainActivity.class);
                            context.startActivity(intent);
-
+                           Utils.DeleteFolder("storage/emulated/0/imagepicker");
                        }
                    }, new Consumer<Throwable>() {
                        @Override

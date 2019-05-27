@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Pattern;
@@ -121,6 +122,14 @@ public class Utils {
                     }).show();
 
         }
+    }
+    public  static Map getAuthorization(final Context context){
+        SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        String Authorization = sp.getString("Authorization", "");
+        String token_type = sp.getString("tokenType","");
+        Map<String,String> map = new HashMap<>();
+        map.put("Authorization",token_type+Authorization);
+        return  map;
     }
     /**
      * 删除单个文件

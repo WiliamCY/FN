@@ -48,11 +48,7 @@ public class UserPresenter extends BasePresenter<UserContract.View >implements U
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
-                        SharedPreferences sharedPreferences = context.getSharedPreferences("userDate", context.MODE_PRIVATE);
-                        sharedPreferences.edit().clear().commit();
-                        Toast.makeText(context,"退出成功",Toast.LENGTH_SHORT).show();
-                        Intent intent1 = new Intent(context, PasswordActivity.class);
-                        context.startActivity(intent1);
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -24,6 +24,8 @@ import com.hjq.permissions.XXPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,10 +45,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private TabMessageFragment tabMessageFragment;
     private TabMyFragment tabMyFragment;
     private FragmentManager fm;
+    private PublishingCollections pubFragment;
     FragmentTransaction transaction;
     private RadioGroup mRadioButtonRg;
     private FragmentTransaction transaction1;
-
+    private static boolean mBackKeyPressed = false;//记录是否有首次按键
 
     @Override
     public int getLayoutId() {
@@ -62,8 +65,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         fragmentManager.beginTransaction().replace(R.id.fl, tabFindFragment, homepage).commit();
 //        Utils.initLogins(this);
         if (Utils.booleanisLogin(this)) {
-            Intent intent = new Intent(this, PasswordActivity.class);
+            Intent intent = new Intent(this,Bannser.class);
             startActivity(intent);
+//            Intent intent = new Intent(this, PasswordActivity.class);
+//            startActivity(intent);
         }
 
     }
@@ -78,19 +83,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         tabShopFragment = (TabShopFragment) fm.findFragmentByTag("shop");
         tabMessageFragment = (TabMessageFragment) fm.findFragmentByTag("message");
         tabMyFragment = (TabMyFragment) fm.findFragmentByTag("my");
+        pubFragment = (PublishingCollections) fm.findFragmentByTag("pub");
         imgProtruding = (ImageView) findViewById(R.id.img_protruding);
-//        imgProtruding.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!Utils.initLogin()) {
-//
-//                } else {
-//                    Intent intent = new Intent(getApplicationContext(), PublishingCollections.class);
-//                    startActivity(intent);
-//                }
-//
-//            }
-//        });
         XXPermissions.with(this)
                 .constantRequest() //可设置被拒绝后继续申请，直到用户授权或者永久拒绝
                 //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES) //支持请求6.0悬浮窗权限8.0请求安装权限
@@ -127,6 +121,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         if (tabMyFragment != null) {
             transaction1.hide(tabMyFragment);
         }
+        if (pubFragment != null) {
+            transaction1.hide(pubFragment);
+        }
         if (checkedId == R.id.rd_analysis) {
             if (tabFindFragment == null) {
                 tabFindFragment = new TabFindFragment();
@@ -162,26 +159,37 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 transaction1.show(tabMyFragment);
             }
 
+        } else if (checkedId == R.id.rd_daily) {
+            if (pubFragment == null) {
+                pubFragment = new PublishingCollections();
+                transaction1.add(R.id.fl, pubFragment, "pub");
+            } else {
+                transaction1.show(pubFragment);
+            }
+
         }
+
         transaction1.commit();
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
-    @OnClick({R.id.img_protruding})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
 
-            case R.id.img_protruding:
-                Intent intent = new Intent(getApplicationContext(), PublishingCollections.class);
-                startActivity(intent);
-                break;
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//         if(!mBackKeyPressed){
+//    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+//    mBackKeyPressed = true;
+//    new Timer().schedule(new TimerTask() {//延时两秒，如果超出则擦错第一次按键记录
+//         @Override
+//         public void run() {
+//         mBackKeyPressed = false;
+//     }
+//            }, 2000);
+//        }
+//        else{//退出程序
+//     this.finish();
+//System.exit(0);
+//        }
+//    }
 }

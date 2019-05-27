@@ -17,7 +17,8 @@
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.activity.MyMessage"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.NoticeSetting"
@@ -37,6 +38,7 @@
         <activity android:name=".ui.activity.CollectionInformationSheet"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,13 +54,13 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.ForgetPasswordActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.PublishingCollections"
-            android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.CollectionInformation"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.MyAppraisa"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.CollectionInformationMessage"
+            />
+        <activity android:name=".ui.activity.Bannser"
             android:screenOrientation="portrait"/>
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"
             android:screenOrientation="portrait"></activity>//选择图片
