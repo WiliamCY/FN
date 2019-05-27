@@ -133,12 +133,19 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
                     Utils.showMyToast(Toast.makeText(getActivity(),"图片在5-12张范围之内",Toast.LENGTH_SHORT),400);
                     return;
                 }
+                String dates = imagePath.toString().trim();
+                if(dates.trim().contains("[") ){
+                    dates.replace("[","").trim();
+                }else if(dates.contains("]")){
+                    dates.replace("]","").trim();
+                }
                 SharedPreferences sp = getActivity().getSharedPreferences("userDate", getActivity().MODE_PRIVATE);
                 String id = sp.getString("userId", "");
                 HashMap<String, String> map2 = new HashMap<>();
                 map2.put("collectionType", typeIds);
                 map2.put("imagesDetails", getEdittect());
-                map2.put("imagesUrl", imageUrls.toString().trim());
+                map2.put("imagesUrl", dates);
+                Log.d("sendImage:",dates);
                 map2.put("userId", id);
                 HashMap<String, String> token = new HashMap<>();
                 token.put("Authorization", "usERa" + getToken());
@@ -164,10 +171,12 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
                     Map<String, String> map = new HashMap<>();
                     map.put("Authorization", "usERa" + getToken());
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
-                    Log.d("imagePathd",paths.toString());
+
                     addImageView(paths);
                     imageViewNumber.setText(adapter.getItemCount()+"/12");
                     for (int i = 0; i < paths.size(); i++) {
+                        String path = paths.get(i);
+                        Log.d("pathsss:",path);
                         File file = new File(paths.get(i));
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
@@ -195,6 +204,7 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
 
                 Utils.showMyToast(Toast.makeText(getActivity(),"已经存在",Toast.LENGTH_SHORT),400);
             } else {
+
                 imagePath.add(path.get(i));
                 Log.d("imagePathc", path.toString());
                 imageviewRecyclerview.setVisibility(View.VISIBLE);
