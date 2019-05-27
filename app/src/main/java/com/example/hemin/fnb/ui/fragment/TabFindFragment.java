@@ -21,6 +21,7 @@ import com.example.hemin.fnb.ui.contract.FindContract;
 import com.example.hemin.fnb.ui.presenter.FindPresenter;
 import com.example.hemin.fnb.ui.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
 
     @BindView(R.id.find_recyclerview)
     RecyclerView findRecyclerview;
+    private List<List<String>> imageURLS = new ArrayList<>();
 
     @Override
     protected void initView(View view) {
@@ -77,14 +79,15 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     @Override
     public void Date(List<String> imsageURL, int status) {
         Log.d("imageUrls", imsageURL.toString());
-        initRecyclerView(imsageURL, status);
+
+            initRecyclerView(imsageURL, status);
 
     }
 
     private void initRecyclerView(final List<String> bean, int status) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         findRecyclerview.setLayoutManager(layoutManager);
-        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
          FindAdapter adapter = new FindAdapter(getActivity(), bean,status);
         Log.d("beanDate", bean.toString());
         findRecyclerview.setAdapter(adapter);

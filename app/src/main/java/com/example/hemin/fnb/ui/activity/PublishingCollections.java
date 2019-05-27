@@ -133,11 +133,10 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
                     Utils.showMyToast(Toast.makeText(getActivity(),"图片在5-12张范围之内",Toast.LENGTH_SHORT),400);
                     return;
                 }
-                String dates = imagePath.toString().trim();
-                if(dates.trim().contains("[") ){
-                    dates.replace("[","").trim();
-                }else if(dates.contains("]")){
-                    dates.replace("]","").trim();
+                Log.d("imageSizeSend", String.valueOf(imageUrls.size()));
+                String dates = imageUrls.toString().trim();
+                if(dates.trim().contains("[") || dates.trim().contains("]") ){
+                 dates = dates.substring(1,dates.length()-1);
                 }
                 SharedPreferences sp = getActivity().getSharedPreferences("userDate", getActivity().MODE_PRIVATE);
                 String id = sp.getString("userId", "");
@@ -274,7 +273,9 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
     }
 
     public void getPostImageUrls(String urils) {
+
         imageUrls.add(urils);
+        Log.d("imageUrlsiZE", String.valueOf(imageUrls.size()));
 
 
     }

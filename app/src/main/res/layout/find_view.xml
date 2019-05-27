@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,6 +10,7 @@
     android:orientation="vertical">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/c1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_150"
         android:background="@color/c313131">
@@ -42,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="请输入关键字/编号/类别"/>
-            
+
             <View
                 android:layout_marginTop="@dimen/paddingTop_3"
                 app:layout_constraintTop_toTopOf="@id/find_message"
@@ -63,11 +64,12 @@
 
     </android.support.constraint.ConstraintLayout>
     <android.support.v7.widget.RecyclerView
+     android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/marginLeft_10"
         android:layout_marginRight="@dimen/marginRight_10"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/find_recyclerview"
         android:layout_width="wrap_content"
-        android:layout_height="508dp"/>
+        android:layout_height="wrap_content"/>
 
-</LinearLayout>
+</RelativeLayout>

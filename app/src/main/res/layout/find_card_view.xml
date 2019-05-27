@@ -3,8 +3,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_width="380dp"
+    android:layout_height="500dp"
     android:layout_margin="10dp"
     card_view:cardCornerRadius="4dp">
 
@@ -17,7 +17,7 @@
             android:id="@+id/find_logo"
             android:layout_width="match_parent"
             android:layout_height="580dp"
-            android:background="@mipmap/yqh" />
+          />
 
         <LinearLayout
             android:visibility="gone"

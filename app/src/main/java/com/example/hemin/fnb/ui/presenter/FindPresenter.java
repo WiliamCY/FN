@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.base.FindRankBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.FindBean;
 import com.example.hemin.fnb.ui.bean.FindDeilyBean;
 import com.example.hemin.fnb.ui.bean.FindHuaBean;
 import com.example.hemin.fnb.ui.bean.FindHuoListBean;
@@ -57,12 +58,13 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         mView.onSuccess(bean);
                         FindHuoListBean.DataBean bean1 = (FindHuoListBean.DataBean) bean.getResult();
                         List<FindHuoListBean.DataBean.RecordsBean> list = bean1.getRecords();
-                        for(int i =0 ;i<list.size() && list.size()<=3 ;i++){
+                        for(int i =0 ;i<list.size()  ;i++){
                             String activityUrl = list.get(i).getActivityUrl();
                             String intentUrl = list.get(i).getActivityContentUrl();
-                          imageUri.add(activityUrl+"活动");
+                          imageUri.add(activityUrl);
+                            FindBean bean2 = new FindBean(imageUri,0);
                         }
-                  mView.Date(imageUri,0);
+//                  mView.Date(imageUri,0);
 
                     }
                 }, new Consumer<Throwable>() {
@@ -115,11 +117,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         List<String> imageUris = new ArrayList<>();
                         FindHuaBean.DataBean beans = (FindHuaBean.DataBean) bean.getResult();
                         List<FindHuaBean.DataBean.RecordsBean> list = beans.getRecords();
-                        for(int i = 0;i<1;i++){
+                        for(int i = 0;i<list.size();i++){
                             String imageUrl = list.get(0).getTopicUrl();
-                            imageUris.add(imageUrl+"话题");
+                            imageUris.add(imageUrl);
                         }
-                        mView.Date(imageUris,0);
+//                        mView.Date(imageUris,0);
 
                     }
                 }, new Consumer<Throwable>() {
@@ -173,11 +175,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         mView.onSuccess(bean);
                         FindDeilyBean.DataBean bean1 = (FindDeilyBean.DataBean) bean.getResult();
                         List<FindDeilyBean.DataBean.ListBean> list =bean1.getList();
-                        for(int i = 0;i<1;i++){
+                        for(int i = 0;i<list.size();i++){
                             String imageUrl = list.get(0).getImagesUrl();
-                            imageUris.add(imageUrl+"日常");
+                            imageUris.add(imageUrl);
                         }
-                        mView.Date(imageUris,1);
+//                        mView.Date(imageUris,1);
 
                     }
                 }, new Consumer<Throwable>() {
@@ -204,11 +206,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         mView.onSuccess(bean);
                         List<String> imageUris = new ArrayList<>();
                     List<FindLoveBean.DataBean> list = (List<FindLoveBean.DataBean>) bean.getResult();
-                    for(int i =0 ;i<1;i++){
+                    for(int i =0 ;i<list.size();i++){
                         String imageUrl = list.get(0).getImagesUrl();
-                            imageUris.add(imageUrl+"猜你喜欢");
+                            imageUris.add(imageUrl);
                     }
-                    mView.Date(imageUris,0);
+//                    mView.Date(imageUris,0);
 
 
                     }
@@ -239,7 +241,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         List<FindRankBean.DataBean.RecordsBean> list = bean1.getRecords();
                       for(int i =0;i<list.size();i++){
                           String imageUrl = list.get(0).getImagesUrl();
-                          imageUris.add(imageUrl+"排行榜");
+                          imageUris.add(imageUrl);
                       }
                         mView.Date(imageUris,2);
                     }
