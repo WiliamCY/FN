@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
@@ -22,6 +23,8 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Pattern;
 
 import okhttp3.RequestBody;
@@ -91,6 +94,16 @@ public class Utils {
         }
         return false;
     }
+    public  static boolean booleanisLogin(final  Context context){
+        SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        String c = sp.getString("Authorization","");
+        if (c.equals("")) {
+
+         return true;
+
+        }
+        return false;
+    }
 
     public   static  void  initLogins(final Context context) {
         SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
@@ -98,12 +111,12 @@ public class Utils {
         if (sp.getString("Authorization", "").equals("")) {
             AlertDialog dialog = new AlertDialog(context).builder();
             dialog.setGone().setTitle("提示")
-                    .setMsg("请先登录")
+                    .setNegativeButton("取消", null)
+                    .setMsg("是否退出")
                     .setPositiveButton("确定", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(context, PasswordActivity.class);
-                            context.startActivity(intent);
+
                         }
                     }).show();
 
@@ -174,6 +187,22 @@ public class Utils {
                 return deleteDirectory(filePath);
             }
         }
+    }
+    public  static  void showMyToast(final Toast toast, final int cnt) {
+        final Timer timer =new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                toast.show();
+            }
+        },0,2000);
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                toast.cancel();
+                timer.cancel();
+            }
+        }, cnt );
     }
 
 }

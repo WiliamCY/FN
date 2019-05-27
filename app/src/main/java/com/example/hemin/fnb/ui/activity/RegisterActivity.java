@@ -111,7 +111,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         switch (view.getId()) {
             case R.id.c_getCode:
                 if(getMobile() == null || Utils.isPhoneNumber(getMobile())== false) {
-                    Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
+                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机格式有误",Toast.LENGTH_SHORT),400);
                     return;
                 }
                     mPresenter.getCode(this,getMobile());
@@ -122,7 +122,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                 break;
             case R.id.c_login_button:
                 if(getMobile() == null || Utils.isPhoneNumber(getMobile()) == false || getCode() == null || getPassword() == null){
-                    Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
+                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机格式有误",Toast.LENGTH_SHORT),400);
                     return;
                 }
                 HashMap<String,String> paramsMap= new HashMap<>();
@@ -146,10 +146,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
  }
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if(bean.getErrorCode() == 0) {
-         Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT).show();
-        }
-        ProgressDialog.getInstance().dismiss();
+        Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

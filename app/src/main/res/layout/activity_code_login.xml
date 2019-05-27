@@ -211,7 +211,7 @@
         app:layout_constraintTop_toBottomOf="@id/c_register" />
 
     <ImageView
-
+      android:visibility="gone"
         android:id="@+id/c_wechat"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -222,7 +222,7 @@
         app:layout_constraintTop_toBottomOf="@id/c_login_button" />
 
     <ImageView
-
+ android:visibility="gone"
         android:id="@+id/qq"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -234,7 +234,7 @@
         app:layout_constraintTop_toBottomOf="@id/c_login_button" />
 
     <ImageView
-
+      android:visibility="gone"
         android:id="@+id/alipay"
         android:layout_width="40dp"
         android:layout_height="40dp"

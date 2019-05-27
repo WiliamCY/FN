@@ -112,7 +112,8 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
         switch (view.getId()) {
             case R.id.c_getCode:
                 if(getPhone() == null || Utils.isPhoneNumber(getPhone())== false) {
-                    Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
+                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机号格式错误",Toast.LENGTH_SHORT),400);
+
                     return;
                 }
                 mPresenter.getCode(getPhone());
@@ -125,9 +126,10 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
                 break;
             case R.id.c_login_button:
                 if(getCode() == null || getPhone() == null || getPassword() == null || getPasswords() == null || Utils.isPhoneNumber(getPhone()) == false){
-                    Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT).show();
+
+                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机号格式错误",Toast.LENGTH_SHORT),400);
                 }else if(!getPassword().equals(getPasswords())){
-                    Toast.makeText(this, "输入的密码不一致", Toast.LENGTH_SHORT).show();
+                    Utils.showMyToast(Toast.makeText(this,"输入的密码不一致",Toast.LENGTH_SHORT),400);
                     return;
                 }
                 HashMap<String,String> paramsMap= new HashMap<>();

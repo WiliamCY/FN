@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,7 +109,8 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
                 break;
             case R.id.c_login_button:
                 if (getPhone() == null || getPassword() == null || Utils.isPhoneNumber(getPhone()) == false) {
-                    Toast.makeText(this, "请输入完整或者手机格式不正确", Toast.LENGTH_SHORT).show();
+
+                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者手机格式不正确",Toast.LENGTH_SHORT),400);
                     return;
                 }
                 HashMap<String, String> hashMap = new HashMap<>();
@@ -165,5 +167,16 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     public void onError(Throwable throwable) {
 
     }
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK ) {
+            //do something.
+            Utils.showMyToast(Toast.makeText(this,"请先登录或者注册",Toast.LENGTH_SHORT),400);
+            return true;
+        }else {
+            return super.dispatchKeyEvent(event);
+        }
+    }
+
 }
 

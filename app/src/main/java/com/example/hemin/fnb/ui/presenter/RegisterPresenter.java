@@ -44,8 +44,11 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View >impl
                           public void accept(BaseObjectBean bean) throws Exception {
                               mView.onSuccess(bean);
                               mView.hideLoading();
-                              Intent intent = new Intent(context, MainActivity.class);
-                              context.startActivity(intent);
+                              if(bean.getErrorCode() == 0){
+                                  Intent intent = new Intent(context, MainActivity.class);
+                                  context.startActivity(intent);
+                              }
+
                           }
                       }, new Consumer<Throwable>() {
                           @Override

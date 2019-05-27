@@ -1,9 +1,11 @@
 package com.example.hemin.fnb.ui.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.hemin.fnb.ui.activity.MainActivity;
 import com.example.hemin.fnb.ui.activity.PublishingCollections;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
@@ -84,23 +86,23 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
             return;
         }
 
-
-        mView.showLoading();
+//
+//        mView.showLoading();
         modle2.postImage(context, token, partList)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
-                        mView.onSuccess(bean);
-                        mView.hideLoading();
-                        picLength++;
-                        if(picLength>=2){
-                            mView.hideLoading();
-                        }
-                      if(picLength>=2){
-                          mView.hideLoading();
-                      }
+//                        mView.onSuccess(bean);
+//                        mView.hideLoading();
+//                        picLength++;
+//                        if(picLength>=2){
+//                            mView.hideLoading();
+//                        }
+//                      if(picLength>=2){
+//                          mView.hideLoading();
+//                      }
                  Utils.DeleteFolder("storage/emulated/0/imagepicker");
                       ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
                         String urls = url.getUrl();
@@ -118,7 +120,7 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
     }
 
     @Override
-    public void submitImage(Context context,Map token, RequestBody body) {
+    public void submitImage(final Context context, Map token, RequestBody body) {
            if(!isViewAttached()){
                return;
            }
@@ -132,7 +134,8 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                            mView.onSuccess(bean);
                            mView.hideLoading();
 
-
+                           Intent intent = new Intent(context, MainActivity.class);
+                           context.startActivity(intent);
 
                        }
                    }, new Consumer<Throwable>() {

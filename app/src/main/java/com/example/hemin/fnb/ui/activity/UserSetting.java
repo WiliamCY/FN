@@ -7,14 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.UserContract;
-import com.example.hemin.fnb.ui.net.RetrofitClient;
-import com.example.hemin.fnb.ui.presenter.RegisterPresenter;
 import com.example.hemin.fnb.ui.presenter.UserPresenter;
 import com.example.hemin.fnb.ui.util.AlertDialog;
 import com.example.hemin.fnb.ui.util.Utils;
@@ -35,6 +33,8 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
     ImageView settingButton4;
     @BindView(R.id.cis_exit_button)
     Button cisExitButton;
+    @BindView(R.id.fix_password)
+    RelativeLayout fixPassword;
 
     @Override
     public int getLayoutId() {
@@ -46,38 +46,38 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
         mPresenter = new UserPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
-        Utils.initLogin(this);
+
     }
 
 
-
-    @OnClick({R.id.setting_button4, R.id.cis_exit_button})
+    @OnClick({R.id.setting_button4, R.id.cis_exit_button, R.id.fix_password})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting_button4:
                 break;
             case R.id.cis_exit_button:
-                SharedPreferences sp = this.getSharedPreferences("userDate", Context.MODE_PRIVATE);
-                String c = sp.getString("Authorization", "");
-                    AlertDialog dialog = new AlertDialog(this).builder();
-                    dialog.setGone().setTitle("提示")
-                            .setMsg("确定退出")
-                            .setNegativeButton("取消", null)
-                            .setPositiveButton("确定", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
-                                    String Authorization = sp.getString("Authorization", "");
-                                    String tokenType = sp.getString("tokenType","");
-                                    String userId = sp.getString("userId","");
-                                    Map<String,String> map = new HashMap<>();
-                                    map.put("Authorization",tokenType+Authorization);
-                           mPresenter.exit(getApplicationContext(),map,userId);
-                                }
-                            }).show();
+                AlertDialog dialog = new AlertDialog(this).builder();
+                dialog.setGone().setTitle("提示")
+                        .setNegativeButton("取消", null)
+                        .setMsg("是否退出")
+                        .setPositiveButton("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
+                                String Authorization = sp.getString("Authorization", "");
+                                String tokenType = sp.getString("tokenType", "");
+                                String userId = sp.getString("userId", "");
+                                Map<String, String> map = new HashMap<>();
+                                map.put("Authorization", tokenType + Authorization);
+                                mPresenter.exit(getApplicationContext(), map, userId);
+                            }
+                        }).show();
 
 
                 break;
+            case R.id.fix_password:
+                Intent intent = new Intent(this, ForgetPasswordActivity.class);
+                startActivity(intent);
         }
     }
 
@@ -99,5 +99,12 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
     @Override
     public void onError(Throwable throwable) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

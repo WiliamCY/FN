@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -101,6 +102,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
         mPresenter = new GetTypePresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
+
         cachePath = getExternalFilesDir(null) + "/mypics/photos/";
     }
 
@@ -122,11 +124,11 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
 
                 break;
             case R.id.submission:
-                if (getEdittect() == null) {
-                    Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT).show();
+                if (pcButton.getText().equals("选择分类")||TextUtils.isEmpty(getEdittect())) {
+                    Utils.showMyToast(Toast.makeText(this,"请输入完整",Toast.LENGTH_SHORT),400);
                     return;
                 } else if (adapter.getItemCount() < 5 || adapter.getItemCount() > 12) {
-                    Toast.makeText(this, "图片在5-12张范围之内", Toast.LENGTH_SHORT).show();
+                    Utils.showMyToast(Toast.makeText(this,"图片在5-12张范围之内",Toast.LENGTH_SHORT),400);
 
                     return;
                 }
@@ -143,7 +145,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 break;
             case R.id.image_add_button:
                 if(adapter.getItemCount()>11){
-                    Toast.makeText(this, "放置图片已经最大值",Toast.LENGTH_SHORT ).show();
+                    Utils.showMyToast(Toast.makeText(this,"放置图片已经最大值",Toast.LENGTH_SHORT),400);
                     return;
                 }
                 Intent intent2 = new Intent(this, PhotoSelectorActivity.class);
@@ -173,7 +175,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                     Log.d("photoPath", paths.toString());
                     if (adapter.getItemCount() > 11) {
 //                       imageAddButton.setVisibility(View.GONE);
-                        Toast.makeText(this, "添加的图片已经是最大值了", Toast.LENGTH_SHORT).show();
+                        Utils.showMyToast(Toast.makeText(this,"添加的图片已经是最大值了",Toast.LENGTH_SHORT),400);
                     }
 
 
@@ -188,7 +190,8 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     private void addImageView(List<String> path) {
         for (int i = 0; i < path.size(); i++) {
             if (Arrays.asList(imagePath).contains(path.get(i))) {
-                Toast.makeText(this, path.get(i).toString() + "已经存在", Toast.LENGTH_SHORT).show();
+
+                Utils.showMyToast(Toast.makeText(this,"已经存在",Toast.LENGTH_SHORT),400);
             } else {
                 imagePath.add(path.get(i));
                 Log.d("imagePath", path.toString());

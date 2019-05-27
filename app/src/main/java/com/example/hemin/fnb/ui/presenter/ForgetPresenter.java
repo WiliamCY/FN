@@ -3,6 +3,7 @@ package com.example.hemin.fnb.ui.presenter;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.hemin.fnb.ui.activity.MainActivity;
 import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
@@ -44,8 +45,11 @@ public class ForgetPresenter extends BasePresenter<ForgetContract.View >implemen
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
-                        Intent intent = new Intent(context, PasswordActivity.class);
-                        context.startActivity(intent);
+                        if(bean.getErrorCode() == 0){
+                            Intent intent = new Intent(context, PasswordActivity.class);
+                            context.startActivity(intent);
+                        }
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -1,18 +1,10 @@
 package com.example.hemin.fnb.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -25,40 +17,36 @@ import com.example.hemin.fnb.ui.fragment.TabFindFragment;
 import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMyFragment;
 import com.example.hemin.fnb.ui.fragment.TabShopFragment;
-
-
-import com.example.hemin.fnb.ui.util.AlertDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
-import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private static String homepage = "findFragment";
     FrameLayout activityMaterialDesign;
+    @BindView(R.id.rg_oper)
+    RadioGroup rgOper;
+    @BindView(R.id.img_protruding)
+    ImageView imgProtruding;
     private List<BaseFragment> fragmentList = new ArrayList<>();
     private TabFindFragment tabFindFragment;
     private TabShopFragment tabShopFragment;
     private TabMessageFragment tabMessageFragment;
     private TabMyFragment tabMyFragment;
-    protected ImageView imgProtruding;
     private FragmentManager fm;
     FragmentTransaction transaction;
     private RadioGroup mRadioButtonRg;
     private FragmentTransaction transaction1;
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//    }
 
     @Override
     public int getLayoutId() {
@@ -72,10 +60,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         FragmentManager fragmentManager = getSupportFragmentManager();
         tabFindFragment = new TabFindFragment();
         fragmentManager.beginTransaction().replace(R.id.fl, tabFindFragment, homepage).commit();
-        Utils.initLogins(this);
+//        Utils.initLogins(this);
+        if (Utils.booleanisLogin(this)) {
+            Intent intent = new Intent(this, PasswordActivity.class);
+            startActivity(intent);
+        }
 
     }
-
 
 
     private void initViews() {
@@ -88,14 +79,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         tabMessageFragment = (TabMessageFragment) fm.findFragmentByTag("message");
         tabMyFragment = (TabMyFragment) fm.findFragmentByTag("my");
         imgProtruding = (ImageView) findViewById(R.id.img_protruding);
-        imgProtruding.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PublishingCollections.class);
-                startActivity(intent);
-
-            }
-        });
+//        imgProtruding.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!Utils.initLogin()) {
+//
+//                } else {
+//                    Intent intent = new Intent(getApplicationContext(), PublishingCollections.class);
+//                    startActivity(intent);
+//                }
+//
+//            }
+//        });
         XXPermissions.with(this)
                 .constantRequest() //可设置被拒绝后继续申请，直到用户授权或者永久拒绝
                 //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES) //支持请求6.0悬浮窗权限8.0请求安装权限
@@ -150,8 +145,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             }
 
 
-
-
         } else if (checkedId == R.id.rd_finance) {
             if (tabMessageFragment == null) {
                 tabMessageFragment = new TabMessageFragment();
@@ -174,4 +167,21 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.img_protruding})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+
+            case R.id.img_protruding:
+                Intent intent = new Intent(getApplicationContext(), PublishingCollections.class);
+                startActivity(intent);
+                break;
+        }
+    }
 }

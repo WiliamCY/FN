@@ -73,7 +73,8 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
         switch (view.getId()) {
             case R.id.c_getCode:
                 if(getPhone() == null || Utils.isPhoneNumber(getPhone())== false) {
-                    Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT).show();
+
+                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机格式有误",Toast.LENGTH_SHORT),400);
                     return;
                 }
                 mPresenter.getCode(this,getPhone());
@@ -90,7 +91,7 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
                 break;
             case R.id.c_login_button:
                 if(getCode()== null || getPhone()==null || Utils.isPhoneNumber(getPhone()) == false){
-                    Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT).show();
+                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机号格式错误",Toast.LENGTH_SHORT),400);
                     return;
                 }
                 HashMap<String,String> paramsMap= new HashMap<>();
