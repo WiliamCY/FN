@@ -164,7 +164,7 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
                     Map<String, String> map = new HashMap<>();
                     map.put("Authorization", "usERa" + getToken());
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
-                    Log.d("imagePath",paths.toString());
+                    Log.d("imagePathd",paths.toString());
                     addImageView(paths);
                     imageViewNumber.setText(adapter.getItemCount()+"/12");
                     for (int i = 0; i < paths.size(); i++) {
@@ -196,7 +196,7 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
                 Utils.showMyToast(Toast.makeText(getActivity(),"已经存在",Toast.LENGTH_SHORT),400);
             } else {
                 imagePath.add(path.get(i));
-                Log.d("imagePath", path.toString());
+                Log.d("imagePathc", path.toString());
                 imageviewRecyclerview.setVisibility(View.VISIBLE);
                 pcPhoto.setVisibility(View.GONE);
                 pcAdd.setVisibility(View.GONE);
