@@ -4,7 +4,11 @@ import android.content.Context;
 
 import com.example.hemin.fnb.ui.base.FindRankBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.Find2Bean;
+import com.example.hemin.fnb.ui.bean.Find4Bean;
+import com.example.hemin.fnb.ui.bean.Find5Bean;
 import com.example.hemin.fnb.ui.bean.FindDeilyBean;
+import com.example.hemin.fnb.ui.bean.FindFirstBean;
 import com.example.hemin.fnb.ui.bean.FindHuaBean;
 import com.example.hemin.fnb.ui.bean.FindHuoListBean;
 import com.example.hemin.fnb.ui.bean.FindLoveBean;
@@ -18,7 +22,7 @@ import io.reactivex.Flowable;
 
 public class FindModel implements FindContract.huo,FindContract.addNum,FindContract.hua,FindContract.huas,FindContract.js,FindContract.cn,FindContract.dianzan,FindContract.dianzans {
     @Override
-    public Flowable<BaseObjectBean<FindHuoListBean.DataBean>> pageListHuo(Context context, Map<String, String> heard, long id, long size) {
+    public Flowable<BaseObjectBean<FindFirstBean.DataBean>> pageListHuo(Context context, Map<String, String> heard, long id, long size) {
         return RetrofitClient.getInstance().getApi().pageListHuo(heard,id,size);
     }
 
@@ -28,7 +32,7 @@ public class FindModel implements FindContract.huo,FindContract.addNum,FindContr
     }
 
     @Override
-    public Flowable<BaseObjectBean<FindHuaBean.DataBean>> addHua(Context context, Map<String, String> heard, long current, long size) {
+    public Flowable<BaseObjectBean<Find2Bean.DataBean>> addHua(Context context, Map<String, String> heard, long current, long size) {
         return RetrofitClient.getInstance().getApi().addHua(heard,current,size);
     }
 
@@ -37,13 +41,13 @@ public class FindModel implements FindContract.huo,FindContract.addNum,FindContr
         return RetrofitClient.getInstance().getApi().getDaily(heard,userId);
     }
 
-    @Override
-    public Flowable<BaseObjectBean<List<FindLoveBean.DataBean>>> guessLove(Context context, Map<String, String> heard) {
-        return RetrofitClient.getInstance().getApi().guessLove(heard);
-    }
+//    @Override
+//    public Flowable<BaseObjectBean<List<FindLoveBean.DataBean>>> guessLove(Context context, Map<String, String> heard) {
+//        return RetrofitClient.getInstance().getApi().guessLove(heard);
+//    }
 
     @Override
-    public Flowable<BaseObjectBean<FindRankBean.DataBean>> getRankingList(Context context, Map<String, String> heard, long current, long size) {
+    public Flowable<BaseObjectBean<Find5Bean.DataBean>> getRankingList(Context context, Map<String, String> heard, long current, long size) {
         return RetrofitClient.getInstance().getApi().getRankingList(heard,current,size);
     }
 
@@ -55,5 +59,10 @@ public class FindModel implements FindContract.huo,FindContract.addNum,FindContr
     @Override
     public Flowable<BaseObjectBean> huas(Context context, Map<String, String> heard, long topicId, long userId) {
         return RetrofitClient.getInstance().getApi().addHuas(heard,topicId,userId);
+    }
+
+    @Override
+    public Flowable<BaseObjectBean<List<Find4Bean.DataBean>>> guessLove(Context context, Map<String, String> heard) {
+          return RetrofitClient.getInstance().getApi().guessLove(heard);
     }
 }

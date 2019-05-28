@@ -13,20 +13,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.bean.Find2Bean;
 import com.example.hemin.fnb.ui.bean.FindBean;
-import com.example.hemin.fnb.ui.bean.FindFirstBean;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
-    private List<FindFirstBean.DataBean.RecordsBean>  beans = new ArrayList<>();
+public class Find2Adapter extends RecyclerView.Adapter<Find2Adapter.ViewHolder> {
+    private List<Find2Bean.DataBean.RecordsBean>  beans = new ArrayList<>();
     private Context context;
     private OnRecyclerItemClickListener monItemClickListener;
 
-    public FindAdapter(Context context, List<FindFirstBean.DataBean.RecordsBean> bean) {
-        this.beans = bean;
+    public Find2Adapter(Context context,List<Find2Bean.DataBean.RecordsBean>  beans) {
+        this.beans = beans;
         this.context = context;
     }
 
@@ -36,16 +36,17 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public FindAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_card_view, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+    public Find2Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_card2_view, parent, false);
+        Find2Adapter.ViewHolder holder = new Find2Adapter.ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FindAdapter.ViewHolder holder, int position) {
-       FindFirstBean.DataBean.RecordsBean  bean = beans.get(position);
-     Glide.with(context).load(bean.getActivityUrl().trim()).into(holder.imageView2);
+    public void onBindViewHolder(@NonNull Find2Adapter.ViewHolder holder, int position) {
+        Find2Bean.DataBean.RecordsBean bean = beans.get(position);
+     Glide.with(context).load(bean.getTopicUrl().trim()).into(holder.imageView2);
+
 
     }
 
@@ -55,22 +56,13 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView, imageView2;
-        public TextView image1, image2, image3, text1, text2, text3, findButton;
-        public LinearLayout linearLayout;
+        public ImageView  imageView2;
 
         public ViewHolder(@NonNull View view) {
             super(view);
-            linearLayout = view.findViewById(R.id.layouts);
-            imageView = view.findViewById(R.id.find_logo);
+
             imageView2 = view.findViewById(R.id.find_logo2);
-            image1 = view.findViewById(R.id.image_1);
-            image2 = view.findViewById(R.id.image_2);
-            image3 = view.findViewById(R.id.image_3);
-            text1 = view.findViewById(R.id.title_1);
-            text2 = view.findViewById(R.id.title_2);
-            text3 = view.findViewById(R.id.title_3);
-            findButton = view.findViewById(R.id.find_button);
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

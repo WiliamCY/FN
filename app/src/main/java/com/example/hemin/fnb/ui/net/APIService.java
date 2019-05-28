@@ -5,7 +5,11 @@ import com.example.hemin.fnb.ui.base.FindRankBean;
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ColletionBean;
+import com.example.hemin.fnb.ui.bean.Find2Bean;
+import com.example.hemin.fnb.ui.bean.Find4Bean;
+import com.example.hemin.fnb.ui.bean.Find5Bean;
 import com.example.hemin.fnb.ui.bean.FindDeilyBean;
+import com.example.hemin.fnb.ui.bean.FindFirstBean;
 import com.example.hemin.fnb.ui.bean.FindHuaBean;
 import com.example.hemin.fnb.ui.bean.FindHuoListBean;
 import com.example.hemin.fnb.ui.bean.FindLoveBean;
@@ -139,7 +143,7 @@ public interface APIService {
      * */
     @GET("app/activity/pageList/{current}/{size}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean<FindHuoListBean.DataBean>>  pageListHuo(@HeaderMap Map<String,String> heard, @Path("current") long id, @Path("size") long size );
+    Flowable<BaseObjectBean<FindFirstBean.DataBean>>  pageListHuo(@HeaderMap Map<String,String> heard, @Path("current") long id, @Path("size") long size );
 
 
 
@@ -155,7 +159,7 @@ public interface APIService {
      * 话题
      * */
     @GET("app/topic/pageList/{current}/{size}")
-    Flowable<BaseObjectBean<FindHuaBean.DataBean>>  addHua(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size);
+    Flowable<BaseObjectBean<Find2Bean.DataBean>>  addHua(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size);
 
 
     /**
@@ -180,7 +184,7 @@ public interface APIService {
      * */
     @GET("app/collection/guessLove")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean<List<FindLoveBean.DataBean>>>  guessLove(@HeaderMap Map<String,String> heard);
+    Flowable<BaseObjectBean<List<Find4Bean.DataBean>>>  guessLove(@HeaderMap Map<String,String> heard);
 
 
     /**
@@ -188,7 +192,7 @@ public interface APIService {
      * */
     @GET("app/collection/getRankingList/{current}/{size}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean<FindRankBean.DataBean>>  getRankingList(@HeaderMap Map<String,String> heard, @Path("current")long current, @Path("size") long size);
+    Flowable<BaseObjectBean<Find5Bean.DataBean>>  getRankingList(@HeaderMap Map<String,String> heard, @Path("current")long current, @Path("size") long size);
 
 
 

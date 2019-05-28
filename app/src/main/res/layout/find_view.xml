@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingConstraints"
-   android:background="@color/cDEDEDE"
-    android:orientation="vertical">
+    android:background="@color/cDEDEDE"
+    android:orientation="vertical"
+    tools:ignore="MissingConstraints">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/c1"
@@ -16,6 +15,7 @@
         android:background="@color/c313131">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/c2"
             android:layout_width="315dp"
             android:layout_height="@dimen/layout_height_30"
             android:background="@drawable/shape_con"
@@ -26,50 +26,95 @@
 
             <ImageView
                 android:id="@+id/find_logo"
-                android:layout_marginLeft="@dimen/marginLeft_8"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="@dimen/paddingTop_3"
                 android:layout_width="@dimen/layout_width_15"
                 android:layout_height="@dimen/layout_height_15"
-                android:background="@mipmap/find_logo" />
+                android:layout_marginLeft="@dimen/marginLeft_8"
+                android:layout_marginTop="@dimen/paddingTop_3"
+                android:background="@mipmap/find_logo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-              android:textColor="@color/cffffff"
-                app:layout_constraintTop_toTopOf="@id/find_logo"
-                android:textSize="@dimen/text_size_12"
-                android:layout_marginLeft="@dimen/marginLeft_8"
-                app:layout_constraintLeft_toRightOf="@id/find_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="请输入关键字/编号/类别"/>
+                android:layout_marginLeft="@dimen/marginLeft_8"
+                android:text="请输入关键字/编号/类别"
+                android:textColor="@color/cffffff"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintLeft_toRightOf="@id/find_logo"
+                app:layout_constraintTop_toTopOf="@id/find_logo" />
 
             <View
-                android:layout_marginTop="@dimen/paddingTop_3"
-                app:layout_constraintTop_toTopOf="@id/find_message"
-                android:layout_marginRight="@dimen/marginRight_11"
-             app:layout_constraintEnd_toStartOf="@id/find_message"
-                android:background="@color/cffffff"
                 android:layout_width="2dp"
-                android:layout_height="17dp"/>
+                android:layout_height="17dp"
+                android:layout_marginTop="@dimen/paddingTop_3"
+                android:layout_marginRight="@dimen/marginRight_11"
+                android:background="@color/cffffff"
+                app:layout_constraintEnd_toStartOf="@id/find_message"
+                app:layout_constraintTop_toTopOf="@id/find_message" />
+
             <ImageView
                 android:id="@+id/find_message"
-                android:layout_marginRight="@dimen/marginRight_10"
-                app:layout_constraintRight_toRightOf="parent"
-                android:background="@mipmap/find_messgae"
                 android:layout_width="@dimen/layout_width_20"
-                android:layout_height="@dimen/layout_height_20" />
+                android:layout_height="@dimen/layout_height_20"
+                android:layout_marginRight="@dimen/marginRight_10"
+                android:background="@mipmap/find_messgae"
+                app:layout_constraintRight_toRightOf="parent" />
 
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/paddingTop_10"
+                android:background="@color/cffffff"
+                app:layout_constraintTop_toBottomOf="@id/c2" />
         </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
-    <android.support.v7.widget.RecyclerView
-     android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/marginLeft_10"
-        android:layout_marginRight="@dimen/marginRight_10"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/find_recyclerview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-</RelativeLayout>
+ <LinearLayout
+     android:orientation="horizontal"
+     android:paddingTop="99dp"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+     <HorizontalScrollView
+         android:id="@+id/scroll"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+         <LinearLayout
+             android:orientation="horizontal"
+             android:id="@+id/layout_parent"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"></LinearLayout>
+     </HorizontalScrollView>
+
+    <android.support.v7.widget.RecyclerView
+     android:visibility="gone"
+        android:layout_marginBottom="@dimen/marginBottom_50"
+        android:id="@+id/find_recyclerview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+     />
+
+    <android.support.v7.widget.RecyclerView
+      android:visibility="gone"
+        android:layout_marginBottom="@dimen/marginBottom_50"
+        android:id="@+id/find_recyclerview3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/marginBottom_50"
+        android:id="@+id/find_recyclerview4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+     />
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/marginBottom_50"
+        android:id="@+id/find_recyclerview5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+ </LinearLayout>
+</android.support.constraint.ConstraintLayout>

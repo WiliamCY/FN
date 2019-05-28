@@ -3,25 +3,44 @@ package com.example.hemin.fnb.ui.bean;
 import java.util.List;
 
 public class FindBean {
-    private List<String> image;
+    private String imageUrl;
+    private String pathUrl;
     private int status;
-  public FindBean(List<String> url,int status){
-      this.image = url;
-      this.status = status;
-  }
+
+    public FindBean() {
+
+    }
+
+    public FindBean(String url,String pathUrl, int status) {
+        this.imageUrl = url;
+        this.status = status;
+        this.pathUrl = pathUrl;
+    }
+
     public int getStatus() {
         return status;
     }
 
-    public List<String> getImage() {
-        return image;
+
+
+    public String getPathUrl() {
+        return pathUrl;
     }
 
-    public void setImage(List<String> image) {
-        this.image = image;
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setPathUrl(String pathUrl) {
+        this.pathUrl = pathUrl;
     }
 
     public void setStatus(int status) {
         this.status = status;
     }
+
 }

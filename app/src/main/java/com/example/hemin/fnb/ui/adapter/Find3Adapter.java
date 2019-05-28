@@ -14,19 +14,19 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.bean.FindBean;
-import com.example.hemin.fnb.ui.bean.FindFirstBean;
+import com.example.hemin.fnb.ui.bean.FindDeilyBean;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
-    private List<FindFirstBean.DataBean.RecordsBean>  beans = new ArrayList<>();
+public class Find3Adapter extends RecyclerView.Adapter<Find3Adapter.ViewHolder> {
+    private List<FindDeilyBean.DataBean.ListBean>  beans = new ArrayList<>();
     private Context context;
     private OnRecyclerItemClickListener monItemClickListener;
 
-    public FindAdapter(Context context, List<FindFirstBean.DataBean.RecordsBean> bean) {
-        this.beans = bean;
+    public Find3Adapter(Context context, List<FindDeilyBean.DataBean.ListBean>  beans) {
+        this.beans = beans;
         this.context = context;
     }
 
@@ -36,16 +36,16 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public FindAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_card_view, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+    public Find3Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_card3_view, parent, false);
+        Find3Adapter.ViewHolder holder = new Find3Adapter.ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FindAdapter.ViewHolder holder, int position) {
-       FindFirstBean.DataBean.RecordsBean  bean = beans.get(position);
-     Glide.with(context).load(bean.getActivityUrl().trim()).into(holder.imageView2);
+    public void onBindViewHolder(@NonNull Find3Adapter.ViewHolder holder, int position) {
+        FindDeilyBean.DataBean.ListBean bean = beans.get(position);
+
 
     }
 

@@ -5,8 +5,12 @@ import android.content.Context;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.base.FindRankBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.Find2Bean;
+import com.example.hemin.fnb.ui.bean.Find4Bean;
+import com.example.hemin.fnb.ui.bean.Find5Bean;
 import com.example.hemin.fnb.ui.bean.FindBean;
 import com.example.hemin.fnb.ui.bean.FindDeilyBean;
+import com.example.hemin.fnb.ui.bean.FindFirstBean;
 import com.example.hemin.fnb.ui.bean.FindHuaBean;
 import com.example.hemin.fnb.ui.bean.FindHuoListBean;
 import com.example.hemin.fnb.ui.bean.FindLoveBean;
@@ -29,8 +33,12 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
     private FindContract.cn modle6;
     private FindContract.dianzan modle7;
     private FindContract.dianzans modle8;
+    private FindBean beansDate = new FindBean();
+    private List<String> imageUrls = new ArrayList<>();
+    private List<String> pathUrl = new ArrayList<>();
+    private String activityUrl,intentUrl;
 
-    public  FindPresenter(){
+    public FindPresenter() {
         modle = new FindModel();
         modle2 = new FindModel();
         modle3 = new FindModel();
@@ -44,28 +52,20 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 
     @Override
     public void pageListHuo(Context context, Map<String, String> heard, long id, long size) {
-        if(!isViewAttached()){
+        if (!isViewAttached()) {
             return;
         }
 
-        modle.pageListHuo( context,heard,id,size)
+        modle.pageListHuo(context, heard, id, size)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
-                        List<String> imageUri = new ArrayList<>();
                         mView.onSuccess(bean);
-                        FindHuoListBean.DataBean bean1 = (FindHuoListBean.DataBean) bean.getResult();
-                        List<FindHuoListBean.DataBean.RecordsBean> list = bean1.getRecords();
-                        for(int i =0 ;i<list.size()  ;i++){
-                            String activityUrl = list.get(i).getActivityUrl();
-                            String intentUrl = list.get(i).getActivityContentUrl();
-                          imageUri.add(activityUrl);
-                            FindBean bean2 = new FindBean(imageUri,0);
-                        }
-//                  mView.Date(imageUri,0);
-
+                        FindFirstBean.DataBean bean1 = (FindFirstBean.DataBean) bean.getResult();
+                        List<FindFirstBean.DataBean.RecordsBean> list = bean1.getRecords();
+                        mView.Date(list,1);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -78,11 +78,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 
     @Override
     public void addNum(Context context, Map<String, String> heard, long activityId, long userId) {
-        if(!isViewAttached()){
+        if (!isViewAttached()) {
             return;
         }
 
-        modle2.addNum( context,heard,activityId,userId)
+        modle2.addNum(context, heard, activityId, userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
@@ -103,11 +103,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 
     @Override
     public void addHua(Context context, Map<String, String> heard, long current, long size) {
-        if(!isViewAttached()){
+        if (!isViewAttached()) {
             return;
         }
 
-        modle3.addHua( context,heard,current,size)
+        modle3.addHua(context, heard, current, size)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
@@ -115,13 +115,17 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         List<String> imageUris = new ArrayList<>();
-                        FindHuaBean.DataBean beans = (FindHuaBean.DataBean) bean.getResult();
-                        List<FindHuaBean.DataBean.RecordsBean> list = beans.getRecords();
-                        for(int i = 0;i<list.size();i++){
-                            String imageUrl = list.get(0).getTopicUrl();
-                            imageUris.add(imageUrl);
-                        }
-//                        mView.Date(imageUris,0);
+                        Find2Bean.DataBean beans = (Find2Bean.DataBean) bean.getResult();
+                        List<Find2Bean.DataBean.RecordsBean> list = beans.getRecords();
+////                        for (int i = 0; i <2; i++) {
+//                             activityUrl = list.get(0).getTopicUrl();
+//                           intentUrl = list.get(0).getTopicContent();
+//
+////                        }
+//                         beansDate = new FindBean(activityUrl,intentUrl, 0);
+////                        beansDate.add(bean2);
+////                        mView.Date(beansDate);
+                        mView.Date2(list,2);
 
                     }
                 }, new Consumer<Throwable>() {
@@ -136,11 +140,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 
     @Override
     public void huas(Context context, Map<String, String> heard, long topicId, long userId) {
-        if(!isViewAttached()){
+        if (!isViewAttached()) {
             return;
         }
 
-        modle4.huas( context,heard,topicId,userId)
+        modle4.huas(context, heard, topicId, userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
@@ -161,11 +165,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 
     @Override
     public void getDaily(Context context, Map<String, String> heard, long userId) {
-        if(!isViewAttached()){
+        if (!isViewAttached()) {
             return;
         }
 
-        modle5.getDaily( context,heard,userId)
+        modle5.getDaily(context, heard, userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
@@ -174,13 +178,12 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         List<String> imageUris = new ArrayList<>();
                         mView.onSuccess(bean);
                         FindDeilyBean.DataBean bean1 = (FindDeilyBean.DataBean) bean.getResult();
-                        List<FindDeilyBean.DataBean.ListBean> list =bean1.getList();
-                        for(int i = 0;i<list.size();i++){
-                            String imageUrl = list.get(0).getImagesUrl();
-                            imageUris.add(imageUrl);
-                        }
-//                        mView.Date(imageUris,1);
+                        List<FindDeilyBean.DataBean.ListBean> list = bean1.getList();
+//                             activityUrl = list.get(0).getImagesUrl();
 
+//                            beansDate = new FindBean(activityUrl,activityUrl, 1);
+//                        mView.Date(beansDate);
+                  mView.Date3(list,3);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -193,11 +196,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 
     @Override
     public void guessLove(Context context, Map<String, String> heard) {
-        if(!isViewAttached()){
+        if (!isViewAttached()) {
             return;
         }
 
-        modle6.guessLove( context,heard)
+        modle6.guessLove(context, heard)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
@@ -205,12 +208,15 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         List<String> imageUris = new ArrayList<>();
-                    List<FindLoveBean.DataBean> list = (List<FindLoveBean.DataBean>) bean.getResult();
-                    for(int i =0 ;i<list.size();i++){
-                        String imageUrl = list.get(0).getImagesUrl();
-                            imageUris.add(imageUrl);
-                    }
-//                    mView.Date(imageUris,0);
+                        List<Find4Bean.DataBean> list = (List<Find4Bean.DataBean>) bean.getResult();
+//                        for (int i = 0; i < 2; i++) {
+//                            activityUrl = list.get(0).getImagesUrl();
+//
+//                             beansDate = new FindBean(activityUrl,activityUrl, 1);
+//                            beansDate.add(bean2);
+//                        }
+//                          mView.Date(beansDate);
+                        mView.Date4(list,4);
 
 
                     }
@@ -225,11 +231,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 
     @Override
     public void getRankingList(Context context, Map<String, String> heard, long current, long size) {
-        if(!isViewAttached()){
+        if (!isViewAttached()) {
             return;
         }
 
-        modle7.getRankingList( context,heard,current,size)
+        modle7.getRankingList(context, heard, current, size)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
@@ -237,13 +243,15 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         List<String> imageUris = new ArrayList<>();
-                        FindRankBean.DataBean bean1 = (FindRankBean.DataBean) bean.getResult();
-                        List<FindRankBean.DataBean.RecordsBean> list = bean1.getRecords();
-                      for(int i =0;i<list.size();i++){
-                          String imageUrl = list.get(0).getImagesUrl();
-                          imageUris.add(imageUrl);
-                      }
-                        mView.Date(imageUris,2);
+                        Find5Bean.DataBean bean1 = (Find5Bean.DataBean) bean.getResult();
+                        List<Find5Bean.DataBean.RecordsBean> list = bean1.getRecords();
+//                        for (int i = 0; i < 2; i++) {
+//                            activityUrl = list.get(0).getImagesUrl();
+//                        beansDate  = new FindBean(activityUrl,activityUrl, 2);
+//                            beansDate.add(bean2);
+//                        }
+//                        mView.Date(beansDate);
+                        mView.Date5(list,5);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -256,11 +264,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 
     @Override
     public void getRanking(Context context, Map<String, String> heard, long collectionId) {
-        if(!isViewAttached()){
+        if (!isViewAttached()) {
             return;
         }
 
-        modle8.getRanking( context,heard,collectionId)
+        modle8.getRanking(context, heard, collectionId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
