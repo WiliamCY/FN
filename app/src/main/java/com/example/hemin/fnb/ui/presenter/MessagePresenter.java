@@ -5,6 +5,8 @@ import android.content.Context;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.MessageBean1;
+import com.example.hemin.fnb.ui.bean.MessageBean2;
+import com.example.hemin.fnb.ui.bean.MessageBean3;
 import com.example.hemin.fnb.ui.contract.MessageContract;
 import com.example.hemin.fnb.ui.fragment.MessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
@@ -20,10 +22,12 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
     private MessageContract.modle1 modle1;
     private MessageContract.modle2  modle2;
     private MessageContract.modle3 modle3;
+    private MessageContract.modle4 modle4;
     public  MessagePresenter(){
         modle1 = new MessageModle();
         modle2 = new MessageModle();
         modle3 = new MessageModle();
+        modle4 = new MessageModle();
     }
 
 
@@ -68,6 +72,9 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
+                        MessageBean2.DataBean bean2 = (MessageBean2.DataBean) bean.getResult();
+                        List<MessageBean2.DataBean.RecordsBean> list = bean2.getRecords();
+                        mView.Date(list,2);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -92,6 +99,34 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
+                        MessageBean3.DataBean bean3 = (MessageBean3.DataBean) bean.getResult();
+                        List<MessageBean3.DataBean.RecordsBean> list = bean3.getRecords();
+                        mView.Date(list,3);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void getFidner(Context context, Map token, long friendId, int userId) {
+        if(!isViewAttached()){
+            return;
+        }
+        mView.showLoading();
+        modle4.getFidner(context, token,friendId,userId)
+                .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
+                .as(mView.<BaseObjectBean>bindAutoDispose())
+                .subscribe(new Consumer<BaseObjectBean>() {
+                    @Override
+                    public void accept(BaseObjectBean bean) throws Exception {
+                        mView.onSuccess(bean);
+                        mView.hideLoading();
+//                        mView.Date(list,3);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

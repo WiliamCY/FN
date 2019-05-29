@@ -16,11 +16,16 @@ import android.view.ViewGroup;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.CollectionInformationMessage;
 import com.example.hemin.fnb.ui.adapter.AppRaisaAdapter;
+import com.example.hemin.fnb.ui.adapter.Message3Apdater;
 import com.example.hemin.fnb.ui.adapter.MessageApdater;
+import com.example.hemin.fnb.ui.adapter.MessagesApdater;
 import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.MessageBean1;
+import com.example.hemin.fnb.ui.bean.MessageBean2;
+import com.example.hemin.fnb.ui.bean.MessageBean3;
+import com.example.hemin.fnb.ui.bean.MessageImageBean;
 import com.example.hemin.fnb.ui.contract.MessageContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.MessagePresenter;
@@ -39,6 +44,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     RecyclerView messageRecyclerview;
     Unbinder unbinder;
     private Map map = new HashMap();
+    private String userId;
 
     @Override
     protected void initView(View view) {
@@ -46,21 +52,22 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         mPresenter.attachView(this);
         int index = this.getArguments().getInt("indexNumber");
         Log.d("MessageIndex", String.valueOf(index));
-         map = Utils.getAuthorization(getActivity());
-         initDate(index);
+        map = Utils.getAuthorization(getActivity());
+        initDate(index);
 
 
     }
-    private  void initDate(int index){
+
+    private void initDate(int index) {
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
-        String userId = sp.getString("userId","");
-                 if(index == 0){
-                     mPresenter.getMaga(getActivity(),map,1,10,"1");
-                 }else if(index == 1){
-                     mPresenter.getTuiJian(getActivity(),map,1,1, Integer.parseInt(userId));
-                 }else{
-                     mPresenter.getTuiJian(getActivity(),map,1,10, Integer.parseInt(userId));
-                 }
+         userId = sp.getString("userId", "");
+        if (index == 0) {
+            mPresenter.getMaga(getActivity(), map, 1, 10, "1");
+        } else if (index == 1) {
+            mPresenter.getTuiJian(getActivity(), map, 1, 10, Integer.parseInt(userId));
+        } else {
+            mPresenter.getGuanZhu(getActivity(), map, 1, 10, Integer.parseInt(userId));
+        }
     }
 
     @Override
@@ -69,20 +76,85 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     }
 
     @Override
-    public void Date(Object object,int index) {
-       if(index == 1){
-
-           initRecyclerview1((List<MessageBean1.DataBean.RecordsBean>) object);
-       }
+    public void Date(Object object, int index) {
+        if (index == 1) {
+            initRecyclerview1((List<MessageBean1.DataBean.RecordsBean>) object);
+        }else if(index == 2){
+            initRecyclerview2((List<MessageBean2.DataBean.RecordsBean>) object);
+        }else if(index == 3){
+            initRecyclerview3((List<MessageBean3.DataBean.RecordsBean>) object);
+        }else if(index == 4){
+            Images((List<MessageImageBean.DataBean.ImagesBean>) object);
+        }
+    }
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object){
+            for(int i=0; i<object.size();i++){
+                String path = object.get(i).getImagesUrl();
+            }
     }
 
     private void initRecyclerview1(final List<MessageBean1.DataBean.RecordsBean> bean) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         messageRecyclerview.setLayoutManager(layoutManager);
-        layoutManager.setOrientation(OrientationHelper.HORIZONTAL);
-       MessageApdater adapter = new MessageApdater(getActivity(), bean);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        MessageApdater adapter = new MessageApdater(getActivity(), bean);
         Log.d("beanDate", bean.toString());
         messageRecyclerview.setAdapter(adapter);
+        Log.d("messageSzie", String.valueOf(adapter.getItemCount()));
+        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int Position, String path) {
+
+            }
+
+            @Override
+            public void onItemClick(int Position) {
+
+            }
+        });
+
+    }
+
+    private void initRecyclerview2(final List<MessageBean2.DataBean.RecordsBean> bean) {
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        messageRecyclerview.setLayoutManager(layoutManager);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        MessagesApdater   adapter = new MessagesApdater(getActivity(), bean);
+        Log.d("beanDate", bean.toString());
+        messageRecyclerview.setAdapter(adapter);
+        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int Position, String path) {
+
+            }
+
+            @Override
+            public void onItemClick(int position) {
+                     long finderid = bean.get(position).getFriendId();
+                     mPresenter.getFidner(getActivity(),map,finderid, Integer.parseInt(userId));
+            }
+        });
+
+    }
+    private void initRecyclerview3(final List<MessageBean3.DataBean.RecordsBean> bean) {
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        messageRecyclerview.setLayoutManager(layoutManager);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        Message3Apdater adapter = new Message3Apdater(getActivity(), bean);
+        messageRecyclerview.setAdapter(adapter);
+        Log.d("messageAdapterSize", String.valueOf(adapter.getItemCount()));
+        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int Position, String path) {
+
+            }
+
+            @Override
+            public void onItemClick(int position) {
+                long finderid = bean.get(position).getFriendId();
+                mPresenter.getFidner(getActivity(),map,finderid, Integer.parseInt(userId));
+            }
+        });
 
     }
 

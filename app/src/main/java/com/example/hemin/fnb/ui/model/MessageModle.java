@@ -11,7 +11,7 @@ import java.util.Map;
 
 import io.reactivex.Flowable;
 
-public class MessageModle implements MessageContract.modle1,MessageContract.modle2,MessageContract.modle3 {
+public class MessageModle implements MessageContract.modle1,MessageContract.modle2,MessageContract.modle3,MessageContract.modle4 {
 
     @Override
     public Flowable<BaseObjectBean> getMaga(Context context, Map token, long current, long size, String type) {
@@ -26,5 +26,10 @@ public class MessageModle implements MessageContract.modle1,MessageContract.modl
     @Override
     public Flowable<BaseObjectBean> getGuanZhu(Context context, Map token, long current, long size, int userId) {
         return RetrofitClient.getInstance().getApi().getGuanzhu(token,current,size,userId);
+    }
+
+    @Override
+    public Flowable<BaseObjectBean> getFidner(Context context, Map token, long friendId, int userId) {
+        return RetrofitClient.getInstance().getApi().getFinder(token,friendId,userId);
     }
 }

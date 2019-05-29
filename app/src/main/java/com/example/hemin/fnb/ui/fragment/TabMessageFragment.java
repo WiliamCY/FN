@@ -97,8 +97,7 @@ public class TabMessageFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         mFragmentContainerHelper.handlePageSelected(index);
-//                        Toast.makeText(getContext(),index,Toast.LENGTH_SHORT).show();
-//                        initFragment(index, status);
+                        initFragment(index);
 
                     }
                 });

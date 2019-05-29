@@ -16,6 +16,8 @@ import com.example.hemin.fnb.ui.bean.FindLoveBean;
 import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.bean.LoginBean;
 import com.example.hemin.fnb.ui.bean.MessageBean1;
+import com.example.hemin.fnb.ui.bean.MessageBean2;
+import com.example.hemin.fnb.ui.bean.MessageBean3;
 import com.example.hemin.fnb.ui.bean.TypeBean;
 import com.example.hemin.fnb.ui.bean.UserDateBean;
 
@@ -220,7 +222,7 @@ public interface APIService {
      * */
     @GET("app/friend/pageList/{current}/{size}/{userId}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean>  getTuiJian(@HeaderMap Map<String,String> heard,@Path("current") long current,@Path("size") long size,@Path("userId") long userId);
+    Flowable<BaseObjectBean<MessageBean2.DataBean>>  getTuiJian(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
 
 
     /**
@@ -228,7 +230,16 @@ public interface APIService {
      * */
     @GET("app/friend/getFocusList/{current}/{size}/{userId}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean>  getGuanzhu(@HeaderMap Map<String,String> heard,@Path("current") long current,@Path("size") long size,@Path("userId") long userId);
+    Flowable<BaseObjectBean<MessageBean3.DataBean>>  getGuanzhu(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
+
+
+
+  /**
+   * 获取朋友圈信息
+   * */
+  @GET("app/friend/info/{friendId}/{userId}")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean>  getFinder(@HeaderMap Map<String,String> heard, @Path("friendId") long friendId, @Path("userId") long userId);
 
 
 }

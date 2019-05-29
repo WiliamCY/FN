@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_10"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingConstraints">
 
@@ -25,6 +26,7 @@
         android:textSize="15sp"/>
 
     <TextView
+        android:layout_marginLeft="@dimen/marginLeft_8"
         android:id="@+id/titl2"
         android:textColor="@color/c333333"
         android:layout_marginTop="@dimen/paddingTop_10"

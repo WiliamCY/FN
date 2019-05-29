@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.bean.MessageBean1;
+import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,10 @@ import java.util.List;
 public class MessageApdater extends RecyclerView.Adapter<MessageApdater.ViewHolder> {
   private  Context context;
   private   List<MessageBean1.DataBean.RecordsBean> list = new ArrayList<>();
+    private OnRecyclerItemClickListener monItemClickListener;
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
+        monItemClickListener=listener;
+    }
     public MessageApdater(Context context, List<MessageBean1.DataBean.RecordsBean> list){
           this.context = context;
           this.list = list;
@@ -53,6 +58,15 @@ public class MessageApdater extends RecyclerView.Adapter<MessageApdater.ViewHold
             imageView = view.findViewById(R.id.messahe_image1);
             titl1 = view.findViewById(R.id.message_titl1);
             titl2 = view.findViewById(R.id.titl2);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (monItemClickListener!=null){
+                        monItemClickListener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
+        }
         }
     }
-}
+

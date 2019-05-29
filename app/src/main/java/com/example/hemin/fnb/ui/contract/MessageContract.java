@@ -24,6 +24,10 @@ public interface MessageContract  {
         Flowable<BaseObjectBean> getGuanZhu(Context context,Map token, long current, long size,  int userId );
 
     }
+    interface modle4{
+        Flowable<BaseObjectBean> getFidner(Context context,Map token, long friendId,  int userId );
+
+    }
 
     interface View extends BaseView {
         @Override
@@ -42,6 +46,6 @@ public interface MessageContract  {
         void getMaga(Context context, Map token,long current,long size,String type);
         void getTuiJian(Context context,Map token, long current, long size,int userId );
         void getGuanZhu(Context context,Map token, long current, long size,int userId );
-
+        void getFidner(Context context,Map token, long friendId,int userId );
     }
 }
