@@ -22,7 +22,7 @@ import io.reactivex.Flowable;
 
 public interface FindContract {
     interface huo {
-        Flowable<BaseObjectBean<FindFirstBean.DataBean>> pageListHuo(Context context, Map<String, String> heard, long id, long size);
+        Flowable<BaseObjectBean<FindHuoListBean.DataBean>> pageListHuo(Context context, Map<String, String> heard, long id, long size);
     }
 
     interface addNum {
@@ -59,11 +59,8 @@ public interface FindContract {
 
         @Override
         void hideLoading();
-        void Date(List<FindFirstBean.DataBean.RecordsBean> bean, int status);
-        void Date2(List<Find2Bean.DataBean.RecordsBean> bean, int status);
-        void Date3(List<FindDeilyBean.DataBean.ListBean> bean, int status);
-        void Date4(List<Find4Bean.DataBean> bean, int status);
-        void Date5(List<Find5Bean.DataBean.RecordsBean> bean, int status);
+        void Date(List<FindBean> bean, int status);
+
         @Override
         void onError(Throwable throwable);
 

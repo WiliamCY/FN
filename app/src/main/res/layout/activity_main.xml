@@ -60,7 +60,7 @@
                 android:textSize="@dimen/text_size_12" />
 
             <RadioButton
-                android:visibility="gone"
+
                 android:id="@+id/rd_educationadmin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:textSize="@dimen/text_size_12" />
 
             <RadioButton
-                android:visibility="gone"
+
                 android:id="@+id/rd_finance"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -37,6 +37,7 @@
     <dimen name="marginLeft_18">18dp</dimen>
     <dimen name="marginLeft_20">20dp</dimen>
     <dimen name="marginLeft_23">23dp</dimen>
+    <dimen name="marginLeft_30">30dp</dimen>
     <dimen name="marginLeft_40">40dp</dimen>
     <!-- marginRight-->
     <dimen name="marginRight_10">10dp</dimen>
@@ -153,6 +154,7 @@
     <dimen name="paddingRight_19">19dp</dimen>
     <dimen name="paddingRight_20">20dp</dimen>
     <dimen name="paddingRight_30">30dp</dimen>
+    <dimen name="paddingRight_60">60dp</dimen>
 
     <!--paddingTop -->
     <dimen name="paddingTop_2">2dp</dimen>

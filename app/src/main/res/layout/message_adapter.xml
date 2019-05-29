@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints">
+
+<ImageView
+    android:id="@+id/messahe_image1"
+
+    android:layout_width="132dp"
+    android:layout_height="95dp"
+    ></ImageView>
+    <TextView
+        android:id="@+id/message_titl1"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/marginTop_5"
+        android:layout_marginLeft="@dimen/marginLeft_10"
+        app:layout_constraintLeft_toRightOf="@id/messahe_image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/c333333"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/titl2"
+        android:textColor="@color/c333333"
+        android:layout_marginTop="@dimen/paddingTop_10"
+        app:layout_constraintTop_toBottomOf="@id/message_titl1"
+        app:layout_constraintLeft_toRightOf="@id/messahe_image1"
+        android:maxLines="3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+
+</android.support.constraint.ConstraintLayout>

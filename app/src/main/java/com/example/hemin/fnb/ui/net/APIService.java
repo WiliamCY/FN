@@ -15,6 +15,7 @@ import com.example.hemin.fnb.ui.bean.FindHuoListBean;
 import com.example.hemin.fnb.ui.bean.FindLoveBean;
 import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.bean.LoginBean;
+import com.example.hemin.fnb.ui.bean.MessageBean1;
 import com.example.hemin.fnb.ui.bean.TypeBean;
 import com.example.hemin.fnb.ui.bean.UserDateBean;
 
@@ -143,7 +144,7 @@ public interface APIService {
      * */
     @GET("app/activity/pageList/{current}/{size}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean<FindFirstBean.DataBean>>  pageListHuo(@HeaderMap Map<String,String> heard, @Path("current") long id, @Path("size") long size );
+    Flowable<BaseObjectBean<FindHuoListBean.DataBean>>  pageListHuo(@HeaderMap Map<String,String> heard, @Path("current") long id, @Path("size") long size );
 
 
 
@@ -205,6 +206,29 @@ public interface APIService {
     Flowable<BaseObjectBean>  getRanking(@HeaderMap Map<String,String> heard,@Query("collectionId") long collectionId);
 
 
+    /**
+     * 杂志
+     * */
+    @GET("app/magazine/unpublished/{current}/{size}/{magazineType}")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean<MessageBean1.DataBean>>  getMaga(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size, @Path("magazineType") String name);
+
+
+
+    /**
+     * 推荐
+     * */
+    @GET("app/friend/pageList/{current}/{size}/{userId}")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean>  getTuiJian(@HeaderMap Map<String,String> heard,@Path("current") long current,@Path("size") long size,@Path("userId") long userId);
+
+
+    /**
+     * 关注
+     * */
+    @GET("app/friend/getFocusList/{current}/{size}/{userId}")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Flowable<BaseObjectBean>  getGuanzhu(@HeaderMap Map<String,String> heard,@Path("current") long current,@Path("size") long size,@Path("userId") long userId);
 
 
 }

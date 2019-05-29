@@ -14,18 +14,19 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.bean.FindBean;
-import com.example.hemin.fnb.ui.bean.FindFirstBean;
+
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
-    private List<FindFirstBean.DataBean.RecordsBean>  beans = new ArrayList<>();
+    private  List<FindBean> beans = new ArrayList<>();
     private Context context;
     private OnRecyclerItemClickListener monItemClickListener;
+    private String path;
 
-    public FindAdapter(Context context, List<FindFirstBean.DataBean.RecordsBean> bean) {
+    public FindAdapter(Context context,  List<FindBean> bean) {
         this.beans = bean;
         this.context = context;
     }
@@ -44,8 +45,9 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FindAdapter.ViewHolder holder, int position) {
-       FindFirstBean.DataBean.RecordsBean  bean = beans.get(position);
-     Glide.with(context).load(bean.getActivityUrl().trim()).into(holder.imageView2);
+        FindBean bean = beans.get(position);
+        Glide.with(context).load(bean.getImageUrl()).into(holder.imageView2);
+
 
     }
 

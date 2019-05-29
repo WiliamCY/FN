@@ -77,44 +77,14 @@
      android:paddingTop="99dp"
      android:layout_width="match_parent"
      android:layout_height="wrap_content">
-     <HorizontalScrollView
-         android:id="@+id/scroll"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
-         <LinearLayout
-             android:orientation="horizontal"
-             android:id="@+id/layout_parent"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"></LinearLayout>
-     </HorizontalScrollView>
 
-    <android.support.v7.widget.RecyclerView
-     android:visibility="gone"
-        android:layout_marginBottom="@dimen/marginBottom_50"
-        android:id="@+id/find_recyclerview2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-     />
+     <android.support.v7.widget.RecyclerView
+         android:layout_marginBottom="@dimen/marginBottom_50"
+         android:id="@+id/find_recyclerview"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         />
 
-    <android.support.v7.widget.RecyclerView
-      android:visibility="gone"
-        android:layout_marginBottom="@dimen/marginBottom_50"
-        android:id="@+id/find_recyclerview3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    <android.support.v7.widget.RecyclerView
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/marginBottom_50"
-        android:id="@+id/find_recyclerview4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-     />
-    <android.support.v7.widget.RecyclerView
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/marginBottom_50"
-        android:id="@+id/find_recyclerview5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
  </LinearLayout>
 </android.support.constraint.ConstraintLayout>

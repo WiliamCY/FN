@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="172dp"
+    android:layout_height="209dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints">
+
+<ImageView
+    android:id="@+id/image1"
+    android:background="@mipmap/p1"
+    android:layout_width="172dp"
+    android:layout_height="129dp"
+    ></ImageView>
+<TextView
+  android:id="@+id/title1"
+    app:layout_constraintLeft_toLeftOf="@id/image1"
+    app:layout_constraintRight_toRightOf="@id/image1"
+    app:layout_constraintTop_toBottomOf="@id/image1"
+    android:layout_width="148dp"
+    android:layout_height="wrap_content"
+    android:textColor="@color/c333333"
+    android:textStyle="bold"
+    android:textSize="@dimen/text_size_15"
+    android:text="未来的艺术品交易该
+走向何方？"/>
+
+
+
+    <ImageView
+        android:id="@+id/image2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/marginLeft_10"
+       android:layout_marginBottom="@dimen/marginBottom_15"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="@dimen/layout_width_15"
+        android:layout_height="@dimen/layout_height_15"
+        android:background="@mipmap/p1"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/marginLeft_8"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintLeft_toRightOf="@id/image2"
+        app:layout_constraintTop_toTopOf="@id/image2"
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="古董收藏家"/>
+
+
+        <ImageView
+            android:layout_marginRight="@dimen/paddingRight_30"
+            android:id="@+id/image3"
+            android:layout_marginBottom="@dimen/marginBottom_15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@mipmap/p1"
+            android:layout_width="@dimen/layout_width_15"
+            android:layout_height="@dimen/layout_height_15" />
+
+
+    <TextView
+        android:layout_marginLeft="@dimen/marginLeft_8"
+        android:id="@+id/title3"
+        app:layout_constraintTop_toTopOf="@id/image3"
+        app:layout_constraintLeft_toRightOf="@id/image3"
+        android:text="213"
+        android:textSize="@dimen/text_size_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</android.support.constraint.ConstraintLayout>

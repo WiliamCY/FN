@@ -38,8 +38,17 @@ public class Bannser extends BaseActivity {
         //设置当前窗体为全屏显示
         getWindow().setFlags(flag, flag);
         Utils.hideBottomUIMenu(this);
+        initDate();
         initViews();
 
+    }
+    private void initDate(){
+        if(Utils.booleanisLogin(this)){
+            initViews();
+        }else {
+            Intent intent = new Intent(this,WelcomeLoading.class);
+            startActivity(intent);
+        }
     }
 
     public void initViews() {
@@ -58,8 +67,9 @@ public class Bannser extends BaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == xbanner.getRealCount() - 1) {
-                    welcomeFirstBtn.setVisibility(View.VISIBLE);
-
+//                    welcomeFirstBtn.setVisibility(View.VISIBLE);
+                        Intent intent = new Intent(getApplicationContext(),PasswordActivity.class);
+                        startActivity(intent);
                 } else {
                     welcomeFirstBtn.setVisibility(View.GONE);
                 }
@@ -80,8 +90,7 @@ public class Bannser extends BaseActivity {
         switch (view.getId()) {
 
             case R.id.welcome_first_btn:
-
-                        Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
+                 Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
                         startActivity(intent);
                 break;
         }

@@ -64,13 +64,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         tabFindFragment = new TabFindFragment();
         fragmentManager.beginTransaction().replace(R.id.fl, tabFindFragment, homepage).commit();
 //        Utils.initLogins(this);
-        if (Utils.booleanisLogin(this)) {
-            Intent intent = new Intent(this,Bannser.class);
-            startActivity(intent);
+//        if (Utils.booleanisLogin(this)) {
+//            Intent intent = new Intent(this,Bannser.class);
+//            startActivity(intent);
 //            Intent intent = new Intent(this, PasswordActivity.class);
 //            startActivity(intent);
-        }
-
+//        }
+//
     }
 
 

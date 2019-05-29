@@ -22,7 +22,7 @@ import io.reactivex.Flowable;
 
 public class FindModel implements FindContract.huo,FindContract.addNum,FindContract.hua,FindContract.huas,FindContract.js,FindContract.cn,FindContract.dianzan,FindContract.dianzans {
     @Override
-    public Flowable<BaseObjectBean<FindFirstBean.DataBean>> pageListHuo(Context context, Map<String, String> heard, long id, long size) {
+    public Flowable<BaseObjectBean<FindHuoListBean.DataBean>> pageListHuo(Context context, Map<String, String> heard, long id, long size) {
         return RetrofitClient.getInstance().getApi().pageListHuo(heard,id,size);
     }
 
