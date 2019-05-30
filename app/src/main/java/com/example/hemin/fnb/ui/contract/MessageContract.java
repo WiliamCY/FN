@@ -29,6 +29,7 @@ public interface MessageContract  {
 
     }
 
+
     interface View extends BaseView {
         @Override
         void showLoading();

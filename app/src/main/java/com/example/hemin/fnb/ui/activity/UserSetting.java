@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
@@ -16,7 +17,6 @@ import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.UserContract;
 import com.example.hemin.fnb.ui.presenter.UserPresenter;
 import com.example.hemin.fnb.ui.util.AlertDialog;
-import com.example.hemin.fnb.ui.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +36,10 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
     Button cisExitButton;
     @BindView(R.id.fix_password)
     RelativeLayout fixPassword;
+    @BindView(R.id.button1)
+    TextView button1;
+    @BindView(R.id.button2)
+    TextView button2;
 
     @Override
     public int getLayoutId() {
@@ -51,7 +55,7 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
     }
 
 
-    @OnClick({R.id.setting_button4, R.id.cis_exit_button, R.id.fix_password})
+    @OnClick({R.id.setting_button4, R.id.cis_exit_button, R.id.fix_password,R.id.button2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting_button4:
@@ -79,19 +83,23 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
             case R.id.fix_password:
                 Intent intent = new Intent(this, ForgetPasswordActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.button2:
+//                Intent intent1 = new Intent(this,ChangeUserNoticSetting.class);
+//                startActivity(intent1);
         }
     }
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-         if(bean.getErrorCode() == 0){
-             SharedPreferences sharedPreferences = this.getSharedPreferences("userDate", MODE_PRIVATE);
-             sharedPreferences.edit().clear().commit();
-             Toast.makeText(getApplicationContext(),"退出成功",Toast.LENGTH_SHORT).show();
-             Intent intent1 = new Intent(this, PasswordActivity.class);
-             startActivity(intent1);
-             finish();
-         }
+        if (bean.getErrorCode() == 0) {
+            SharedPreferences sharedPreferences = this.getSharedPreferences("userDate", MODE_PRIVATE);
+            sharedPreferences.edit().clear().commit();
+            Toast.makeText(getApplicationContext(), "退出成功", Toast.LENGTH_SHORT).show();
+            Intent intent1 = new Intent(this, PasswordActivity.class);
+            startActivity(intent1);
+            finish();
+        }
     }
 
     @Override
@@ -115,4 +123,6 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
+
 }

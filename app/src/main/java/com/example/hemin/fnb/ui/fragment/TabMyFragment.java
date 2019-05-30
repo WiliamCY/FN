@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.MyAppraisa;
 import com.example.hemin.fnb.ui.activity.PasswordActivity;
+import com.example.hemin.fnb.ui.activity.UserChangeLogo;
 import com.example.hemin.fnb.ui.activity.UserSetting;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.util.Utils;
@@ -71,6 +72,8 @@ public class TabMyFragment extends BaseFragment {
                     startActivity(intent);
  break;
             case R.id.user_logo:
+                Intent intent1 = new Intent(getActivity(), UserChangeLogo.class);
+                startActivity(intent1);
  break;
             case R.id.qm:
                 break;

@@ -1,6 +1,7 @@
 package com.example.hemin.fnb.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.activity.MessageAdd;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
@@ -44,7 +45,7 @@ public class TabMessageFragment extends BaseFragment {
     @BindView(R.id.fragment_container)
     FrameLayout fragmentContainer;
     Unbinder unbinder;
-    private static final String[] date = new String[]{"杂志", "推荐", "关注"};
+    private static final String[] date = new String[]{"资料库", "推荐", "关注"};
     private List<String> mDataList = Arrays.asList(date);
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
     private MessageFragment fragment = new MessageFragment();
@@ -52,7 +53,7 @@ public class TabMessageFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         initView2(mDataList);
-        initFragment( 0);
+        initFragment(0);
     }
 
     @Override
@@ -127,7 +128,7 @@ public class TabMessageFragment extends BaseFragment {
     private void initFragment(int indexx) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if(fragment != null) {
+        if (fragment != null) {
             fragmentTransaction.hide(fragment);
             fragment = new MessageFragment();
             Bundle bundle = new Bundle();
@@ -139,4 +140,14 @@ public class TabMessageFragment extends BaseFragment {
         }
     }
 
+    @OnClick({R.id.message_add, R.id.c1})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.message_add:
+                Intent intent = new Intent(getActivity(), MessageAdd.class);
+                startActivity(intent);
+                break;
+
+        }
+    }
 }

@@ -93,8 +93,8 @@ public class MessageBean2 {
             private String imagesUrl;
             private String userUrl;
             private String nickname;
-            private int giveNum;
-            private int isGiveNum;
+            private String giveNum;
+            private String isGiveNum;
             private long roleId;
 
             public long getFriendId() {
@@ -137,19 +137,19 @@ public class MessageBean2 {
                 this.nickname = nickname;
             }
 
-            public int getGiveNum() {
+            public String getGiveNum() {
                 return giveNum;
             }
 
-            public void setGiveNum(int giveNum) {
+            public void setGiveNum(String giveNum) {
                 this.giveNum = giveNum;
             }
 
-            public int getIsGiveNum() {
+            public String getIsGiveNum() {
                 return isGiveNum;
             }
 
-            public void setIsGiveNum(int isGiveNum) {
+            public void setIsGiveNum(String isGiveNum) {
                 this.isGiveNum = isGiveNum;
             }
 

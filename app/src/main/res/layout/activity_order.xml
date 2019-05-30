@@ -20,7 +20,7 @@
         android:id="@+id/or_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="收货人：巴拉拉    13479852645"
+        android:text="收货人：巴拉拉    "
         android:textStyle="bold"
         android:textSize="@dimen/text_size_15"
         android:textColor="@color/cffffff"/>
@@ -32,7 +32,7 @@
             android:layout_marginTop="@dimen/paddingTop_10"
             app:layout_constraintTop_toBottomOf="@id/or_user"
             android:textColor="@color/cffffff"
-            android:text="浙江省宁波市海曙区大卿桥中南路38号"
+            android:text="浙江省宁波市海曙"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_20"/>

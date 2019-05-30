@@ -242,4 +242,12 @@ public interface APIService {
   Flowable<BaseObjectBean>  getFinder(@HeaderMap Map<String,String> heard, @Path("friendId") long friendId, @Path("userId") long userId);
 
 
+  /**
+   * 注册
+   * */
+  @POST("app/friend/add")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> friendAdd(@HeaderMap Map<String,String> heard,@Body RequestBody body);
+
+
 }

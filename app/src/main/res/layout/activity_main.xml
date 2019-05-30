@@ -99,7 +99,7 @@
                 android:drawablePadding="3dp"
                 android:drawableTop="@drawable/tab_message"
                 android:gravity="center"
-                android:text="资讯"
+                android:text="藏友圈"
                 android:textColor="@color/color_radiobutton"
                 android:textSize="@dimen/text_size_12" />
 

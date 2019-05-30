@@ -105,6 +105,9 @@
     <dimen name="marginBottom_20">20dp</dimen>
     <dimen name="marginBottom_30">30dp</dimen>
     <dimen name="marginBottom_50">50dp</dimen>
+    <dimen name="marginBottom_60">60dp</dimen>
+    <dimen name="marginBottom_70">70dp</dimen>
+    <dimen name="marginBottom_90">90dp</dimen>
     <!--layout_margin -->
     <dimen name="margin_1">1dp</dimen>
     <dimen name="margin_3">3dp</dimen>
@@ -135,7 +138,7 @@
     <dimen name="paddingLeft_30">30dp</dimen>
     <dimen name="paddingLeft_35">35dp</dimen>
     <dimen name="paddingLeft_40">40dp</dimen>
-
+    <dimen name="paddingLeft_50">50dp</dimen>
     <!--paddingRight -->
     <dimen name="paddingRight_5">5dp</dimen>
     <dimen name="paddingRight_6">6dp</dimen>

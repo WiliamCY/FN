@@ -68,6 +68,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.WelcomeLoading"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.MessageAdd"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.UserChangeLogo"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ChangeMobiles"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ChangeUserNoticSetting"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"
             android:screenOrientation="portrait"></activity>//选择图片
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"
