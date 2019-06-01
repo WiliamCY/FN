@@ -1,13 +1,24 @@
 package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
@@ -21,15 +32,16 @@ import com.example.hemin.fnb.ui.util.Utils;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
+import com.pgyersdk.update.DownloadFileListener;
+import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
+import com.pgyersdk.update.javabean.AppBean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -39,6 +51,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     RadioGroup rgOper;
     @BindView(R.id.img_protruding)
     ImageView imgProtruding;
+    @BindView(R.id.fl)
+    FrameLayout fl;
+    @BindView(R.id.r1)
+    RelativeLayout r1;
     private List<BaseFragment> fragmentList = new ArrayList<>();
     private TabFindFragment tabFindFragment;
     private TabShopFragment tabShopFragment;
@@ -50,6 +66,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private RadioGroup mRadioButtonRg;
     private FragmentTransaction transaction1;
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
+
 
     @Override
     public int getLayoutId() {
@@ -70,7 +87,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //            Intent intent = new Intent(this, PasswordActivity.class);
 //            startActivity(intent);
 //        }
+
 //
+        if(Utils.booleanisLogin(this)){
+            Intent intent = new Intent(this,WelcomeLoading.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 
@@ -172,7 +195,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         transaction1.commit();
     }
 
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 
 
 //    @Override

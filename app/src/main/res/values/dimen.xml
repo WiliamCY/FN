@@ -117,6 +117,7 @@
     <dimen name="margin_11">11dp</dimen>
     <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
     <!--paddingLeft -->
     <dimen name="paddingLeft_5">5dp</dimen>
     <dimen name="paddingLeft_6">6dp</dimen>
@@ -181,6 +182,7 @@
     <dimen name="paddingTop_25">25dp</dimen>
     <dimen name="paddingTop_30">30dp</dimen>
     <dimen name="paddingTop_50">50dp</dimen>
+    <dimen name="paddingTop_70">70dp</dimen>
     <!--paddingBottom -->
     <dimen name="paddingBottom_5">5dp</dimen>
     <dimen name="paddingBottom_6">6dp</dimen>

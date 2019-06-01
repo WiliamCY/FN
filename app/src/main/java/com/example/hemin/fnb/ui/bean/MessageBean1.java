@@ -93,6 +93,15 @@ public class MessageBean1 {
             private String magazineUrl;
             private String updateTime;
             private String nickname;
+            private String magazineContent;
+
+            public String getMagazineContent() {
+                return magazineContent;
+            }
+
+            public void setMagazineContent(String magazineContent) {
+                this.magazineContent = magazineContent;
+            }
 
             public int getMagazineId() {
                 return magazineId;

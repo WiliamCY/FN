@@ -7,6 +7,8 @@ import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.MessageBean1;
 import com.example.hemin.fnb.ui.bean.MessageBean2;
 import com.example.hemin.fnb.ui.bean.MessageBean3;
+import com.example.hemin.fnb.ui.bean.MessageImageBean;
+import com.example.hemin.fnb.ui.bean.MessageImages;
 import com.example.hemin.fnb.ui.contract.MessageContract;
 import com.example.hemin.fnb.ui.fragment.MessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
@@ -113,7 +115,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
     }
 
     @Override
-    public void getFidner(Context context, Map token, long friendId, int userId) {
+    public void getFidner(Context context, Map token, long friendId, final int userId) {
         if(!isViewAttached()){
             return;
         }
@@ -126,7 +128,11 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
-//                        mView.Date(list,3);
+                        MessageImageBean.DataBean bean1 = (MessageImageBean.DataBean) bean.getResult();
+                        List<MessageImageBean.DataBean.ImagesBean> list = bean1.getImages();
+                        String userid = bean1.getUserId();
+                        String contnet = bean1.getFriendContent();
+                        mView.DateUserId(list,userid,contnet);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

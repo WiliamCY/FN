@@ -12,9 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.CollectionInformationMessage;
+import com.example.hemin.fnb.ui.activity.TaskBigImgActivity;
+import com.example.hemin.fnb.ui.activity.UserAbout;
 import com.example.hemin.fnb.ui.adapter.AppRaisaAdapter;
 import com.example.hemin.fnb.ui.adapter.Message3Apdater;
 import com.example.hemin.fnb.ui.adapter.MessageApdater;
@@ -26,11 +29,13 @@ import com.example.hemin.fnb.ui.bean.MessageBean1;
 import com.example.hemin.fnb.ui.bean.MessageBean2;
 import com.example.hemin.fnb.ui.bean.MessageBean3;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
+import com.example.hemin.fnb.ui.bean.MessageImages;
 import com.example.hemin.fnb.ui.contract.MessageContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.MessagePresenter;
 import com.example.hemin.fnb.ui.util.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +50,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     Unbinder unbinder;
     private Map map = new HashMap();
     private String userId;
+    private  ArrayList<String>  recordPaths = new ArrayList<>();
+    private long finderid,finderids;
 
     @Override
     protected void initView(View view) {
@@ -77,20 +84,42 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
     @Override
     public void Date(Object object, int index) {
+        Log.d("messageIndex", String.valueOf(index));
         if (index == 1) {
             initRecyclerview1((List<MessageBean1.DataBean.RecordsBean>) object);
         }else if(index == 2){
             initRecyclerview2((List<MessageBean2.DataBean.RecordsBean>) object);
         }else if(index == 3){
             initRecyclerview3((List<MessageBean3.DataBean.RecordsBean>) object);
-        }else if(index == 4){
-            Images((List<MessageImageBean.DataBean.ImagesBean>) object);
         }
     }
-    private void Images(List<MessageImageBean.DataBean.ImagesBean> object){
+
+    @Override
+    public void DateUserId(Object object, String userId,String content) {
+
+            Images((List<MessageImageBean.DataBean.ImagesBean>) object,userId,content);
+
+    }
+
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object,String userId,String content){
+
+                  recordPaths.clear();
             for(int i=0; i<object.size();i++){
                 String path = object.get(i).getImagesUrl();
+                Log.d("messageAdapter3",path);
+                recordPaths.add(path);
             }
+
+   Log.d("messaePaths",recordPaths.toString());
+        Intent imgIntent = new Intent(getActivity(), TaskBigImgActivity.class);
+        imgIntent.putStringArrayListExtra("paths",recordPaths);
+        imgIntent.putExtra("title","关注");
+        imgIntent.putExtra("position",object.size());
+        imgIntent.putExtra("finderid",finderid);
+        imgIntent.putExtra("userId",userId);
+        imgIntent.putExtra("StringContent",content);
+        startActivity(imgIntent);
+
     }
 
     private void initRecyclerview1(final List<MessageBean1.DataBean.RecordsBean> bean) {
@@ -108,8 +137,11 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             }
 
             @Override
-            public void onItemClick(int Position) {
-
+            public void onItemClick(int position) {
+                Intent intent = new Intent(getActivity(), UserAbout.class);
+                String paths = bean.get(position).getMagazineContent();
+                intent.putExtra("path", paths);
+                startActivity(intent);
             }
         });
 
@@ -130,7 +162,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
             @Override
             public void onItemClick(int position) {
-                     long finderid = bean.get(position).getFriendId();
+                      finderid = bean.get(position).getFriendId();
                      mPresenter.getFidner(getActivity(),map,finderid, Integer.parseInt(userId));
             }
         });
@@ -151,8 +183,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
             @Override
             public void onItemClick(int position) {
-                long finderid = bean.get(position).getFriendId();
-                mPresenter.getFidner(getActivity(),map,finderid, Integer.parseInt(userId));
+                 finderids = bean.get(position).getFriendId();
+                mPresenter.getFidner(getActivity(),map,finderids, Integer.parseInt(userId));
             }
         });
 
@@ -160,7 +192,9 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-
+        if(bean.getErrorCode() != 0){
+            Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

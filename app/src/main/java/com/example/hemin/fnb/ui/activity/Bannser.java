@@ -48,6 +48,7 @@ public class Bannser extends BaseActivity {
         }else {
             Intent intent = new Intent(this,WelcomeLoading.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -70,6 +71,7 @@ public class Bannser extends BaseActivity {
 //                    welcomeFirstBtn.setVisibility(View.VISIBLE);
                         Intent intent = new Intent(getApplicationContext(),PasswordActivity.class);
                         startActivity(intent);
+                        finish();
                 } else {
                     welcomeFirstBtn.setVisibility(View.GONE);
                 }
@@ -92,6 +94,7 @@ public class Bannser extends BaseActivity {
             case R.id.welcome_first_btn:
                  Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
                         startActivity(intent);
+                        finish();
                 break;
         }
     }

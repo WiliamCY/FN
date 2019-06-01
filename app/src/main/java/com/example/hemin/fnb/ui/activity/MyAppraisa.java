@@ -1,27 +1,21 @@
 package com.example.hemin.fnb.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.fragment.AppraisaFragment;
-import com.example.hemin.fnb.ui.util.StatusUtils;
-import com.example.hemin.fnb.ui.util.Utils;
-import com.jaeger.library.StatusBarUtil;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -53,14 +47,17 @@ public class MyAppraisa extends BaseActivity {
     MagicIndicator magicIndicator;
     @BindView(R.id.fragment_container)
     FrameLayout fragmentContainer;
+    @BindView(R.id.header_left_img)
+    ImageView headerLeftImg;
     private List<String> mDataList2 = Arrays.asList(date2);
     private static final String[] date2 = new String[]{"全部", "审核中", "鉴定中", "鉴定失败"};
     private List<String> mDataList3 = Arrays.asList(date3);
     private boolean status = true;
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
-    private AppraisaFragment fragment  = new AppraisaFragment();
+    private AppraisaFragment fragment = new AppraisaFragment();
+
     private void initDate() {
-        initFragment( 0, status);
+        initFragment(0, status);
         initView2(mDataList2, status);
     }
 
@@ -115,27 +112,28 @@ public class MyAppraisa extends BaseActivity {
 
 
     @SuppressLint("ResourceAsColor")
-    @OnClick({R.id.title1, R.id.title2})
+    @OnClick({R.id.title1, R.id.title2,R.id.header_left_img})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title1:
                 status = true;
                 title2.setTextColor(Color.rgb(176, 176, 176));
                 title1.setTextColor(Color.rgb(255, 255, 255));
-                initFragment( 0, true);
-                initView2(mDataList2,true);
+                initFragment(0, true);
+                initView2(mDataList2, true);
                 break;
             case R.id.title2:
                 status = false;
                 title1.setTextColor(Color.rgb(176, 176, 176));
                 title2.setTextColor(Color.rgb(255, 255, 255));
-                initFragment( 0, false);
-                initView2(mDataList3,false);
+                initFragment(0, false);
+                initView2(mDataList3, false);
+                break;
+            case R.id.header_left_img:
+                finish();
                 break;
         }
     }
-
-
 
 
     @Override
@@ -144,18 +142,17 @@ public class MyAppraisa extends BaseActivity {
     }
 
     @Override
-    public void initView( ) {
+    public void initView() {
         ButterKnife.bind(this);
         initDate();
     }
-
 
 
     private void initFragment(int indexx, boolean status) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if(fragment != null) {
+        if (fragment != null) {
             fragmentTransaction.hide(fragment);
             fragment = new AppraisaFragment();
             Bundle bundle = new Bundle();
@@ -169,6 +166,10 @@ public class MyAppraisa extends BaseActivity {
     }
 
 
-
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

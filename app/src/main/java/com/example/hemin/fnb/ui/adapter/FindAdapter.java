@@ -45,7 +45,9 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FindAdapter.ViewHolder holder, int position) {
+
         FindBean bean = beans.get(position);
+        Log.d("findImmageViewPath",bean.getImageUrl());
         Glide.with(context).load(bean.getImageUrl()).into(holder.imageView2);
 
 

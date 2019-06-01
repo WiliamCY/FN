@@ -55,7 +55,7 @@ public class GetTypePresenter extends BasePresenter<PublishingCollections> imple
                 .subscribe(new Consumer<BaseObjectBean>() {
                                @Override
                                public void accept(BaseObjectBean bean) throws Exception {
-//                        mView.onSuccess(bean);
+                        mView.onSuccess(bean);
                                    mView.hideLoading();
                                    List<TypeBean.DataBean> typeList = (List<TypeBean.DataBean>) bean.getResult();
                                    names.clear();

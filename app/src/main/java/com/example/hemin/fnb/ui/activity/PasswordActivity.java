@@ -2,22 +2,19 @@ package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
-import com.example.hemin.fnb.ui.contract.ForgetContract;
 import com.example.hemin.fnb.ui.contract.PwLoginContract;
-import com.example.hemin.fnb.ui.presenter.ForgetPresenter;
 import com.example.hemin.fnb.ui.presenter.PasswordPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
@@ -71,6 +68,8 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     ImageView select;
     @BindView(R.id.user_message)
     TextView userMessage;
+    @BindView(R.id.user_toolbar)
+    LinearLayout userToolbar;
 
     @Override
     public int getLayoutId() {
@@ -86,6 +85,7 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     }
 
     private void initViews() {
+        userToolbar.setVisibility(View.GONE);
         title1.setText("密码登录");
         title4.setVisibility(View.GONE);
         cGetCode.setVisibility(View.GONE);
@@ -110,7 +110,7 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
             case R.id.c_login_button:
                 if (getPhone() == null || getPassword() == null || Utils.isPhoneNumber(getPhone()) == false) {
 
-                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者手机格式不正确",Toast.LENGTH_SHORT),400);
+                    Utils.showMyToast(Toast.makeText(this, "请输入完整或者手机格式不正确", Toast.LENGTH_SHORT), 400);
                     return;
                 }
                 HashMap<String, String> hashMap = new HashMap<>();
@@ -140,11 +140,14 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
-        if(bean.getErrorCode() == 0){
+
+        if (bean.getErrorCode() == 0) {
+
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
+        }else {
+            Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -172,16 +175,23 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     public void onError(Throwable throwable) {
 
     }
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK ) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             //do something.
-            Utils.showMyToast(Toast.makeText(this,"请先登录或者注册",Toast.LENGTH_SHORT),400);
+            Utils.showMyToast(Toast.makeText(this, "请先登录或者注册", Toast.LENGTH_SHORT), 400);
             return true;
-        }else {
+        } else {
             return super.dispatchKeyEvent(event);
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }
 

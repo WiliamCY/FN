@@ -9,6 +9,15 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取网络状态 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络通信-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />  <!-- 获取设备信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取MAC地址-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读写sdcard，storage等等 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许程序录制音频 -->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
 
     <application
         android:allowBackup="true"
@@ -37,7 +46,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.CollectionInformationSheet"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Bannser"
+        <activity android:name=".ui.activity.MainActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -60,7 +69,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.CollectionInformationMessage"
             />
-        <activity android:name=".ui.activity.MainActivity"
+        <activity android:name=".ui.activity.Bannser"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.UserAbout"
             android:screenOrientation="portrait" />
@@ -76,6 +85,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.ChangeUserNoticSetting"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.TaskBigImgActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.MyAppraisaS"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"
             android:screenOrientation="portrait"></activity>//选择图片
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"
@@ -90,7 +103,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
+        <provider
+            android:name="com.pgyersdk.PgyerProvider"
+            android:authorities="${applicationId}.com.pgyer.provider"
+            android:exported="false"/>
+        <!-- 必填 -->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="0326108dd2be32d921b50a0d098cafa9" >
+        </meta-data>
     </application>
 
 

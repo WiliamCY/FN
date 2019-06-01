@@ -26,7 +26,7 @@ public interface AppraisaContract {
 
         @Override
         void hideLoading();
-        void Date(List<AppraisaBean.DataBean.RecordsBean> list);
+        void Date(Object object,int status);
         @Override
         void onError(Throwable throwable);
 

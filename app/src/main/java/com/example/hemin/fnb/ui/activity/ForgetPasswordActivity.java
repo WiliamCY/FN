@@ -1,10 +1,7 @@
 package com.example.hemin.fnb.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,9 +12,7 @@ import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.ForgetContract;
-import com.example.hemin.fnb.ui.contract.PwLoginContract;
 import com.example.hemin.fnb.ui.presenter.ForgetPresenter;
-import com.example.hemin.fnb.ui.presenter.PasswordPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 
@@ -70,6 +65,8 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     ImageView select;
     @BindView(R.id.user_message)
     TextView userMessage;
+    @BindView(R.id.back)
+    ImageView back;
     private Utils.TimeCount timeCount;
 
 
@@ -77,7 +74,6 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     public int getLayoutId() {
         return R.layout.activity_code_login;
     }
-
 
 
     @Override
@@ -89,7 +85,7 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     }
 
 
-    private void  initViews(){
+    private void initViews() {
         title1.setText("修改密码");
         cLoginButton.setText("提交");
         cRegister.setVisibility(View.GONE);
@@ -102,22 +98,22 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
         title7.setVisibility(View.VISIBLE);
         title8.setVisibility(View.VISIBLE);
         cUserPassword.setVisibility(View.VISIBLE);
-     cPasswords.setVisibility(View.VISIBLE);
+        cPasswords.setVisibility(View.VISIBLE);
         title6.setBackgroundResource(R.mipmap.passwords);
         title8.setBackgroundResource(R.mipmap.password);
     }
 
-    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
+    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay,R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
-                if(getPhone() == null || Utils.isPhoneNumber(getPhone())== false) {
-                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机号格式错误",Toast.LENGTH_SHORT),400);
+                if (getPhone() == null || Utils.isPhoneNumber(getPhone()) == false) {
+                    Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT), 400);
 
                     return;
                 }
                 mPresenter.getCode(getPhone());
-                timeCount = new Utils.TimeCount(60000,1000, cGetCode);
+                timeCount = new Utils.TimeCount(60000, 1000, cGetCode);
                 timeCount.start();
                 break;
             case R.id.title_6:
@@ -125,18 +121,18 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
             case R.id.title_8:
                 break;
             case R.id.c_login_button:
-                if(getCode() == null || getPhone() == null || getPassword() == null || getPasswords() == null || Utils.isPhoneNumber(getPhone()) == false){
+                if (getCode() == null || getPhone() == null || getPassword() == null || getPasswords() == null || Utils.isPhoneNumber(getPhone()) == false) {
 
-                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机号格式错误",Toast.LENGTH_SHORT),400);
-                }else if(!getPassword().equals(getPasswords())){
-                    Utils.showMyToast(Toast.makeText(this,"输入的密码不一致",Toast.LENGTH_SHORT),400);
+                    Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT), 400);
+                } else if (!getPassword().equals(getPasswords())) {
+                    Utils.showMyToast(Toast.makeText(this, "输入的密码不一致", Toast.LENGTH_SHORT), 400);
                     return;
                 }
-                HashMap<String,String> paramsMap= new HashMap<>();
-                paramsMap.put("mobile",getPhone());
-                paramsMap.put("code",getCode());
-                paramsMap.put("newPassword",getPassword());
-                mPresenter.Forget(this,Utils.RetrofitHead(paramsMap));
+                HashMap<String, String> paramsMap = new HashMap<>();
+                paramsMap.put("mobile", getPhone());
+                paramsMap.put("code", getCode());
+                paramsMap.put("newPassword", getPassword());
+                mPresenter.Forget(this, Utils.RetrofitHead(paramsMap));
                 break;
             case R.id.c_wechat:
                 break;
@@ -144,20 +140,28 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
                 break;
             case R.id.alipay:
                 break;
+            case R.id.back:
+                finish();
+                break;
         }
     }
-    private String getCode(){
+
+    private String getCode() {
         return cCode.getText().toString().trim();
     }
-    private String getPhone(){
+
+    private String getPhone() {
         return cPhone.getText().toString().trim();
     }
-    private String getPassword(){
+
+    private String getPassword() {
         return cPasswords.getText().toString().trim();
     }
-    private String getPasswords(){
-        return  cUserPassword.getText().toString().trim();
+
+    private String getPasswords() {
+        return cUserPassword.getText().toString().trim();
     }
+
     @Override
     public void onSuccess(BaseObjectBean bean) {
         Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
@@ -177,5 +181,12 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     @Override
     public void onError(Throwable throwable) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -1,16 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView
+    <LinearLayout
+        android:paddingBottom="8dp"
+        android:orientation="horizontal"
+        android:id="@+id/user_toolbar"
+        android:background="@color/c333333"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+
+            android:visibility="invisible"
+            android:id="@+id/back"
+            android:layout_gravity="bottom"
+            android:src="@mipmap/back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            />
+        <TextView
+
+            android:textSize="20sp"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:textColor="@color/cffffff"
+            android:text="商城"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/image"
+        app:layout_constraintTop_toBottomOf="@id/user_toolbar"
+        android:layout_marginTop="@dimen/paddingTop_10"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="暂无数据"
-        tools:ignore="MissingConstraints" />
+        android:layout_width="343dp"
+        android:layout_height="186dp"
+        android:background="@mipmap/s_q"
+      />
+
+    <LinearLayout
+        android:id="@+id/lay1"
+        android:layout_marginTop="@dimen/paddingTop_10"
+       app:layout_constraintTop_toBottomOf="@id/image"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_10"
+            android:layout_marginRight="@dimen/paddingRight_5"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/q"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+   <TextView
+       android:textSize="@dimen/text_size_12"
+       android:textColor="@color/c333333"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="瓷器"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_5"
+            android:layout_marginRight="@dimen/paddingRight_5"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/w"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="陶器"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_5"
+            android:layout_marginRight="@dimen/paddingRight_5"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/e"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="铜器"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_5"
+            android:layout_marginRight="@dimen/paddingRight_5"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/r"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="漆器"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_5"
+            android:layout_marginRight="@dimen/paddingRight_10"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/t"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="玉器"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/imag2"
+        android:layout_marginTop="@dimen/paddingTop_30"
+        app:layout_constraintTop_toBottomOf="@id/lay1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="343dp"
+        android:layout_height="186dp"
+        android:background="@mipmap/y"
+        />
+
+    <LinearLayout
+        android:id="@+id/lay2"
+        android:layout_marginTop="@dimen/paddingTop_10"
+        app:layout_constraintTop_toBottomOf="@id/imag2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_10"
+            android:layout_marginRight="@dimen/paddingRight_5"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/u"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="瓷器"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_5"
+            android:layout_marginRight="@dimen/paddingRight_5"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/x"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="玻璃"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_5"
+            android:layout_marginRight="@dimen/paddingRight_5"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/o"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="木器"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_5"
+            android:layout_marginRight="@dimen/paddingRight_5"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/p"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="陶器"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/paddingLeft_5"
+            android:layout_marginRight="@dimen/paddingRight_10"
+            android:background="@color/cEEEEEE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:background="@mipmap/a"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/c333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="玉器"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

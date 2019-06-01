@@ -5,6 +5,8 @@ import android.content.Context;
 import com.example.hemin.fnb.ui.base.BaseView;
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.MessageImageBean;
+import com.example.hemin.fnb.ui.bean.MessageImages;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +27,7 @@ public interface MessageContract  {
 
     }
     interface modle4{
-        Flowable<BaseObjectBean> getFidner(Context context,Map token, long friendId,  int userId );
+        Flowable<BaseObjectBean> getFidner(Context context, Map token, long friendId, int userId );
 
     }
 
@@ -37,6 +39,7 @@ public interface MessageContract  {
         @Override
         void hideLoading();
         void Date(Object object,int index);
+        void DateUserId(Object object,String userId,String content);
         @Override
         void onError(Throwable throwable);
 

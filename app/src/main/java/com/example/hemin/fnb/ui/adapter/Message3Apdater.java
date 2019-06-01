@@ -22,18 +22,21 @@ public class Message3Apdater extends RecyclerView.Adapter<Message3Apdater.ViewHo
     private Context context;
     private List<MessageBean3.DataBean.RecordsBean> list = new ArrayList<>();
     private OnRecyclerItemClickListener monItemClickListener;
-    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
-        monItemClickListener=listener;
+
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
+        monItemClickListener = listener;
     }
-    public Message3Apdater(Context context, List<MessageBean3.DataBean.RecordsBean> list){
+
+    public Message3Apdater(Context context, List<MessageBean3.DataBean.RecordsBean> list) {
         this.context = context;
         this.list = list;
     }
+
     @NonNull
     @Override
     public Message3Apdater.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.message_adapters,viewGroup,false);
-        ViewHolder holder = new ViewHolder(view);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.message_adapters, viewGroup, false);
+        Message3Apdater.ViewHolder holder = new Message3Apdater.ViewHolder(view);
         return holder;
     }
 
@@ -43,7 +46,8 @@ public class Message3Apdater extends RecyclerView.Adapter<Message3Apdater.ViewHo
         Glide.with(context).load(bean.getImagesUrl()).into(holder.imageView1);
         holder.textView1.setText(bean.getFriendHead());
         Glide.with(context).load(bean.getUserUrl()).into(holder.imageView2);
-//     holder.textView3.setText(bean.getGiveNum());
+        holder.textView2.setText(bean.getNickname());
+        holder.textView3.setText(bean.getGiveNum());
 
 
     }
@@ -54,25 +58,25 @@ public class Message3Apdater extends RecyclerView.Adapter<Message3Apdater.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public  ImageView imageView1,imageView2,imageView3;
-        public TextView textView1,textView2,textView3;
+        public ImageView imageView1, imageView2, imageView3;
+        public TextView textView1, textView2, textView3;
 
         public ViewHolder(@NonNull View view) {
             super(view);
-      imageView1 = view.findViewById(R.id.image1);
-      imageView2 = view.findViewById(R.id.image2);
-      imageView3 = view.findViewById(R.id.image3);
-      textView1 = view.findViewById(R.id.title1);
-      textView2 = view.findViewById(R.id.titl2);
-      textView3 = view.findViewById(R.id.titl3);
-      view.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              if (monItemClickListener!=null){
-                  monItemClickListener.onItemClick(getAdapterPosition());
-              }
-          }
-      });
+            imageView1 = view.findViewById(R.id.image1);
+            imageView2 = view.findViewById(R.id.image2);
+            imageView3 = view.findViewById(R.id.image3);
+            textView1 = view.findViewById(R.id.title1);
+            textView2 = view.findViewById(R.id.title2);
+            textView3 = view.findViewById(R.id.title3);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (monItemClickListener != null) {
+                        monItemClickListener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 }

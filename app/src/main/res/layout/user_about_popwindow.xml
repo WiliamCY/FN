@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/user_update_title"
+       android:paddingTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="检测到新版本"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_update_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_update_title"
+        app:layout_constraintBottom_toBottomOf="@+id/update_button"
+        android:textSize="16sp"
+        tools:text="更新说明：
+       该应用不再更新,请卸载后前往应用宝更新"
+        />
+    
+    <Button
+        android:visibility="gone"
+        android:id="@+id/update_button"
+        android:textColor="@color/cffffff"
+        android:text="确定更新"
+        android:background="@color/c333333"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+</android.support.constraint.ConstraintLayout>

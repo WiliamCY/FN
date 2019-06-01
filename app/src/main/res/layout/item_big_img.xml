@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cffffff"
+    android:gravity="center"
+    android:layout_margin="@dimen/margin_10"
+    android:orientation="vertical"
+    >
+
+    <com.github.chrisbanes.photoview.PhotoView
+
+        android:scaleType="fitXY"
+        android:id="@+id/flaw_img"
+        android:layout_width="344dp"
+        android:layout_height="391dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_marginTop="@dimen/paddingTop_20"
+        android:layout_marginRight="@dimen/paddingRight_30"
+        android:layout_marginLeft="@dimen/paddingLeft_30"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/c333333"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/zan"
+        android:layout_marginTop="@dimen/paddingTop_70"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:background="@mipmap/white_zan"/>
+
+</LinearLayout>

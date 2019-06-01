@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.MessageImageBean;
+import com.example.hemin.fnb.ui.bean.MessageImages;
 import com.example.hemin.fnb.ui.contract.MessageContract;
 import com.example.hemin.fnb.ui.net.RetrofitClient;
 

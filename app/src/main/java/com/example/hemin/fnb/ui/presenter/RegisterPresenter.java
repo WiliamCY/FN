@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.hemin.fnb.ui.activity.CodeLoginActivity;
 import com.example.hemin.fnb.ui.activity.MainActivity;
+import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.RegisterContract;
@@ -45,7 +46,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View >impl
                               mView.onSuccess(bean);
                               mView.hideLoading();
                               if(bean.getErrorCode() == 0){
-                                  Intent intent = new Intent(context, MainActivity.class);
+                                  Intent intent = new Intent(context, PasswordActivity.class);
                                   context.startActivity(intent);
                               }
 

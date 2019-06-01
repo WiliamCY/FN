@@ -3,6 +3,7 @@ package com.example.hemin.fnb.ui.net;
 
 import com.example.hemin.fnb.ui.base.FindRankBean;
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
+import com.example.hemin.fnb.ui.bean.AppraisasBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ColletionBean;
 import com.example.hemin.fnb.ui.bean.Find2Bean;
@@ -18,6 +19,8 @@ import com.example.hemin.fnb.ui.bean.LoginBean;
 import com.example.hemin.fnb.ui.bean.MessageBean1;
 import com.example.hemin.fnb.ui.bean.MessageBean2;
 import com.example.hemin.fnb.ui.bean.MessageBean3;
+import com.example.hemin.fnb.ui.bean.MessageImageBean;
+import com.example.hemin.fnb.ui.bean.MessageImages;
 import com.example.hemin.fnb.ui.bean.TypeBean;
 import com.example.hemin.fnb.ui.bean.UserDateBean;
 
@@ -97,13 +100,6 @@ public interface APIService {
     Flowable<BaseObjectBean<List<TypeBean.DataBean>>> getType(@HeaderMap Map<String,String> heard);
 
 
-    /**
-     * 图片上传
-     * */
-    @Multipart
-    @POST("sys/upload/add")
-//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean<ImageUrlBean.DataBean>> postImage(@HeaderMap Map<String,String> heard,@Part  MultipartBody.Part partList);
 
     /**
      * 提交图鉴
@@ -124,7 +120,7 @@ public interface APIService {
      * */
     @GET("app/collection/getMyCollectionResults/{current}/{size}/{collectionAudit}/{userId}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    Flowable<BaseObjectBean<AppraisaBean.DataBean>>  appraisas(@HeaderMap Map<String,String> heard, @Path("current") long current,@Path("size") long size,@Path("collectionAudit") long collectionAudit,@Path("userId") long  userId );
+    Flowable<BaseObjectBean<AppraisasBean.DataBean>>  appraisas(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size, @Path("collectionAudit") long collectionAudit, @Path("userId") long  userId );
 
     /**
      * 获取鉴定的详情
@@ -228,7 +224,7 @@ public interface APIService {
     /**
      * 关注
      * */
-    @GET("app/friend/getFocusList/{current}/{size}/{userId}")
+    @GET("app/friend/getFocus/{current}/{size}/{userId}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Flowable<BaseObjectBean<MessageBean3.DataBean>>  getGuanzhu(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
 
@@ -239,15 +235,63 @@ public interface APIService {
    * */
   @GET("app/friend/info/{friendId}/{userId}")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-  Flowable<BaseObjectBean>  getFinder(@HeaderMap Map<String,String> heard, @Path("friendId") long friendId, @Path("userId") long userId);
+  Flowable<BaseObjectBean<MessageImageBean.DataBean>>  getFinder(@HeaderMap Map<String,String> heard, @Path("friendId") long friendId, @Path("userId") long userId);
 
 
   /**
-   * 注册
+   * 发送朋友圈
    * */
   @POST("app/friend/add")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
-  Flowable<BaseObjectBean> friendAdd(@HeaderMap Map<String,String> heard,@Body RequestBody body);
+  Flowable<BaseObjectBean> friendAdd(@HeaderMap Map<String,String> heard, @Body RequestBody body);
 
 
+  /**
+   * 关注朋友圈
+   * */
+  @PUT("app/friend/getFocus/{friendId}/{userId}")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> getFoucus(@HeaderMap Map<String,String> heard,@Path("friendId") long friendId, @Path("userId") long userId);
+
+
+
+
+  /**
+   * 点赞
+   * */
+  @PUT("app/friend/addLike/{friendId}/{userId}/{type}")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> getZan(@HeaderMap Map<String,String> heard,@Path("friendId") long friendId, @Path("userId") long userId,@Path("type") long type);
+
+
+  /**
+   * 我的关注
+   * */
+  @PUT("app/friend/getFocusList/{current}/{size}/{userId}")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> myGuanzhu(@HeaderMap Map<String,String> heard,@Path("current") long current, @Path("size") long size,@Path("userId") long userId);
+
+
+  /**
+   * 我的发布
+   * */
+  @PUT("app/friend/myRelease/{current}/{size}/{userId}")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> myFabu(@HeaderMap Map<String,String> heard,@Path("current") long current, @Path("size") long size,@Path("userId") long userId);
+
+
+  /**
+   * 更换头像
+   * */
+  @PUT("app/user/updateImages")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> ChangeLogo(@HeaderMap Map<String,String> heard,@Body RequestBody body);
+
+  /**
+   * 图片上传
+   * */
+  @Multipart
+  @POST("sys/upload/add")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean<ImageUrlBean.DataBean>> postImage(@HeaderMap Map<String,String> heard,@Part  MultipartBody.Part partList);
 }

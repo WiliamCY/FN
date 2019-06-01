@@ -73,6 +73,7 @@
     </android.support.constraint.ConstraintLayout>
 
  <LinearLayout
+     android:id="@+id/lay1"
      android:orientation="horizontal"
      android:paddingTop="99dp"
      android:layout_width="match_parent"

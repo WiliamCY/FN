@@ -167,7 +167,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

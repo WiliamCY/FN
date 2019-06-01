@@ -1,16 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activity.UserSetting">
 
+    tools:context=".ui.activity.UserSetting">
+    <android.support.constraint.ConstraintLayout
+        android:paddingBottom="8dp"
+        android:orientation="horizontal"
+        android:background="@color/c333333"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        tools:ignore="MissingConstraints">
+        <ImageView
+            app:layout_constraintTop_toTopOf="@id/titl1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/header_left_img"
+            android:src="@mipmap/back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            />
+        <TextView
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/titl1"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/cffffff"
+            android:text="设置"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/marginRight_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="20sp"
+            android:textColor="@color/cffffff"
+            android:id="@+id/header_right_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="确定"/>
+
+    </android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/marginLeft_16"
+        android:layout_marginRight="@dimen/marginRight_16"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_40"
-        android:layout_marginTop="@dimen/paddingTop_30"
+        android:layout_marginTop="@dimen/paddingTop_20"
         android:gravity="center_vertical">
 
         <TextView
@@ -183,5 +230,7 @@
         android:text="退出登录"
         android:textColor="@color/cffffff"
         android:textSize="@dimen/text_size_18" />
+    </LinearLayout>
+
 
 </LinearLayout>

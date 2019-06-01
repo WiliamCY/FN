@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
+import com.example.hemin.fnb.ui.bean.AppraisasBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.AppraisaContract;
 import com.example.hemin.fnb.ui.model.AppraisaModel;
@@ -42,7 +43,7 @@ public class AppraisaPresenter extends BasePresenter<AppraisaContract.View> impl
                         mView.hideLoading();
                      AppraisaBean.DataBean beans = (AppraisaBean.DataBean) bean.getResult();
                      List<AppraisaBean.DataBean.RecordsBean> dates =  beans.getRecords();
-                        mView.Date(dates);
+                        mView.Date(dates,0);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -68,9 +69,9 @@ public class AppraisaPresenter extends BasePresenter<AppraisaContract.View> impl
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
-                        AppraisaBean.DataBean beans = (AppraisaBean.DataBean) bean.getResult();
-                        List<AppraisaBean.DataBean.RecordsBean> dates =  beans.getRecords();
-                        mView.Date(dates);
+                        AppraisasBean.DataBean beans = (AppraisasBean.DataBean) bean.getResult();
+                        List<AppraisasBean.DataBean.RecordsBean> dates =  beans.getRecords();
+                        mView.Date(dates,1);
 
                     }
                 }, new Consumer<Throwable>() {

@@ -18,8 +18,10 @@ import android.widget.Toast;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.CollectionInformationMessage;
 import com.example.hemin.fnb.ui.adapter.AppRaisaAdapter;
+import com.example.hemin.fnb.ui.adapter.AppRaisasAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
+import com.example.hemin.fnb.ui.bean.AppraisasBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.AppraisaContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
@@ -44,14 +46,13 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
     @BindView(R.id.title)
     TextView title;
     Unbinder unbinder;
-    private AppRaisaAdapter adapter;
 
 
     private void initRecyclerView(final List<AppraisaBean.DataBean.RecordsBean> bean) {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         aprRecylcerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        adapter = new AppRaisaAdapter(getActivity(), bean);
+        AppRaisaAdapter adapter = new AppRaisaAdapter(getActivity(), bean);
         Log.d("beanDate", bean.toString());
         aprRecylcerview.setAdapter(adapter);
         adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
@@ -72,6 +73,30 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     }
 
+    private void initRecyclerViews(final List<AppraisasBean.DataBean.RecordsBean> bean) {
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        aprRecylcerview.setLayoutManager(layoutManager);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        AppRaisasAdapter adapter = new AppRaisasAdapter(getActivity(), bean);
+        Log.d("beanDate", bean.toString());
+        aprRecylcerview.setAdapter(adapter);
+        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int Position, String path) {
+
+            }
+
+            @Override
+            public void onItemClick(int Position) {
+//                Intent intent = new Intent(getActivity(), CollectionInformationMessage.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("id", bean.get(Position).getCollectionId());
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+            }
+        });
+
+    }
 
     @Override
     protected void initView(View view) {
@@ -104,7 +129,9 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        if(bean.getErrorCode() != 0){
+            Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -117,15 +144,21 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
         ProgressDialog.getInstance().dismiss();
     }
 
-    @Override
-    public void Date(List<AppraisaBean.DataBean.RecordsBean> date) {
-        if(date.size() == 0){
-            aprRecylcerview.setVisibility(View.GONE);
-            image.setVisibility(View.VISIBLE);
-            title.setVisibility(View.VISIBLE);
-        }
-        initRecyclerView(date);
 
+    @Override
+    public void Date(Object o, int status) {
+
+        if (status == 0) {
+            aprRecylcerview.setVisibility(View.VISIBLE);
+            image.setVisibility(View.GONE);
+            title.setVisibility(View.GONE);
+            initRecyclerView((List<AppraisaBean.DataBean.RecordsBean>) o);
+        } else if (status == 1) {
+            aprRecylcerview.setVisibility(View.VISIBLE);
+            image.setVisibility(View.GONE);
+            title.setVisibility(View.GONE);
+            initRecyclerViews((List<AppraisasBean.DataBean.RecordsBean>) o);
+        }
 
     }
 
