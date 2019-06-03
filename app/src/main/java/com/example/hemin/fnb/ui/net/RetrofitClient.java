@@ -25,10 +25,10 @@ public class RetrofitClient {
 
     private static volatile RetrofitClient instance;
     private APIService apiService;
-//    private static String baseUrl = "http://10.10.10.66:8080/";
+    //    private static String baseUrl = "http://10.10.10.66:8080/";
 //    private static  String baseUrl = "https://www.funwl.com/";
-private static String baseUrl = "https://www.funwl.com/";
-//    private static  String baseUrl = "http://ceshi.funwl.com:8443/";
+//private static String baseUrl = "https://www.funwl.com/";
+    private static String baseUrl = "http://ceshi.funwl.com:8443/";
 //private static String baseUrl = "http://qq1273106281.oicp.io:47141/";
 
     private RetrofitClient() {
@@ -56,7 +56,7 @@ private static String baseUrl = "https://www.funwl.com/";
             public Response intercept(@NonNull Chain chain) throws IOException {
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder();
-                        //添加Token
+                //添加Token
 //                        .header("usERa", "application/json;charset=UTF-8");
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
@@ -75,7 +75,7 @@ private static String baseUrl = "https://www.funwl.com/";
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                if(BuildConfig.DEBUG){
+                if (BuildConfig.DEBUG) {
                     Log.i("OKHttp", message);
                 }
             }

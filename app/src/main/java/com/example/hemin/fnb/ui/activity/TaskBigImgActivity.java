@@ -46,7 +46,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     private ArrayList<String> paths;
     private long finderid, finderids;
     private String userId, userIds,StringContent;
-
+    private ImageView zan;
 
     @Override
     public int getLayoutId() {
@@ -93,7 +93,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                 View adView = LayoutInflater.from(TaskBigImgActivity.this).inflate(R.layout.item_big_img, null);
                 PhotoView icon = (PhotoView) adView.findViewById(R.id.flaw_img);
                TextView StringContents = adView.findViewById(R.id.title);
-               ImageView  zan = adView.findViewById(R.id.zan);
+                 zan = adView.findViewById(R.id.zan);
                  zan.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
@@ -145,10 +145,9 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     @Override
     public void onSuccess(BaseObjectBean bean,int status) {
         if(status == 0 && bean.getErrorCode() == 0){
-//            Toast.makeText(this, "关注成功", Toast.LENGTH_SHORT).show();
             headerTitle.setText("已关注");
         }else if(status == 1){
-
+                zan.setBackgroundResource(R.mipmap.zan_black);
         }
 
     }

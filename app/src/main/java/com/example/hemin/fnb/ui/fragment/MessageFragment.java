@@ -102,7 +102,6 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     }
 
     private void Images(List<MessageImageBean.DataBean.ImagesBean> object,String userId,String content){
-
                   recordPaths.clear();
             for(int i=0; i<object.size();i++){
                 String path = object.get(i).getImagesUrl();

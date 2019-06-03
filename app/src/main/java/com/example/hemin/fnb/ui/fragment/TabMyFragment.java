@@ -95,8 +95,8 @@ public class TabMyFragment extends BaseFragment {
                 startActivity(intent2);
                 break;
             case R.id.card_3:
-//                Intent intent3 = new Intent(getActivity(), MyAppraisaS.class);
-//                startActivity(intent3);
+                Intent intent3 = new Intent(getActivity(), MyAppraisaS.class);
+                startActivity(intent3);
                 break;
             case R.id.card_4:
                 break;

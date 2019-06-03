@@ -14,6 +14,7 @@ import com.example.hemin.fnb.ui.bean.FindFirstBean;
 import com.example.hemin.fnb.ui.bean.FindHuaBean;
 import com.example.hemin.fnb.ui.bean.FindHuoListBean;
 import com.example.hemin.fnb.ui.bean.FindLoveBean;
+import com.example.hemin.fnb.ui.bean.GuanZhuBean;
 import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.bean.LoginBean;
 import com.example.hemin.fnb.ui.bean.MessageBean1;
@@ -21,6 +22,7 @@ import com.example.hemin.fnb.ui.bean.MessageBean2;
 import com.example.hemin.fnb.ui.bean.MessageBean3;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
 import com.example.hemin.fnb.ui.bean.MessageImages;
+import com.example.hemin.fnb.ui.bean.ReleaseBean;
 import com.example.hemin.fnb.ui.bean.TypeBean;
 import com.example.hemin.fnb.ui.bean.UserDateBean;
 
@@ -267,17 +269,17 @@ public interface APIService {
   /**
    * 我的关注
    * */
-  @PUT("app/friend/getFocusList/{current}/{size}/{userId}")
+  @GET("app/friend/getFocusList/{current}/{size}/{userId}")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
-  Flowable<BaseObjectBean> myGuanzhu(@HeaderMap Map<String,String> heard,@Path("current") long current, @Path("size") long size,@Path("userId") long userId);
+  Flowable<BaseObjectBean<GuanZhuBean.DataBean>> myGuanzhu(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
 
 
   /**
    * 我的发布
    * */
-  @PUT("app/friend/myRelease/{current}/{size}/{userId}")
+  @GET("app/friend/myRelease/{current}/{size}/{userId}")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
-  Flowable<BaseObjectBean> myFabu(@HeaderMap Map<String,String> heard,@Path("current") long current, @Path("size") long size,@Path("userId") long userId);
+  Flowable<BaseObjectBean<ReleaseBean.DataBean>> myFabu(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
 
 
   /**
@@ -294,4 +296,13 @@ public interface APIService {
   @POST("sys/upload/add")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
   Flowable<BaseObjectBean<ImageUrlBean.DataBean>> postImage(@HeaderMap Map<String,String> heard,@Part  MultipartBody.Part partList);
+
+  /**
+   * 取消关注
+   * */
+  @PUT("/app/friend/deleteFocus/{fuId}")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> Remove(@HeaderMap Map<String,String> heard,@Path("fuId") String fuId);
+
+
 }

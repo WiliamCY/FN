@@ -26,8 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserContract.View {
-
-
     @BindView(R.id.setting_button3)
     ImageView settingButton3;
     @BindView(R.id.setting_button4)

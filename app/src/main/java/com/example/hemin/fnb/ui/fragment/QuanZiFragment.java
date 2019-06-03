@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,19 +17,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.activity.CollectionInformationMessage;
-import com.example.hemin.fnb.ui.adapter.AppRaisaAdapter;
-import com.example.hemin.fnb.ui.adapter.AppRaisasAdapter;
+import com.example.hemin.fnb.ui.activity.TaskBigImgActivity;
+import com.example.hemin.fnb.ui.adapter.RelaseApdater;
+import com.example.hemin.fnb.ui.adapter.TranslateAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpFragment;
-import com.example.hemin.fnb.ui.bean.AppraisaBean;
-import com.example.hemin.fnb.ui.bean.AppraisasBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
-import com.example.hemin.fnb.ui.contract.AppraisaContract;
+import com.example.hemin.fnb.ui.bean.GuanZhuBean;
+import com.example.hemin.fnb.ui.bean.MessageImageBean;
+import com.example.hemin.fnb.ui.bean.ReleaseBean;
+import com.example.hemin.fnb.ui.contract.WodeQuanziContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
-import com.example.hemin.fnb.ui.presenter.AppraisaPresenter;
+import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListeners;
+import com.example.hemin.fnb.ui.presenter.WoDoQuanZiPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class QuanZiFragment extends BaseMvpFragment<AppraisaPresenter> implements AppraisaContract.View {
+public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> implements WodeQuanziContract.View {
 
     @BindView(R.id.apr_recylcerview)
     RecyclerView aprRecylcerview;
@@ -46,72 +50,34 @@ public class QuanZiFragment extends BaseMvpFragment<AppraisaPresenter> implement
     @BindView(R.id.title)
     TextView title;
     Unbinder unbinder;
+    @BindView(R.id.logo)
+    ImageView logos;
+    @BindView(R.id.logo_title)
+    TextView logoTitle;
+    private ArrayList<String> recordPaths = new ArrayList<>();
+    private int finderid;
+    private String userId;
+    private TranslateAdapter adapter = new TranslateAdapter();
+    private Map token = new HashMap();
+    private TextView t1;
 
-//
-//    private void initRecyclerView(final List<AppraisaBean.DataBean.RecordsBean> bean) {
-//        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-//        aprRecylcerview.setLayoutManager(layoutManager);
-//        layoutManager.setOrientation(OrientationHelper.VERTICAL);
-//        AppRaisaAdapter adapter = new AppRaisaAdapter(getActivity(), bean);
-//        Log.d("beanDate", bean.toString());
-//        aprRecylcerview.setAdapter(adapter);
-//        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
-//            @Override
-//            public void onItemClick(int Position, String path) {
-//
-//            }
-//
-//            @Override
-//            public void onItemClick(int Position) {
-//                Intent intent = new Intent(getActivity(), CollectionInformationMessage.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("id", bean.get(Position).getCollectionId());
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//
-//    }
-
-//    private void initRecyclerViews(final List<AppraisasBean.DataBean.RecordsBean> bean) {
-//        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-//        aprRecylcerview.setLayoutManager(layoutManager);
-//        layoutManager.setOrientation(OrientationHelper.VERTICAL);
-//        AppRaisasAdapter adapter = new AppRaisasAdapter(getActivity(), bean);
-//        Log.d("beanDate", bean.toString());
-//        aprRecylcerview.setAdapter(adapter);
-//        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
-//            @Override
-//            public void onItemClick(int Position, String path) {
-//
-//            }
-//
-//            @Override
-//            public void onItemClick(int Position) {
-//
-//            }
-//        });
-//
-//    }
 
     @Override
     protected void initView(View view) {
-        mPresenter = new AppraisaPresenter();
+        mPresenter = new WoDoQuanZiPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
         int indexNumber = this.getArguments().getInt("indexNumber");
-        Log.d("indexNumbers", String.valueOf(indexNumber));
+        Log.d("indexNumbersss", String.valueOf(indexNumber));
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
-         Map token = Utils.getAuthorization(getActivity());
-        String userId = sp.getString("userId", "");
+        token = Utils.getAuthorization(getActivity());
+        userId = sp.getString("userId", "");
+        if (indexNumber == 0) {//我的关注
+            mPresenter.myGuanzhu(getActivity(), token, 1, 10, Long.parseLong(userId));
+        } else {///我的发布
+            mPresenter.myFaBu(getActivity(), token, 1, 10, Long.parseLong(userId));
+        }
 
-//        if (status == true) {
-//            mPresenter.Appraisa(map, 1, 10, indexNumber, Long.parseLong(userId));
-//
-//
-//        } else {
-//            mPresenter.Appraisas(getActivity(), map, 1, 10, indexNumber, Long.parseLong(userId));
-//        }
 
     }
 
@@ -122,7 +88,7 @@ public class QuanZiFragment extends BaseMvpFragment<AppraisaPresenter> implement
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if(bean.getErrorCode() != 0){
+        if (bean.getErrorCode() != 0) {
             Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -138,28 +104,99 @@ public class QuanZiFragment extends BaseMvpFragment<AppraisaPresenter> implement
     }
 
     @Override
-    public void Date(Object object, int status) {
+    public void Date(Object object, int index) {
+        if (index == 0) {
+            initAdapterGZ((List<GuanZhuBean.DataBean.RecordsBean>) object);
+        } else if (index == 1) {
+            initAdapterFB((List<ReleaseBean.DataBean.RecordsBean>) object);
+        } else {
+            t1.setText("未关注");
+        }
 
     }
 
+    @Override
+    public void DateUserId(Object object, String userId, String content) {
 
-//    @Override
-//    public void Date(Object o, int status) {
-//
-//        if (status == 0) {
-//            aprRecylcerview.setVisibility(View.VISIBLE);
-//            image.setVisibility(View.GONE);
-//            title.setVisibility(View.GONE);
-//            initRecyclerView((List<AppraisaBean.DataBean.RecordsBean>) o);
-//        } else if (status == 1) {
-//            aprRecylcerview.setVisibility(View.VISIBLE);
-//            image.setVisibility(View.GONE);
-//            title.setVisibility(View.GONE);
-//            initRecyclerViews((List<AppraisasBean.DataBean.RecordsBean>) o);
-//        }
-//
-//    }
+        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content);
 
+    }
+
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content) {
+        recordPaths.clear();
+        for (int i = 0; i < object.size(); i++) {
+            String path = object.get(i).getImagesUrl();
+            Log.d("messageAdapter3", path);
+            recordPaths.add(path);
+        }
+
+        Log.d("messaePaths", recordPaths.toString());
+        Intent imgIntent = new Intent(getActivity(), TaskBigImgActivity.class);
+        imgIntent.putStringArrayListExtra("paths", recordPaths);
+        imgIntent.putExtra("title", "关注");
+        imgIntent.putExtra("position", object.size());
+        imgIntent.putExtra("finderid", finderid);
+        imgIntent.putExtra("userId", userId);
+        imgIntent.putExtra("StringContent", content);
+        startActivity(imgIntent);
+
+    }
+
+    private void initAdapterGZ(final List<GuanZhuBean.DataBean.RecordsBean> beans) {
+        if (beans.size() == 0) {
+             logos.setVisibility(View.VISIBLE);
+             logos.setBackgroundResource(R.mipmap.guanzhu);
+             logoTitle.setVisibility(View.VISIBLE);
+             logoTitle.setText("快点去关注些什么吧～");
+             aprRecylcerview.setVisibility(View.GONE);
+        }
+        Log.d("TransSize:", String.valueOf(beans.size()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        aprRecylcerview.setLayoutManager(layoutManager);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        adapter = new TranslateAdapter(getActivity(), beans);
+        aprRecylcerview.setAdapter(adapter);
+        adapter.setRecyclerItemClickListeners(new OnRecyclerItemClickListeners() {
+            @Override
+            public void onItemClick(int Position, TextView textView) {
+                String userId = beans.get(Position).getFuId();
+                mPresenter.Remove(getActivity(), token, userId);
+                t1 = textView;
+            }
+        });
+    }
+
+    private void initAdapterFB(final List<ReleaseBean.DataBean.RecordsBean> beans) {
+        if (beans.size() == 0) {
+            logos.setVisibility(View.VISIBLE);
+            logos.setBackgroundResource(R.mipmap.relaease);
+            logoTitle.setVisibility(View.VISIBLE);
+            logoTitle.setText("您还什么都没有发布呢～");
+            aprRecylcerview.setVisibility(View.GONE);
+        }
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        aprRecylcerview.setLayoutManager(layoutManager);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        RelaseApdater adapter = new RelaseApdater(getActivity(), beans);
+        Log.d("beanDate", beans.toString());
+        aprRecylcerview.setAdapter(adapter);
+        recordPaths.clear();
+
+        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int Position, String path) {
+
+            }
+
+            @Override
+            public void onItemClick(int position) {
+                finderid = beans.get(position).getFriendId();
+                mPresenter.getFidner(getActivity(), token, finderid, Integer.parseInt(userId));
+
+
+            }
+        });
+    }
 
     @Override
     public void onError(Throwable throwable) {

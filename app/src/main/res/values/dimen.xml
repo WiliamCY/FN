@@ -179,6 +179,7 @@
     <dimen name="paddingTop_18">18dp</dimen>
     <dimen name="paddingTop_19">19dp</dimen>
     <dimen name="paddingTop_20">20dp</dimen>
+    <dimen name="paddingTop_22">22dp</dimen>
     <dimen name="paddingTop_25">25dp</dimen>
     <dimen name="paddingTop_30">30dp</dimen>
     <dimen name="paddingTop_50">50dp</dimen>

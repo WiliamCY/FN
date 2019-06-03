@@ -16,22 +16,34 @@ public interface WodeQuanziContract  {
         interface Mode2 {
             Flowable<BaseObjectBean> myFaBu(Context context, Map map, long current,long size,long userId);
     }
+    interface modle4{
+        Flowable<BaseObjectBean> getFidner(Context context, Map token, long friendId, int userId );
+    }
+   interface  modle5{
+       Flowable<BaseObjectBean> Remove(Context context,Map token,String fuId);
+
+    }
+
     interface View extends BaseView {
         @Override
         void showLoading();
 
         @Override
         void hideLoading();
-
+        void Date(Object object,int index);
         @Override
         void onError(Throwable throwable);
-
+        void DateUserId(Object object,String userId,String content);
         void onSuccess(BaseObjectBean bean);
     }
     interface Presenter {
 
-        void myGuanzhu(Context context,Map map, String userId);
+        void myGuanzhu(Context context,Map map, long current, long size, long userId);
 
+        void myFaBu(Context context,Map map, long current,long size,long userId);
+
+        void getFidner(Context context,Map token, long friendId,int userId );
+        void  Remove(Context context,Map token,String fuid);
     }
 
 }

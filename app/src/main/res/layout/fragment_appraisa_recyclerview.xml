@@ -33,5 +33,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="暂无数据"/>
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/logo"
+        android:layout_marginTop="@dimen/paddingTop_70"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@mipmap/guanzhu"
+        android:layout_width="@dimen/layout_width_100"
+        android:layout_height="@dimen/layout_height_100" />
 
+    <TextView
+        android:id="@+id/logo_title"
+        android:visibility="gone"
+        android:layout_marginTop="22dp"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/c999999"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="快点去关注些什么吧～"/>
 </android.support.constraint.ConstraintLayout>
