@@ -71,8 +71,9 @@ public class MyAppraisaS extends BaseActivity {
             public IPagerTitleView getTitleView(Context context, final int index) {
                 BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
-                simplePagerTitleView.setNormalColor(Color.GRAY);
-                simplePagerTitleView.setSelectedColor(Color.WHITE);
+                simplePagerTitleView.setNormalColor(R.color.c333333);
+                simplePagerTitleView.setSelectedColor(Color.BLACK);
+              simplePagerTitleView.setTextSize(20);
                 simplePagerTitleView.setText(date.get(index));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override

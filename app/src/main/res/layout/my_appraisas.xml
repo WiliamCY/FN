@@ -78,10 +78,10 @@
     <!--/>-->
 <!--</LinearLayout>-->
     <net.lucode.hackware.magicindicator.MagicIndicator
-        android:background="@color/c000000"
+
         android:id="@+id/magic_indicator2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_height_30" />
+        android:layout_height="@dimen/layout_height_50" />
 
     <FrameLayout
         android:id="@+id/fragment_container"

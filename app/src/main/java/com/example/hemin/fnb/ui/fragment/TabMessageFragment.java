@@ -91,8 +91,8 @@ public class TabMessageFragment extends BaseFragment {
             public IPagerTitleView getTitleView(Context context, final int index) {
                 BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
-                simplePagerTitleView.setNormalColor(Color.GRAY);
-                simplePagerTitleView.setSelectedColor(Color.WHITE);
+                simplePagerTitleView.setNormalColor(R.color.c999999);
+                simplePagerTitleView.setSelectedColor(Color.BLACK);
                 simplePagerTitleView.setText(date.get(index));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
