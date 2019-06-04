@@ -175,7 +175,11 @@
         <attr name="rv_cornerRadius_BR" />
         <attr name="rv_isRippleEnable" />
     </declare-styleable>
-
+    <declare-styleable name="LetToolBar">
+        <attr name="leftButtonIcon" format="reference"/>
+        <attr name="rightButtonIcon" format="reference"/>
+        <attr name="isShowSearchView" format="boolean"/>
+    </declare-styleable>
 
 
 </resources>

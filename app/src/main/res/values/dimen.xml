@@ -182,6 +182,7 @@
     <dimen name="paddingTop_22">22dp</dimen>
     <dimen name="paddingTop_25">25dp</dimen>
     <dimen name="paddingTop_30">30dp</dimen>
+    <dimen name="paddingTop_40">40dp</dimen>
     <dimen name="paddingTop_50">50dp</dimen>
     <dimen name="paddingTop_70">70dp</dimen>
     <!--paddingBottom -->
@@ -302,4 +303,9 @@
     <dimen name="refresh_header_height_twitter">70dp</dimen>
     <dimen name="load_more_footer_height_classic">60dp</dimen>
 
+
+    <!-- ToolbarHeight -->
+
+    <dimen name="height_toolbar_50">50dp</dimen>
+    <dimen name="height_toolbar_60">60dp</dimen>
 </resources>

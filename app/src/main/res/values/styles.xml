@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -7,30 +7,59 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <!--全屏显示，有透明状态栏-->
-    <style name="statusBar" parent="AppTheme">
-    </style>
-    <style name="AppTheme.transparent" parent="AppTheme">
-        <item name="android:windowBackground">@android:color/transparent</item>
+
+
+    <!--全屏背景半透明 dialog-->
+    <style name="transparentBgDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
-    <style name="UpdateUserEditText" parent="Theme.AppCompat.Light">
-                <item name="colorControlNormal">@color/AEB3C0</item>
-                <item name="colorControlActivated">@color/AEB3C0</item>
-          </style>
-    <!--全屏显示，无透明状态栏-->
-    <style name="TranslucentTheme" parent="AppTheme">
-        <item name="android:windowFullscreen">true</item>
+    <!--自定义自己的主题目的就是使用 toolbat  第一系统的actionbar和tittlebar还有第三方的-->
+    <style name="MyToolbartheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!--自定义的一个处理系统toolbar和tittlebar的样式-->
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <!--设置处理第三方的actionbar和toolbar-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+
+
+        <!-- Customize your theme here.就是自定义的颜色 -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--设置最顶部的颜色,要求就是api在21 以上-->
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/colorAccent</item>
+
+        <!--设置的就是默认的窗体的颜色-->
+        <item name="android:windowBackground">@color/cffffff</item>
+
     </style>
 
-    <!--全屏显示，有透明状态栏-->
-    <style name="Welcome.theme" parent="statusBar"></style>
-    <!-- 自定义仿IOS的AlertDialog的样式 -->
+    <!--自定义toolbar的样式-->
+    <style name="search_view">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:background">@drawable/selector_search_view</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
 
-
-    -<style parent="@android:style/Theme.Dialog" name="AlertDialogStyle">
+    <style parent="@android:style/Theme.Dialog" name="AlertDialogStyle">
 
     <item name="android:windowBackground">@android:color/transparent</item>
 
@@ -47,14 +76,8 @@
     <item name="android:windowIsTranslucent">true</item>
 
 </style>
-    <!--全屏背景半透明 dialog-->
-    <style name="transparentBgDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/transparent</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:background">@color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
+
+
+
+
 </resources>

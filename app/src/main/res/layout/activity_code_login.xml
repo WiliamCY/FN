@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
 >
+
     <LinearLayout
-        android:paddingBottom="8dp"
+
         android:orientation="horizontal"
         android:id="@+id/user_toolbar"
-        android:background="@color/c333333"
+        android:background="@color/c313131"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="60dp">
         <ImageView
+            android:layout_marginLeft="@dimen/paddingLeft_5"
             android:id="@+id/back"
             android:layout_gravity="bottom"
             android:src="@mipmap/back"
@@ -22,7 +24,7 @@
             />
         <TextView
           android:visibility="invisible"
-            android:textSize="20sp"
+
             android:layout_marginRight="30dp"
             android:gravity="center"
             android:layout_gravity="bottom"
@@ -32,17 +34,21 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+   android:paddingTop="40dp"
     android:layout_margin="30dp">
     <TextView
+
         android:id="@+id/title_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="40dp"
         android:text="验证码登录"
-        android:textColor="@color/c000000"
+        android:textColor="@color/c333333"
         android:textSize="@dimen/text_size_28"
         android:textStyle="bold"
         />
@@ -205,7 +211,7 @@
         android:id="@+id/c_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:paddingTop="35dp"
         android:text="注册"
         android:textColor="@color/c2C6CFD"
         android:textSize="@dimen/text_size_15"
@@ -217,7 +223,7 @@
         android:id="@+id/c_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:paddingTop="35dp"
         android:text="密码登录"
         android:textColor="@color/c2C6CFD"
         android:textSize="@dimen/text_size_15"
@@ -226,11 +232,13 @@
 
 
     <Button
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         tools:ignore="MissingConstraints"
         android:id="@+id/c_login_button"
-        android:layout_width="match_parent"
+        android:layout_width="275dp"
         android:layout_height="50dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/shape_red"
         android:gravity="center"
         android:text="登录"
@@ -301,4 +309,5 @@
 
         app:layout_constraintTop_toBottomOf="@id/c_login_button" />
 </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

@@ -1,24 +1,21 @@
 package com.example.hemin.fnb.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
@@ -29,13 +26,11 @@ import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMyFragment;
 import com.example.hemin.fnb.ui.fragment.TabShopFragment;
 import com.example.hemin.fnb.ui.util.Utils;
+import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
-import com.pgyersdk.update.DownloadFileListener;
-import com.pgyersdk.update.PgyUpdateManager;
-import com.pgyersdk.update.UpdateManagerListener;
-import com.pgyersdk.update.javabean.AppBean;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +50,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     FrameLayout fl;
     @BindView(R.id.r1)
     RelativeLayout r1;
+    @BindView(R.id.vb_mian_show)
+    ViewStub vbMianShow;
     private List<BaseFragment> fragmentList = new ArrayList<>();
     private TabFindFragment tabFindFragment;
     private TabShopFragment tabShopFragment;
@@ -66,6 +63,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private RadioGroup mRadioButtonRg;
     private FragmentTransaction transaction1;
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
+    private boolean isLoading = false;
 
 
     @Override
@@ -89,12 +87,15 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //        }
 
 //
-        if(Utils.booleanisLogin(this)){
-            Intent intent = new Intent(this,WelcomeLoading.class);
+        if (Utils.booleanisLogin(this)) {
+            Intent intent = new Intent(this, WelcomeLoading.class);
             startActivity(intent);
             finish();
         }
+
     }
+
+
 
 
     private void initViews() {

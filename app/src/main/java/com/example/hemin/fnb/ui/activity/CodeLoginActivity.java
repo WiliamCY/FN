@@ -63,10 +63,7 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
     }
 
 
-    @Override
-    public boolean isFullScreen() {
-        return true;
-    }
+
 
     @OnClick({R.id.c_getCode, R.id.c_register, R.id.c_password, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
     public void onViewClicked(View view) {

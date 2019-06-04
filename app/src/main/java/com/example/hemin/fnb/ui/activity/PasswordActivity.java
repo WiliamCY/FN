@@ -94,6 +94,7 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
         title6.setVisibility(View.VISIBLE);
         cPasswords.setVisibility(View.VISIBLE);
         cPassword.setText("忘记密码");
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
     @OnClick({R.id.c_getCode, R.id.c_register, R.id.c_password, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
@@ -193,5 +194,7 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
+
 }
 

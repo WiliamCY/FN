@@ -9,14 +9,16 @@
         android:id="@+id/user_toolbar"
         android:background="@color/c333333"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="70dp">
+
         <ImageView
             android:id="@+id/back"
-            android:layout_gravity="bottom"
-            android:src="@mipmap/back"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            />
+            android:layout_alignStart="@+id/user_toolbar"
+            android:layout_alignBottom="@+id/user_toolbar"
+            android:layout_gravity="bottom"
+            android:src="@mipmap/back" />
         <TextView
 
             android:textSize="20sp"

@@ -9,7 +9,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/user_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:background="@color/c313131"
         android:paddingBottom="8dp"
         tools:ignore="MissingConstraints">

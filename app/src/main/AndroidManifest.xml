@@ -20,13 +20,14 @@
 
 
     <application
+        android:resizeableActivity="true"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:theme="@style/TranslucentTheme"
+        android:theme="@style/MyToolbartheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.activity.MyMessage"
             android:screenOrientation="portrait"/>
@@ -37,7 +38,9 @@
         <activity android:name=".ui.activity.ChangeMobile"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.UserSetting"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:clipToPadding="true"
+            android:fitsSystemWindows="true"/>
         <activity android:name=".ui.activity.ChangeLogo"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.UserMessage"
@@ -48,7 +51,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.MainActivity"
             android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:clipToPadding="true"
+            android:fitsSystemWindows="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -112,6 +117,14 @@
             android:name="PGYER_APPID"
             android:value="0326108dd2be32d921b50a0d098cafa9" >
         </meta-data>
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
     </application>
 
 

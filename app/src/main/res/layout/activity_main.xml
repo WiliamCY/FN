@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <ViewStub
+        android:layout="@layout/toolbar"
+        android:id="@+id/vb_mian_show"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"/>
     <RelativeLayout
         android:id="@+id/r1"
         android:layout_width="match_parent"

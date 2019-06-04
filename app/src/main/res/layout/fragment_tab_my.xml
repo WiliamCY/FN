@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true">
 
     <ImageView
+        android:layout_below="@id/vb_mian_show"
         android:scaleType="fitXY"
         android:id="@+id/my_background"
         android:layout_width="match_parent"
@@ -14,11 +15,13 @@
         android:background="@mipmap/user_background" />
 
     <ImageView
+
         android:id="@+id/setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
+        android:layout_marginRight="@dimen/marginRight_16"
+        android:layout_marginTop="@dimen/paddingTop_40"
         android:background="@mipmap/setting" />
 
     <com.example.hemin.fnb.ui.util.CircleImageView

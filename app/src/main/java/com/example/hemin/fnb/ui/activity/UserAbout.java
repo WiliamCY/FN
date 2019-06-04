@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.util.ProgressWebView;
 
 import butterknife.BindView;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 //跳转到官网链接
-public class UserAbout extends AppCompatActivity {
+public class UserAbout extends BaseActivity {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.user_toolbar)
@@ -29,18 +30,11 @@ public class UserAbout extends AppCompatActivity {
 
     private String TAG = "UserAbout";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_userabout);
-        ButterKnife.bind(this);
-        mWebView = findViewById(R.id.webview);
-        Intent intent = getIntent();
-        String url = intent.getStringExtra("path");
-        Log.d("findIntentUrl",url);
-        mWebView.loadUrl(url);//加载网址
-        mWebView.setFocusable(true);//设置有焦点
-        mWebView.setFocusableInTouchMode(true);//设置可触摸
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.);
+
 //        Log.i(TAG, "IntentURL:" + url);
 //        webview.setWebChromeClient(new WebChromeClient());
 //        webview.setWebViewClient(new WebViewClient());
@@ -98,8 +92,24 @@ public class UserAbout extends AppCompatActivity {
 //        mWebView.loadUrl("http://"+url);
         ///4、设置响应超链接，在安卓5.0系统，不使用下面语句超链接也是正常的，但在MIUI中安卓4.4.4中需要使用下面这条语句，才能响应超链接
         // mWebView.setWebViewClient(new HelloWebViewClient());
+//    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_userabout;
     }
 
+    @Override
+    public void initView() {
+        ButterKnife.bind(this);
+        mWebView = findViewById(R.id.webview);
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("path");
+        Log.d("findIntentUrl",url);
+        mWebView.loadUrl(url);//加载网址
+        mWebView.setFocusable(true);//设置有焦点
+        mWebView.setFocusableInTouchMode(true);//设置可触摸
+    }
 
 
     // 设置回退监听

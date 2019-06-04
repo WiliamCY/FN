@@ -3,6 +3,7 @@ package com.example.hemin.fnb.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserContract.View {
     @BindView(R.id.setting_button3)
@@ -123,12 +125,6 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
 
 }

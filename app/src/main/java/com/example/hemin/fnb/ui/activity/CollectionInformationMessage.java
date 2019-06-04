@@ -61,10 +61,6 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
         mPresenter.getColldetionMessage(this, map, id);
     }
 
-    @Override
-    public boolean isFullScreen() {
-        return  true;
-    }
 
     @Override
     public void onSuccess(BaseObjectBean bean) {

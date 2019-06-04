@@ -9,11 +9,12 @@
     android:id="@+id/c1"
     tools:ignore="MissingConstraints">
     <LinearLayout
+        android:paddingBottom="8dp"
         android:orientation="horizontal"
         android:id="@+id/user_toolbar"
         android:background="@color/c333333"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/layout_height_60">
         <ImageView
 
             android:visibility="invisible"
@@ -28,7 +29,7 @@
             android:textSize="20sp"
             android:layout_marginRight="30dp"
             android:gravity="center"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom"
             android:textColor="@color/cffffff"
             android:text="发布藏品"
             android:layout_width="match_parent"
