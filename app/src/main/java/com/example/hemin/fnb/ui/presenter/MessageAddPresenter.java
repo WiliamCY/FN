@@ -9,6 +9,7 @@ import com.example.hemin.fnb.ui.bean.ImageUrlBean;
 import com.example.hemin.fnb.ui.contract.MessageFinderAddContract;
 import com.example.hemin.fnb.ui.model.FinderAddModel;
 import com.example.hemin.fnb.ui.net.RxScheduler;
+import com.example.hemin.fnb.ui.util.Utils;
 
 import java.util.Map;
 
@@ -40,7 +41,9 @@ public class MessageAddPresenter extends BasePresenter<MessageAdd> implements Me
                         mView.hideLoading();
                         if(bean.getErrorCode() == 0){
                             mView.Status(1);
+                            Utils.DeleteFolder("storage/emulated/0/imagepicker");
                         }
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

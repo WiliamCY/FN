@@ -11,12 +11,15 @@
     android:layout_width="match_parent"
     android:layout_height="50dp">
 
-  <ImageView
-      android:id="@+id/q_1"
-      android:background="@mipmap/q_logo"
-      android:layout_width="@dimen/layout_width_50"
-      android:layout_height="@dimen/layout_height_50"
-      />
+    <com.example.hemin.fnb.ui.util.CircleImageView
+        android:scaleType="fitXY"
+        android:id="@+id/q_1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/my_background"
+        android:layout_centerHorizontal="true"
+
+       />
     <ImageView
         android:id="@+id/q_2"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -32,7 +35,7 @@
         app:layout_constraintLeft_toRightOf="@id/q_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="珠宝鉴定师"
+
         android:textColor="@color/c333333"
         android:textSize="@dimen/text_size_15"/>
 
@@ -44,7 +47,7 @@
     app:layout_constraintLeft_toLeftOf="@id/t_1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="发布：20"/>
+   />
 
     <TextView
         android:id="@+id/t_3"
@@ -57,7 +60,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:text="已关注"
         android:layout_width="@dimen/layout_width_75"
-        android:layout_height="@dimen/layout_height_20" />
+        android:layout_height="35dp" />
 </android.support.constraint.ConstraintLayout>
 
 

@@ -19,6 +19,14 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
 
+    <!-- iBeancon功能所需权限 -->;
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <!-- 个推3.0电子围栏功能所需权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
     <application
         android:resizeableActivity="true"
         android:allowBackup="true"
@@ -125,6 +133,16 @@
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
+        <service
+            android:name=".ui.sever.DemoPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice">
+        </service>
+        <!-- android:permission在2.13.1.0版本后必须配置 -->
+        <service
+            android:name=".ui.sever.DemoIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 

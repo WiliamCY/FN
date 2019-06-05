@@ -15,6 +15,7 @@
         android:layout_height="70dp"
         tools:ignore="MissingConstraints">
         <ImageView
+            android:layout_marginLeft="@dimen/paddingLeft_10"
             app:layout_constraintTop_toTopOf="@id/titl1"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/header_left_img"
@@ -84,6 +85,7 @@
         android:layout_height="@dimen/layout_height_50" />
 
     <FrameLayout
+        android:layout_marginTop="@dimen/marginTop_10"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"

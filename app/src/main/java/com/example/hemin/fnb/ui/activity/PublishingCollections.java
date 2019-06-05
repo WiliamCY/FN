@@ -250,7 +250,10 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+
+        if(bean.getErrorCode() != 0){
+            Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private String getEdittect() {

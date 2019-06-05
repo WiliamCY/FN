@@ -116,13 +116,13 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     }
 
     @Override
-    public void DateUserId(Object object, String userId, String content) {
+    public void DateUserId(Object object, String userId, String content,String userUrl,String nickName) {
 
-        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content);
+        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content,userUrl,nickName);
 
     }
 
-    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content) {
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content,String userUrl,String nickName) {
         recordPaths.clear();
         for (int i = 0; i < object.size(); i++) {
             String path = object.get(i).getImagesUrl();
@@ -138,6 +138,8 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         imgIntent.putExtra("finderid", finderid);
         imgIntent.putExtra("userId", userId);
         imgIntent.putExtra("StringContent", content);
+        imgIntent.putExtra("userUrl",userUrl);
+        imgIntent.putExtra("nickName",nickName);
         startActivity(imgIntent);
 
     }

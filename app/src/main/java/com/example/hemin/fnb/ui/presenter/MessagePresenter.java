@@ -132,7 +132,9 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                         List<MessageImageBean.DataBean.ImagesBean> list = bean1.getImages();
                         String userid = bean1.getUserId();
                         String contnet = bean1.getFriendContent();
-                        mView.DateUserId(list,userid,contnet);
+                        String urlImage = bean1.getUserUrl();
+                        String nickName = bean1.getNickname();
+                        mView.DateUserId(list,userid,contnet,urlImage,nickName);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

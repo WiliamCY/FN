@@ -25,6 +25,7 @@
     <dimen name="text_size_8">8sp</dimen>
 
     <!-- marginLeft-->
+    <dimen name="marginLeft_3">3dp</dimen>
     <dimen name="marginLeft_8">8dp</dimen>
     <dimen name="marginLeft_10">10dp</dimen>
     <dimen name="marginLeft_11">11dp</dimen>
@@ -49,10 +50,12 @@
     <dimen name="marginRight_16">16dp</dimen>
     <dimen name="marginRight_18">18dp</dimen>
     <dimen name="marginRight_20">20dp</dimen>
+    <dimen name="marginRight_30">30dp</dimen>
     <dimen name="marginRight_40">40dp</dimen>
 
     <!--marginTop -->
     <dimen name="marginTop_1">1dp</dimen>
+    <dimen name="marginTop_3">3dp</dimen>
     <dimen name="marginTop_5">5dp</dimen>
     <dimen name="marginTop_6">6dp</dimen>
     <dimen name="marginTop_7">7dp</dimen>
@@ -118,6 +121,7 @@
     <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_15">15dp</dimen>
     <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
     <!--paddingLeft -->
     <dimen name="paddingLeft_5">5dp</dimen>
     <dimen name="paddingLeft_6">6dp</dimen>
@@ -158,6 +162,9 @@
     <dimen name="paddingRight_19">19dp</dimen>
     <dimen name="paddingRight_20">20dp</dimen>
     <dimen name="paddingRight_30">30dp</dimen>
+    <dimen name="paddingRight_35">35dp</dimen>
+    <dimen name="paddingRight_40">40dp</dimen>
+    <dimen name="paddingRight_50">50dp</dimen>
     <dimen name="paddingRight_60">60dp</dimen>
 
     <!--paddingTop -->
@@ -239,6 +246,7 @@
     <dimen name="layout_height_18">18dp</dimen>
     <dimen name="layout_height_20">20dp</dimen>
     <dimen name="layout_height_23">23dp</dimen>
+    <dimen name="layout_height_25">25dp</dimen>
     <dimen name="layout_height_36">36dp</dimen>
     <dimen name="layout_height_37">37dp</dimen>
     <dimen name="layout_height_45">45dp</dimen>
@@ -276,6 +284,7 @@
     <dimen name="layout_width_15">15dp</dimen>
     <dimen name="layout_width_16">16dp</dimen>
     <dimen name="layout_width_20">20dp</dimen>
+    <dimen name="layout_width_25">25dp</dimen>
     <dimen name="layout_width_45">45dp</dimen>
     <dimen name="layout_width_40">40dp</dimen>
     <dimen name="layout_width_26">26dp</dimen>

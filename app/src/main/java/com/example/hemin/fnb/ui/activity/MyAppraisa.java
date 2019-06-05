@@ -49,6 +49,10 @@ public class MyAppraisa extends BaseActivity {
     FrameLayout fragmentContainer;
     @BindView(R.id.header_left_img)
     ImageView headerLeftImg;
+    @BindView(R.id.view1)
+    View view1;
+    @BindView(R.id.view2)
+    View view2;
     private List<String> mDataList2 = Arrays.asList(date2);
     private static final String[] date2 = new String[]{"全部", "审核中", "鉴定中", "鉴定失败"};
     private List<String> mDataList3 = Arrays.asList(date3);
@@ -77,7 +81,7 @@ public class MyAppraisa extends BaseActivity {
                 BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setNormalColor(Color.GRAY);
-                simplePagerTitleView.setSelectedColor(Color.WHITE);
+                simplePagerTitleView.setSelectedColor(Color.BLACK);
                 simplePagerTitleView.setText(date.get(index));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -112,11 +116,15 @@ public class MyAppraisa extends BaseActivity {
 
 
     @SuppressLint("ResourceAsColor")
-    @OnClick({R.id.title1, R.id.title2,R.id.header_left_img})
+    @OnClick({R.id.title1, R.id.title2, R.id.header_left_img})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title1:
                 status = true;
+                view1.setVisibility(View.VISIBLE);
+                view2.setVisibility(View.GONE);
+                title1.getPaint().setFakeBoldText(true);
+                title2.getPaint().setFakeBoldText(false);
                 title2.setTextColor(Color.rgb(176, 176, 176));
                 title1.setTextColor(Color.rgb(255, 255, 255));
                 initFragment(0, true);
@@ -124,6 +132,10 @@ public class MyAppraisa extends BaseActivity {
                 break;
             case R.id.title2:
                 status = false;
+                view1.setVisibility(View.GONE);
+                view2.setVisibility(View.VISIBLE);
+                title2.getPaint().setFakeBoldText(true);
+                title1.getPaint().setFakeBoldText(false);
                 title1.setTextColor(Color.rgb(176, 176, 176));
                 title2.setTextColor(Color.rgb(255, 255, 255));
                 initFragment(0, false);

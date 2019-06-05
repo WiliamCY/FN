@@ -50,8 +50,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     Unbinder unbinder;
     private Map map = new HashMap();
     private String userId;
-    private  ArrayList<String>  recordPaths = new ArrayList<>();
-    private long finderid,finderids;
+    private ArrayList<String> recordPaths = new ArrayList<>();
+    private long finderid, finderids;
 
     @Override
     protected void initView(View view) {
@@ -67,7 +67,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
     private void initDate(int index) {
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
-         userId = sp.getString("userId", "");
+        userId = sp.getString("userId", "");
         if (index == 0) {
             mPresenter.getMaga(getActivity(), map, 1, 10, "1");
         } else if (index == 1) {
@@ -87,36 +87,38 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         Log.d("messageIndex", String.valueOf(index));
         if (index == 1) {
             initRecyclerview1((List<MessageBean1.DataBean.RecordsBean>) object);
-        }else if(index == 2){
+        } else if (index == 2) {
             initRecyclerview2((List<MessageBean2.DataBean.RecordsBean>) object);
-        }else if(index == 3){
+        } else if (index == 3) {
             initRecyclerview3((List<MessageBean3.DataBean.RecordsBean>) object);
         }
     }
 
     @Override
-    public void DateUserId(Object object, String userId,String content) {
+    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName) {
 
-            Images((List<MessageImageBean.DataBean.ImagesBean>) object,userId,content);
+        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName);
 
     }
 
-    private void Images(List<MessageImageBean.DataBean.ImagesBean> object,String userId,String content){
-                  recordPaths.clear();
-            for(int i=0; i<object.size();i++){
-                String path = object.get(i).getImagesUrl();
-                Log.d("messageAdapter3",path);
-                recordPaths.add(path);
-            }
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName) {
+        recordPaths.clear();
+        for (int i = 0; i < object.size(); i++) {
+            String path = object.get(i).getImagesUrl();
+            Log.d("messageAdapter3", path);
+            recordPaths.add(path);
+        }
 
-   Log.d("messaePaths",recordPaths.toString());
+        Log.d("messaePaths", recordPaths.toString());
         Intent imgIntent = new Intent(getActivity(), TaskBigImgActivity.class);
-        imgIntent.putStringArrayListExtra("paths",recordPaths);
-        imgIntent.putExtra("title","关注");
-        imgIntent.putExtra("position",object.size());
-        imgIntent.putExtra("finderid",finderid);
-        imgIntent.putExtra("userId",userId);
-        imgIntent.putExtra("StringContent",content);
+        imgIntent.putStringArrayListExtra("paths", recordPaths);
+        imgIntent.putExtra("title", "关注");
+        imgIntent.putExtra("position", object.size());
+        imgIntent.putExtra("finderid", finderid);
+        imgIntent.putExtra("userId", userId);
+        imgIntent.putExtra("StringContent", content);
+        imgIntent.putExtra("userUrl", userUrl);
+        imgIntent.putExtra("nickName", nickName);
         startActivity(imgIntent);
 
     }
@@ -150,7 +152,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         messageRecyclerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        MessagesApdater   adapter = new MessagesApdater(getActivity(), bean);
+        MessagesApdater adapter = new MessagesApdater(getActivity(), bean);
         Log.d("beanDate", bean.toString());
         messageRecyclerview.setAdapter(adapter);
         adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
@@ -161,12 +163,13 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
             @Override
             public void onItemClick(int position) {
-                      finderid = bean.get(position).getFriendId();
-                     mPresenter.getFidner(getActivity(),map,finderid, Integer.parseInt(userId));
+                finderid = bean.get(position).getFriendId();
+                mPresenter.getFidner(getActivity(), map, finderid, Integer.parseInt(userId));
             }
         });
 
     }
+
     private void initRecyclerview3(final List<MessageBean3.DataBean.RecordsBean> bean) {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         messageRecyclerview.setLayoutManager(layoutManager);
@@ -182,8 +185,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
             @Override
             public void onItemClick(int position) {
-                 finderids = bean.get(position).getFriendId();
-                mPresenter.getFidner(getActivity(),map,finderids, Integer.parseInt(userId));
+                finderids = bean.get(position).getFriendId();
+                mPresenter.getFidner(getActivity(), map, finderids, Integer.parseInt(userId));
             }
         });
 
@@ -191,7 +194,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if(bean.getErrorCode() != 0){
+        if (bean.getErrorCode() != 0) {
             Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
     }

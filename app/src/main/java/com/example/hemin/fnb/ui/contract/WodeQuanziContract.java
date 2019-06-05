@@ -33,7 +33,7 @@ public interface WodeQuanziContract  {
         void Date(Object object,int index);
         @Override
         void onError(Throwable throwable);
-        void DateUserId(Object object,String userId,String content);
+        void DateUserId(Object object,String userId,String content,String url,String nickName);
         void onSuccess(BaseObjectBean bean);
     }
     interface Presenter {

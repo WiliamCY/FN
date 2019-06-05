@@ -32,22 +32,24 @@
             android:textSize="@dimen/text_size_15"
             android:textStyle="bold" />
 
-
-        <ImageView
+        <com.example.hemin.fnb.ui.util.CircleImageView
             android:scaleType="fitXY"
             android:id="@+id/image2"
-            android:layout_width="@dimen/layout_width_15"
-            android:layout_height="@dimen/layout_height_15"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignBottom="@+id/my_background"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/marginLeft_10"
             android:layout_marginBottom="@dimen/marginBottom_10"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintLeft_toLeftOf="parent"
 
+            />
         <TextView
             android:id="@+id/title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marginLeft_8"
+            android:layout_marginLeft="@dimen/marginLeft_3"
             android:textSize="@dimen/text_size_12"
             app:layout_constraintLeft_toRightOf="@id/image2"
             app:layout_constraintTop_toTopOf="@id/image2" />
@@ -58,7 +60,7 @@
             android:id="@+id/image3"
             android:layout_width="@dimen/layout_width_15"
             android:layout_height="@dimen/layout_height_15"
-            android:layout_marginRight="@dimen/paddingRight_30"
+            android:layout_marginRight="@dimen/paddingRight_35"
             android:layout_marginBottom="@dimen/marginBottom_10"
             android:background="@mipmap/zan"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +71,7 @@
             android:id="@+id/title3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marginLeft_8"
+            android:layout_marginLeft="@dimen/marginLeft_3"
             android:textSize="@dimen/text_size_12"
             app:layout_constraintLeft_toRightOf="@id/image3"
             app:layout_constraintTop_toTopOf="@id/image3" />

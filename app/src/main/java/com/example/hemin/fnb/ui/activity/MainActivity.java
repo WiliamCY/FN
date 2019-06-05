@@ -1,24 +1,19 @@
 package com.example.hemin.fnb.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.KeyEvent;
 import android.view.ViewStub;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.sever.DemoIntentService;
+import com.example.hemin.fnb.ui.sever.DemoPushService;
 import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.fragment.TabFindFragment;
@@ -26,11 +21,10 @@ import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMyFragment;
 import com.example.hemin.fnb.ui.fragment.TabShopFragment;
 import com.example.hemin.fnb.ui.util.Utils;
-import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.igexin.sdk.PushManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +69,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void initView() {
         ButterKnife.bind(this);
         initViews();
+        PushManager.getInstance().initialize(getApplicationContext(), DemoPushService.class);
+        PushManager.getInstance().registerPushIntentService(getApplicationContext(), DemoIntentService.class);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         tabFindFragment = new TabFindFragment();
         fragmentManager.beginTransaction().replace(R.id.fl, tabFindFragment, homepage).commit();
@@ -203,7 +200,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         ButterKnife.bind(this);
     }
 
-
+//
 //    @Override
 //    public void onBackPressed() {
 //         if(!mBackKeyPressed){
@@ -221,4 +218,14 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //System.exit(0);
 //        }
 //    }
+@Override
+public boolean dispatchKeyEvent(KeyEvent event) {
+    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+        //do something.
+       this.finish();
+        return true;
+    } else {
+        return super.dispatchKeyEvent(event);
+    }
+}
 }

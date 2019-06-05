@@ -73,7 +73,7 @@ public class MyAppraisaS extends BaseActivity {
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setNormalColor(R.color.c333333);
                 simplePagerTitleView.setSelectedColor(Color.BLACK);
-              simplePagerTitleView.setTextSize(20);
+                simplePagerTitleView.setTextSize(20);
                 simplePagerTitleView.setText(date.get(index));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override

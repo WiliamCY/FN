@@ -107,10 +107,12 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                         mView.onSuccess(bean);
                         mView.hideLoading();
                         MessageImageBean.DataBean bean1 = (MessageImageBean.DataBean) bean.getResult();
+                        String userUrl = bean1.getUserUrl();
+                        String nickName = bean1.getNickname();
                         List<MessageImageBean.DataBean.ImagesBean> list = bean1.getImages();
                         String userid = bean1.getUserId();
                         String contnet = bean1.getFriendContent();
-                        mView.DateUserId(list,userid,contnet);
+                        mView.DateUserId(list,userid,contnet,userUrl,nickName);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

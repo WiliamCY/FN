@@ -8,13 +8,13 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="@dimen/marginBottom_14"
-        android:background="@color/c333333"
+        android:layout_height="75dp"
+        android:background="@color/c313131"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
 
         <ImageView
+            android:layout_marginBottom="@dimen/marginBottom_5"
             android:id="@+id/header_left_img"
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -22,7 +22,7 @@
             android:src="@mipmap/back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/titl1" />
+ />
 
         <com.example.hemin.fnb.ui.util.CircleImageView
             android:id="@+id/user_logo"
@@ -31,61 +31,62 @@
             android:layout_alignBottom="@+id/my_background"
             android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
-            android:src="@mipmap/user_logo"
-            android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@id/header_left_img"
             app:layout_constraintTop_toTopOf="@id/header_left_img" />
 
         <TextView
+            android:id="@+id/titleUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/paddingLeft_5"
-            android:text="作曲家"
             android:textColor="@color/cffffff"
             android:textSize="@dimen/text_size_20"
-            android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@id/user_logo"
             app:layout_constraintTop_toTopOf="@id/header_left_img" />
 
         <TextView
+
+            android:background="@drawable/shape_con"
             android:layout_marginBottom="@dimen/marginBottom_8"
             android:id="@+id/titl1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="关注"
             android:textColor="@color/cffffff"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_15"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+           android:layout_marginRight="@dimen/paddingRight_50"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/user_logo" />
+            app:layout_constraintTop_toTopOf="@id/header_left_img" />
 
-        <TextView
-            android:id="@+id/header_right_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="@dimen/marginRight_10"
-            android:text="确定"
-            android:textColor="@color/cffffff"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/titl1" />
+        <!--<TextView-->
+            <!--android:id="@+id/header_right_tv"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:layout_marginRight="@dimen/marginRight_10"-->
+            <!--android:text="确定"-->
+            <!--android:textColor="@color/cffffff"-->
+            <!--android:textSize="20sp"-->
+            <!--android:visibility="gone"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="@id/header_left_img" />-->
 
         <ImageView
-            android:layout_width="17dp"
-            android:layout_height="16dp"
+            android:layout_marginTop="@dimen/paddingTop_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginRight="@dimen/marginRight_16"
             android:layout_marginBottom="@dimen/marginBottom_14"
             android:background="@mipmap/fx"
-            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/header_left_img"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v4.view.ViewPager
+        android:layout_margin="@dimen/margin_20"
         android:id="@+id/big_img_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
