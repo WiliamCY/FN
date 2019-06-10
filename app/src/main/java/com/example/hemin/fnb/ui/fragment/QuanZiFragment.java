@@ -61,12 +61,25 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     private Map token = new HashMap();
     private TextView t1;
 
+//    public static  QuanZiFragment getInstance(int i){
+//        Log.d("indexNumbersssIIII", String.valueOf(i));
+//      QuanZiFragment quanZiFragment = new QuanZiFragment();
+//       Bundle bundle = new Bundle();
+//       if(i == 1){
+//           bundle.putInt("index",0);
+//       }else {
+//           bundle.putInt("index",1);
+//       }
+//       quanZiFragment.setArguments(bundle);
+//      return  quanZiFragment;
+//    }
 
     @Override
     protected void initView(View view) {
         mPresenter = new WoDoQuanZiPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
+//        int index = this.getArguments().getInt("index");
         int indexNumber = this.getArguments().getInt("indexNumber");
         Log.d("indexNumbersss", String.valueOf(indexNumber));
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);

@@ -56,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <RelativeLayout
+        android:id="@+id/r1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_40"
         android:layout_marginTop="@dimen/paddingTop_20"
@@ -95,6 +96,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/mobileRegister"
         android:layout_marginTop="@dimen/paddingTop_10"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_40"
@@ -165,6 +167,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/notic"
         android:layout_marginTop="@dimen/paddingTop_10"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_40"
@@ -183,6 +186,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/about"
         android:layout_marginTop="@dimen/paddingTop_10"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_40"

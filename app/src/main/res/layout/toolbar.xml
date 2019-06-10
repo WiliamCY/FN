@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/tb_toolbar"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_toolbar_50"
+    android:layout_height="70dp"
     android:background="?attr/colorPrimary"
     android:minHeight="?actionBarSize"
     app:navigationIcon="@mipmap/back"
     app:titleTextColor="@color/white">
 
-    <TextView
-        android:id="@+id/tv_toolbar_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:drawablePadding="2dp"
-        android:gravity="center"
-        android:lines="1"
-        android:text="标题"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_15"/>
+    <LinearLayout
+        android:paddingBottom="8dp"
+        android:orientation="horizontal"
+        android:id="@+id/user_toolbar"
+        android:background="@color/c333333"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="MissingConstraints">
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/back"
+            android:layout_gravity="bottom"
+            android:src="@mipmap/back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            />
+        <TextView
+            android:id="@+id/title"
+            android:textSize="20sp"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:textColor="@color/cffffff"
+            android:text="更换图片"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/tv_toolbar_right_text"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_15"
-        android:visibility="gone"
-        />
+    </LinearLayout>
 
-</android.support.v7.widget.Toolbar>
+</android.support.constraint.ConstraintLayout>

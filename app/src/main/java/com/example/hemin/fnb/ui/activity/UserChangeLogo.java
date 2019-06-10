@@ -1,5 +1,6 @@
 package com.example.hemin.fnb.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,8 +21,11 @@ import com.example.hemin.fnb.ui.contract.ChangeLogoContract;
 import com.example.hemin.fnb.ui.net.RetrofitClient;
 import com.example.hemin.fnb.ui.presenter.ChangeLogoPresenter;
 import com.example.hemin.fnb.ui.presenter.RegisterPresenter;
+import com.example.hemin.fnb.ui.util.MessageEvent;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.HashMap;
@@ -46,7 +50,7 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
     TextView changeButton1;
     @BindView(R.id.change_button2)
     TextView changeButton2;
-
+    private String urls;
 
 
     @Override
@@ -78,18 +82,18 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
                 break;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:
                 if (data != null) {
-                  Map map = Utils.getAuthorization(this);
+                    Map map = Utils.getAuthorization(this);
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
-
                     Glide.with(this).load(paths.get(0)).into(changeUserLogo);
                     for (int i = 0; i < paths.size(); i++) {
                         String path = paths.get(i);
-                        Log.d("pathsss:",path);
+                        Log.d("pathsss:", path);
                         File file = new File(paths.get(i));
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
@@ -103,13 +107,19 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     @Override
     public void onSuccess(BaseObjectBean bean) {
-          if(bean.getErrorCode() == 0){
-               finish();
-          }
+        if (bean.getErrorCode() == 0) {
+            finish();
+        }
     }
+  public  void sendUrl(int status){
+        if(status == 1){
 
+            EventBus.getDefault().post(new MessageEvent(urls));
+        }
+  }
     @Override
     public void showLoading() {
 
@@ -124,14 +134,16 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
     public void onError(Throwable throwable) {
 
     }
-    public   void getPostImageUrls(String url){
+
+    public void getPostImageUrls(String url) {
+        this.urls = url;
         Map token = Utils.getAuthorization(this);
         SharedPreferences sp = getSharedPreferences("userDate", MODE_PRIVATE);
         String id = sp.getString("userId", "");
-          HashMap<String,String> map2 = new HashMap<>();
-           map2.put("url",url);
-           map2.put("userId",id);
-           Log.d("ChageLogo",url+id);
-           mPresenter.changeImage(this,token, Utils.RetrofitHead(map2));
+        HashMap<String, String> map2 = new HashMap<>();
+        map2.put("url", url);
+        map2.put("userId", id);
+        Log.d("ChageLogo", url + id);
+        mPresenter.changeImage(this, token, Utils.RetrofitHead(map2));
     }
 }

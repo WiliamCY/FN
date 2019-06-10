@@ -5,10 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/margin_15"
+
     android:orientation="vertical"
     tools:context=".ui.activity.NoticeSetting">
-    
+    <include
+        android:id="@+id/toolbar"
+         layout="@layout/toolbar"/>
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_margin="@dimen/margin_10"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -194,6 +204,6 @@
             android:layout_width="@dimen/layout_width_30"
             android:layout_height="@dimen/layout_height_18" />
     </RelativeLayout>
-
-
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
 </LinearLayout>

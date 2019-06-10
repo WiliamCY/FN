@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,12 @@ import com.example.hemin.fnb.ui.activity.UserChangeLogo;
 import com.example.hemin.fnb.ui.activity.UserSetting;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.util.CircleImageView;
+import com.example.hemin.fnb.ui.util.MessageEvent;
 import com.example.hemin.fnb.ui.util.Utils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,16 +58,11 @@ public class TabMyFragment extends BaseFragment {
     CardView card6;
     Unbinder unbinder1;
 
-    //    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_tab_my, container, false);
-//
-//        userLogo = view.findViewById(R.id.user_logo);
-//        return view;
-//    }
     @Override
     protected void initView(View view) {
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
         unbinder = ButterKnife.bind(this, view);
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         String nickname = sp.getString("nickName", "");
@@ -69,6 +70,7 @@ public class TabMyFragment extends BaseFragment {
         login.setText(nickname);
         Glide.with(this).load(url).into(userLogo);
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -83,8 +85,7 @@ public class TabMyFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.user_logo:
-                Intent intent1 = new Intent(getActivity(), UserChangeLogo.class);
-                startActivity(intent1);
+
                 break;
             case R.id.qm:
                 break;
@@ -112,10 +113,19 @@ public class TabMyFragment extends BaseFragment {
         unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
     }
-
+  @Subscribe(threadMode = ThreadMode.MAIN)
+  public void Event(MessageEvent messageEvent) {
+      SharedPreferences.Editor editor = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
+      editor.putString("url", messageEvent.getMessage());
+      editor.commit();
+      Glide.with(this).load(messageEvent.getMessage()).into(userLogo);
+  }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder1.unbind();
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
     }
 }

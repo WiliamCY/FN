@@ -63,6 +63,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     private View myView;
     private TextView userTitles, userAbouts;
     private Button userUpdates;
+    private String userId;
 
     @Override
     protected void initView(View view) {
@@ -75,12 +76,9 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     private void initDate() {
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         Authorization = Utils.getAuthorization(getActivity());
-        String userId = sp.getString("userId", "");
+         userId = sp.getString("userId", "");
         mPresenter.pageListHuo(getActivity(), Authorization, 1, 3);
 
-//        mPresenter.getDaily(getActivity(), Authorization, Long.parseLong(userId));
-//        mPresenter.guessLove(getActivity(), Authorization);
-//        mPresenter.getRankingList(getActivity(), Authorization, 1, 10);
 
     }
 
@@ -103,10 +101,21 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
 
     private void initNetWork(int sendPost) {
         Log.d("sendPost", String.valueOf(sendPost));
-        if (sendPost <= 1) {
+        if (sendPost == 1) {
             mPresenter.addHua(getActivity(), Authorization, 1, 1);
-        }
+            return;
+        }else if(sendPost == 2){
+            mPresenter.getDaily(getActivity(), Authorization, Long.parseLong(userId));
+            return;
+        }else if(sendPost == 3){
+            mPresenter.guessLove(getActivity(), Authorization);
+            return;
+        }else {
+//            mPresenter.getRankingList(getActivity(), Authorization, 1, 1);
+//            return;
+//        }
 
+        }
     }
 
     @Override

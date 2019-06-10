@@ -4,205 +4,263 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/margin_10"
+
     tools:context=".ui.activity.UserMessage"
     tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/title1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_10"
-        android:text="头像"
-        android:textColor="@color/c333333"
-        android:textSize="@dimen/text_size_15"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-
-        android:id="@+id/user_logo"
-        android:layout_width="@dimen/layout_width_50"
-        android:layout_height="@dimen/layout_height_50"
-        android:layout_marginTop="@dimen/paddingTop_30"
-        android:layout_marginRight="@dimen/marginRight_10"
-        android:background="@mipmap/user_logo"
-        app:layout_constraintEnd_toStartOf="@id/user_right1"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <ImageView
-        android:id="@+id/user_right1"
-        android:layout_width="@dimen/layout_width_9"
-        android:layout_height="@dimen/layout_height_15"
-        android:layout_marginTop="@dimen/paddingTop_15"
-        android:background="@mipmap/right"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view1"
+    <LinearLayout
+        android:id="@+id/user_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_height_5"
-        android:layout_marginTop="@dimen/paddingTop_30"
-        android:background="@color/cEEEEEE"
-        app:layout_constraintTop_toBottomOf="@id/user_logo" />
+        android:layout_height="70dp"
+        android:background="@color/c333333"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
 
-    <TextView
-        android:id="@+id/title2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_20"
-        android:text="昵称"
-        android:textColor="@color/c333333"
-        android:textSize="@dimen/text_size_15"
-        app:layout_constraintTop_toBottomOf="@id/view1" />
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom"
+            android:scaleType="fitXY"
+            android:src="@mipmap/back" />
 
-    <TextView
-        android:id="@+id/user_logo2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/marginRight_10"
-        android:text="当前用户名"
-        android:textColor="@color/c333333"
-        app:layout_constraintEnd_toStartOf="@id/user_right2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/title2" />
+        <TextView
 
-    <ImageView
-        android:id="@+id/user_right2"
-           android:layout_marginTop="2dp"
-        android:layout_width="@dimen/layout_width_9"
-        android:layout_height="@dimen/layout_height_15"
-        android:background="@mipmap/right"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/user_logo2" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:text="个人信息"
+            android:textColor="@color/cffffff"
+            android:textSize="20sp" />
 
-    <View
-        android:id="@+id/view2"
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_15"
         android:layout_marginTop="@dimen/paddingTop_30"
-        android:background="@color/cEEEEEE"
-        app:layout_constraintTop_toBottomOf="@id/title2" />
+        app:layout_constraintTop_toBottomOf="@id/user_toolbar">
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/c1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingTop_10"
+                android:text="头像"
+                android:textColor="@color/c333333"
+                android:textSize="@dimen/text_size_15"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <com.example.hemin.fnb.ui.util.CircleImageView
+                android:scaleType="fitXY"
+                android:id="@+id/user_logo"
+                android:layout_width="@dimen/layout_width_50"
+                android:layout_height="@dimen/layout_height_50"
+                android:layout_marginTop="@dimen/paddingTop_30"
+                android:layout_marginRight="@dimen/marginRight_10"
+                android:background="@mipmap/user_logo"
+                app:layout_constraintEnd_toStartOf="@id/user_right1"
+                app:layout_constraintRight_toRightOf="parent" />
 
+            <ImageView
+                android:id="@+id/user_right1"
+                android:layout_width="@dimen/layout_width_9"
+                android:layout_height="@dimen/layout_height_15"
+                android:layout_marginTop="@dimen/paddingTop_15"
+                android:background="@mipmap/right"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/title3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_20"
-        android:text="性别"
-        android:textColor="@color/c333333"
-        android:textSize="@dimen/text_size_15"
-        app:layout_constraintTop_toBottomOf="@id/view2" />
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_5"
+            android:layout_marginTop="@dimen/paddingTop_20"
+            android:background="@color/cEEEEEE"
+            app:layout_constraintTop_toBottomOf="@id/c1" />
 
-    <TextView
-        android:id="@+id/user_logo3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/marginRight_10"
-        android:text="女"
-        android:textColor="@color/c333333"
-        app:layout_constraintEnd_toStartOf="@id/user_right2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/title3" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/c2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingTop_20"
+            app:layout_constraintTop_toBottomOf="@id/view1">
 
-    <ImageView
-        android:id="@+id/user_right3"
-        android:layout_marginTop="2dp"
-        android:layout_width="@dimen/layout_width_9"
-        android:layout_height="@dimen/layout_height_15"
-        android:background="@mipmap/right"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/user_logo3" />
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingTop_20"
+                android:text="昵称"
+                android:textColor="@color/c333333"
+                android:textSize="@dimen/text_size_15"
+        />
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/paddingTop_30"
-        android:background="@color/cEEEEEE"
-        app:layout_constraintTop_toBottomOf="@id/title3" />
+            <TextView
+                android:id="@+id/user_logo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/marginRight_10"
 
+                android:textColor="@color/c333333"
+                app:layout_constraintEnd_toStartOf="@id/user_right2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/title2" />
 
-    <TextView
-        android:id="@+id/title4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_20"
-        android:text="生日"
-        android:textColor="@color/c333333"
-        android:textSize="@dimen/text_size_15"
-        app:layout_constraintTop_toBottomOf="@id/view3" />
+            <ImageView
+                android:id="@+id/user_right2"
+                android:layout_width="@dimen/layout_width_9"
+                android:layout_height="@dimen/layout_height_15"
+                android:layout_marginTop="2dp"
+                android:background="@mipmap/right"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/user_logo2" />
+        </android.support.constraint.ConstraintLayout>
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/paddingTop_30"
+                android:background="@color/cEEEEEE"
+                app:layout_constraintTop_toBottomOf="@id/c2" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/c3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingTop_20"
+            app:layout_constraintTop_toBottomOf="@id/view2">
 
-    <TextView
-        android:id="@+id/user_logo4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/marginRight_10"
-        android:text="2019-5-15"
-        android:textColor="@color/c333333"
-        app:layout_constraintEnd_toStartOf="@id/user_right2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/title4" />
+            <TextView
+                android:id="@+id/title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingTop_20"
+                android:text="性别"
+                android:textColor="@color/c333333"
+                android:textSize="@dimen/text_size_15"
+                />
 
-    <ImageView
-        android:id="@+id/user_right4"
-        android:layout_marginTop="2dp"
-        android:layout_width="@dimen/layout_width_9"
-        android:layout_height="@dimen/layout_height_15"
-        android:background="@mipmap/right"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/user_logo4" />
+            <TextView
+                android:id="@+id/user_logo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/marginRight_10"
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/paddingTop_30"
-        android:background="@color/cEEEEEE"
-        app:layout_constraintTop_toBottomOf="@id/title4" />
+                android:textColor="@color/c333333"
+                app:layout_constraintEnd_toStartOf="@id/user_right3"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/title3" />
 
+            <ImageView
+                android:id="@+id/user_right3"
+                android:layout_width="@dimen/layout_width_9"
+                android:layout_height="@dimen/layout_height_15"
+                android:layout_marginTop="2dp"
+                android:background="@mipmap/right"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/user_logo3" />
+        </android.support.constraint.ConstraintLayout>
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/paddingTop_30"
+                android:background="@color/cEEEEEE"
+                app:layout_constraintTop_toBottomOf="@id/c3" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/c4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingTop_20"
+            app:layout_constraintTop_toBottomOf="@id/view3">
 
+            <TextView
+                android:id="@+id/title4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingTop_20"
+                android:text="生日"
+                android:textColor="@color/c333333"
+                android:textSize="@dimen/text_size_15" />
 
+            <TextView
+                android:id="@+id/user_logo4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/marginRight_10"
+                android:textColor="@color/c333333"
+                app:layout_constraintEnd_toStartOf="@id/user_right4"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/title4" />
 
-    <TextView
-        android:id="@+id/title5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_20"
-        android:text="个性签名"
-        android:textColor="@color/c333333"
-        android:textSize="@dimen/text_size_15"
-        app:layout_constraintTop_toBottomOf="@id/view4" />
+            <ImageView
+                android:id="@+id/user_right4"
+                android:layout_width="@dimen/layout_width_9"
+                android:layout_height="@dimen/layout_height_15"
+                android:layout_marginTop="2dp"
+                android:background="@mipmap/right"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/user_logo4" />
+        </android.support.constraint.ConstraintLayout>
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/paddingTop_30"
+                android:background="@color/cEEEEEE"
+                app:layout_constraintTop_toBottomOf="@id/c4" />
 
-    <TextView
-        android:id="@+id/user_logo5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/marginRight_10"
-        android:text="填写签名让更多藏友认识你"
-        android:textColor="@color/c999999"
-        app:layout_constraintEnd_toStartOf="@id/user_right2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/title5" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/c5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingTop_20"
+            app:layout_constraintTop_toBottomOf="@id/view4">
+            <TextView
+                android:id="@+id/title5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingTop_20"
+                android:text="个性签名"
+                android:textColor="@color/c333333"
+                android:textSize="@dimen/text_size_15"
+         />
 
-    <ImageView
-        android:id="@+id/user_right5"
-        android:layout_marginTop="2dp"
-        android:layout_width="@dimen/layout_width_9"
-        android:layout_height="@dimen/layout_height_15"
-        android:background="@mipmap/right"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/user_logo5" />
+            <TextView
+                android:id="@+id/user_logo5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/marginRight_10"
+                android:text="填写签名让更多藏友认识你"
+                android:textColor="@color/c999999"
+                app:layout_constraintEnd_toStartOf="@id/user_right5"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/title5" />
 
-    <View
-        android:id="@+id/view5"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/paddingTop_30"
-        android:background="@color/cEEEEEE"
-        app:layout_constraintTop_toBottomOf="@id/title5" />
-</android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/user_right5"
+                android:layout_width="@dimen/layout_width_9"
+                android:layout_height="@dimen/layout_height_15"
+                android:layout_marginTop="2dp"
+                android:background="@mipmap/right"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/user_logo5" />
+        </android.support.constraint.ConstraintLayout>
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/paddingTop_30"
+                android:background="@color/cEEEEEE"
+                app:layout_constraintTop_toBottomOf="@id/c5" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>

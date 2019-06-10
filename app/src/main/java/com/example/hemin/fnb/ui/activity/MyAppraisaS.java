@@ -5,15 +5,20 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.adapter.BaseFragmentPagerAdapter;
 import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.fragment.AppraisaFragment;
 import com.example.hemin.fnb.ui.fragment.QuanZiFragment;
@@ -40,19 +45,17 @@ import butterknife.OnClick;
 public class MyAppraisaS extends BaseActivity {
     @BindView(R.id.magic_indicator2)
     MagicIndicator magicIndicator;
-    @BindView(R.id.fragment_container)
-    FrameLayout fragmentContainer;
     @BindView(R.id.header_left_img)
     ImageView headerLeftImg;
     private static final String[] date2 = new String[]{"我的关注", "我的发布"};
     private List<String> mDataList2 = Arrays.asList(date2);
+    private QuanZiFragment fragment = new QuanZiFragment();
 
     private boolean status = true;
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
-    private QuanZiFragment fragment = new QuanZiFragment();
 
     private void initDate() {
-        initFragment(0, status);
+//        initFragment(0, status);
         initView2(mDataList2, status);
     }
 
@@ -79,7 +82,25 @@ public class MyAppraisaS extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         mFragmentContainerHelper.handlePageSelected(index);
+                        Log.d("indexSize",String.valueOf(index));
                         initFragment(index, status);
+//                        viewPagers.setAdapter(new BaseFragmentPagerAdapter(getSupportFragmentManager(),index) {
+//                            @Override
+//                            public Fragment getItem(int index) {
+//
+//                                Toast.makeText(getApplicationContext(),String.valueOf(index),Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        });
+//                        viewPagers.setAdapter(new BaseFragmentPagerAdapter(getSupportFragmentManager(),index) {
+//                            @Override
+//                            public Fragment getItem(int i) {
+//                                Log.d("fuyongsize", String.valueOf(i));
+//                                return QuanZiFragment.getInstance(index);
+//                            }
+//                        }
+//
+//                        );
 
                     }
                 });
@@ -131,7 +152,6 @@ public class MyAppraisaS extends BaseActivity {
 
 
     private void initFragment(int indexx, boolean status) {
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (fragment != null) {

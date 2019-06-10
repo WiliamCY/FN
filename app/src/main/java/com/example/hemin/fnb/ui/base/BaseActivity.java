@@ -20,6 +20,8 @@ import com.example.hemin.fnb.ui.util.StatusUtils;
 import com.example.hemin.fnb.ui.util.ToolUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,6 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
         initView();
         initSystemBar();
+
     }
 
 
@@ -72,6 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
+
     }
 
 

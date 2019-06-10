@@ -102,6 +102,16 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.MyAppraisaS"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ActivityUserMessage"
+        android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.FixNickName"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.NoticActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.MobileRegister"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"
             android:screenOrientation="portrait"></activity>//选择图片
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"

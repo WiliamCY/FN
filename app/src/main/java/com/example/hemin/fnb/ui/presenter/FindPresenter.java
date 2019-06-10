@@ -36,8 +36,8 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
     private FindBean beansDate = new FindBean();
     private List<String> imageUrls = new ArrayList<>();
     private List<String> pathUrl = new ArrayList<>();
-    private String activityUrl,intentUrl;
-    private  List<FindBean> dates = new ArrayList<>();
+    private String activityUrl, intentUrl;
+    private List<FindBean> dates = new ArrayList<>();
 
     public FindPresenter() {
         modle = new FindModel();
@@ -65,14 +65,14 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         FindHuoListBean.DataBean bean1 = (FindHuoListBean.DataBean) bean.getResult();
-                       List<FindHuoListBean.DataBean.RecordsBean> list = bean1.getRecords();
-                       for(int i = 0 ;i<4;i++){
-                           activityUrl = list.get(i).getActivityUrl();
-                           intentUrl= list.get(i).getActivityContentUrl();
-                           beansDate = new FindBean(activityUrl,intentUrl,1);
-                           dates.add(beansDate);
-                           mView.Date(dates,1);
-                       }
+                        List<FindHuoListBean.DataBean.RecordsBean> list = bean1.getRecords();
+                        for (int i = 0; i < 4; i++) {
+                            activityUrl = list.get(i).getActivityUrl();
+                            intentUrl = list.get(i).getActivityContentUrl();
+                            beansDate = new FindBean(activityUrl, intentUrl, 1);
+                            dates.add(beansDate);
+                            mView.Date(dates, 1);
+                        }
 
 
                     }
@@ -126,15 +126,15 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         List<String> imageUris = new ArrayList<>();
                         Find2Bean.DataBean beans = (Find2Bean.DataBean) bean.getResult();
                         List<Find2Bean.DataBean.RecordsBean> list = beans.getRecords();
-                        for (int i = 0; i <2; i++) {
-                             activityUrl = list.get(0).getTopicUrl();
-                           intentUrl = list.get(0).getTopicContent();
-                            beansDate = new FindBean(activityUrl,intentUrl, 0);
+                        for (int i = 0; i < 2; i++) {
+                            activityUrl = list.get(0).getTopicUrl();
+                            intentUrl = list.get(0).getTopicContent();
+                            beansDate = new FindBean(activityUrl, intentUrl, 0);
 
                         }
 
                         dates.add(beansDate);
-                        mView.Date(dates,2);
+                        mView.Date(dates, 2);
 
                     }
                 }, new Consumer<Throwable>() {
@@ -177,7 +177,6 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
         if (!isViewAttached()) {
             return;
         }
-
         modle5.getDaily(context, heard, userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -191,7 +190,13 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 //                             activityUrl = list.get(0).getImagesUrl();
 
 //                            beansDate = new FindBean(activityUrl,activityUrl, 1);
-//                        mView.Date(beansDate);
+                        for (int i = 0; i < 2; i++) {
+                            activityUrl = list.get(0).getImagesUrl();
+                            intentUrl = list.get(0).getImagesUrl();
+                            beansDate = new FindBean(activityUrl, intentUrl, 0);
+                        }
+                        dates.add(beansDate);
+                        mView.Date(dates, 3);
 //                  mView.Date3(list,3);
                     }
                 }, new Consumer<Throwable>() {
@@ -227,6 +232,14 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 //                          mView.Date(beansDate);
 //                        mView.Date4(list,4);
 
+                        for (int i = 0; i < 2; i++) {
+                            activityUrl = list.get(0).getImagesUrl();
+                            intentUrl = list.get(0).getImagesUrl();
+                            beansDate = new FindBean(activityUrl, intentUrl, 0);
+                        }
+                        dates.add(beansDate);
+                        mView.Date(dates, 4);
+
 
                     }
                 }, new Consumer<Throwable>() {
@@ -261,6 +274,13 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 //                        }
 //                        mView.Date(beansDate);
 //                        mView.Date5(list,5);
+                        for (int i = 0; i < 2; i++) {
+                            activityUrl = list.get(0).getImagesUrl();
+                            intentUrl = list.get(0).getImagesUrl();
+                            beansDate = new FindBean(activityUrl, intentUrl, 0);
+                        }
+                        dates.add(beansDate);
+                        mView.Date(dates, 5);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

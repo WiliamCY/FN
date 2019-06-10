@@ -8,6 +8,7 @@
     android:layout_margin="@dimen/margin_15">
 
     <ImageView
+         android:scaleType="fitXY"
         android:id="@+id/collect_logo"
         android:layout_width="167dp"
         android:layout_height="144dp"

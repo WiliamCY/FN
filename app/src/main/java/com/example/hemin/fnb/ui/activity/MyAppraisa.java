@@ -25,6 +25,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
@@ -100,6 +101,15 @@ public class MyAppraisa extends BaseActivity {
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
                 return linePagerIndicator;
+//                LinePagerIndicator indicator = new LinePagerIndicator(context);
+//                float navigatorHeight = context.getResources().getDimension(R.dimen.layout_height_40);
+//                float borderWidth = UIUtil.dip2px(context, 1);
+//                float lineHeight = navigatorHeight - 2 * borderWidth;
+//                indicator.setLineHeight(lineHeight);
+//                indicator.setRoundRadius(lineHeight / 2);
+//                indicator.setYOffset(borderWidth);
+//                indicator.setColors(Color.parseColor("#bc2a2a"));
+//                return  indicator;
             }
         });
         magicIndicator.setNavigator(commonNavigator);

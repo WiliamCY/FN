@@ -44,7 +44,7 @@ public class ChangeLogoPresenter extends BasePresenter<UserChangeLogo> implement
                         mView.onSuccess(bean);
                         mView.hideLoading();
                         if(bean.getErrorCode() == 0){
-//                            mView.Status(1);
+                            mView.sendUrl(1);
                         }
                     }
                 }, new Consumer<Throwable>() {
