@@ -7,7 +7,7 @@
     tools:ignore="MissingConstraints">
 
 
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
+    <com.jcodecraeer.xrecyclerview.XRecyclerView2
         android:id="@+id/apr_recylcerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

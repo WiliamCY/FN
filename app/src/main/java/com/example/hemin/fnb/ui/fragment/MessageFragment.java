@@ -36,6 +36,7 @@ import com.example.hemin.fnb.ui.presenter.MessagePresenter;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.jcodecraeer.xrecyclerview.XRecyclerView2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -175,6 +176,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         messageRecyclerview.setLoadingMoreEnabled(true);
         messageRecyclerview.setPullRefreshEnabled(true);
         messageRecyclerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+
         messageRecyclerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
         messageRecyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override

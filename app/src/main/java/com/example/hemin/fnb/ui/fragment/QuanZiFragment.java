@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -33,6 +32,7 @@ import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.jcodecraeer.xrecyclerview.XRecyclerView2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,12 +42,11 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> implements WodeQuanziContract.View {
 
-    @BindView(R.id.apr_recylcerview)
-    XRecyclerView aprRecylcerview;
+    //    @BindView(R.id.apr_recylcerview)
+//    XRecyclerView aprRecylcerview;
     @BindView(R.id.image)
     ImageView image;
     @BindView(R.id.title)
@@ -57,12 +56,14 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     ImageView logos;
     @BindView(R.id.logo_title)
     TextView logoTitle;
+    @BindView(R.id.apr_recylcerview)
+    XRecyclerView2 aprRecylcerview;
 
     private ArrayList<String> recordPaths = new ArrayList<>();
     private int finderid;
     private String userId;
     private TranslateAdapter adapter = new TranslateAdapter();
-    private  RelaseApdater adapters = new RelaseApdater();
+    private RelaseApdater adapters = new RelaseApdater();
     private Map token = new HashMap();
     private TextView t1;
 
@@ -182,18 +183,18 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         aprRecylcerview.setLoadingMoreEnabled(true);
         aprRecylcerview.setPullRefreshEnabled(true);
         aprRecylcerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
-        aprRecylcerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
+//        aprRecylcerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
 
         adapter.setRecyclerItemClickListeners(new OnRecyclerItemClickListeners() {
             @Override
             public void onItemClick(int Position, TextView textView) {
-                String userId = beans.get(Position-1).getFuId();
-                Log.d("XrecyclerviewUserId",userId);
+                String userId = beans.get(Position - 1).getFuId();
+                Log.d("XrecyclerviewUserId", userId);
                 mPresenter.Remove(getActivity(), token, userId);
                 t1 = textView;
             }
         });
-        aprRecylcerview.setLoadingListener(new XRecyclerView.LoadingListener() {
+        aprRecylcerview.setLoadingListener(new XRecyclerView2.LoadingListener() {
             @Override
             public void onRefresh() {
                 adapter.setData(beans);
@@ -206,9 +207,9 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
             public void onLoadMore() {
                 pageIndex++;
                 mPresenter.myGuanzhu(getActivity(), token, pageIndex, 10, Long.parseLong(userId));
-                if(beans.size()==0){
+                if (beans.size() == 0) {
                     Toast.makeText(getActivity(), "暂无更多", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     adapter.addtData(beans);
                 }
                 aprRecylcerview.refreshComplete();
@@ -228,15 +229,15 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         aprRecylcerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-         adapters = new RelaseApdater(getActivity(), beans);
+        adapters = new RelaseApdater(getActivity(), beans);
         Log.d("beanDate", beans.toString());
         aprRecylcerview.setAdapter(adapters);
         recordPaths.clear();
         aprRecylcerview.setLoadingMoreEnabled(true);
         aprRecylcerview.setPullRefreshEnabled(true);
-        aprRecylcerview.setFootViewText("正在刷新","正在加载");
+        aprRecylcerview.setFootViewText("正在刷新", "正在加载");
         aprRecylcerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
-        aprRecylcerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
+//        aprRecylcerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
 
         adapters.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
             @Override
@@ -246,13 +247,13 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
 
             @Override
             public void onItemClick(int position) {
-                finderid = beans.get(position-1).getFriendId();
+                finderid = beans.get(position - 1).getFriendId();
                 mPresenter.getFidner(getActivity(), token, finderid, Integer.parseInt(userId));
 
 
             }
         });
-        aprRecylcerview.setLoadingListener(new XRecyclerView.LoadingListener() {
+        aprRecylcerview.setLoadingListener(new XRecyclerView2.LoadingListener() {
             @Override
             public void onRefresh() {
                 adapters.addtData(beans);
@@ -265,9 +266,9 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
             public void onLoadMore() {
                 pageIndex++;
                 mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId));
-                if(beans.size()==0){
+                if (beans.size() == 0) {
                     Toast.makeText(getActivity(), "暂无更多", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     adapters.addtData(beans);
                 }
                 aprRecylcerview.refreshComplete();

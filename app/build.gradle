@@ -75,6 +75,7 @@ dependencies {
     implementation files('libs/pgyer_sdk_3.0.4.jar')
 
 
+
     // 基础依赖包，必须要依赖
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
 // fragment快速实现（可选）
@@ -87,8 +88,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8@aar'
 
-    implementation 'com.jcodecraeer:xrecyclerview:1.5.8'
 
-
+    implementation project(':xrecyclerviews')
 
 }
