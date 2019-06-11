@@ -26,7 +26,23 @@ public class MessagesApdater extends RecyclerView.Adapter<MessagesApdater.ViewHo
     public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
         monItemClickListener = listener;
     }
+  public MessagesApdater(){
 
+  }
+    public void addtData(List<MessageBean2.DataBean.RecordsBean> list) {
+        if (null != list) {
+            this.list.addAll(list);
+//            notifyDataSetChanged();
+        }
+    }
+
+    public void setData(List<MessageBean2.DataBean.RecordsBean> list) {
+        if (null != list) {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
     public MessagesApdater(Context context, List<MessageBean2.DataBean.RecordsBean> list) {
         this.context = context;
         this.list = list;

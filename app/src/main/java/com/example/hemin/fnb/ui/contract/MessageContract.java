@@ -48,7 +48,7 @@ public interface MessageContract  {
     interface Presenter {
 
         void getMaga(Context context, Map token,long current,long size,String type);
-        void getTuiJian(Context context,Map token, long current, long size,int userId );
+        void getTuiJian(Context context,Map token, long current, long size,int userId,int status );
         void getGuanZhu(Context context,Map token, long current, long size,int userId );
         void getFidner(Context context,Map token, long friendId,int userId );
     }

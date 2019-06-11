@@ -61,7 +61,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
     }
 
     @Override
-    public void getTuiJian(Context context, Map token, long current, long size, int userId) {
+    public void getTuiJian(Context context, Map token, long current, long size, int userId, final int status) {
         if(!isViewAttached()){
             return;
         }
@@ -76,7 +76,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                         mView.hideLoading();
                         MessageBean2.DataBean bean2 = (MessageBean2.DataBean) bean.getResult();
                         List<MessageBean2.DataBean.RecordsBean> list = bean2.getRecords();
-                        mView.Date(list,2);
+                        mView.Date(list,status);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

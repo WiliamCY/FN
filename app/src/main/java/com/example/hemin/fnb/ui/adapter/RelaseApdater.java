@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.bean.GuanZhuBean;
 import com.example.hemin.fnb.ui.bean.MessageBean2;
 import com.example.hemin.fnb.ui.bean.ReleaseBean;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
@@ -26,12 +27,27 @@ public class RelaseApdater extends RecyclerView.Adapter<RelaseApdater.ViewHolder
     public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
         monItemClickListener = listener;
     }
+  public RelaseApdater(){
 
+  }
     public RelaseApdater(Context context, List<ReleaseBean.DataBean.RecordsBean> list) {
         this.context = context;
         this.list = list;
     }
+    public void addtData(List<ReleaseBean.DataBean.RecordsBean> dataList) {
+        if (null != dataList) {
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
 
+    public void setData(List<ReleaseBean.DataBean.RecordsBean> dataList) {
+        if (null != dataList) {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
     @NonNull
     @Override
     public RelaseApdater.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

@@ -31,7 +31,24 @@ public class Message3Apdater extends RecyclerView.Adapter<Message3Apdater.ViewHo
         this.context = context;
         this.list = list;
     }
+    public Message3Apdater(){
 
+    }
+
+    public void addtData(List<MessageBean3.DataBean.RecordsBean> list) {
+        if (null != list) {
+            this.list.addAll(list);
+//            notifyDataSetChanged();
+        }
+    }
+
+    public void setData(List<MessageBean3.DataBean.RecordsBean> list) {
+        if (null != list) {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
     @NonNull
     @Override
     public Message3Apdater.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

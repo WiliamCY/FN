@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.activity.MessageAdd;
+import com.example.hemin.fnb.ui.bean.GuanZhuBean;
 import com.example.hemin.fnb.ui.bean.MessageBean1;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 
@@ -24,9 +26,26 @@ public class MessageApdater extends RecyclerView.Adapter<MessageApdater.ViewHold
     public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
         monItemClickListener=listener;
     }
+    public MessageApdater(){
+
+    }
     public MessageApdater(Context context, List<MessageBean1.DataBean.RecordsBean> list){
           this.context = context;
           this.list = list;
+    }
+    public void addtData(List<MessageBean1.DataBean.RecordsBean> list) {
+        if (null != list) {
+            this.list.addAll(list);
+//            notifyDataSetChanged();
+        }
+    }
+
+    public void setData(List<MessageBean1.DataBean.RecordsBean> list) {
+        if (null != list) {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
     }
     @NonNull
     @Override

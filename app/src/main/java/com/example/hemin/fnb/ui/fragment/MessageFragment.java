@@ -34,6 +34,8 @@ import com.example.hemin.fnb.ui.contract.MessageContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.MessagePresenter;
 import com.example.hemin.fnb.ui.util.Utils;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,23 +48,41 @@ import butterknife.Unbinder;
 
 public class MessageFragment extends BaseMvpFragment<MessagePresenter> implements MessageContract.View {
     @BindView(R.id.message_recyclerview)
-    RecyclerView messageRecyclerview;
+    XRecyclerView messageRecyclerview;
     Unbinder unbinder;
     private Map map = new HashMap();
     private String userId;
     private ArrayList<String> recordPaths = new ArrayList<>();
     private long finderid, finderids;
+    private MessageApdater apdater1 = new MessageApdater();
+    private MessagesApdater adapter2 = new MessagesApdater();
+    private Message3Apdater adapter3 = new Message3Apdater();
+    private int pageIndex = 1;
+
 
     @Override
     protected void initView(View view) {
         mPresenter = new MessagePresenter();
         mPresenter.attachView(this);
-        int index = this.getArguments().getInt("indexNumber");
+        int index = this.getArguments().getInt("index");
         Log.d("MessageIndex", String.valueOf(index));
         map = Utils.getAuthorization(getActivity());
         initDate(index);
 
 
+    }
+    public  static  MessageFragment getInstance(String status){
+        MessageFragment fragment = new MessageFragment();
+        Bundle bundle = new Bundle();
+        if(status.equals("资料库")){
+            bundle.putInt("index",0);
+        }else if(status.equals("推荐"))
+            bundle.putInt("index",1);
+        else {
+            bundle.putInt("index",2);
+        }
+        fragment.setArguments(bundle);
+         return fragment;
     }
 
     private void initDate(int index) {
@@ -71,7 +91,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         if (index == 0) {
             mPresenter.getMaga(getActivity(), map, 1, 10, "1");
         } else if (index == 1) {
-            mPresenter.getTuiJian(getActivity(), map, 1, 10, Integer.parseInt(userId));
+            mPresenter.getTuiJian(getActivity(), map, 1, 10, Integer.parseInt(userId),2);
         } else {
             mPresenter.getGuanZhu(getActivity(), map, 1, 10, Integer.parseInt(userId));
         }
@@ -91,6 +111,13 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             initRecyclerview2((List<MessageBean2.DataBean.RecordsBean>) object);
         } else if (index == 3) {
             initRecyclerview3((List<MessageBean3.DataBean.RecordsBean>) object);
+        }else if(index == 21){
+            adapter2.setData((List<MessageBean2.DataBean.RecordsBean>) object);
+        }else if(index == 22){
+            adapter2.addtData((List<MessageBean2.DataBean.RecordsBean>) object);
+            if(((List<MessageBean2.DataBean.RecordsBean>) object).size() == 0){
+                Toast.makeText(getActivity(),"暂无数据",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -127,11 +154,11 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         messageRecyclerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        MessageApdater adapter = new MessageApdater(getActivity(), bean);
+        apdater1 = new MessageApdater(getActivity(), bean);
         Log.d("beanDate", bean.toString());
-        messageRecyclerview.setAdapter(adapter);
-        Log.d("messageSzie", String.valueOf(adapter.getItemCount()));
-        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+        messageRecyclerview.setAdapter(apdater1);
+        Log.d("messageSzie", String.valueOf(apdater1.getItemCount()));
+        apdater1.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int Position, String path) {
 
@@ -140,9 +167,35 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(getActivity(), UserAbout.class);
-                String paths = bean.get(position).getMagazineContent();
+                String paths = bean.get(position-1).getMagazineContent();
                 intent.putExtra("path", paths);
                 startActivity(intent);
+            }
+        });
+        messageRecyclerview.setLoadingMoreEnabled(true);
+        messageRecyclerview.setPullRefreshEnabled(true);
+        messageRecyclerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        messageRecyclerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
+        messageRecyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                apdater1.setData(bean);
+                mPresenter.getMaga(getActivity(), map, 1, 10, "1");
+                messageRecyclerview.refreshComplete();
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                pageIndex++;
+                mPresenter.getMaga(getActivity(), map, pageIndex, 10, "1");
+                if(bean.size()==0){
+                    Toast.makeText(getActivity(), "暂无更多", Toast.LENGTH_SHORT).show();
+                }else {
+                    apdater1.addtData(bean);
+                }
+                messageRecyclerview.refreshComplete();
+
             }
         });
 
@@ -152,10 +205,10 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         messageRecyclerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        MessagesApdater adapter = new MessagesApdater(getActivity(), bean);
+        adapter2 = new MessagesApdater(getActivity(), bean);
         Log.d("beanDate", bean.toString());
-        messageRecyclerview.setAdapter(adapter);
-        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+        messageRecyclerview.setAdapter(adapter2);
+        adapter2.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int Position, String path) {
 
@@ -163,21 +216,42 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
             @Override
             public void onItemClick(int position) {
-                finderid = bean.get(position).getFriendId();
+                finderid = bean.get(position-1).getFriendId();
                 mPresenter.getFidner(getActivity(), map, finderid, Integer.parseInt(userId));
             }
         });
+        messageRecyclerview.setLoadingMoreEnabled(true);
+        messageRecyclerview.setPullRefreshEnabled(true);
+        messageRecyclerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        messageRecyclerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
+        messageRecyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                pageIndex = 1;
+                mPresenter.getTuiJian(getActivity(), map, pageIndex, 10, Integer.parseInt(userId),21);
+                messageRecyclerview.refreshComplete();
 
+            }
+
+            @Override
+            public void onLoadMore() {
+                pageIndex++;
+                Log.d("pageIndex",String.valueOf(pageIndex));
+                mPresenter.getTuiJian(getActivity(), map, pageIndex, 10, Integer.parseInt(userId),22);
+                messageRecyclerview.refreshComplete();
+
+            }
+        });
     }
 
     private void initRecyclerview3(final List<MessageBean3.DataBean.RecordsBean> bean) {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         messageRecyclerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        Message3Apdater adapter = new Message3Apdater(getActivity(), bean);
-        messageRecyclerview.setAdapter(adapter);
-        Log.d("messageAdapterSize", String.valueOf(adapter.getItemCount()));
-        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+      adapter3   = new Message3Apdater(getActivity(), bean);
+        messageRecyclerview.setAdapter(adapter3);
+        Log.d("messageAdapterSize", String.valueOf(adapter3.getItemCount()));
+        adapter3.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int Position, String path) {
 
@@ -185,11 +259,36 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
             @Override
             public void onItemClick(int position) {
-                finderids = bean.get(position).getFriendId();
+                finderids = bean.get(position-1).getFriendId();
                 mPresenter.getFidner(getActivity(), map, finderids, Integer.parseInt(userId));
             }
         });
+        messageRecyclerview.setLoadingMoreEnabled(true);
+        messageRecyclerview.setPullRefreshEnabled(true);
+        messageRecyclerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        messageRecyclerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
+        messageRecyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                adapter3.setData(bean);
+                mPresenter.getGuanZhu(getActivity(), map, 1, 10, Integer.parseInt(userId));
+                messageRecyclerview.refreshComplete();
 
+            }
+
+            @Override
+            public void onLoadMore() {
+                pageIndex++;
+                mPresenter.getGuanZhu(getActivity(), map, pageIndex, 10, Integer.parseInt(userId));
+                if(bean.size()==0){
+                    Toast.makeText(getActivity(), "暂无更多", Toast.LENGTH_SHORT).show();
+                }else {
+                    adapter3.addtData(bean);
+                }
+                messageRecyclerview.refreshComplete();
+
+            }
+        });
     }
 
     @Override

@@ -62,6 +62,7 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     private int finderid;
     private String userId;
     private TranslateAdapter adapter = new TranslateAdapter();
+    private  RelaseApdater adapters = new RelaseApdater();
     private Map token = new HashMap();
     private TextView t1;
 
@@ -178,7 +179,6 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         adapter = new TranslateAdapter(getActivity(), beans);
         aprRecylcerview.setAdapter(adapter);
-//        adapter.addtData(beans);
         aprRecylcerview.setLoadingMoreEnabled(true);
         aprRecylcerview.setPullRefreshEnabled(true);
         aprRecylcerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
@@ -187,7 +187,7 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         adapter.setRecyclerItemClickListeners(new OnRecyclerItemClickListeners() {
             @Override
             public void onItemClick(int Position, TextView textView) {
-                String userId = beans.get(Position).getFuId();
+                String userId = beans.get(Position-1).getFuId();
                 Log.d("XrecyclerviewUserId",userId);
                 mPresenter.Remove(getActivity(), token, userId);
                 t1 = textView;
@@ -196,9 +196,8 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         aprRecylcerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                adapter.notifyDataSetChanged();
+                adapter.setData(beans);
                 mPresenter.myGuanzhu(getActivity(), token, 1, 10, Long.parseLong(userId));
-                Toast.makeText(getActivity(), "刷新完成", Toast.LENGTH_SHORT).show();
                 aprRecylcerview.refreshComplete();
 
             }
@@ -206,8 +205,12 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
             @Override
             public void onLoadMore() {
                 pageIndex++;
-                mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId));
-                Toast.makeText(getActivity(), "加载完成", Toast.LENGTH_SHORT).show();
+                mPresenter.myGuanzhu(getActivity(), token, pageIndex, 10, Long.parseLong(userId));
+                if(beans.size()==0){
+                    Toast.makeText(getActivity(), "暂无更多", Toast.LENGTH_SHORT).show();
+                }else {
+                    adapter.addtData(beans);
+                }
                 aprRecylcerview.refreshComplete();
 
             }
@@ -225,12 +228,17 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         aprRecylcerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        RelaseApdater adapter = new RelaseApdater(getActivity(), beans);
+         adapters = new RelaseApdater(getActivity(), beans);
         Log.d("beanDate", beans.toString());
-        aprRecylcerview.setAdapter(adapter);
+        aprRecylcerview.setAdapter(adapters);
         recordPaths.clear();
+        aprRecylcerview.setLoadingMoreEnabled(true);
+        aprRecylcerview.setPullRefreshEnabled(true);
+        aprRecylcerview.setFootViewText("正在刷新","正在加载");
+        aprRecylcerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        aprRecylcerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
 
-        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+        adapters.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int Position, String path) {
 
@@ -238,9 +246,31 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
 
             @Override
             public void onItemClick(int position) {
-                finderid = beans.get(position).getFriendId();
+                finderid = beans.get(position-1).getFriendId();
                 mPresenter.getFidner(getActivity(), token, finderid, Integer.parseInt(userId));
 
+
+            }
+        });
+        aprRecylcerview.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                adapters.addtData(beans);
+                mPresenter.myFaBu(getActivity(), token, 1, 10, Long.parseLong(userId));
+                aprRecylcerview.refreshComplete();
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                pageIndex++;
+                mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId));
+                if(beans.size()==0){
+                    Toast.makeText(getActivity(), "暂无更多", Toast.LENGTH_SHORT).show();
+                }else {
+                    adapters.addtData(beans);
+                }
+                aprRecylcerview.refreshComplete();
 
             }
         });
