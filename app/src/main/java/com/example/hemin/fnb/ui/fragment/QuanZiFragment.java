@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +26,14 @@ import com.example.hemin.fnb.ui.bean.GuanZhuBean;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
 import com.example.hemin.fnb.ui.bean.ReleaseBean;
 import com.example.hemin.fnb.ui.contract.WodeQuanziContract;
-import com.example.hemin.fnb.ui.interfaces.NetWorkInterface;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListeners;
 import com.example.hemin.fnb.ui.presenter.WoDoQuanZiPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
-import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,10 +44,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
-public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> implements WodeQuanziContract.View, BGARefreshLayout.BGARefreshLayoutDelegate {
+public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> implements WodeQuanziContract.View {
 
     @BindView(R.id.apr_recylcerview)
-    RecyclerView aprRecylcerview;
+    XRecyclerView aprRecylcerview;
     @BindView(R.id.image)
     ImageView image;
     @BindView(R.id.title)
@@ -57,38 +57,29 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     ImageView logos;
     @BindView(R.id.logo_title)
     TextView logoTitle;
+
     private ArrayList<String> recordPaths = new ArrayList<>();
     private int finderid;
     private String userId;
     private TranslateAdapter adapter = new TranslateAdapter();
     private Map token = new HashMap();
     private TextView t1;
-    private BGARefreshLayout mRefreshLayout;
 
-    private final int pageSize = 10;   //请求个数
     private int pageIndex = 1;  //当前请求页
-    private final int INITACTION = 9;   //初始化
-    private final int UPDATEACTION = 10;    //下拉刷新
-    private final int MOREACTION = 11;  //上拉加载
-    private boolean flag = true;    //是否可以加载更多
-    private int count = 0;  //第一次加载
+    private int index;
 
-    public static  QuanZiFragment getInstance(String i){
+
+    public static QuanZiFragment getInstance(String i) {
         Log.d("indexNumbersssIIII", String.valueOf(i));
-      QuanZiFragment quanZiFragment = new QuanZiFragment();
-       Bundle bundle = new Bundle();
-//       if(i == 1){
-//           bundle.putInt("index",0);
-//       }else {
-//           bundle.putInt("index",1);
-//       }
-        if(i == "我的关注"){
-            bundle.putInt("index",0);
-        }else {
-            bundle.putInt("index",1);
+        QuanZiFragment quanZiFragment = new QuanZiFragment();
+        Bundle bundle = new Bundle();
+        if (i == "我的关注") {
+            bundle.putInt("index", 0);
+        } else {
+            bundle.putInt("index", 1);
         }
-       quanZiFragment.setArguments(bundle);
-      return  quanZiFragment;
+        quanZiFragment.setArguments(bundle);
+        return quanZiFragment;
     }
 
     @Override
@@ -96,20 +87,19 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         mPresenter = new WoDoQuanZiPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
-        int index = this.getArguments().getInt("index");
-//        int indexNumber = this.getArguments().getInt("indexNumber");
-//        Log.d("indexNumbersss", String.valueOf(indexNumber));
+        index = this.getArguments().getInt("index");
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         token = Utils.getAuthorization(getActivity());
         userId = sp.getString("userId", "");
         if (index == 0) {//我的关注
-            mPresenter.myGuanzhu(getActivity(), token, 1, 10, Long.parseLong(userId));
+            mPresenter.myGuanzhu(getActivity(), token, pageIndex, 10, Long.parseLong(userId));
         } else {///我的发布
-            mPresenter.myFaBu(getActivity(), token, 1, 10, Long.parseLong(userId));
+            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId));
         }
 
 
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -146,13 +136,13 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     }
 
     @Override
-    public void DateUserId(Object object, String userId, String content,String userUrl,String nickName) {
+    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName) {
 
-        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content,userUrl,nickName);
+        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName);
 
     }
 
-    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content,String userUrl,String nickName) {
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName) {
         recordPaths.clear();
         for (int i = 0; i < object.size(); i++) {
             String path = object.get(i).getImagesUrl();
@@ -168,19 +158,19 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         imgIntent.putExtra("finderid", finderid);
         imgIntent.putExtra("userId", userId);
         imgIntent.putExtra("StringContent", content);
-        imgIntent.putExtra("userUrl",userUrl);
-        imgIntent.putExtra("nickName",nickName);
+        imgIntent.putExtra("userUrl", userUrl);
+        imgIntent.putExtra("nickName", nickName);
         startActivity(imgIntent);
 
     }
 
     private void initAdapterGZ(final List<GuanZhuBean.DataBean.RecordsBean> beans) {
         if (beans.size() == 0) {
-             logos.setVisibility(View.VISIBLE);
-             logos.setBackgroundResource(R.mipmap.guanzhu);
-             logoTitle.setVisibility(View.VISIBLE);
-             logoTitle.setText("快点去关注些什么吧～");
-             aprRecylcerview.setVisibility(View.GONE);
+            logos.setVisibility(View.VISIBLE);
+            logos.setBackgroundResource(R.mipmap.guanzhu);
+            logoTitle.setVisibility(View.VISIBLE);
+            logoTitle.setText("快点去关注些什么吧～");
+            aprRecylcerview.setVisibility(View.GONE);
         }
         Log.d("TransSize:", String.valueOf(beans.size()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -188,12 +178,38 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         adapter = new TranslateAdapter(getActivity(), beans);
         aprRecylcerview.setAdapter(adapter);
+//        adapter.addtData(beans);
+        aprRecylcerview.setLoadingMoreEnabled(true);
+        aprRecylcerview.setPullRefreshEnabled(true);
+        aprRecylcerview.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        aprRecylcerview.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
+
         adapter.setRecyclerItemClickListeners(new OnRecyclerItemClickListeners() {
             @Override
             public void onItemClick(int Position, TextView textView) {
                 String userId = beans.get(Position).getFuId();
+                Log.d("XrecyclerviewUserId",userId);
                 mPresenter.Remove(getActivity(), token, userId);
                 t1 = textView;
+            }
+        });
+        aprRecylcerview.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                mPresenter.myGuanzhu(getActivity(), token, 1, 10, Long.parseLong(userId));
+                Toast.makeText(getActivity(), "刷新完成", Toast.LENGTH_SHORT).show();
+                aprRecylcerview.refreshComplete();
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                pageIndex++;
+                mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId));
+                Toast.makeText(getActivity(), "加载完成", Toast.LENGTH_SHORT).show();
+                aprRecylcerview.refreshComplete();
+
             }
         });
     }
@@ -250,13 +266,5 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         unbinder.unbind();
     }
 
-    @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
 
-    }
-
-    @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
-    }
 }

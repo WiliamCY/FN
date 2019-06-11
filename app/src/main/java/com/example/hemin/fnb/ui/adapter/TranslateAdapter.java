@@ -34,6 +34,20 @@ public class TranslateAdapter extends RecyclerView.Adapter<TranslateAdapter.View
     public TranslateAdapter(){
 
     }
+    public void addtData(List<GuanZhuBean.DataBean.RecordsBean> dataList) {
+        if (null != dataList) {
+            this.beans.addAll(beans);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void setData(List<GuanZhuBean.DataBean.RecordsBean> dataList) {
+        if (null != dataList) {
+            this.beans.clear();
+            this.beans.addAll(beans);
+            notifyDataSetChanged();
+        }
+    }
     @NonNull
     @Override
     public TranslateAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
