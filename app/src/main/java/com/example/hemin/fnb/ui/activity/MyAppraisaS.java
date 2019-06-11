@@ -6,25 +6,20 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.adapter.BaseFragmentPagerAdapter;
+import com.example.hemin.fnb.ui.adapter.BaseViewPagerAdapter;
 import com.example.hemin.fnb.ui.base.BaseActivity;
-import com.example.hemin.fnb.ui.fragment.AppraisaFragment;
 import com.example.hemin.fnb.ui.fragment.QuanZiFragment;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
@@ -35,6 +30,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,26 +44,29 @@ public class MyAppraisaS extends BaseActivity {
     @BindView(R.id.header_left_img)
     ImageView headerLeftImg;
     private static final String[] date2 = new String[]{"我的关注", "我的发布"};
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
     private List<String> mDataList2 = Arrays.asList(date2);
-    private QuanZiFragment fragment = new QuanZiFragment();
-
-    private boolean status = true;
+    List<Fragment> fragmentList = new ArrayList<>();
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
 
     private void initDate() {
-//        initFragment(0, status);
-        initView2(mDataList2, status);
+        for(int i = 0;i<mDataList2.size();i++){
+            fragmentList.add(QuanZiFragment.getInstance(mDataList2.get(i)));
+        }
+
+        initView2();
     }
 
-    private void initView2(final List<String> date, final boolean status) {
-
+    private void initView2() {
+       viewPager.setAdapter(new BaseViewPagerAdapter(getSupportFragmentManager(),fragmentList));
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
 
             @Override
             public int getCount() {
-                return date.size();
+                return mDataList2 == null ? 0 : mDataList2.size();
             }
 
             @Override
@@ -77,13 +76,14 @@ public class MyAppraisaS extends BaseActivity {
                 simplePagerTitleView.setNormalColor(R.color.c333333);
                 simplePagerTitleView.setSelectedColor(Color.BLACK);
                 simplePagerTitleView.setTextSize(20);
-                simplePagerTitleView.setText(date.get(index));
+                simplePagerTitleView.setText(mDataList2.get(index));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mFragmentContainerHelper.handlePageSelected(index);
-                        Log.d("indexSize",String.valueOf(index));
-                        initFragment(index, status);
+//                        mFragmentContainerHelper.handlePageSelected(index);
+//                        Log.d("indexSize", String.valueOf(index));
+                        viewPager.setCurrentItem(index);
+//                        initFragment(index, status);
 //                        viewPagers.setAdapter(new BaseFragmentPagerAdapter(getSupportFragmentManager(),index) {
 //                            @Override
 //                            public Fragment getItem(int index) {
@@ -125,6 +125,8 @@ public class MyAppraisaS extends BaseActivity {
             }
         });
         mFragmentContainerHelper.attachMagicIndicator(magicIndicator);
+        ViewPagerHelper.bind(magicIndicator,viewPager);
+
     }
 
 
@@ -150,21 +152,6 @@ public class MyAppraisaS extends BaseActivity {
         initDate();
     }
 
-
-    private void initFragment(int indexx, boolean status) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (fragment != null) {
-            fragmentTransaction.hide(fragment);
-            fragment = new QuanZiFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("indexNumber", indexx);
-            fragment.setArguments(bundle);
-            fragmentTransaction.add(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-
-        }
-    }
 
 
     @Override

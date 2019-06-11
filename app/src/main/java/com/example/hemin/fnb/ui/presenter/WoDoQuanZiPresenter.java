@@ -37,7 +37,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         model.myGuanzhu(context, map,current,size,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -45,7 +45,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         GuanZhuBean.DataBean bean1 = (GuanZhuBean.DataBean) bean.getResult();
                        List<GuanZhuBean.DataBean.RecordsBean> list =  bean1.getRecords();
 //                       List<GuanZhuBean.DataBean.RecordsBean> lists = list.getRecords();
@@ -66,7 +66,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         mode2.myFaBu(context, map,current,size,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -74,7 +74,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         ReleaseBean.DataBean bean1 = (ReleaseBean.DataBean) bean.getResult();
                         List<ReleaseBean.DataBean.RecordsBean> list = bean1.getRecords();
                         mView.Date(list,1);

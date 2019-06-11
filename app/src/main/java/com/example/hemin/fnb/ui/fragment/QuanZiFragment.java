@@ -26,12 +26,14 @@ import com.example.hemin.fnb.ui.bean.GuanZhuBean;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
 import com.example.hemin.fnb.ui.bean.ReleaseBean;
 import com.example.hemin.fnb.ui.contract.WodeQuanziContract;
+import com.example.hemin.fnb.ui.interfaces.NetWorkInterface;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListeners;
 import com.example.hemin.fnb.ui.presenter.WoDoQuanZiPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,8 +42,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
-public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> implements WodeQuanziContract.View {
+public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> implements WodeQuanziContract.View, BGARefreshLayout.BGARefreshLayoutDelegate {
 
     @BindView(R.id.apr_recylcerview)
     RecyclerView aprRecylcerview;
@@ -60,32 +63,46 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     private TranslateAdapter adapter = new TranslateAdapter();
     private Map token = new HashMap();
     private TextView t1;
+    private BGARefreshLayout mRefreshLayout;
 
-//    public static  QuanZiFragment getInstance(int i){
-//        Log.d("indexNumbersssIIII", String.valueOf(i));
-//      QuanZiFragment quanZiFragment = new QuanZiFragment();
-//       Bundle bundle = new Bundle();
+    private final int pageSize = 10;   //请求个数
+    private int pageIndex = 1;  //当前请求页
+    private final int INITACTION = 9;   //初始化
+    private final int UPDATEACTION = 10;    //下拉刷新
+    private final int MOREACTION = 11;  //上拉加载
+    private boolean flag = true;    //是否可以加载更多
+    private int count = 0;  //第一次加载
+
+    public static  QuanZiFragment getInstance(String i){
+        Log.d("indexNumbersssIIII", String.valueOf(i));
+      QuanZiFragment quanZiFragment = new QuanZiFragment();
+       Bundle bundle = new Bundle();
 //       if(i == 1){
 //           bundle.putInt("index",0);
 //       }else {
 //           bundle.putInt("index",1);
 //       }
-//       quanZiFragment.setArguments(bundle);
-//      return  quanZiFragment;
-//    }
+        if(i == "我的关注"){
+            bundle.putInt("index",0);
+        }else {
+            bundle.putInt("index",1);
+        }
+       quanZiFragment.setArguments(bundle);
+      return  quanZiFragment;
+    }
 
     @Override
     protected void initView(View view) {
         mPresenter = new WoDoQuanZiPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
-//        int index = this.getArguments().getInt("index");
-        int indexNumber = this.getArguments().getInt("indexNumber");
-        Log.d("indexNumbersss", String.valueOf(indexNumber));
+        int index = this.getArguments().getInt("index");
+//        int indexNumber = this.getArguments().getInt("indexNumber");
+//        Log.d("indexNumbersss", String.valueOf(indexNumber));
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         token = Utils.getAuthorization(getActivity());
         userId = sp.getString("userId", "");
-        if (indexNumber == 0) {//我的关注
+        if (index == 0) {//我的关注
             mPresenter.myGuanzhu(getActivity(), token, 1, 10, Long.parseLong(userId));
         } else {///我的发布
             mPresenter.myFaBu(getActivity(), token, 1, 10, Long.parseLong(userId));
@@ -231,5 +248,15 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+
+    }
+
+    @Override
+    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        return false;
     }
 }
