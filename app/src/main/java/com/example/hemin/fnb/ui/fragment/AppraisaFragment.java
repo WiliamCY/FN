@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +28,11 @@ import com.example.hemin.fnb.ui.contract.AppraisaContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.AppraisaPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
-import com.example.hemin.fnb.ui.util.Utils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,18 +51,34 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
     @BindView(R.id.title)
     TextView title;
     Unbinder unbinder;
-public static AppraisaFragment getInstance(int index){
-     AppraisaFragment fragment = new AppraisaFragment();
-     return  fragment;
-}
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+    private int pageIndex = 1;
+    private int indexNumber;
+    private Map<String, String> map = new HashMap<>();
+    private  AppRaisaAdapter adapter = new AppRaisaAdapter();
+    private  AppRaisasAdapter adapters = new AppRaisasAdapter();
+
+    private String userId;
+
 
     private void initRecyclerView(final List<AppraisaBean.DataBean.RecordsBean> bean) {
+        if(bean.size() == 0){
+            refreshLayout.setVisibility(View.GONE);
+            image.setVisibility(View.VISIBLE);
+            title.setVisibility(View.VISIBLE);
+        }else {
+            refreshLayout.setVisibility(View.VISIBLE);
+            image.setVisibility(View.GONE);
+            title.setVisibility(View.GONE);
+        }
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         aprRecylcerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        AppRaisaAdapter adapter = new AppRaisaAdapter(getActivity(), bean);
+         adapter = new AppRaisaAdapter(getActivity(), bean);
         Log.d("beanDate", bean.toString());
         aprRecylcerview.setAdapter(adapter);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int Position, String path) {
@@ -73,17 +94,41 @@ public static AppraisaFragment getInstance(int index){
                 startActivity(intent);
             }
         });
-
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                pageIndex = 1;
+                mPresenter.Appraisa(map, pageIndex, 10, indexNumber, Long.parseLong(userId),11);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                pageIndex++;
+                Log.d("pageIndex", String.valueOf(pageIndex));
+              mPresenter.Appraisa(map, pageIndex, 10, indexNumber, Long.parseLong(userId),12);
+            }
+        });
     }
 
     private void initRecyclerViews(final List<AppraisasBean.DataBean.RecordsBean> bean) {
+        if(bean.size() == 0){
+            refreshLayout.setVisibility(View.GONE);
+            image.setVisibility(View.VISIBLE);
+            title.setVisibility(View.VISIBLE);
+        }else {
+            refreshLayout.setVisibility(View.VISIBLE);
+            image.setVisibility(View.GONE);
+            title.setVisibility(View.GONE);
+        }
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         aprRecylcerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        AppRaisasAdapter adapter = new AppRaisasAdapter(getActivity(), bean);
+        adapters = new AppRaisasAdapter(getActivity(), bean);
         Log.d("beanDate", bean.toString());
-        aprRecylcerview.setAdapter(adapter);
-        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+        aprRecylcerview.setAdapter(adapters);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        adapters.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
             @Override
             public void onItemClick(int Position, String path) {
 
@@ -91,11 +136,22 @@ public static AppraisaFragment getInstance(int index){
 
             @Override
             public void onItemClick(int Position) {
-//                Intent intent = new Intent(getActivity(), CollectionInformationMessage.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("id", bean.get(Position).getCollectionId());
-//                intent.putExtras(bundle);
-//                startActivity(intent);
+
+            }
+        });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                pageIndex = 1;
+                mPresenter.Appraisas(getActivity(), map, pageIndex, 10, indexNumber, Long.parseLong(userId),21);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                pageIndex++;
+                Log.d("pageIndex", String.valueOf(pageIndex));
+                mPresenter.Appraisas(getActivity(), map, pageIndex, 10, indexNumber, Long.parseLong(userId),22);
             }
         });
 
@@ -107,20 +163,20 @@ public static AppraisaFragment getInstance(int index){
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
         boolean status = this.getArguments().getBoolean("status");
-        int indexNumber = this.getArguments().getInt("indexNumber");
+         indexNumber = this.getArguments().getInt("indexNumber");
         Log.d("indexNumbers", String.valueOf(indexNumber));
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         String tokenType = sp.getString("tokenType", "");
         String Authorization = sp.getString("Authorization", "");
-        String userId = sp.getString("userId", "");
-        Map<String, String> map = new HashMap<>();
+         userId = sp.getString("userId", "");
+         map = new HashMap<>();
         map.put("Authorization", tokenType + Authorization);
         if (status == true) {
-            mPresenter.Appraisa(map, 1, 10, indexNumber, Long.parseLong(userId));
+            mPresenter.Appraisa(map, 1, 10, indexNumber, Long.parseLong(userId),1);
 
 
         } else {
-            mPresenter.Appraisas(getActivity(), map, 1, 10, indexNumber, Long.parseLong(userId));
+            mPresenter.Appraisas(getActivity(), map, 1, 10, indexNumber, Long.parseLong(userId),2);
         }
 
     }
@@ -132,7 +188,7 @@ public static AppraisaFragment getInstance(int index){
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if(bean.getErrorCode() != 0){
+        if (bean.getErrorCode() != 0) {
             Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -151,16 +207,36 @@ public static AppraisaFragment getInstance(int index){
     @Override
     public void Date(Object o, int status) {
 
-        if (status == 0) {
+        if (status == 1) {
             aprRecylcerview.setVisibility(View.VISIBLE);
             image.setVisibility(View.GONE);
             title.setVisibility(View.GONE);
             initRecyclerView((List<AppraisaBean.DataBean.RecordsBean>) o);
-        } else if (status == 1) {
+        } else if (status == 2) {
             aprRecylcerview.setVisibility(View.VISIBLE);
             image.setVisibility(View.GONE);
             title.setVisibility(View.GONE);
             initRecyclerViews((List<AppraisasBean.DataBean.RecordsBean>) o);
+        }else if(status == 11){
+            adapter.setData((List<AppraisaBean.DataBean.RecordsBean>) o);
+            refreshLayout.finishRefresh(100);
+        }else if(status == 12){
+            if(((List<AppraisaBean.DataBean.RecordsBean>) o).size() == 0){
+                Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
+            }else {
+                adapter.addtData((List<AppraisaBean.DataBean.RecordsBean>) o);
+            }
+            refreshLayout.finishLoadMore(100);
+        }else if(status == 21){
+           adapters.setData((List<AppraisasBean.DataBean.RecordsBean>) o);
+            refreshLayout.finishRefresh(100);
+        }else if(status == 22){
+            if(((List<AppraisasBean.DataBean.RecordsBean>) o).size() == 0){
+                Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
+            }else {
+                adapters.addtData((List<AppraisasBean.DataBean.RecordsBean>) o);
+            }
+            refreshLayout.finishLoadMore(100);
         }
 
     }

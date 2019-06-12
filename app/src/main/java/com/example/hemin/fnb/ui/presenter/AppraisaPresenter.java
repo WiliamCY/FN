@@ -28,11 +28,11 @@ public class AppraisaPresenter extends BasePresenter<AppraisaContract.View> impl
     }
 
     @Override
-    public void Appraisa( Map token, long current, long size, long collectionAudit, long userId) {
+    public void Appraisa(Map token, long current, long size, long collectionAudit, long userId, final int status) {
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         modle.Appraisa( token,current,size,collectionAudit,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -40,27 +40,27 @@ public class AppraisaPresenter extends BasePresenter<AppraisaContract.View> impl
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                      AppraisaBean.DataBean beans = (AppraisaBean.DataBean) bean.getResult();
                      List<AppraisaBean.DataBean.RecordsBean> dates =  beans.getRecords();
-                        mView.Date(dates,0);
+                        mView.Date(dates,status);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
 
     }
 
     @Override
-    public void Appraisas(Context context, Map token, long current, long size, long collectionAudit, long userId) {
+    public void Appraisas(Context context, Map token, long current, long size, long collectionAudit, long userId, final int status) {
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         modles.Appraisas(context, token,current,size,collectionAudit,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -68,17 +68,17 @@ public class AppraisaPresenter extends BasePresenter<AppraisaContract.View> impl
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         AppraisasBean.DataBean beans = (AppraisasBean.DataBean) bean.getResult();
                         List<AppraisasBean.DataBean.RecordsBean> dates =  beans.getRecords();
-                        mView.Date(dates,1);
+                        mView.Date(dates,status);
 
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

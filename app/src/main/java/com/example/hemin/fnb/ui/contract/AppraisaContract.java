@@ -34,8 +34,8 @@ public interface AppraisaContract {
     }
     interface Presenter {
 
-        void Appraisa( Map token,long current,long size,long collectionAudit,long userId);
-        void Appraisas(Context context, Map token,long current,long size,long collectionAudit,long userId);
+        void Appraisa( Map token,long current,long size,long collectionAudit,long userId,int status);
+        void Appraisas(Context context, Map token,long current,long size,long collectionAudit,long userId,int status);
 
     }
 }

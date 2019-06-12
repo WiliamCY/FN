@@ -30,6 +30,21 @@ public class AppRaisaAdapter extends RecyclerView.Adapter<AppRaisaAdapter.ViewHo
     public  AppRaisaAdapter(){
 
     }
+    public void addtData(List<AppraisaBean.DataBean.RecordsBean> dataList) {
+        if (null != dataList) {
+            this.list.addAll(dataList);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void setData(List<AppraisaBean.DataBean.RecordsBean> dataList) {
+        if (null != dataList) {
+            this.list.clear();
+            this.list.addAll(dataList);
+            notifyDataSetChanged();
+        }
+    }
+
     public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
         monItemClickListener=listener;
     }
