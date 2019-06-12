@@ -33,7 +33,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
 
 
     @Override
-    public void myGuanzhu(Context context, Map map, long current, long size, long userId) {
+    public void myGuanzhu(Context context, Map map, long current, long size, long userId, final int status) {
         if(!isViewAttached()){
             return;
         }
@@ -50,7 +50,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                        List<GuanZhuBean.DataBean.RecordsBean> list =  bean1.getRecords();
 //                       List<GuanZhuBean.DataBean.RecordsBean> lists = list.getRecords();
 //                        List<GuanZhuBean.DataBean.RecordsBean> list = bean1.getData().getRecords();
-                        mView.Date(list,0);
+                        mView.Date(list,status);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -62,7 +62,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
     }
 
     @Override
-    public void myFaBu(Context context, final Map map, long current, long size, long userId) {
+    public void myFaBu(Context context, final Map map, long current, long size, long userId, final int status) {
         if(!isViewAttached()){
             return;
         }
@@ -77,7 +77,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
 //                        mView.hideLoading();
                         ReleaseBean.DataBean bean1 = (ReleaseBean.DataBean) bean.getResult();
                         List<ReleaseBean.DataBean.RecordsBean> list = bean1.getRecords();
-                        mView.Date(list,1);
+                        mView.Date(list,status);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -137,7 +137,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
-                        mView.Date("1",2);
+                        mView.Date("1",99);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -80,28 +80,7 @@ public class MyAppraisaS extends BaseActivity {
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        mFragmentContainerHelper.handlePageSelected(index);
-//                        Log.d("indexSize", String.valueOf(index));
                         viewPager.setCurrentItem(index);
-//                        initFragment(index, status);
-//                        viewPagers.setAdapter(new BaseFragmentPagerAdapter(getSupportFragmentManager(),index) {
-//                            @Override
-//                            public Fragment getItem(int index) {
-//
-//                                Toast.makeText(getApplicationContext(),String.valueOf(index),Toast.LENGTH_SHORT).show();
-//
-//                            }
-//                        });
-//                        viewPagers.setAdapter(new BaseFragmentPagerAdapter(getSupportFragmentManager(),index) {
-//                            @Override
-//                            public Fragment getItem(int i) {
-//                                Log.d("fuyongsize", String.valueOf(i));
-//                                return QuanZiFragment.getInstance(index);
-//                            }
-//                        }
-//
-//                        );
-
                     }
                 });
                 badgePagerTitleView.setInnerPagerTitleView(simplePagerTitleView);

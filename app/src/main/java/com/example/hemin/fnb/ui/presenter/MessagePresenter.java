@@ -34,7 +34,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
 
 
     @Override
-    public void getMaga(Context context, Map token, long current, long size, String type) {
+    public void getMaga(Context context, Map token, long current, long size, String type, final int status) {
         if(!isViewAttached()){
             return;
         }
@@ -49,7 +49,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                         mView.hideLoading();
                         MessageBean1.DataBean bean1 = (MessageBean1.DataBean) bean.getResult();
                         List<MessageBean1.DataBean.RecordsBean> list = bean1.getRecords();
-                        mView.Date(list,1);
+                        mView.Date(list,status);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -88,7 +88,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
     }
 
     @Override
-    public void getGuanZhu(Context context, Map token, long current, long size, int userId) {
+    public void getGuanZhu(Context context, Map token, long current, long size, int userId, final int status) {
         if(!isViewAttached()){
             return;
         }
@@ -103,7 +103,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                         mView.hideLoading();
                         MessageBean3.DataBean bean3 = (MessageBean3.DataBean) bean.getResult();
                         List<MessageBean3.DataBean.RecordsBean> list = bean3.getRecords();
-                        mView.Date(list,3);
+                        mView.Date(list,status);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

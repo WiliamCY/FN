@@ -101,15 +101,6 @@ public class MyAppraisa extends BaseActivity {
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
                 return linePagerIndicator;
-//                LinePagerIndicator indicator = new LinePagerIndicator(context);
-//                float navigatorHeight = context.getResources().getDimension(R.dimen.layout_height_40);
-//                float borderWidth = UIUtil.dip2px(context, 1);
-//                float lineHeight = navigatorHeight - 2 * borderWidth;
-//                indicator.setLineHeight(lineHeight);
-//                indicator.setRoundRadius(lineHeight / 2);
-//                indicator.setYOffset(borderWidth);
-//                indicator.setColors(Color.parseColor("#bc2a2a"));
-//                return  indicator;
             }
         });
         magicIndicator.setNavigator(commonNavigator);

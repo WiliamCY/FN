@@ -46,7 +46,10 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
     @BindView(R.id.title)
     TextView title;
     Unbinder unbinder;
-
+public static AppraisaFragment getInstance(int index){
+     AppraisaFragment fragment = new AppraisaFragment();
+     return  fragment;
+}
 
     private void initRecyclerView(final List<AppraisaBean.DataBean.RecordsBean> bean) {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);

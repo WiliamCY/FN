@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,13 +9,23 @@
     tools:ignore="MissingConstraints">
 
 
-    <com.jcodecraeer.xrecyclerview.XRecyclerView2
-        android:id="@+id/apr_recylcerview"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
- />
+        >
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/apr_recylcerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
+            />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <ImageView
         android:visibility="gone"
         android:id="@+id/image"
@@ -59,3 +71,4 @@
         android:layout_height="wrap_content"
         android:text="快点去关注些什么吧～"/>
 </android.support.constraint.ConstraintLayout>
+</LinearLayout>

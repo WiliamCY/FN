@@ -38,9 +38,9 @@ public interface WodeQuanziContract  {
     }
     interface Presenter {
 
-        void myGuanzhu(Context context,Map map, long current, long size, long userId);
+        void myGuanzhu(Context context,Map map, long current, long size, long userId,int status);
 
-        void myFaBu(Context context,Map map, long current,long size,long userId);
+        void myFaBu(Context context,Map map, long current,long size,long userId,int status);
 
         void getFidner(Context context,Map token, long friendId,int userId );
         void  Remove(Context context,Map token,String fuid);
