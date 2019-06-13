@@ -189,6 +189,9 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             case R.id.titl1:
                 Map token = Utils.getAuthorization(this);
                 mPresenter.Fouces(this, token, finderid, Long.parseLong(userIds));
+                Log.d("dwdwagtdjhdr",String.valueOf(finderid));
+                Log.d("dwdwagtdjhdrs",userIds);
+
                 break;
         }
     }

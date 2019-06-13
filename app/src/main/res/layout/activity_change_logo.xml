@@ -38,6 +38,7 @@
         android:id="@+id/change_user_logo"
         android:layout_width="match_parent"
         android:layout_height="375dp"
+        android:scaleType="fitXY"
         android:background="@mipmap/change_user_logo"
         tools:ignore="MissingConstraints" />
 

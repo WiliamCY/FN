@@ -22,9 +22,19 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.base.BaseActivity;
+import com.example.hemin.fnb.ui.base.BaseMvpActivity;
+import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.contract.UpdateAboutContract;
+import com.example.hemin.fnb.ui.presenter.FixNickNameAboutPresenter;
+import com.example.hemin.fnb.ui.presenter.UpdateAboutPresenter;
+import com.example.hemin.fnb.ui.util.AppUtils;
 import com.example.hemin.fnb.ui.util.MessageEvent;
+import com.example.hemin.fnb.ui.util.Utils;
 
+//import org.greenrobot.eventbus.Subscribe;
+//import org.greenrobot.eventbus.ThreadMode;
+
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -32,13 +42,15 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ActivityUserMessage extends BaseActivity {
+public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> implements UpdateAboutContract.View {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.user_toolbar)
@@ -96,19 +108,35 @@ public class ActivityUserMessage extends BaseActivity {
     private TimePickerView pickerView;
     private static final String[] date2 = new String[]{"男", "女"};
     private List<String> mDataList2 = Arrays.asList(date2);
-
+    private String sexStatus;
+    private String url,time;
+    private String birthday,nicknames,signature,userid,sexs,sex;
     @Override
     public int getLayoutId() {
         return R.layout.activity_user_message;
     }
-
+    private Map<String,String> token = new HashMap<>();
     @Override
     public void initView() {
+        mPresenter = new UpdateAboutPresenter();
+        mPresenter.attachView(this);
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
         SharedPreferences sp =getSharedPreferences("userDate", Context.MODE_PRIVATE);
-        String nickname = sp.getString("nickName", "");
-        String url = sp.getString("url", "").trim();
-        userLogo2.setText(nickname);
+        nicknames = sp.getString("nickName", "");
+         url = sp.getString("url", "").trim();
+        userLogo2.setText(nicknames);
+        birthday = sp.getString("birthday","");
+        sex = sp.getString("sex","");
+        signature = sp.getString("signature","");
+        userid = sp.getString("userId","");
+        token = Utils.getAuthorization(this);
         Glide.with(this).load(url).into(userLogo);
+        userLogo3.setText(sex);
+        userLogo4.setText(birthday);
+        userLogo5.setText(signature);
+
     }
 
     @Override
@@ -123,6 +151,7 @@ public class ActivityUserMessage extends BaseActivity {
         switch (view.getId()) {
             case R.id.c1:
                 Intent intent = new Intent(this, UserChangeLogo.class);
+                intent.putExtra("url",url);
                 startActivity(intent);
                 break;
             case R.id.c2:
@@ -150,7 +179,21 @@ public class ActivityUserMessage extends BaseActivity {
         OptionsPickerView optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                userLogo3.setText(typeName.get(options1));
+//                userLogo3.setText(typeName.get(options1));
+                sexs = typeName.get(options1);
+                if(sexs.equals("男")){
+                     sexStatus = "0";
+                }else {
+                    sexStatus = "1";
+                }
+                HashMap<String,String> map = new HashMap<>();
+//                         map.put("birthday",birthday);
+                    map.put("nickname",nicknames);
+                         map.put("sex",sexStatus);
+//                         map.put("signature",signature);
+//                         map.put("url",url);
+                map.put("userId",userid);
+                mPresenter.updateAbout(token,Utils.RetrofitHead(map),0);
             }
         }).setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
@@ -187,8 +230,17 @@ public class ActivityUserMessage extends BaseActivity {
         pickerView = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                Toast.makeText(getApplicationContext(), getTime(date), Toast.LENGTH_SHORT).show();
-                userLogo4.setText(getTime(date));
+//                Toast.makeText(getApplicationContext(), getTime(date), Toast.LENGTH_SHORT).show();
+//                userLogo4.setText(getTime(date));
+                 time = getTime(date);
+                HashMap<String,String> map = new HashMap<>();
+                         map.put("birthday",getTime(date));
+                map.put("nickname",nicknames);
+//                map.put("sex",sexStatus);
+//                         map.put("signature",signature);
+//                         map.put("url",url);
+                map.put("userId",userid);
+                mPresenter.updateAbout(token,Utils.RetrofitHead(map),1);
             }
         })
                 .setCancelText("取消")
@@ -196,12 +248,68 @@ public class ActivityUserMessage extends BaseActivity {
                 .setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setRangDate(startDate, endDate)
+                .setType(new boolean[]{true,true,true,false,false,false})
                 .build();
         pickerView.show();
 
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(id = 2)
     public void Event(MessageEvent messageEvent) {
         Glide.with(this).load(messageEvent.getMessage()).into(userLogo);
     }
+    @Subscribe(id = 1)
+    public void print(String message){
+        Log.i("tagccccc",message);
+        userLogo2.setText(message);
+    }
+
+    @Subscribe(id = 3)
+    public void prints(String message){
+        Log.i("tagccccc",message);
+        userLogo5.setText(message);
+    }
+
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onSuccess(BaseObjectBean bean,int status) {
+        if(status == 0 && bean.getCode() == 0){
+            SharedPreferences.Editor sp = this.getSharedPreferences("userDate",Context.MODE_PRIVATE).edit();
+            sp.putString("sex",sexs);
+            sp.commit();
+            userLogo3.setText(sexs);
+
+        }else if(status == 1 && bean.getCode() == 0){
+            SharedPreferences.Editor sp = this.getSharedPreferences("userDate",Context.MODE_PRIVATE).edit();
+            sp.putString("birthday",time);
+            sp.commit();
+            userLogo4.setText(time);
+
+        }else {
+            Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+    }
+
 }

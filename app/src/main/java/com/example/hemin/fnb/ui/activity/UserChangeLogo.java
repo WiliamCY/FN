@@ -62,6 +62,8 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
     public void initView() {
         mPresenter = new ChangeLogoPresenter();
         mPresenter.attachView(this);
+        String url = getIntent().getStringExtra("url");
+        Glide.with(this).load(url).into(changeUserLogo);
 
     }
 
@@ -117,7 +119,7 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
   public  void sendUrl(int status){
         if(status == 1){
 
-            EventBus.getDefault().post(new MessageEvent(urls));
+            EventBus.getDefault().post(2,new MessageEvent(urls));
         }
   }
     @Override

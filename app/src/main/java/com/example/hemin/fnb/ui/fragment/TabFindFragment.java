@@ -92,10 +92,10 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     public void onSuccess(BaseObjectBean bean) {
         if(bean.getErrorCode() != 0){
                     Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        }else {
+            sendPost++;
+            initNetWork(sendPost);
         }
-        sendPost++;
-
-        initNetWork(sendPost);
 
     }
 

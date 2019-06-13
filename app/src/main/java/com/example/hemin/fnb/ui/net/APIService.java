@@ -305,4 +305,11 @@ public interface APIService {
   Flowable<BaseObjectBean> Remove(@HeaderMap Map<String,String> heard,@Path("fuId") String fuId);
 
 
+  /**
+   * 修改个人信息
+   * */
+  @PUT("/app/user/update")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> UpdateAbout(@HeaderMap Map<String,String> heard ,@Body RequestBody body);
+
 }

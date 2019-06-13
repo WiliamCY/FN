@@ -1,11 +1,23 @@
 package com.example.hemin.fnb.ui.net;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.hemin.fnb.BuildConfig;
+import com.example.hemin.fnb.ui.activity.PasswordActivity;
+import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.util.AppUtils;
+import com.example.hemin.fnb.ui.util.MessageEvent;
+import com.example.hemin.fnb.ui.util.Utils;
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
@@ -27,9 +39,11 @@ public class RetrofitClient {
     private APIService apiService;
     //    private static String baseUrl = "http://10.10.10.66:8080/";
 //    private static  String baseUrl = "https://www.funwl.com/";
-private static String baseUrl = "https://www.funwl.com/";
-//    private static String baseUrl = "http://ceshi.funwl.com:8443/";
+    private static String baseUrl = "https://www.funwl.com/";
+//        private static String baseUrl = "http://ceshi.funwl.com:8443/";
 //private static String baseUrl = "http://qq1273106281.oicp.io:47141/";
+    private static Context context;
+
 
     private RetrofitClient() {
     }
@@ -70,13 +84,14 @@ private static String baseUrl = "https://www.funwl.com/";
      *
      * @return
      */
-    private Interceptor getInterceptor() {
+    private  Interceptor getInterceptor() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
                 if (BuildConfig.DEBUG) {
-                    Log.i("OKHttp", message);
+                    Log.i("OKHttps", message);
+
                 }
             }
         });
@@ -90,6 +105,7 @@ private static String baseUrl = "https://www.funwl.com/";
         OkHttpClient client = new OkHttpClient().newBuilder()
                 //设置Header
                 .addInterceptor(getHeaderInterceptor())
+                .addInterceptor(new MyInterceptor())
                 //设置拦截器
                 .addInterceptor(getInterceptor())
                 .build();
@@ -106,6 +122,36 @@ private static String baseUrl = "https://www.funwl.com/";
         //创建—— 网络请求接口—— 实例
         apiService = retrofit.create(APIService.class);
         return apiService;
+    }
+
+    public static class MyInterceptor implements Interceptor {
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request().newBuilder()
+                    .addHeader("Connection", "close").build();
+//            long t1 = System.nanoTime();
+            Response response = chain.proceed(request);
+            String result = response.body().string();
+            BaseObjectBean baseBean = new Gson().fromJson(result, BaseObjectBean.class);
+            Log.i("retrofitCode", "baseGetError" + baseBean.getResult());
+            if (baseBean.getCode() == 99993) {
+                context = AppUtils.getContext() ;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Looper.prepare();
+                        Toast.makeText(context, "登录失效，请重新登录", Toast.LENGTH_SHORT).show();
+                                        Looper.loop();
+                    }
+                }).start();
+
+                Intent intent = new Intent(context, PasswordActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                context.startActivity(intent);
+            }
+            return chain.proceed(request);
+        }
     }
 
 

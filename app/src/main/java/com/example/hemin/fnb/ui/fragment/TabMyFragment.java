@@ -57,7 +57,7 @@ public class TabMyFragment extends BaseFragment {
     @BindView(R.id.card_6)
     CardView card6;
     Unbinder unbinder1;
-
+    private String birthday,nicknames,signature,url,userid,sex;
     @Override
     protected void initView(View view) {
         if(!EventBus.getDefault().isRegistered(this)){
@@ -66,7 +66,12 @@ public class TabMyFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         String nickname = sp.getString("nickName", "");
-        String url = sp.getString("url", "").trim();
+        url = sp.getString("url", "").trim();
+        birthday = sp.getString("birthday","");
+        sex = sp.getString("sex","");
+        signature = sp.getString("signature","");
+        userid = sp.getString("userId","");
+     qm.setText(signature);
         login.setText(nickname);
         Glide.with(this).load(url).into(userLogo);
     }
@@ -113,13 +118,19 @@ public class TabMyFragment extends BaseFragment {
         unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
     }
-  @Subscribe(threadMode = ThreadMode.MAIN)
+  @Subscribe(id = 2)
   public void Event(MessageEvent messageEvent) {
       SharedPreferences.Editor editor = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
       editor.putString("url", messageEvent.getMessage());
       editor.commit();
       Glide.with(this).load(messageEvent.getMessage()).into(userLogo);
   }
+    @Subscribe(id = 3)
+    public void prints(String message){
+        Log.i("tagccccc",message);
+        qm.setText(message);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

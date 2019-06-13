@@ -13,7 +13,7 @@
 
     <EditText
         android:textColorHint="@color/c999999"
-android:visibility="gone"
+        android:visibility="gone"
         android:id="@+id/e1"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -44,6 +44,7 @@ android:visibility="gone"
 
 
     <Button
+        android:id="@+id/fixNickName"
         android:layout_marginBottom="@dimen/marginBottom_60"
         android:textSize="@dimen/text_size_15"
         android:textColor="@color/cffffff"
