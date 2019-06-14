@@ -69,7 +69,7 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
         token = Utils.getAuthorization(this);
         SharedPreferences sp  = getSharedPreferences("userDate", Context.MODE_PRIVATE);
         birthday = sp.getString("birthday","");
-        nicknames = sp.getString("nickname","");
+        nicknames = sp.getString("nickName","");
         sex = sp.getString("sex","");
         signature = sp.getString("signature","");
         url = sp.getString("url","");
@@ -88,8 +88,8 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
                 break;
             case R.id.fixNickName:
                 if(status == 0) {
-                    if (getNick() == null) {
-                        Utils.showMyToast(Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT), 400);
+                    if (getNick().equals("") || getNick().length()<4 || getNick().length()>24 ) {
+                        Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入昵称字数不正确", Toast.LENGTH_SHORT), 400);
                     } else {
                         HashMap<String, String> map = new HashMap<>();
 //                         map.put("birthday",birthday);
@@ -102,9 +102,9 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
 
                     }
                 }else {
-                    if (getNicks() == null) {
-                        Utils.showMyToast(Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT), 400);
-
+                    if (getNicks().equals("") || getNicks().length()>100) {
+                        Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入签名超过100字数", Toast.LENGTH_SHORT), 400);
+                             return;
                     } else {
                         HashMap<String, String> map = new HashMap<>();
 //                         map.put("birthday",birthday);

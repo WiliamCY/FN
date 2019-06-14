@@ -47,6 +47,7 @@
             android:background="@color/cEEEEEE" />
 
         <RelativeLayout
+            android:id="@+id/r1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical">
@@ -72,6 +73,7 @@
             android:background="@color/cEEEEEE" />
 
         <RelativeLayout
+            android:id="@+id/r2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical">
@@ -79,7 +81,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="版本更新"
+                android:text="服务条款"
                 android:textColor="@color/c333333"
                 android:textSize="@dimen/text_size_15" />
 
@@ -97,6 +99,7 @@
             android:background="@color/cEEEEEE" />
 
         <RelativeLayout
+            android:id="@+id/r3"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical">
@@ -122,6 +125,7 @@
             android:background="@color/cEEEEEE" />
 
         <RelativeLayout
+            android:id="@+id/r4"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical">

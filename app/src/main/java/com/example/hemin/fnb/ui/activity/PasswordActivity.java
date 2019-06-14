@@ -136,7 +136,7 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     }
 
     private String getPassword() {
-        return cPasswords.getText().toString();
+        return cPasswords.getText().toString().trim();
     }
 
     @Override

@@ -312,4 +312,12 @@ public interface APIService {
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
   Flowable<BaseObjectBean> UpdateAbout(@HeaderMap Map<String,String> heard ,@Body RequestBody body);
 
+
+  /**
+   * 绑换手机号
+   * */
+  @PUT("/app/user/updateMobile")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean>  UpdateMobile(@HeaderMap Map<String,String> heard ,@Body RequestBody body);
+
 }
