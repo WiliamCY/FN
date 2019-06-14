@@ -5,16 +5,25 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.adapter.BaseViewPagerAdapter;
 import com.example.hemin.fnb.ui.base.BaseActivity;
+import com.example.hemin.fnb.ui.fragment.AppraisaFragment;
+import com.example.hemin.fnb.ui.fragment.CollectionFragment;
+import com.example.hemin.fnb.ui.fragment.MessageFragment;
 import com.example.hemin.fnb.ui.fragment.QuanZiFragment;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
@@ -38,28 +47,80 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyAppraisaS extends BaseActivity {
-    @BindView(R.id.magic_indicator2)
-    MagicIndicator magicIndicator;
+public class MyCollaction extends BaseActivity {
     @BindView(R.id.header_left_img)
     ImageView headerLeftImg;
-    private static final String[] date2 = new String[]{"我的关注", "我的发布"};
-    @BindView(R.id.viewPager)
-    ViewPager viewPager;
-    private List<String> mDataList2 = Arrays.asList(date2);
-    List<Fragment> fragmentList = new ArrayList<>();
+    @BindView(R.id.titl1)
+    TextView titl1;
+    @BindView(R.id.header_right_tv)
+    TextView headerRightTv;
+    @BindView(R.id.title1)
+    TextView title1;
+    @BindView(R.id.view1)
+    View view1;
+    @BindView(R.id.title2)
+    TextView title2;
+    @BindView(R.id.view2)
+    View view2;
+    @BindView(R.id.magic_indicator2)
+    MagicIndicator magicIndicator;
+    @BindView(R.id.fragment_container)
+    FrameLayout viewPager;
+    private boolean status = true;
+    private String[] titles = new String[]{"古玩", "现代艺术"};
+    private List<String> mDataList2 = Arrays.asList(titles);
+    private String[] titlesc = new String[]{"作曲家"};
+    private List<String> mDataList2c = Arrays.asList(titlesc);
+    private  CollectionFragment fragment = new CollectionFragment();
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
-
-    private void initDate() {
-        for(int i = 0;i<mDataList2.size();i++){
-            fragmentList.add(QuanZiFragment.getInstance(mDataList2.get(i)));
-        }
-
-        initView2();
+    @Override
+    public int getLayoutId() {
+        return R.layout.my_collect;
     }
 
-    private void initView2() {
-       viewPager.setAdapter(new BaseViewPagerAdapter(getSupportFragmentManager(),fragmentList));
+    @Override
+    public void initView() {
+        initFragment(0, status);
+        initView2(mDataList2,status);
+
+    }
+
+
+
+    @SuppressLint("ResourceAsColor")
+    @OnClick({R.id.title1, R.id.title2, R.id.header_left_img})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.title1:
+                status = true;
+
+                magicIndicator.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.VISIBLE);
+                view2.setVisibility(View.GONE);
+                title1.getPaint().setFakeBoldText(true);
+                title2.getPaint().setFakeBoldText(false);
+                title2.setTextColor(Color.rgb(176, 176, 176));
+                title1.setTextColor(Color.rgb(255, 255, 255));
+                initView2(mDataList2,true);
+                break;
+            case R.id.title2:
+                status = false;
+                magicIndicator.setVisibility(View.GONE);
+                view1.setVisibility(View.GONE);
+                view2.setVisibility(View.VISIBLE);
+                title2.getPaint().setFakeBoldText(true);
+                title1.getPaint().setFakeBoldText(false);
+                title1.setTextColor(Color.rgb(176, 176, 176));
+                title2.setTextColor(Color.rgb(255, 255, 255));
+//                initView2(mDataList2c,true);
+                initFragment(99,false);
+                break;
+            case R.id.header_left_img:
+                finish();
+                break;
+        }
+    }
+    private void initView2(List<String> date,final boolean status) {
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -80,7 +141,9 @@ public class MyAppraisaS extends BaseActivity {
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        viewPager.setCurrentItem(index);
+                        mFragmentContainerHelper.handlePageSelected(index);
+                        initFragment(index, status);
+
                     }
                 });
                 badgePagerTitleView.setInnerPagerTitleView(simplePagerTitleView);
@@ -104,39 +167,24 @@ public class MyAppraisaS extends BaseActivity {
             }
         });
         mFragmentContainerHelper.attachMagicIndicator(magicIndicator);
-        ViewPagerHelper.bind(magicIndicator,viewPager);
 
     }
+    private void initFragment(int indexx, boolean status) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (fragment != null) {
+            fragmentTransaction.hide(fragment);
+            fragment = new CollectionFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("indexNumber", indexx);
+            bundle.putBoolean("status", status);
+            fragment.setArguments(bundle);
+            fragmentTransaction.add(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
 
-
-    @SuppressLint("ResourceAsColor")
-    @OnClick({R.id.header_left_img})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.header_left_img:
-                finish();
-                break;
         }
     }
 
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.my_appraisas;
-    }
 
-    @Override
-    public void initView() {
-        ButterKnife.bind(this);
-        initDate();
-    }
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

@@ -27,7 +27,7 @@
             android:id="@+id/titl1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的鉴定"
+            android:text="我的收藏"
             android:textColor="@color/cffffff"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/layout_height_30"
             android:gravity="center"
-            android:text="正在鉴定"
+            android:text="商品"
             android:textColor="@color/cffffff"
             android:textSize="@dimen/text_size_15" />
 
@@ -70,7 +70,7 @@
 
             android:id="@+id/view1"
             app:layout_constraintLeft_toLeftOf="@id/title1"
-            android:layout_width="60dp"
+            android:layout_width="30dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/marginTop_3"
             android:background="@color/cffffff"
@@ -83,7 +83,7 @@
             android:layout_height="@dimen/layout_height_30"
             android:layout_marginLeft="@dimen/marginLeft_40"
             android:gravity="center"
-            android:text="鉴定完成"
+            android:text="藏友藏品"
             android:textColor="@color/cDEDEDE"
             android:textSize="@dimen/text_size_15"
             app:layout_constraintLeft_toRightOf="@id/title1"

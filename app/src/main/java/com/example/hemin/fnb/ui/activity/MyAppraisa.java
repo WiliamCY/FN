@@ -84,6 +84,7 @@ public class MyAppraisa extends BaseActivity {
                 simplePagerTitleView.setNormalColor(Color.GRAY);
                 simplePagerTitleView.setSelectedColor(Color.BLACK);
                 simplePagerTitleView.setText(date.get(index));
+                simplePagerTitleView.setTextSize(15);
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -101,15 +102,6 @@ public class MyAppraisa extends BaseActivity {
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
                 return linePagerIndicator;
-//                LinePagerIndicator indicator = new LinePagerIndicator(context);
-//                float navigatorHeight = context.getResources().getDimension(R.dimen.layout_height_40);
-//                float borderWidth = UIUtil.dip2px(context, 1);
-//                float lineHeight = navigatorHeight - 2 * borderWidth;
-//                indicator.setLineHeight(lineHeight);
-//                indicator.setRoundRadius(lineHeight / 2);
-//                indicator.setYOffset(borderWidth);
-//                indicator.setColors(Color.parseColor("#bc2a2a"));
-//                return  indicator;
             }
         });
         magicIndicator.setNavigator(commonNavigator);
@@ -138,7 +130,7 @@ public class MyAppraisa extends BaseActivity {
                 title2.getPaint().setFakeBoldText(false);
                 title2.setTextColor(Color.rgb(176, 176, 176));
                 title1.setTextColor(Color.rgb(255, 255, 255));
-                initFragment(0, true);
+//                initFragment(0, true);
                 initView2(mDataList2, true);
                 break;
             case R.id.title2:
@@ -149,7 +141,7 @@ public class MyAppraisa extends BaseActivity {
                 title1.getPaint().setFakeBoldText(false);
                 title1.setTextColor(Color.rgb(176, 176, 176));
                 title2.setTextColor(Color.rgb(255, 255, 255));
-                initFragment(0, false);
+//                initFragment(0, false);
                 initView2(mDataList3, false);
                 break;
             case R.id.header_left_img:

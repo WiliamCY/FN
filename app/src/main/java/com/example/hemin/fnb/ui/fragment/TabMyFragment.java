@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.MyAppraisa;
 import com.example.hemin.fnb.ui.activity.MyAppraisaS;
+import com.example.hemin.fnb.ui.activity.MyCollaction;
 import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.example.hemin.fnb.ui.activity.UserChangeLogo;
 import com.example.hemin.fnb.ui.activity.UserSetting;
@@ -71,7 +72,7 @@ public class TabMyFragment extends BaseFragment {
         sex = sp.getString("sex","");
         signature = sp.getString("signature","");
         userid = sp.getString("userId","");
-     qm.setText(signature);
+         qm.setText(signature);
         login.setText(nickname);
         Glide.with(this).load(url).into(userLogo);
     }
@@ -95,6 +96,8 @@ public class TabMyFragment extends BaseFragment {
             case R.id.qm:
                 break;
             case R.id.card_1:
+                Intent intent1 = new Intent(getActivity(), MyCollaction.class);
+                startActivity(intent1);
                 break;
             case R.id.card_2:
                 Intent intent2 = new Intent(getActivity(), MyAppraisa.class);
@@ -127,8 +130,14 @@ public class TabMyFragment extends BaseFragment {
   }
     @Subscribe(id = 3)
     public void prints(String message){
-        Log.i("tagccccc",message);
+        Log.i("sdawdwdwadadh",message);
         qm.setText(message);
+    }
+
+    @Subscribe(id = 1)
+    public void printss(String message){
+        Log.i("sdawdwdwadadh",message);
+        login.setText(message);
     }
 
     @Override

@@ -113,6 +113,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.MobileRegister"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.MyCollaction"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"
             android:screenOrientation="portrait"></activity>//选择图片
         <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"

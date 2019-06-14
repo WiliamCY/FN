@@ -105,7 +105,7 @@ public class RetrofitClient {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 //设置Header
                 .addInterceptor(getHeaderInterceptor())
-                .addInterceptor(new MyInterceptor())
+//                .addInterceptor(new MyInterceptor())
                 //设置拦截器
                 .addInterceptor(getInterceptor())
                 .build();

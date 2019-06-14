@@ -56,6 +56,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     ImageView addImage;
     @BindView(R.id.imageViewNumber)
     TextView imageViewNumber;
+//    @BindView(R.id.user_logos)
+//    ImageView userLogos;
     private ImageViewAdapter adapter = new ImageViewAdapter();
     private List<String> imagePath = new ArrayList<String>();
     private List<String> imageUrls = new ArrayList<>();
@@ -82,27 +84,27 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                 finish();
                 break;
             case R.id.add:
-                if ( TextUtils.isEmpty(getEdittext())) {
-                    Utils.showMyToast(Toast.makeText(this,"请输入完整",Toast.LENGTH_SHORT),400);
+                if (TextUtils.isEmpty(getEdittext())) {
+                    Utils.showMyToast(Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT), 400);
                     return;
                 } else if (adapter.getItemCount() < 1 || adapter.getItemCount() > 9) {
-                    Utils.showMyToast(Toast.makeText(this,"图片在1-9张范围之内",Toast.LENGTH_SHORT),400);
+                    Utils.showMyToast(Toast.makeText(this, "图片在1-9张范围之内", Toast.LENGTH_SHORT), 400);
                     return;
                 }
 //                Log.d("imageSizeSend", String.valueOf(imageUrls.size()));
                 String dates = imageUrls.toString().trim();
-                if(dates.trim().contains("[") || dates.trim().contains("]") ){
-                    dates = dates.substring(1,dates.length()-1);
+                if (dates.trim().contains("[") || dates.trim().contains("]")) {
+                    dates = dates.substring(1, dates.length() - 1);
                 }
                 SharedPreferences sp = this.getSharedPreferences("userDate", this.MODE_PRIVATE);
                 String id = sp.getString("userId", "");
                 HashMap<String, String> map2 = new HashMap<>();
                 map2.put("friendContent", getEdittext());
-                Log.d("messageFinder",getEdittext());
+                Log.d("messageFinder", getEdittext());
                 map2.put("friendUrl", dates);
-                Log.d("messageFinder1",dates);
+                Log.d("messageFinder1", dates);
                 map2.put("userId", id);
-                Log.d("messageFinder2",id);
+                Log.d("messageFinder2", id);
                 HashMap<String, String> token = new HashMap<>();
                 token.put("Authorization", "usERa" + getToken());
                 Log.d("messageFdinder", String.valueOf(Utils.RetrofitHead(map2)));
@@ -133,10 +135,10 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
     @Override
     public void Status(int index) {
-     if(index == 1){
-         Utils.showMyToast(Toast.makeText(this,"发送成功",Toast.LENGTH_SHORT),400);
-         finish();
-     }
+        if (index == 1) {
+//            Utils.showMyToast(Toast.makeText(this, "发送成功", Toast.LENGTH_SHORT), 400);
+            finish();
+        }
     }
 
     @Override
@@ -158,6 +160,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     public void onError(Throwable throwable) {
 
     }
+
     public void getPostImageUrls(String urils) {
 
         imageUrls.add(urils);
@@ -166,7 +169,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
     }
 
-        @Override
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:
@@ -176,10 +179,10 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
 
                     addImageView(paths);
-                    imageViewNumber.setText(adapter.getItemCount()+"/9");
+                    imageViewNumber.setText(adapter.getItemCount() + "/9");
                     for (int i = 0; i < paths.size(); i++) {
                         String path = paths.get(i);
-                        Log.d("pathsss:",path);
+                        Log.d("pathsss:", path);
                         File file = new File(paths.get(i));
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
@@ -189,7 +192,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                     Log.d("photoPath", paths.toString());
                     if (adapter.getItemCount() > 9) {
 //                       imageAddButton.setVisibility(View.GONE);
-                        Utils.showMyToast(Toast.makeText(this,"添加的图片已经是最大值了",Toast.LENGTH_SHORT),400);
+                        Utils.showMyToast(Toast.makeText(this, "添加的图片已经是最大值了", Toast.LENGTH_SHORT), 400);
                     }
 
 
@@ -200,6 +203,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     private String getToken() {
         SharedPreferences sp = this.getSharedPreferences("userDate", MODE_PRIVATE);
         String c = sp.getString("Authorization", "");
@@ -213,12 +217,13 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
     private void addImageView(List<String> path) {
         for (int i = 0; i < path.size(); i++) {
             if (Arrays.asList(imagePath).contains(path.get(i))) {
 
                 Utils.showMyToast(Toast.makeText(
-                        this,"已经存在",Toast.LENGTH_SHORT),400);
+                        this, "已经存在", Toast.LENGTH_SHORT), 400);
             } else {
 
                 imagePath.add(path.get(i));

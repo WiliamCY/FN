@@ -42,7 +42,8 @@
                 android:textColor="@color/cffffff"
                 android:textSize="@dimen/text_size_12"
                 app:layout_constraintLeft_toRightOf="@id/find_logo"
-                app:layout_constraintTop_toTopOf="@id/find_logo" />
+             app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <View
                 android:layout_width="2dp"

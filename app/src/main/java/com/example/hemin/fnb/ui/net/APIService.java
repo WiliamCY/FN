@@ -320,4 +320,13 @@ public interface APIService {
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
   Flowable<BaseObjectBean>  UpdateMobile(@HeaderMap Map<String,String> heard ,@Body RequestBody body);
 
+
+
+
+  /**
+   * 我的收藏
+   * */
+  @PUT("/app/user/myCollection/{current}/{size}/{userId}")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean>  MyCollect(@HeaderMap Map<String,String> heard , @Path("current") long current, @Path("size") long size, @Path("userId") String userId);
 }

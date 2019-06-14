@@ -14,7 +14,7 @@
         android:paddingBottom="8dp"
         android:orientation="horizontal"
         android:id="@+id/user_toolbar"
-        android:background="@color/c333333"
+        android:background="@color/c313131"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         tools:ignore="MissingConstraints">
