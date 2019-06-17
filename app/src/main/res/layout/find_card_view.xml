@@ -3,18 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="320dp"
+    android:layout_height="508dp"
     android:layout_gravity="center"
-  android:layout_margin="@dimen/margin_10"
+    android:layout_margin="5dp"
    >
 
 
 
         <ImageView
             android:id="@+id/find_logo2"
-            android:layout_width="320dp"
-            android:layout_height="508dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
 

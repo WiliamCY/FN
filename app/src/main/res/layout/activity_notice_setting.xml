@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_margin="@dimen/margin_10"
+        android:layout_margin="@dimen/margin_15"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,21 +32,28 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_15"/>
         <TextView
-            android:layout_marginTop="@dimen/marginTop_1"
+            android:layout_marginTop="@dimen/marginTop_10"
            android:layout_below="@id/titl1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="官方系统通知的消息等是否通知"/>
         <ImageView
-
+            android:layout_marginRight="@dimen/paddingRight_6"
+            android:layout_marginTop="@dimen/paddingTop_10"
             android:layout_alignParentRight="true"
             android:background="@mipmap/close_button"
             android:layout_width="@dimen/layout_width_30"
             android:layout_height="@dimen/layout_height_18" />
     </RelativeLayout>
 
-
+        <View
+            android:layout_marginTop="@dimen/marginTop_5"
+            android:layout_marginBottom="@dimen/marginBottom_5"
+            android:background="@color/cEEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
     <RelativeLayout
+
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_60">
@@ -59,19 +66,25 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_15"/>
         <TextView
-            android:layout_marginTop="@dimen/marginTop_1"
+            android:layout_marginTop="@dimen/marginTop_10"
             android:layout_below="@id/titl2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="藏品鉴定流程，证书，保险申请反馈"/>
         <ImageView
-
+            android:layout_marginRight="@dimen/paddingRight_6"
+            android:layout_marginTop="@dimen/paddingTop_10"
             android:layout_alignParentRight="true"
             android:background="@mipmap/open_button"
             android:layout_width="@dimen/layout_width_30"
             android:layout_height="@dimen/layout_height_18" />
     </RelativeLayout>
-
+        <View
+            android:layout_marginTop="@dimen/marginTop_5"
+            android:layout_marginBottom="@dimen/marginBottom_5"
+            android:background="@color/cEEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
     <RelativeLayout
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -85,20 +98,26 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_15"/>
         <TextView
-            android:layout_marginTop="@dimen/marginTop_1"
+            android:layout_marginTop="@dimen/marginTop_10"
             android:layout_below="@id/titl3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="新上架，打折，物流等商城相关通知"/>
         <ImageView
-
+            android:layout_marginRight="@dimen/paddingRight_6"
+            android:layout_marginTop="@dimen/paddingTop_10"
             android:layout_alignParentRight="true"
             android:background="@mipmap/close_button"
             android:layout_width="@dimen/layout_width_30"
             android:layout_height="@dimen/layout_height_18" />
     </RelativeLayout>
 
-
+        <View
+            android:layout_marginTop="@dimen/marginTop_5"
+            android:layout_marginBottom="@dimen/marginBottom_5"
+            android:background="@color/cEEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
     <RelativeLayout
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -112,19 +131,25 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_15"/>
         <TextView
-            android:layout_marginTop="@dimen/marginTop_1"
+            android:layout_marginTop="@dimen/marginTop_10"
             android:layout_below="@id/titl4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="最新的线上，线下活动通知"/>
         <ImageView
-
+            android:layout_marginRight="@dimen/paddingRight_6"
+            android:layout_marginTop="@dimen/paddingTop_10"
             android:layout_alignParentRight="true"
             android:background="@mipmap/open_button"
             android:layout_width="@dimen/layout_width_30"
             android:layout_height="@dimen/layout_height_18" />
     </RelativeLayout>
-
+        <View
+            android:layout_marginTop="@dimen/marginTop_5"
+            android:layout_marginBottom="@dimen/marginBottom_5"
+            android:background="@color/cEEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
 
     <RelativeLayout
         android:gravity="center_vertical"
@@ -139,20 +164,26 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_15"/>
         <TextView
-            android:layout_marginTop="@dimen/marginTop_1"
+            android:layout_marginTop="@dimen/marginTop_10"
             android:layout_below="@id/titl5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的藏品等被新用户关注"/>
         <ImageView
-
+            android:layout_marginRight="@dimen/paddingRight_6"
+            android:layout_marginTop="@dimen/paddingTop_10"
             android:layout_alignParentRight="true"
             android:background="@mipmap/open_button"
             android:layout_width="@dimen/layout_width_30"
             android:layout_height="@dimen/layout_height_18" />
     </RelativeLayout>
 
-
+        <View
+            android:layout_marginTop="@dimen/marginTop_5"
+            android:layout_marginBottom="@dimen/marginBottom_5"
+            android:background="@color/cEEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
     <RelativeLayout
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -166,19 +197,25 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_15"/>
         <TextView
-            android:layout_marginTop="@dimen/marginTop_1"
+            android:layout_marginTop="@dimen/marginTop_10"
             android:layout_below="@id/titl6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我关注的藏品等有新状态更新"/>
         <ImageView
-
+            android:layout_marginRight="@dimen/paddingRight_6"
+            android:layout_marginTop="@dimen/paddingTop_10"
             android:layout_alignParentRight="true"
             android:background="@mipmap/close_button"
             android:layout_width="@dimen/layout_width_30"
             android:layout_height="@dimen/layout_height_18" />
     </RelativeLayout>
-
+        <View
+            android:layout_marginTop="@dimen/marginTop_5"
+            android:layout_marginBottom="@dimen/marginBottom_5"
+            android:background="@color/cEEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
     <RelativeLayout
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -192,18 +229,25 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_size_15"/>
         <TextView
-            android:layout_marginTop="@dimen/marginTop_1"
+            android:layout_marginTop="@dimen/marginTop_10"
             android:layout_below="@id/titl7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的发表或评论，被其他人评论"/>
         <ImageView
-
+            android:layout_marginRight="@dimen/paddingRight_6"
+            android:layout_marginTop="@dimen/paddingTop_10"
             android:layout_alignParentRight="true"
             android:background="@mipmap/open_button"
             android:layout_width="@dimen/layout_width_30"
             android:layout_height="@dimen/layout_height_18" />
     </RelativeLayout>
+        <View
+            android:layout_marginTop="@dimen/marginTop_5"
+            android:layout_marginBottom="@dimen/marginBottom_5"
+            android:background="@color/cEEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

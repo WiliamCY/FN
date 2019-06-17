@@ -23,6 +23,7 @@ import com.example.hemin.fnb.ui.activity.UserChangeLogo;
 import com.example.hemin.fnb.ui.activity.UserSetting;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.util.CircleImageView;
+import com.example.hemin.fnb.ui.util.GlideLoadUtils;
 import com.example.hemin.fnb.ui.util.MessageEvent;
 import com.example.hemin.fnb.ui.util.Utils;
 
@@ -126,7 +127,8 @@ public class TabMyFragment extends BaseFragment {
       SharedPreferences.Editor editor = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
       editor.putString("url", messageEvent.getMessage());
       editor.commit();
-      Glide.with(this).load(messageEvent.getMessage()).into(userLogo);
+//      Glide.with(this).load(messageEvent.getMessage()).into(userLogo);
+      GlideLoadUtils.getInstance().glideLoad(getActivity(),messageEvent.getMessage(),userLogo);
   }
     @Subscribe(id = 3)
     public void prints(String message){

@@ -9,8 +9,14 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Looper;
 import android.support.v4.content.ContextCompat;
+import android.text.Selection;
+import android.text.Spannable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +47,10 @@ public class Utils {
 
     public static class TimeCount extends CountDownTimer {
         private TextView btn_count;
+
         public TimeCount(long millisInFuture, long countDownInterval, TextView btn_count) {
             super(millisInFuture, countDownInterval);
-           this.btn_count = btn_count;
+            this.btn_count = btn_count;
         }
 
         @Override
@@ -60,13 +67,15 @@ public class Utils {
         }
 
     }
-    public  static RequestBody RetrofitHead(HashMap hashMap){
+
+    public static RequestBody RetrofitHead(HashMap hashMap) {
         Gson gson = new Gson();
         String strEntity = gson.toJson(hashMap);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), strEntity);
         return body;
 
     }
+
     public static void hideBottomUIMenu(Activity activity) {
         //隐藏虚拟按键，并且全屏
         if (Build.VERSION.SDK_INT < 19) { // lower api
@@ -74,11 +83,12 @@ public class Utils {
             v.setSystemUiVisibility(View.GONE);
         } else if (Build.VERSION.SDK_INT >= 19) {
             View decorView = activity.getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY ;
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
             decorView.setSystemUiVisibility(uiOptions);
         }
     }
-    public  static  boolean  initLogin(final Context context) {
+
+    public static boolean initLogin(final Context context) {
         SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
         if (sp.getString("Authorization", "").equals("")) {
             AlertDialog dialog = new AlertDialog(context).builder();
@@ -96,18 +106,19 @@ public class Utils {
         }
         return false;
     }
-    public  static boolean booleanisLogin(final  Context context){
+
+    public static boolean booleanisLogin(final Context context) {
         SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
-        String c = sp.getString("Authorization","");
+        String c = sp.getString("Authorization", "");
         if (c.equals("")) {
 
-         return true;
+            return true;
 
         }
         return false;
     }
 
-    public   static  void  initLogins(final Context context) {
+    public static void initLogins(final Context context) {
         SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
         String c = sp.getString("Authorization", "");
         if (sp.getString("Authorization", "").equals("")) {
@@ -124,20 +135,23 @@ public class Utils {
 
         }
     }
-    public  static Map getAuthorization(final Context context){
+
+    public static Map getAuthorization(final Context context) {
         SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
         String Authorization = sp.getString("Authorization", "");
-        String token_type = sp.getString("tokenType","");
-        Map<String,String> map = new HashMap<>();
-        map.put("Authorization",token_type+Authorization);
-        return  map;
+        String token_type = sp.getString("tokenType", "");
+        Map<String, String> map = new HashMap<>();
+        map.put("Authorization", token_type + Authorization);
+        return map;
     }
+
     /**
      * 删除单个文件
-     * @param   filePath    被删除文件的文件名
+     *
+     * @param filePath 被删除文件的文件名
      * @return 文件删除成功返回true，否则返回false
      */
-    public  static boolean deleteFile(String filePath) {
+    public static boolean deleteFile(String filePath) {
         File file = new File(filePath);
         if (file.isFile() && file.exists()) {
             return file.delete();
@@ -147,8 +161,9 @@ public class Utils {
 
     /**
      * 删除文件夹以及目录下的文件
-     * @param   filePath 被删除目录的文件路径
-     * @return  目录删除成功返回true，否则返回false
+     *
+     * @param filePath 被删除目录的文件路径
+     * @return 目录删除成功返回true，否则返回false
      */
     public static boolean deleteDirectory(String filePath) {
         boolean flag = false;
@@ -180,9 +195,10 @@ public class Utils {
     }
 
     /**
-     *  根据路径删除指定的目录或文件，无论存在与否
-     *@param filePath  要删除的目录或文件
-     *@return 删除成功返回 true，否则返回 false。
+     * 根据路径删除指定的目录或文件，无论存在与否
+     *
+     * @param filePath 要删除的目录或文件
+     * @return 删除成功返回 true，否则返回 false。
      */
     public static boolean DeleteFolder(String filePath) {
         File file = new File(filePath);
@@ -198,30 +214,33 @@ public class Utils {
             }
         }
     }
-    public  static  void showMyToast(final Toast toast, final int cnt) {
-        final Timer timer =new Timer();
+
+    public static void showMyToast(final Toast toast, final int cnt) {
+        final Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 toast.show();
             }
-        },0,2000);
+        }, 0, 2000);
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 toast.cancel();
                 timer.cancel();
             }
-        }, cnt );
+        }, cnt);
     }
-    public static  class ToastUtils {
+
+    public static class ToastUtils {
         static Toast toast = null;
+
         public static void show(Context context, String text) {
             try {
-                if(toast!=null){
+                if (toast != null) {
                     toast.setText(text);
-                }else{
-                    toast= Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                } else {
+                    toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
                 }
                 toast.show();
             } catch (Exception e) {
@@ -230,6 +249,36 @@ public class Utils {
                 Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }
+        }
+    }
+
+    public static void PwdHide(EditText pwds, ImageView hides, ImageView shows) {
+        hides.setVisibility(View.INVISIBLE);
+        shows.setVisibility(View.VISIBLE);
+
+        //隐藏密码方法一
+//        PasswordTransformationMethod method1 = PasswordTransformationMethod.getInstance();
+        pwds.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        //        //切换后将EditText光标置于末尾
+        CharSequence charSequence = pwds.getText();
+        if (charSequence instanceof Spannable) {
+            Spannable spanText = (Spannable) charSequence;
+            Selection.setSelection(spanText, charSequence.length());
+        }
+    }
+
+    public static void PwdShow(EditText pwds, ImageView hides, ImageView shows) {
+        shows.setVisibility(View.INVISIBLE);
+        hides.setVisibility(View.VISIBLE);
+        //显示密码方法一
+//        HideReturnsTransformationMethod method2 = HideReturnsTransformationMethod.getInstance();
+        pwds.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+
+
+        CharSequence charSequence1 = pwds.getText();
+        if (charSequence1 instanceof Spannable) {
+            Spannable spanText = (Spannable) charSequence1;
+            Selection.setSelection(spanText, charSequence1.length());
         }
     }
 }

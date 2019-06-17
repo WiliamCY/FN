@@ -13,9 +13,9 @@
 
     <EditText
         android:textColorHint="@color/c999999"
-        android:visibility="gone"
+
         android:id="@+id/e1"
-        android:gravity="center"
+
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_55"
         android:layout_marginLeft="16dp"
@@ -23,7 +23,7 @@
           android:layout_marginRight="@dimen/marginRight_16"
         android:background="@drawable/shape_conss"
         android:textSize="@dimen/text_size_15"
-        android:hint="请输入4-24个字符，但不包括等无效字符"
+        android:hint="            请输入4-24个字符，但不包括等无效字符"
         app:layout_constraintTop_toBottomOf="@id/tool_bar" />
 
 

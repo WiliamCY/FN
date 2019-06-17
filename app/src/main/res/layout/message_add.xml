@@ -24,17 +24,6 @@
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:textColor="@color/cffffff"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/back" />
-
-        <TextView
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +56,7 @@
         android:background="@color/cEEEEEE"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-<!--<ImageView-->
+    <!--<ImageView-->
     <!--app:layout_constraintLeft_toLeftOf="parent"-->
     <!--android:layout_marginLeft="@dimen/marginLeft_10"-->
     <!--android:id="@+id/user_logos"-->
@@ -76,29 +65,48 @@
     <!--android:layout_height="111dp"-->
     <!--android:background="@mipmap/finder_logo"/>-->
 
+<LinearLayout
+    android:layout_marginTop="@dimen/paddingTop_10"
+    app:layout_constraintTop_toBottomOf="@id/view1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/r1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/paddingTop_10"
-        app:layout_constraintTop_toBottomOf="@id/view1" />
+         />
+<android.support.constraint.ConstraintLayout
+    android:layout_marginLeft="@dimen/marginLeft_10"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <ImageView
-        android:layout_marginRight="@dimen/marginRight_16"
+        android:paddingLeft="@dimen/marginLeft_10"
         android:id="@+id/add_image"
-        android:background="@mipmap/r_add"
-        android:layout_marginLeft="@dimen/marginLeft_10"
-    app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/r1"
         android:layout_width="111dp"
-        android:layout_height="111dp" />
+        android:layout_height="111dp"
+        android:layout_marginLeft="@dimen/marginLeft_10"
+        android:layout_marginRight="@dimen/marginRight_16"
+        android:background="@mipmap/r_add"
+   />
+
     <TextView
-        android:layout_marginTop="@dimen/paddingTop_10"
         android:id="@+id/imageViewNumber"
-        android:layout_marginLeft="@dimen/paddingLeft_40"
-        app:layout_constraintLeft_toLeftOf="@id/add_image"
-        app:layout_constraintLeft_toRightOf="@id/r1"
-        app:layout_constraintTop_toBottomOf="@id/add_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0/9"/>
+        android:layout_marginLeft="@dimen/paddingLeft_40"
+        android:layout_marginTop="@dimen/paddingTop_10"
+        android:text="0/9"
+        app:layout_constraintLeft_toLeftOf="@id/add_image"
+        app:layout_constraintTop_toBottomOf="@id/add_image" />
+</android.support.constraint.ConstraintLayout>
+</LinearLayout>
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--android:textColor="@color/cffffff"-->
+        <!--android:textSize="20sp"-->
+        <!--tools:layout_editor_absoluteY="578dp" />-->
 </android.support.constraint.ConstraintLayout>

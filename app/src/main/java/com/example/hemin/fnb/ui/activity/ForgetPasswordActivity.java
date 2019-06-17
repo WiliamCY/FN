@@ -67,6 +67,10 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     TextView userMessage;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.image_see)
+    ImageView imageSee;
+    @BindView(R.id.image_sees)
+    ImageView imageSees;
     private Utils.TimeCount timeCount;
 
 
@@ -94,31 +98,32 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
         cWechat.setVisibility(View.GONE);
         alipay.setVisibility(View.GONE);
         title5.setVisibility(View.VISIBLE);
-        title6.setVisibility(View.VISIBLE);
+         imageSees.setVisibility(View.VISIBLE);
         title7.setVisibility(View.VISIBLE);
-        title8.setVisibility(View.VISIBLE);
+
         cUserPassword.setVisibility(View.VISIBLE);
         cPasswords.setVisibility(View.VISIBLE);
-        title6.setBackgroundResource(R.mipmap.passwords);
-        title8.setBackgroundResource(R.mipmap.password);
+
     }
 
-    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay,R.id.back})
+    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay, R.id.back,R.id.image_see,R.id.image_sees})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
                 if (getPhone() == null || Utils.isPhoneNumber(getPhone()) == false) {
                     Utils.showMyToast(Toast.makeText(this, "输入的手机号格式错误", Toast.LENGTH_SHORT), 400);
 
-                break;
+                    break;
                 }
                 mPresenter.getCode(getPhone());
                 timeCount = new Utils.TimeCount(60000, 1000, cGetCode);
                 timeCount.start();
                 break;
             case R.id.title_6:
+                Utils.PwdHide(cPasswords,title6,imageSee);
                 break;
             case R.id.title_8:
+                Utils.PwdHide(cUserPassword,title8,imageSees);
                 break;
             case R.id.c_login_button:
                 if (getCode() == null || getPhone() == null || getPassword() == null || getPasswords() == null || Utils.isPhoneNumber(getPhone()) == false) {
@@ -127,7 +132,7 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
                     break;
                 } else if (!getPassword().equals(getPasswords())) {
                     Utils.showMyToast(Toast.makeText(this, "输入的密码不一致", Toast.LENGTH_SHORT), 400);
-                   break;
+                    break;
                 }
                 HashMap<String, String> paramsMap = new HashMap<>();
                 paramsMap.put("mobile", getPhone());
@@ -143,6 +148,11 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
                 break;
             case R.id.back:
                 finish();
+            case R.id.image_see:
+                Utils.PwdShow(cPasswords,title6,imageSee);
+                break;
+            case R.id.image_sees:
+                Utils.PwdShow(cUserPassword,title8,imageSees);
                 break;
         }
     }

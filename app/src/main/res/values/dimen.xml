@@ -26,6 +26,7 @@
 
     <!-- marginLeft-->
     <dimen name="marginLeft_3">3dp</dimen>
+    <dimen name="marginLeft_5">5dp</dimen>
     <dimen name="marginLeft_8">8dp</dimen>
     <dimen name="marginLeft_10">10dp</dimen>
     <dimen name="marginLeft_11">11dp</dimen>
@@ -80,6 +81,7 @@
     <dimen name="marginTop_50">50dp</dimen>
     <dimen name="marginTop_55">55dp</dimen>
     <dimen name="marginTop_60">60dp</dimen>
+    <dimen name="marginTop_65">65dp</dimen>
     <dimen name="marginTop_70">70dp</dimen>
     <dimen name="marginTop_75">75dp</dimen>
     <dimen name="marginTop_77">77dp</dimen>

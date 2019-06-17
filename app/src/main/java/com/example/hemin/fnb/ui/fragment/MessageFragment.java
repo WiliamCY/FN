@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,13 +31,10 @@ import com.example.hemin.fnb.ui.bean.MessageBean2;
 import com.example.hemin.fnb.ui.bean.MessageBean3;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
 import com.example.hemin.fnb.ui.contract.MessageContract;
-import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.MessagePresenter;
 import com.example.hemin.fnb.ui.util.Utils;
-import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -55,6 +54,10 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     Unbinder unbinder;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.image_1)
+    ImageView image1;
+    @BindView(R.id.title_1)
+    TextView title1;
     private Map map = new HashMap();
     private String userId;
     private ArrayList<String> recordPaths = new ArrayList<>();
@@ -62,7 +65,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     private List<MessageBean1.DataBean.RecordsBean> data4 = new ArrayList<>();
     private List<MessageBean2.DataBean.RecordsBean> data = new ArrayList<>();
     private List<MessageBean3.DataBean.RecordsBean> data3 = new ArrayList<>();
-    private MessageApdater apdater1 = new MessageApdater(R.layout.message_adapter,data4);
+    private MessageApdater apdater1 = new MessageApdater(R.layout.message_adapter, data4);
     private MessagesApdater adapter2 = new MessagesApdater(R.layout.message_adapters, data);
     private Message3Apdater adapter3 = new Message3Apdater(R.layout.message_adapter, data3);
     private int pageIndex = 1;
@@ -98,11 +101,11 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         userId = sp.getString("userId", "");
         if (index == 0) {
-            mPresenter.getMaga(getActivity(), map, 1, 10, "1",1);
+            mPresenter.getMaga(getActivity(), map, 1, 10, "1", 1);
         } else if (index == 1) {
             mPresenter.getTuiJian(getActivity(), map, 1, 10, Integer.parseInt(userId), 2);
         } else {
-            mPresenter.getGuanZhu(getActivity(), map, 1, 10, Integer.parseInt(userId),3);
+            mPresenter.getGuanZhu(getActivity(), map, 1, 10, Integer.parseInt(userId), 3);
         }
     }
 
@@ -121,7 +124,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         } else if (index == 3) {
             initRecyclerview3((List<MessageBean3.DataBean.RecordsBean>) object);
         } else if (index == 21) {
-            adapter2.replaceData((List<MessageBean2.DataBean.RecordsBean>) object);
+            initRecyclerview2((List<MessageBean2.DataBean.RecordsBean>) object);
+//            adapter2.replaceData((List<MessageBean2.DataBean.RecordsBean>) object);
             refreshLayout.finishRefresh(100);
         } else if (index == 22) {
             if (((List<MessageBean2.DataBean.RecordsBean>) object).size() == 0) {
@@ -131,7 +135,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             }
             refreshLayout.finishLoadMore(100);
         } else if (index == 31) {
-            adapter3.replaceData((List<MessageBean3.DataBean.RecordsBean>) object);
+//            adapter3.replaceData((List<MessageBean3.DataBean.RecordsBean>) object);
+            initRecyclerview3((List<MessageBean3.DataBean.RecordsBean>) object);
             refreshLayout.finishRefresh(100);
         } else if (index == 32) {
             if (((List<MessageBean3.DataBean.RecordsBean>) object).size() == 0) {
@@ -140,10 +145,11 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
                 adapter3.addData((List<MessageBean3.DataBean.RecordsBean>) object);
             }
             refreshLayout.finishLoadMore(100);
-        }else if(index == 11){
-            apdater1.replaceData((List<MessageBean1.DataBean.RecordsBean>) object);
+        } else if (index == 11) {
+//            apdater1.replaceData((List<MessageBean1.DataBean.RecordsBean>) object);
+            initRecyclerview1((List<MessageBean1.DataBean.RecordsBean>) object);
             refreshLayout.finishRefresh(100);
-        }else if(index == 12){
+        } else if (index == 12) {
             if (((List<MessageBean1.DataBean.RecordsBean>) object).size() == 0) {
                 Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
             } else {
@@ -183,6 +189,16 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     }
 
     private void initRecyclerview1(final List<MessageBean1.DataBean.RecordsBean> bean) {
+        if (bean.size() == 0) {
+            messageRecyclerview.setVisibility(View.GONE);
+            image1.setVisibility(View.VISIBLE);
+            title1.setText("暂无数据");
+            title1.setVisibility(View.VISIBLE);
+        } else {
+            messageRecyclerview.setVisibility(View.VISIBLE);
+            image1.setVisibility(View.GONE);
+            title1.setVisibility(View.GONE);
+        }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         messageRecyclerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
@@ -194,15 +210,15 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageIndex = 1;
-                mPresenter.getMaga(getActivity(), map, 1, 10, "1",11);
+                mPresenter.getMaga(getActivity(), map, 1, 10, "1", 11);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 pageIndex++;
-                Log.d("pageIndex",String.valueOf(pageIndex));
-                mPresenter.getMaga(getActivity(), map, pageIndex, 10, "1",12);
+                Log.d("pageIndex", String.valueOf(pageIndex));
+                mPresenter.getMaga(getActivity(), map, pageIndex, 10, "1", 12);
             }
         });
 
@@ -219,6 +235,16 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     }
 
     private void initRecyclerview2(final List<MessageBean2.DataBean.RecordsBean> bean) {
+        if (bean.size() == 0) {
+            messageRecyclerview.setVisibility(View.GONE);
+            image1.setVisibility(View.VISIBLE);
+            title1.setText("暂无数据");
+            title1.setVisibility(View.VISIBLE);
+        } else {
+            messageRecyclerview.setVisibility(View.VISIBLE);
+            image1.setVisibility(View.GONE);
+            title1.setVisibility(View.GONE);
+        }
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         messageRecyclerview.setLayoutManager(layoutManager);
@@ -236,7 +262,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 pageIndex++;
-                Log.d("pageIndex",String.valueOf(pageIndex));
+                Log.d("pageIndex", String.valueOf(pageIndex));
                 mPresenter.getTuiJian(getActivity(), map, pageIndex, 10, Integer.parseInt(userId), 22);
             }
         });
@@ -252,10 +278,20 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     }
 
     private void initRecyclerview3(final List<MessageBean3.DataBean.RecordsBean> bean) {
+        Log.d("beanRecyCledrSize",String.valueOf(bean.size()));
+        if (bean.size() == 0) {
+            messageRecyclerview.setVisibility(View.GONE);
+            image1.setVisibility(View.VISIBLE);
+            title1.setVisibility(View.VISIBLE);
+        } else {
+            messageRecyclerview.setVisibility(View.VISIBLE);
+            image1.setVisibility(View.GONE);
+            title1.setVisibility(View.GONE);
+        }
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         messageRecyclerview.setLayoutManager(layoutManager);
-        adapter3   = new Message3Apdater(R.layout.message_adapters, bean);
+        adapter3 = new Message3Apdater(R.layout.message_adapters, bean);
         messageRecyclerview.setAdapter(adapter3);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -269,7 +305,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 pageIndex++;
-                Log.d("pageIndex",String.valueOf(pageIndex));
+                Log.d("pageIndex", String.valueOf(pageIndex));
                 mPresenter.getGuanZhu(getActivity(), map, pageIndex, 10, Integer.parseInt(userId), 32);
             }
         });

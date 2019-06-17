@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +70,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     protected void initView(View view) {
         mPresenter = new FindPresenter();
         mPresenter.attachView(this);
-        AlertDialogUpdateStyle();
+//        AlertDialogUpdateStyle();
         initDate();
     }
 

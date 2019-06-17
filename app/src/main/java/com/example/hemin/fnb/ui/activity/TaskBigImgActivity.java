@@ -24,6 +24,7 @@ import com.example.hemin.fnb.ui.util.Utils;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -43,11 +44,15 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     CircleImageView userLogo;
     @BindView(R.id.titleUser)
     TextView titleUser;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.zan)
+    ImageView zan;
     private int position = 0;
     private ArrayList<String> paths;
     private long finderid, finderids;
     private String userId, userIds, StringContent, userUrl, nickName;
-    private ImageView zan;
+    private Map token = new HashMap();
 
     @Override
     public int getLayoutId() {
@@ -60,20 +65,19 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         ButterKnife.bind(this);
         Intent intent = getIntent();
         SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
-//        position = intent.getIntExtra("position", 0);
         paths = intent.getStringArrayListExtra("paths");
-        String title = intent.getStringExtra("title");
+        String titles = intent.getStringExtra("title");
         userId = intent.getStringExtra("userId");
         finderid = intent.getLongExtra("finderid", 0);
         StringContent = intent.getStringExtra("StringContent");
         userUrl = intent.getStringExtra("userUrl").trim();
         nickName = intent.getStringExtra("nickName");
         titleUser.setText(nickName);
+        title.setText(StringContent);
         Glide.with(this).load(userUrl).into(userLogo);
         Log.d("TaskFinderId", String.valueOf(finderid));
-        headerTitle.setText(title);
+        headerTitle.setText(titles);
         headerLeftImg.setVisibility(View.VISIBLE);
-//        headerRightTv.setVisibility(View.VISIBLE);
 
         userIds = sp.getString("userId", "");
         if (userIds.equals(userId)) {
@@ -97,18 +101,18 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                 Log.d("messaePaths", paths.toString());
                 View adView = LayoutInflater.from(TaskBigImgActivity.this).inflate(R.layout.item_big_img, null);
                 PhotoView icon = (PhotoView) adView.findViewById(R.id.flaw_img);
-                TextView StringContents = adView.findViewById(R.id.title);
+//                TextView StringContents = adView.findViewById(R.id.title);
                 headerRightTv = adView.findViewById(R.id.header_right_tv);
                 headerRightTv.setText(1 + "/" + paths.size());
-                zan = adView.findViewById(R.id.zan);
-                zan.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Map token = Utils.getAuthorization(getApplication());
-                        mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
-                    }
-                });
-                StringContents.setText(StringContent);
+//                zan = adView.findViewById(R.id.zan);
+//                zan.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Map token = Utils.getAuthorization(getApplication());
+//                        mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
+//                    }
+//                });
+//                StringContents.setText(StringContent);
                 icon.setBackgroundColor(getResources().getColor(R.color.c333333));
                 Glide.with(TaskBigImgActivity.this)
                         .load(paths.get(position).trim())
@@ -144,11 +148,11 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
 //        bigImgVp.setCurrentItem(position, false);
 
     }
-
-    @OnClick(R.id.header_left_img)
-    public void onClick() {
-        finish();
-    }
+//
+//    @OnClick(R.id.header_left_img)
+//    public void onClick() {
+//        finish();
+//    }
 
     @Override
     public void onSuccess(BaseObjectBean bean, int status) {
@@ -183,15 +187,22 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.titl1})
+    @OnClick({R.id.titl1,R.id.zan,R.id.header_left_img})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.titl1:
-                Map token = Utils.getAuthorization(this);
+                 token = Utils.getAuthorization(this);
                 mPresenter.Fouces(this, token, finderid, Long.parseLong(userIds));
-                Log.d("dwdwagtdjhdr",String.valueOf(finderid));
-                Log.d("dwdwagtdjhdrs",userIds);
+                Log.d("dwdwagtdjhdr", String.valueOf(finderid));
+                Log.d("dwdwagtdjhdrs", userIds);
 
+                break;
+            case R.id.zan:
+                                         token = Utils.getAuthorization(getApplication());
+                        mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
+                        break;
+            case R.id.header_left_img:
+                finish();
                 break;
         }
     }

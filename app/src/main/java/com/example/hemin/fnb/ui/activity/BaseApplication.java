@@ -2,6 +2,7 @@ package com.example.hemin.fnb.ui.activity;
 
 import android.app.Application;
 
+//import com.example.hemin.fnb.MyEventBusIndex;
 import com.example.hemin.fnb.MyEventBusIndex;
 import com.example.hemin.fnb.ui.util.AppUtils;
 import com.pgyersdk.PgyerActivityManager;

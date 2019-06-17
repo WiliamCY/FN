@@ -28,6 +28,7 @@ import com.example.hemin.fnb.ui.contract.UpdateAboutContract;
 import com.example.hemin.fnb.ui.presenter.FixNickNameAboutPresenter;
 import com.example.hemin.fnb.ui.presenter.UpdateAboutPresenter;
 import com.example.hemin.fnb.ui.util.AppUtils;
+import com.example.hemin.fnb.ui.util.GlideLoadUtils;
 import com.example.hemin.fnb.ui.util.MessageEvent;
 import com.example.hemin.fnb.ui.util.Utils;
 
@@ -210,7 +211,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
         Log.d("getTime()", "choice date millis: " + date.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
     }
 
@@ -255,7 +256,8 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
     }
     @Subscribe(id = 2)
     public void Event(MessageEvent messageEvent) {
-        Glide.with(this).load(messageEvent.getMessage()).into(userLogo);
+//        Glide.with(this).load(messageEvent.getMessage()).into(userLogo);
+        GlideLoadUtils.getInstance().glideLoad(this,messageEvent.getMessage(),userLogo);
     }
     @Subscribe(id = 1)
     public void print(String message){

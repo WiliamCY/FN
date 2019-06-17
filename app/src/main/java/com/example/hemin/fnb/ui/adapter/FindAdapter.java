@@ -38,7 +38,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
     @NonNull
     @Override
     public FindAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_card_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_card_view, parent,false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -60,21 +60,11 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView, imageView2;
-        public TextView image1, image2, image3, text1, text2, text3, findButton;
-        public LinearLayout linearLayout;
+        public TextView image1, image2;
 
         public ViewHolder(@NonNull View view) {
             super(view);
-            linearLayout = view.findViewById(R.id.layouts);
-            imageView = view.findViewById(R.id.find_logo);
             imageView2 = view.findViewById(R.id.find_logo2);
-            image1 = view.findViewById(R.id.image_1);
-            image2 = view.findViewById(R.id.image_2);
-            image3 = view.findViewById(R.id.image_3);
-            text1 = view.findViewById(R.id.title_1);
-            text2 = view.findViewById(R.id.title_2);
-            text3 = view.findViewById(R.id.title_3);
-            findButton = view.findViewById(R.id.find_button);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

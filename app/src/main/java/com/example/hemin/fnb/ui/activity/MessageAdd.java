@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -56,7 +57,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     ImageView addImage;
     @BindView(R.id.imageViewNumber)
     TextView imageViewNumber;
-//    @BindView(R.id.user_logos)
+    //    @BindView(R.id.user_logos)
 //    ImageView userLogos;
     private ImageViewAdapter adapter = new ImageViewAdapter();
     private List<String> imagePath = new ArrayList<String>();
@@ -228,9 +229,9 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
                 imagePath.add(path.get(i));
                 Log.d("imagePathc", path.toString());
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                GridLayoutManager linearLayoutManager = new GridLayoutManager (this,3);
                 r1.setLayoutManager(linearLayoutManager);
-                linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
+                linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
                 Log.d("imagePaths", imagePath.toString());
                 adapter = new ImageViewAdapter(imagePath, this);
                 r1.setAdapter(adapter);

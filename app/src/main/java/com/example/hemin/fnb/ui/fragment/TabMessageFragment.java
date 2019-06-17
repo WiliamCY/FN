@@ -6,21 +6,19 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.MessageAdd;
 import com.example.hemin.fnb.ui.adapter.BaseViewPagerAdapter;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 
-import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -51,13 +49,14 @@ public class TabMessageFragment extends BaseFragment {
     ViewPager viewPager;
     Unbinder unbinder;
     private static final String[] date = new String[]{"资料库", "推荐", "关注"};
+
     private List<String> mDataList = Arrays.asList(date);
     private List<Fragment> fragments = new ArrayList<>();
 
     @Override
     protected void initView(View view) {
-        for(int i = 0; i<mDataList.size();i++){
-                  fragments.add(MessageFragment.getInstance(mDataList.get(i)));
+        for (int i = 0; i < mDataList.size(); i++) {
+            fragments.add(MessageFragment.getInstance(mDataList.get(i)));
         }
         initView2();
     }
@@ -83,7 +82,7 @@ public class TabMessageFragment extends BaseFragment {
 
 
     private void initView2() {
-        viewPager.setAdapter(new BaseViewPagerAdapter(getActivity().getSupportFragmentManager(),fragments));
+        viewPager.setAdapter(new BaseViewPagerAdapter(getActivity().getSupportFragmentManager(), fragments));
         CommonNavigator commonNavigator = new CommonNavigator(getActivity());
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -128,7 +127,7 @@ public class TabMessageFragment extends BaseFragment {
                 return UIUtil.dip2px(getActivity(), 15);
             }
         });
-        ViewPagerHelper.bind(magicIndicator,viewPager);
+        ViewPagerHelper.bind(magicIndicator, viewPager);
     }
 
     @OnClick({R.id.message_add, R.id.c1})

@@ -67,6 +67,8 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     TextView userMessage;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.image_see)
+    ImageView imageSee;
     private Utils.TimeCount timeCount;
 
     @Override
@@ -94,14 +96,13 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         select.setVisibility(View.VISIBLE);
         userMessage.setVisibility(View.VISIBLE);
         title5.setVisibility(View.VISIBLE);
-        title6.setVisibility(View.VISIBLE);
         cPasswords.setVisibility(View.VISIBLE);
         cRegister.setVisibility(View.GONE);
         cPassword.setVisibility(View.GONE);
-        title6.setBackgroundResource(R.mipmap.passwords);
+//        title6.setBackgroundResource(R.mipmap.passwords);
     }
 
-    @OnClick({R.id.c_getCode, R.id.title_6, R.id.c_login_button, R.id.user_message,R.id.back})
+    @OnClick({R.id.c_getCode, R.id.title_6, R.id.c_login_button, R.id.user_message, R.id.back,R.id.image_see})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
@@ -113,8 +114,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                 timeCount = new Utils.TimeCount(60000, 1000, cGetCode);
                 timeCount.start();
                 break;
-            case R.id.title_6:
-                break;
+
             case R.id.c_login_button:
                 if (getMobile() == null || Utils.isPhoneNumber(getMobile()) == false || getCode() == null || getPassword() == null) {
                     Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT), 400);
@@ -131,6 +131,13 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
             case R.id.back:
                 finish();
                 break;
+            case R.id.image_see:
+                Utils.PwdShow(cPasswords,title6,imageSee);
+                break;
+            case R.id.title_6:
+                Utils.PwdHide(cPasswords,title6,imageSee);
+                break;
+
         }
     }
 
@@ -148,9 +155,9 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if(bean.getErrorCode() == 0){
+        if (bean.getErrorCode() == 0) {
 
-        }else {
+        } else {
             Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
 

@@ -11,8 +11,8 @@
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/flaw_img"
-        android:layout_width="344dp"
-        android:layout_height="391dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,31 +29,31 @@
       android:layout_width="@dimen/layout_width_25"
       android:layout_height="@dimen/layout_height_25"
      />
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_20"
-        android:textColor="@color/c333333"
-        android:textSize="@dimen/text_size_15"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/flaw_img" />
+    <!--<TextView-->
+        <!--android:id="@+id/title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/paddingTop_20"-->
+        <!--android:textColor="@color/c333333"-->
+        <!--android:textSize="@dimen/text_size_15"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/flaw_img" />-->
 
-    <TextView
-        android:textColor="@color/c999999"
-        android:textSize="@dimen/text_size_15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_30"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+    <!--<TextView-->
+        <!--android:textColor="@color/c999999"-->
+        <!--android:textSize="@dimen/text_size_15"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/paddingTop_30"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/title" />-->
 
-    <ImageView
-        android:id="@+id/zan"
-        android:layout_width="17dp"
-        android:layout_height="17dp"
-        android:layout_marginTop="@dimen/paddingTop_70"
-        android:background="@mipmap/white_zan"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+    <!--<ImageView-->
+        <!--android:id="@+id/zan"-->
+        <!--android:layout_width="17dp"-->
+        <!--android:layout_height="17dp"-->
+        <!--android:layout_marginTop="@dimen/paddingTop_70"-->
+        <!--android:background="@mipmap/white_zan"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/title" />-->
 
 </android.support.constraint.ConstraintLayout>
