@@ -77,6 +77,7 @@
         android:layout_marginTop="@dimen/paddingTop_10"
          />
 <android.support.constraint.ConstraintLayout
+    android:id="@+id/c1"
     android:layout_marginLeft="@dimen/marginLeft_10"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">

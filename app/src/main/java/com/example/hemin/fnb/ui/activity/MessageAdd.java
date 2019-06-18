@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -25,6 +24,9 @@ import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.MessageAddPresenter;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -57,6 +59,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     ImageView addImage;
     @BindView(R.id.imageViewNumber)
     TextView imageViewNumber;
+    @BindView(R.id.c1)
+    ConstraintLayout c1;
     //    @BindView(R.id.user_logos)
 //    ImageView userLogos;
     private ImageViewAdapter adapter = new ImageViewAdapter();
@@ -72,6 +76,9 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
     @Override
     public void initView() {
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
         mPresenter = new MessageAddPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
@@ -178,7 +185,6 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                     Map<String, String> map = new HashMap<>();
                     map.put("Authorization", "usERa" + getToken());
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
-
                     addImageView(paths);
                     imageViewNumber.setText(adapter.getItemCount() + "/9");
                     for (int i = 0; i < paths.size(); i++) {
@@ -191,8 +197,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                     }
                     //处理代码
                     Log.d("photoPath", paths.toString());
-                    if (adapter.getItemCount() > 9) {
-//                       imageAddButton.setVisibility(View.GONE);
+                    if (adapter.getItemCount() >= 9) {
+                        c1.setVisibility(View.GONE);
                         Utils.showMyToast(Toast.makeText(this, "添加的图片已经是最大值了", Toast.LENGTH_SHORT), 400);
                     }
 
@@ -204,7 +210,17 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+    @Subscribe(id = 4)
+    public void printss(String message){
+     if(Integer.parseInt(message)<10) {
+        Log.d("printssSize",message);
+            c1.setVisibility(View.VISIBLE);
+         imageViewNumber.setText(String.valueOf(message) + "/9");
+     }else {
+         c1.setVisibility(View.GONE);
+     }
 
+    }
     private String getToken() {
         SharedPreferences sp = this.getSharedPreferences("userDate", MODE_PRIVATE);
         String c = sp.getString("Authorization", "");
@@ -229,7 +245,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
                 imagePath.add(path.get(i));
                 Log.d("imagePathc", path.toString());
-                GridLayoutManager linearLayoutManager = new GridLayoutManager (this,3);
+                GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 3);
                 r1.setLayoutManager(linearLayoutManager);
                 linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
                 Log.d("imagePaths", imagePath.toString());
@@ -259,4 +275,11 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+    }
 }

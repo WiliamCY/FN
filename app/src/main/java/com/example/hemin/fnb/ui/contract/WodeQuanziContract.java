@@ -33,7 +33,7 @@ public interface WodeQuanziContract  {
         void Date(Object object,int index);
         @Override
         void onError(Throwable throwable);
-        void DateUserId(Object object,String userId,String content,String url,String nickName);
+        void DateUserId(Object object,String userId,String content,String url,String nickName,String isGiveNum);
         void onSuccess(BaseObjectBean bean);
     }
     interface Presenter {
@@ -42,7 +42,7 @@ public interface WodeQuanziContract  {
 
         void myFaBu(Context context,Map map, long current,long size,long userId,int status);
 
-        void getFidner(Context context,Map token, long friendId,int userId );
+        void getFidner(Context context,Map token, long friendId,int userId);
         void  Remove(Context context,Map token,String fuid);
     }
 

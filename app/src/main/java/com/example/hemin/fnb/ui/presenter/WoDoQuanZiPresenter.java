@@ -112,7 +112,8 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                         List<MessageImageBean.DataBean.ImagesBean> list = bean1.getImages();
                         String userid = bean1.getUserId();
                         String contnet = bean1.getFriendContent();
-                        mView.DateUserId(list,userid,contnet,userUrl,nickName);
+                        String isGiveNum = bean1.getIsGiveNum();
+                        mView.DateUserId(list,userid,contnet,userUrl,nickName,isGiveNum);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

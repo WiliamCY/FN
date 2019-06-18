@@ -34,6 +34,7 @@ public class FoucrsPresenter extends BasePresenter<TaskBigImgActivity> implement
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean,0);
                         mView.hideLoading();
+                        mView.FoucesStatus(bean.getErrorCode());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -59,6 +60,7 @@ public class FoucrsPresenter extends BasePresenter<TaskBigImgActivity> implement
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean,1);
                         mView.hideLoading();
+                        mView.zanResult(bean.getErrorCode());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

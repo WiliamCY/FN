@@ -160,13 +160,13 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     }
 
     @Override
-    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName) {
+    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName,String isCollectionSum,String isGiveNum ) {
 
-        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName);
+        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName,isCollectionSum,isGiveNum);
 
     }
 
-    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName) {
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName,String isCollectionSum,String isGiveNum ) {
         recordPaths.clear();
         for (int i = 0; i < object.size(); i++) {
             String path = object.get(i).getImagesUrl();
@@ -184,6 +184,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         imgIntent.putExtra("StringContent", content);
         imgIntent.putExtra("userUrl", userUrl);
         imgIntent.putExtra("nickName", nickName);
+        imgIntent.putExtra("isCollectionSum",isCollectionSum);
+        imgIntent.putExtra("isGiveNum",isGiveNum);
         startActivity(imgIntent);
 
     }

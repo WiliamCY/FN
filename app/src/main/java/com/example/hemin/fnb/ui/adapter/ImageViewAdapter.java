@@ -64,7 +64,7 @@ public class ImageViewAdapter extends RecyclerView.Adapter<ImageViewAdapter.View
                     Toast.makeText(context,"最后一条数据不能删除",Toast.LENGTH_SHORT).show();
                 }else {
                     removeData(position);
-                    Toast.makeText(context,"删除成功",Toast.LENGTH_SHORT).show();
+                    EventBus.getDefault().post(4,String.valueOf(imagePath.size()));
                 }
             }
         });

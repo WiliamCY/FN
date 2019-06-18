@@ -51,8 +51,10 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     private int position = 0;
     private ArrayList<String> paths;
     private long finderid, finderids;
-    private String userId, userIds, StringContent, userUrl, nickName;
+    private String userId, userIds, StringContent, userUrl, nickName,isCollectionSum,isGiveNum ;
     private Map token = new HashMap();
+    private Boolean isGiveNumStatus = false;
+    private Boolean FocuseStatus = false;
 
     @Override
     public int getLayoutId() {
@@ -72,18 +74,39 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         StringContent = intent.getStringExtra("StringContent");
         userUrl = intent.getStringExtra("userUrl").trim();
         nickName = intent.getStringExtra("nickName");
+        isCollectionSum = intent.getStringExtra("isCollectionSum");
+        isGiveNum = intent.getStringExtra("isGiveNum");
         titleUser.setText(nickName);
         title.setText(StringContent);
         Glide.with(this).load(userUrl).into(userLogo);
         Log.d("TaskFinderId", String.valueOf(finderid));
         headerTitle.setText(titles);
         headerLeftImg.setVisibility(View.VISIBLE);
-
         userIds = sp.getString("userId", "");
         if (userIds.equals(userId)) {
             headerTitle.setVisibility(View.GONE);
         } else {
             headerTitle.setVisibility(View.VISIBLE);
+        }
+        if(isCollectionSum != null){
+            if(isCollectionSum.equals("1")){
+                FocuseStatus = false;
+                headerTitle.setText("已关注");
+
+            }else if(isCollectionSum.equals("2")){
+                headerTitle.setText("未关注");
+                FocuseStatus = true;
+
+        }else {
+                headerTitle.setVisibility(View.GONE);
+            }
+        }
+        if(isGiveNum.equals("1")){
+            isGiveNumStatus = true;
+            zan.setBackgroundResource(R.mipmap.zan_black);
+        }else{
+            isGiveNumStatus = false;
+            zan.setBackgroundResource(R.mipmap.white_zan);
         }
         bigImgVp.setAdapter(new PagerAdapter() {
             @Override
@@ -156,14 +179,36 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
 
     @Override
     public void onSuccess(BaseObjectBean bean, int status) {
-        if (status == 0 && bean.getErrorCode() == 0) {
-            headerTitle.setText("已关注");
-        } else if (status == 1) {
-            zan.setBackgroundResource(R.mipmap.zan_black);
-        }
+//        if (status == 0 && bean.getErrorCode() == 0) {
+//            headerTitle.setText("已关注");
+//        } else if (status == 1) {
+//            zan.setBackgroundResource(R.mipmap.zan_black);
+//        }
 
     }
+  public void  zanResult(int status){
 
+         if(status == 0){
+             if(isGiveNumStatus == false){
+                 zan.setBackgroundResource(R.mipmap.zan_black);
+                 isGiveNumStatus = true;
+             }else {
+                 zan.setBackgroundResource(R.mipmap.white_zan);
+                 isGiveNumStatus = false;
+             }
+         }
+  }
+  public  void  FoucesStatus(int status){
+   if(status == 0){
+       if(FocuseStatus == false){
+           headerTitle.setText("未关注");
+           FocuseStatus = true;
+       }else {
+           headerTitle.setText("已关注");
+         FocuseStatus = false;
+       }
+   }
+  }
     @Override
     public void showLoading() {
 
@@ -204,6 +249,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             case R.id.header_left_img:
                 finish();
                 break;
+
         }
     }
 }

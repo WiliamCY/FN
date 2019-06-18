@@ -56,8 +56,8 @@ public class MessageImageBean {
         private String nickname;
         private String friendContent;
         private int giveNum;
-        private int isGiveNum;
-        private int isCollectionSum;
+        private String isGiveNum;
+        private String isCollectionSum;
         private List<ImagesBean> images;
 
         public Object getFriendId() {
@@ -108,19 +108,19 @@ public class MessageImageBean {
             this.giveNum = giveNum;
         }
 
-        public int getIsGiveNum() {
+        public String getIsGiveNum() {
             return isGiveNum;
         }
 
-        public void setIsGiveNum(int isGiveNum) {
+        public void setIsGiveNum(String isGiveNum) {
             this.isGiveNum = isGiveNum;
         }
 
-        public int getIsCollectionSum() {
+        public String getIsCollectionSum() {
             return isCollectionSum;
         }
 
-        public void setIsCollectionSum(int isCollectionSum) {
+        public void setIsCollectionSum(String isCollectionSum) {
             this.isCollectionSum = isCollectionSum;
         }
 

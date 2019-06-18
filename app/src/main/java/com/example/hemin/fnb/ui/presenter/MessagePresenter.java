@@ -134,7 +134,9 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                         String contnet = bean1.getFriendContent();
                         String urlImage = bean1.getUserUrl();
                         String nickName = bean1.getNickname();
-                        mView.DateUserId(list,userid,contnet,urlImage,nickName);
+                        String isCollectionSum = bean1.getIsCollectionSum();
+                        String isGiveNum = bean1.getIsGiveNum();
+                        mView.DateUserId(list,userid,contnet,urlImage,nickName,isCollectionSum,isGiveNum);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

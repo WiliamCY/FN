@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.WindowManager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +22,6 @@ import com.example.hemin.fnb.ui.bean.ColletionBean;
 import com.example.hemin.fnb.ui.contract.CollectionContract;
 import com.example.hemin.fnb.ui.presenter.CollectionPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
-import com.example.hemin.fnb.ui.util.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +29,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CollectionInformationMessage extends BaseMvpActivity<CollectionPresenter> implements CollectionContract.View {
     @BindView(R.id.type)
@@ -38,6 +38,11 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
     ImageView images;
     @BindView(R.id.text)
     TextView text;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.back)
+    ImageView back;
+
 //    @BindView(R.id.collect_recyclerview)
 //    RecyclerView recyclerView;
 
@@ -59,12 +64,13 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
         Map<String, String> map = new HashMap<>();
         map.put("Authorization", tokenType + Authorization);
         mPresenter.getColldetionMessage(this, map, id);
+        title.setText("藏品信息单");
     }
 
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if (bean.getErrorCode() == 0) {
+        if (bean.getErrorCode() != 0) {
             Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
         ProgressDialog.getInstance().dismiss();
@@ -98,24 +104,25 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
     }
 
     public void Date(Map map) {
-      String ctName = map.get("ctName").toString();
-      String image = map.get("image").toString();
-      String collectionDetails = map.get("collectionDetails").toString();
-      type.setText(ctName);
-      text.setText(collectionDetails);
+        String ctName = map.get("ctName").toString();
+        String image = map.get("image").toString();
+        String collectionDetails = map.get("collectionDetails").toString();
+        type.setText(ctName);
+        text.setText(collectionDetails);
         Glide.with(this).load(image.trim()).listener(mRequestListener).into(images);
     }
+
     RequestListener mRequestListener = new RequestListener() {
         @Override
         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
-            Log.d("adawdawd", "onException: " + e.toString()+"  model:"+model+" isFirstResource: "+isFirstResource);
+            Log.d("adawdawd", "onException: " + e.toString() + "  model:" + model + " isFirstResource: " + isFirstResource);
             images.setImageResource(R.mipmap.ic_launcher);
             return false;
         }
 
         @Override
         public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
-            Log.e("",  "model:"+model+" isFirstResource: "+isFirstResource);
+            Log.e("", "model:" + model + " isFirstResource: " + isFirstResource);
             return false;
         }
     };
@@ -125,5 +132,16 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.back, R.id.title})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
+            case R.id.title:
+                break;
+        }
     }
 }

@@ -32,6 +32,9 @@ import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,6 +98,9 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
 
     @Override
     protected void initView(View view) {
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
         mPresenter = new GetTypePresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
@@ -161,7 +167,18 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
                 startActivityForResult(intent2, 0);
         }
     }
-
+    @Subscribe(id = 4)
+    public void printss(String message) {
+        if (Integer.parseInt(message) < 13) {
+            Log.d("printssSize", message);
+            imageAddButton.setVisibility(View.VISIBLE);
+            imageViewNumber.setVisibility(View.VISIBLE);
+            imageViewNumber.setText(String.valueOf(message) + "/12");
+        } else {
+            imageAddButton.setVisibility(View.GONE);
+            imageViewNumber.setVisibility(View.GONE);
+        }
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -307,5 +324,11 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
         optionsPickerView.show();
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+    }
 }

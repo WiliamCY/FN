@@ -76,7 +76,7 @@
  <LinearLayout
      android:id="@+id/lay1"
      android:orientation="horizontal"
-     android:paddingTop="99dp"
+     android:paddingTop="120dp"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content">
 
