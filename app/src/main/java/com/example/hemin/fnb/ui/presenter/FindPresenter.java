@@ -36,8 +36,9 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
     private FindBean beansDate = new FindBean();
     private List<String> imageUrls = new ArrayList<>();
     private List<String> pathUrl = new ArrayList<>();
-    private String activityUrl, intentUrl;
+    private String activityUrl, intentUrl, GiveNum, CollectionNum, WantNum;
     private List<FindBean> dates = new ArrayList<>();
+    private List<String> deilyUrlList = new ArrayList<>();
 
     public FindPresenter() {
         modle = new FindModel();
@@ -66,15 +67,16 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         mView.onSuccess(bean);
                         FindHuoListBean.DataBean bean1 = (FindHuoListBean.DataBean) bean.getResult();
                         List<FindHuoListBean.DataBean.RecordsBean> list = bean1.getRecords();
-                        for (int i = 0; i < 4; i++) {
+                        for (int i = 0; i < list.size() && list.size() < 4; i++) {
                             activityUrl = list.get(i).getActivityUrl();
                             intentUrl = list.get(i).getActivityContentUrl();
                             beansDate = new FindBean(activityUrl, intentUrl, 1);
+
                             dates.add(beansDate);
-                            mView.Date(dates, 1);
                         }
 
 
+                        mView.Date(dates, 1);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -126,12 +128,11 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         List<String> imageUris = new ArrayList<>();
                         Find2Bean.DataBean beans = (Find2Bean.DataBean) bean.getResult();
                         List<Find2Bean.DataBean.RecordsBean> list = beans.getRecords();
-                        for (int i = 0; i < 2; i++) {
-                            activityUrl = list.get(0).getTopicUrl();
-                            intentUrl = list.get(0).getTopicContent();
-                            beansDate = new FindBean(activityUrl, intentUrl, 0);
 
-                        }
+                        activityUrl = list.get(0).getTopicUrl();
+                        intentUrl = list.get(0).getTopicContent();
+                        beansDate = new FindBean(activityUrl, intentUrl, 0);
+
 
                         dates.add(beansDate);
                         mView.Date(dates, 2);
@@ -183,18 +184,26 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                 .subscribe(new Consumer<BaseObjectBean>() {
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
-                        List<String> imageUris = new ArrayList<>();
+                        deilyUrlList.clear();
                         mView.onSuccess(bean);
                         FindDeilyBean.DataBean bean1 = (FindDeilyBean.DataBean) bean.getResult();
                         List<FindDeilyBean.DataBean.ListBean> list = bean1.getList();
+
+                        for (int i = 0; i < list.size(); i++) {
+                            String c = list.get(i).getImagesUrl();
+                            deilyUrlList.add(c);
+                        }
 //                             activityUrl = list.get(0).getImagesUrl();
 
 //                            beansDate = new FindBean(activityUrl,activityUrl, 1);
-                        for (int i = 0; i < 2; i++) {
-                            activityUrl = list.get(0).getImagesUrl();
-                            intentUrl = list.get(0).getImagesUrl();
-                            beansDate = new FindBean(activityUrl, intentUrl, 0);
-                        }
+                        GiveNum = bean1.getGiveNum();
+                        CollectionNum = bean1.getCollectionSum();
+                        activityUrl = list.get(0).getImagesUrl();
+                        intentUrl = list.get(0).getImagesUrl();
+                        WantNum = bean1.getWantNum();
+                        beansDate = new FindBean(activityUrl, intentUrl, 0, GiveNum, CollectionNum, WantNum, deilyUrlList);
+//
+
                         dates.add(beansDate);
                         mView.Date(dates, 3);
 //                  mView.Date3(list,3);
@@ -223,20 +232,13 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         mView.onSuccess(bean);
                         List<String> imageUris = new ArrayList<>();
                         List<Find4Bean.DataBean> list = (List<Find4Bean.DataBean>) bean.getResult();
-//                        for (int i = 0; i < 2; i++) {
-//                            activityUrl = list.get(0).getImagesUrl();
-//
-//                             beansDate = new FindBean(activityUrl,activityUrl, 1);
-//                            beansDate.add(bean2);
-//                        }
-//                          mView.Date(beansDate);
-//                        mView.Date4(list,4);
 
-                        for (int i = 0; i < 2; i++) {
-                            activityUrl = list.get(0).getImagesUrl();
-                            intentUrl = list.get(0).getImagesUrl();
-                            beansDate = new FindBean(activityUrl, intentUrl, 0);
-                        }
+
+                        activityUrl = list.get(0).getImagesUrl();
+                        intentUrl = list.get(0).getImagesUrl();
+                        beansDate = new FindBean(activityUrl, intentUrl, 0);
+
+
                         dates.add(beansDate);
                         mView.Date(dates, 4);
 
@@ -274,11 +276,16 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
 //                        }
 //                        mView.Date(beansDate);
 //                        mView.Date5(list,5);
-                        for (int i = 0; i < 2; i++) {
-                            activityUrl = list.get(0).getImagesUrl();
-                            intentUrl = list.get(0).getImagesUrl();
-                            beansDate = new FindBean(activityUrl, intentUrl, 0);
-                        }
+
+                        activityUrl = list.get(0).getImagesUrl();
+                        intentUrl = list.get(0).getImagesUrl();
+                        GiveNum = list.get(0).getGiveNum();
+                        CollectionNum = list.get(0).getCollectionNum();
+                        WantNum = list.get(0).getWantNum();
+                        beansDate = new FindBean(activityUrl, intentUrl, 0, GiveNum, CollectionNum, WantNum, "2");
+
+
+//
                         dates.add(beansDate);
                         mView.Date(dates, 5);
                     }

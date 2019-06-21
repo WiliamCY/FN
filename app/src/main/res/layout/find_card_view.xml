@@ -12,7 +12,7 @@
 
 
         <ImageView
-            android:id="@+id/find_logo2"
+            android:id="@+id/find_logo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY" />

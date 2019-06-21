@@ -86,9 +86,9 @@ public class Find5Bean {
              */
 
             private int collectionId;
-            private int giveNum;
-            private int collectionNum;
-            private int wantNum;
+            private String giveNum;
+            private String collectionNum;
+            private String wantNum;
             private String imagesUrl;
 
             public int getCollectionId() {
@@ -99,27 +99,27 @@ public class Find5Bean {
                 this.collectionId = collectionId;
             }
 
-            public int getGiveNum() {
+            public String getGiveNum() {
                 return giveNum;
             }
 
-            public void setGiveNum(int giveNum) {
+            public void setGiveNum(String giveNum) {
                 this.giveNum = giveNum;
             }
 
-            public int getCollectionNum() {
+            public String getCollectionNum() {
                 return collectionNum;
             }
 
-            public void setCollectionNum(int collectionNum) {
+            public void setCollectionNum(String collectionNum) {
                 this.collectionNum = collectionNum;
             }
 
-            public int getWantNum() {
+            public String getWantNum() {
                 return wantNum;
             }
 
-            public void setWantNum(int wantNum) {
+            public void setWantNum(String wantNum) {
                 this.wantNum = wantNum;
             }
 

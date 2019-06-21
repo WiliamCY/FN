@@ -24,8 +24,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.UserAbout;
+import com.example.hemin.fnb.ui.adapter.Find5SAdapter;
 import com.example.hemin.fnb.ui.adapter.FindAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
@@ -77,7 +79,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     private void initDate() {
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         Authorization = Utils.getAuthorization(getActivity());
-         userId = sp.getString("userId", "");
+        userId = sp.getString("userId", "");
         mPresenter.pageListHuo(getActivity(), Authorization, 1, 3);
 
 
@@ -92,7 +94,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     @Override
     public void onSuccess(BaseObjectBean bean) {
         if(bean.getErrorCode() != 0){
-                    Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }else {
             sendPost++;
             initNetWork(sendPost);
@@ -111,12 +113,12 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         }else if(sendPost == 3){
             mPresenter.guessLove(getActivity(), Authorization);
             return;
-        }else {
-//            mPresenter.getRankingList(getActivity(), Authorization, 1, 1);
-//            return;
-//        }
-
+        }else if(sendPost == 4){
+            mPresenter.getRankingList(getActivity(), Authorization, 1, 1);
+            return;
         }
+
+
     }
 
     @Override
@@ -129,6 +131,8 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
 
     }
 
+
+
     @Override
     public void Date(List<FindBean> bean, int status) {
         initRecyclerView(bean);
@@ -140,26 +144,39 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         findRecyclerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        FindAdapter adapter = new FindAdapter(getActivity(), bean);
-        Log.d("beanDate", bean.toString());
+        Find5SAdapter adapter = new Find5SAdapter(R.layout.find_card5_view,bean);
         findRecyclerview.setAdapter(adapter);
-        final int size = adapter.getItemCount();
-        Log.d("findSize1:", String.valueOf(size));
-        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(int Position, String path) {
-
-            }
-
-            @Override
-            public void onItemClick(int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                adapter.getViewByPosition(findRecyclerview,position,R.id.find_button);
                 Intent intent = new Intent(getActivity(), UserAbout.class);
                 String paths = bean.get(position).getPathUrl();
                 intent.putExtra("path", paths);
                 startActivity(intent);
-
             }
         });
+
+//        FindAdapter adapter = new FindAdapter(getActivity(), bean);
+//        Log.d("beanDate", bean.toString());
+//        findRecyclerview.setAdapter(adapter);
+//        final int size = adapter.getItemCount();
+//        Log.d("findSize1:", String.valueOf(size));
+//        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+//            @Override
+//            public void onItemClick(int Position, String path) {
+//
+//            }
+//
+//            @Override
+//            public void onItemClick(int position) {
+//                Intent intent = new Intent(getActivity(), UserAbout.class);
+//                String paths = bean.get(position).getPathUrl();
+//                intent.putExtra("path", paths);
+//                startActivity(intent);
+//
+//            }
+//        });
 
 
     }

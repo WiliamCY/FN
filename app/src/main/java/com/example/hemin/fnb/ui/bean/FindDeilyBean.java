@@ -44,12 +44,12 @@ public class FindDeilyBean {
         private String ctName;
         private String collectionDetails;
         private int dailyId;
-        private int giveNum;
-        private int isGiveNum;
-        private int collectionSum;
-        private int isCollectionSum;
-        private int wantNum;
-        private int isWantNum;
+        private String giveNum;
+        private String isGiveNum;
+        private String collectionSum;
+        private String isCollectionSum;
+        private String wantNum;
+        private String isWantNum;
         private List<ListBean> list;
 
         public int getCollectionId() {
@@ -92,51 +92,51 @@ public class FindDeilyBean {
             this.dailyId = dailyId;
         }
 
-        public int getGiveNum() {
+        public String getGiveNum() {
             return giveNum;
         }
 
-        public void setGiveNum(int giveNum) {
+        public void setGiveNum(String giveNum) {
             this.giveNum = giveNum;
         }
 
-        public int getIsGiveNum() {
+        public String getIsGiveNum() {
             return isGiveNum;
         }
 
-        public void setIsGiveNum(int isGiveNum) {
+        public void setIsGiveNum(String isGiveNum) {
             this.isGiveNum = isGiveNum;
         }
 
-        public int getCollectionSum() {
+        public String getCollectionSum() {
             return collectionSum;
         }
 
-        public void setCollectionSum(int collectionSum) {
+        public void setCollectionSum(String collectionSum) {
             this.collectionSum = collectionSum;
         }
 
-        public int getIsCollectionSum() {
+        public String getIsCollectionSum() {
             return isCollectionSum;
         }
 
-        public void setIsCollectionSum(int isCollectionSum) {
+        public void setIsCollectionSum(String isCollectionSum) {
             this.isCollectionSum = isCollectionSum;
         }
 
-        public int getWantNum() {
+        public String getWantNum() {
             return wantNum;
         }
 
-        public void setWantNum(int wantNum) {
+        public void setWantNum(String wantNum) {
             this.wantNum = wantNum;
         }
 
-        public int getIsWantNum() {
+        public String getIsWantNum() {
             return isWantNum;
         }
 
-        public void setIsWantNum(int isWantNum) {
+        public void setIsWantNum(String isWantNum) {
             this.isWantNum = isWantNum;
         }
 

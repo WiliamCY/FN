@@ -1,36 +1,63 @@
 package com.example.hemin.fnb.ui.adapter;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.bean.Find5Bean;
 import com.example.hemin.fnb.ui.bean.FindBean;
-import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
+import com.example.hemin.fnb.ui.util.AppUtils;
+import com.example.hemin.fnb.ui.util.Utils;
 
 import java.util.List;
 
-public class Find5Adapter extends BaseQuickAdapter<FindBean, BaseViewHolder> {
-    public Find5Adapter(int layoutResId, @Nullable List<FindBean> data) {
+public class Find5SAdapter extends BaseQuickAdapter<FindBean, BaseViewHolder> {
+    public Find5SAdapter(int layoutResId, @Nullable List<FindBean> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, FindBean item) {
+            if(item.getGiveNum() != null  && item.getCollectionNum() != null && item.getWantNum() != null && item.getIsPHB() != null ){
+                helper.getView(R.id.css).setVisibility(View.VISIBLE);
+                helper.getView(R.id.imagess).setVisibility(View.GONE);
+                helper.setText(R.id.title_1,item.getGiveNum());
+                helper.setText(R.id.title_2,item.getCollectionNum());
+                helper.setText(R.id.title_3,item.getWantNum());
+                helper.getView(R.id.find_button).setVisibility(View.VISIBLE);
+                helper.getView(R.id.find_button).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(AppUtils.getContext(),"1111",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.find_logo));
+            }else if(item.getGiveNum() != null  && item.getCollectionNum() != null && item.getWantNum() != null){
+                helper.getView(R.id.css).setVisibility(View.VISIBLE);
+                helper.getView(R.id.imagess).setVisibility(View.GONE);
+                helper.setText(R.id.title_1,item.getGiveNum());
+                helper.setText(R.id.title_2,item.getCollectionNum());
+                helper.setText(R.id.title_3,item.getWantNum());
+                helper.getView(R.id.find_button).setVisibility(View.GONE);
+                Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.find_logo));
+                helper.getView(R.id.find_logo).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-            Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.find_logo));
+                    }
+                });
+            }else {
+                helper.getView(R.id.find_button).setVisibility(View.GONE);
+                helper.getView(R.id.imagess).setVisibility(View.VISIBLE);
+                helper.addOnClickListener(R.id.imagess);
+                Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.imagess));
+            }
+
+
 
 
 
