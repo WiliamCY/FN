@@ -25,34 +25,32 @@ import java.util.List;
 public class ImageViewAdapter extends RecyclerView.Adapter<ImageViewAdapter.ViewHolder> {
     private List<String> imagePath = new ArrayList<>();
     private OnRecyclerItemClickListener monItemClickListener;
-    public   ImageViewAdapter(){
+
+    public ImageViewAdapter() {
 
     }
-    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
-        monItemClickListener=listener;
+
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
+        monItemClickListener = listener;
     }
 
     private Context context;
+
     @NonNull
     @Override
     public ImageViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_imageview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_imageview, parent, false);
         ViewHolder holder = new ViewHolder(view);
-//        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-//        int widthPixels = metrics.widthPixels;
-//        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-//        layoutParams.width=widthPixels/5;
-//        ViewHolder holder=new ViewHolder(view);
 
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewAdapter.ViewHolder holder, final int position) {
-        if(position>0){
-        holder.imageViewTtile.setVisibility(View.GONE);
+        if (position > 0) {
+            holder.imageViewTtile.setVisibility(View.GONE);
 
-        }else if(position == 3){
+        } else if (position == 3) {
             holder.imageViews.setColorFilter(ContextCompat.getColor(context, R.color.cD0915E));
         }
 
@@ -60,20 +58,23 @@ public class ImageViewAdapter extends RecyclerView.Adapter<ImageViewAdapter.View
         holder.imageViewDeltet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(imagePath.size() == 0){
-                    Toast.makeText(context,"最后一条数据不能删除",Toast.LENGTH_SHORT).show();
-                }else {
+                if (imagePath.size() == 0) {
+                    Toast.makeText(context, "最后一条数据不能删除", Toast.LENGTH_SHORT).show();
+                } else {
                     removeData(position);
-                    EventBus.getDefault().post(4,String.valueOf(imagePath.size()));
+                    EventBus.getDefault().post(4, String.valueOf(imagePath.size()));
                 }
             }
         });
 
+
     }
-    public  ImageViewAdapter(List<String>  imagePath,Context context){
-                this.imagePath = imagePath;
-                this.context = context;
+
+    public ImageViewAdapter(List<String> imagePath, Context context) {
+        this.imagePath = imagePath;
+        this.context = context;
     }
+
     //  添加数据
     public void addData(int position) {
 //      在list中添加数据，并通知条目加入一条
@@ -81,10 +82,14 @@ public class ImageViewAdapter extends RecyclerView.Adapter<ImageViewAdapter.View
         //添加动画
         notifyItemInserted(position);
     }
+
     @Override
     public int getItemCount() {
         return imagePath.size();
+
+
     }
+
     //  删除数据
     public void removeData(int position) {
         imagePath.remove(position);
@@ -92,22 +97,24 @@ public class ImageViewAdapter extends RecyclerView.Adapter<ImageViewAdapter.View
         notifyItemRemoved(position);
         notifyDataSetChanged();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public    ImageView imageViews,imageViewDeltet;
-                    TextView imageViewTtile;
+        public ImageView imageViews, imageViewDeltet;
+        TextView imageViewTtile;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViews = itemView.findViewById(R.id.image_adapter);
             imageViewDeltet = itemView.findViewById(R.id.image_delete);
             imageViewTtile = itemView.findViewById(R.id.image_title);
             imageViewDeltet.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  if (monItemClickListener!=null){
-                      monItemClickListener.onItemClick(getAdapterPosition(),imagePath.get(getAdapterPosition()));
-                  }
-              }
-          });
+                @Override
+                public void onClick(View v) {
+                    if (monItemClickListener != null) {
+                        monItemClickListener.onItemClick(getAdapterPosition(), imagePath.get(getAdapterPosition()));
+                    }
+                }
+            });
 
         }
     }

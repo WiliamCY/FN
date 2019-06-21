@@ -38,7 +38,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
     private List<String> pathUrl = new ArrayList<>();
     private String activityUrl, intentUrl, GiveNum, CollectionNum, WantNum;
     private List<FindBean> dates = new ArrayList<>();
-    private List<String> deilyUrlList = new ArrayList<>();
+    private ArrayList<String> deilyUrlList = new ArrayList<>();
 
     public FindPresenter() {
         modle = new FindModel();

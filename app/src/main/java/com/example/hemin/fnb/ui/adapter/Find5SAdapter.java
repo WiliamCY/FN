@@ -1,5 +1,6 @@
 package com.example.hemin.fnb.ui.adapter;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,19 +10,25 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.hemin.fnb.R;
+import com.example.hemin.fnb.ui.activity.PHBActivity;
+import com.example.hemin.fnb.ui.activity.TaskBigImgActivity;
+import com.example.hemin.fnb.ui.activity.TaskBigImgActivityS;
 import com.example.hemin.fnb.ui.bean.FindBean;
 import com.example.hemin.fnb.ui.util.AppUtils;
 import com.example.hemin.fnb.ui.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Find5SAdapter extends BaseQuickAdapter<FindBean, BaseViewHolder> {
+    private ArrayList<String> path = new ArrayList<>();
     public Find5SAdapter(int layoutResId, @Nullable List<FindBean> data) {
         super(layoutResId, data);
     }
 
+
     @Override
-    protected void convert(BaseViewHolder helper, FindBean item) {
+    protected void convert(final BaseViewHolder helper, final FindBean item) {
             if(item.getGiveNum() != null  && item.getCollectionNum() != null && item.getWantNum() != null && item.getIsPHB() != null ){
                 helper.getView(R.id.css).setVisibility(View.VISIBLE);
                 helper.getView(R.id.imagess).setVisibility(View.GONE);
@@ -32,7 +39,8 @@ public class Find5SAdapter extends BaseQuickAdapter<FindBean, BaseViewHolder> {
                 helper.getView(R.id.find_button).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(AppUtils.getContext(),"1111",Toast.LENGTH_SHORT).show();
+                      Intent intent = new Intent(AppUtils.getContext(), PHBActivity.class);
+                        AppUtils.getContext().startActivity(intent);
                     }
                 });
                 Glide.with(mContext).load(item.getImageUrl()).into((ImageView) helper.getView(R.id.find_logo));
@@ -47,7 +55,21 @@ public class Find5SAdapter extends BaseQuickAdapter<FindBean, BaseViewHolder> {
                 helper.getView(R.id.find_logo).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                         path = item.getDailyList();
+                         if(path.size()>0){
+                             Intent imgIntent = new Intent(AppUtils.getContext(), TaskBigImgActivityS.class);
+                             imgIntent.putStringArrayListExtra("paths", path);
+                             imgIntent.putExtra("title", "每日鉴赏");
+//                             imgIntent.putExtra("position", object.size());
+//                             imgIntent.putExtra("finderid", finderid);
+//                             imgIntent.putExtra("userId", userId);
+//                             imgIntent.putExtra("StringContent", content);
+//                             imgIntent.putExtra("userUrl", userUrl);
+//                             imgIntent.putExtra("nickName", nickName);
+//                             imgIntent.putExtra("isCollectionSum",isCollectionSum);
+//                             imgIntent.putExtra("isGiveNum",isGiveNum);
+                             AppUtils.getContext().startActivity(imgIntent);
+                         }
                     }
                 });
             }else {

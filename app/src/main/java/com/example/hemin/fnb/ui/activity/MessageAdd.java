@@ -212,13 +212,13 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     }
     @Subscribe(id = 4)
     public void printss(String message){
-     if(Integer.parseInt(message)<10) {
-        Log.d("printssSize",message);
+        if(Integer.parseInt(message)<10) {
+            Log.d("printssSize",message);
             c1.setVisibility(View.VISIBLE);
-         imageViewNumber.setText(String.valueOf(message) + "/9");
-     }else {
-         c1.setVisibility(View.GONE);
-     }
+            imageViewNumber.setText(String.valueOf(message) + "/9");
+        }else {
+            c1.setVisibility(View.GONE);
+        }
 
     }
     private String getToken() {

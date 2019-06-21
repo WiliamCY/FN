@@ -85,17 +85,17 @@ public class Find5Bean {
              * imagesUrl : https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/wpn89sy3gk
              */
 
-            private int collectionId;
+            private String collectionId;
             private String giveNum;
             private String collectionNum;
             private String wantNum;
             private String imagesUrl;
 
-            public int getCollectionId() {
+            public String getCollectionId() {
                 return collectionId;
             }
 
-            public void setCollectionId(int collectionId) {
+            public void setCollectionId(String collectionId) {
                 this.collectionId = collectionId;
             }
 

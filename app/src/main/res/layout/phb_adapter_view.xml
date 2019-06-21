@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingConstraints"
+    android:layout_margin="10dp"
+>
+
+  <TextView
+      android:layout_marginTop="@dimen/marginTop_5"
+      card_view:layout_constraintTop_toTopOf="parent"
+      card_view:layout_constraintLeft_toLeftOf="@id/css"
+      android:id="@+id/number"
+      android:textSize="@dimen/text_size_28"
+      android:textColor="@color/c333333"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+    />
+    <ImageView
+        android:layout_marginLeft="@dimen/marginLeft_3"
+        android:layout_marginTop="@dimen/paddingTop_6"
+        card_view:layout_constraintTop_toTopOf="@id/number"
+        card_view:layout_constraintLeft_toRightOf="@id/number"
+        android:layout_width="24dp"
+        android:layout_height="26dp"
+        android:background="@mipmap/phb"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:background="@color/cEEEEEE"
+        android:id="@+id/css"
+        card_view:layout_constraintTop_toBottomOf="@id/number"
+        card_view:layout_constraintLeft_toLeftOf="parent"
+        card_view:layout_constraintRight_toRightOf="parent"
+        android:layout_width="311dp"
+        android:layout_height="356dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+
+            android:id="@+id/find_logo"
+            android:layout_width="173dp"
+            android:layout_height="173dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/paddingTop_50"
+            android:scaleType="fitXY"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            card_view:layout_constraintRight_toRightOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+   <TextView
+       android:id="@+id/titl1"
+       card_view:layout_constraintLeft_toLeftOf="parent"
+       android:layout_marginLeft="@dimen/marginLeft_20"
+       card_view:layout_constraintTop_toBottomOf="@id/css"
+       android:textStyle="bold"
+       android:textColor="@color/c333333"
+       android:textSize="@dimen/text_size_15"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+/>
+        <TextView
+            android:id="@+id/titl2"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/marginLeft_20"
+            android:layout_marginTop="@dimen/paddingTop_20"
+            card_view:layout_constraintTop_toBottomOf="@id/titl1"
+            android:textColor="@color/c333333"
+            android:textSize="@dimen/text_size_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+         />
+        <TextView
+            android:id="@+id/titl3"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/marginLeft_20"
+            android:layout_marginTop="@dimen/paddingTop_10"
+            card_view:layout_constraintTop_toBottomOf="@id/titl2"
+            android:textColor="@color/AF0808"
+            android:textSize="@dimen/text_size_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          />
+
+        <LinearLayout
+            android:background="@color/cffffff"
+            android:id="@+id/layouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/marginBottom_30"
+            android:gravity="bottom"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/image_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点赞"
+                    android:textColor="@color/c333333" />
+
+                <TextView
+                    android:id="@+id/title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/marginLeft_8"
+
+                    android:textColor="@color/c333333" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/image_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收藏"
+                    android:textColor="@color/c333333" />
+
+                <TextView
+                    android:id="@+id/title_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/marginLeft_8"
+                    android:textColor="@color/c333333" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/image_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="想要"
+                    android:textColor="@color/c333333" />
+
+                <TextView
+                    android:id="@+id/title_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/marginLeft_8" />
+            </LinearLayout>
+        </LinearLayout>
+
+    <View
+      card_view:layout_constraintLeft_toLeftOf="@id/css"
+        android:layout_marginTop="20dp"
+        card_view:layout_constraintTop_toBottomOf="@id/layouts"
+        android:layout_width="311dp"
+        android:background="@color/cEEEEEE"
+        android:layout_height="@dimen/layout_height_10"/>
+
+</android.support.constraint.ConstraintLayout>

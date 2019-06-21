@@ -10,7 +10,7 @@ public class FindBean {
     private String pathUrl;
     private int status;
     private String GiveNum,CollectionNum,WantNum,isPHB;
-    private List<String> dailyList = new ArrayList<>();
+    private ArrayList<String> dailyList = new ArrayList<>();
 
 
     public FindBean() {
@@ -22,7 +22,7 @@ public class FindBean {
         this.status = status;
         this.pathUrl = pathUrl;
     }
-    public FindBean(String url,String pathUrl, int status,String GiveNum,String CollectionNum,String WantNum,List<String> dailyList ) {
+    public FindBean(String url,String pathUrl, int status,String GiveNum,String CollectionNum,String WantNum,ArrayList<String> dailyList ) {
         this.imageUrl = url;
         this.status = status;
         this.pathUrl = pathUrl;
@@ -99,4 +99,11 @@ public class FindBean {
         CollectionNum = collectionNum;
     }
 
+    public ArrayList<String> getDailyList() {
+        return dailyList;
+    }
+
+    public void setDailyList(ArrayList<String> dailyList) {
+        this.dailyList = dailyList;
+    }
 }

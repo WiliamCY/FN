@@ -114,7 +114,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
             mPresenter.guessLove(getActivity(), Authorization);
             return;
         }else if(sendPost == 4){
-            mPresenter.getRankingList(getActivity(), Authorization, 1, 1);
+            mPresenter.getRankingList(getActivity(), Authorization, 1, 10);
             return;
         }
 

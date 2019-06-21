@@ -4,122 +4,154 @@
     package="com.example.hemin.fnb">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取网络状态 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络通信-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />  <!-- 获取设备信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取MAC地址-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络通信 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 获取设备信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取MAC地址 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读写sdcard，storage等等 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许程序录制音频 -->
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
-
-    <!-- iBeancon功能所需权限 -->;
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <!-- 个推3.0电子围栏功能所需权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- iBeancon功能所需权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- 个推3.0电子围栏功能所需权限 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:name=".ui.activity.BaseApplication"
-        android:resizeableActivity="true"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
+        android:resizeableActivity="true"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/MyToolbartheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.MyMessage"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.NoticeSetting"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ChangeName"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ChangeMobile"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.UserSetting"
-            android:screenOrientation="portrait"
+        <activity android:name=".ui.activity.PHBActivity"
+            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".ui.activity.MyMessage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NoticeSetting"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ChangeName"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ChangeMobile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.UserSetting"
             android:clipToPadding="true"
-            android:fitsSystemWindows="true"/>
-        <activity android:name=".ui.activity.ChangeLogo"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.UserMessage"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.OrderActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.CollectionInformationSheet"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"
+            android:fitsSystemWindows="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ChangeLogo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.UserMessage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.OrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CollectionInformationSheet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MainActivity"
             android:clipToPadding="true"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.CodeLoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.RegisterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.PasswordActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ForgetPasswordActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.CollectionInformation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MyAppraisa"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.CollectionInformationMessage"
-            />
-        <activity android:name=".ui.activity.Bannser"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.UserAbout"
+        <activity
+            android:name=".ui.activity.CodeLoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.FindImageView"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.WelcomeLoading"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MessageAdd"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.UserChangeLogo"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ChangeMobiles"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ChangeUserNoticSetting"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TaskBigImgActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MyAppraisaS"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ActivityUserMessage"
-        android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.FixNickName"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.AboutActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.NoticActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MobileRegister"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MyCollaction"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"
-            android:screenOrientation="portrait"></activity>//选择图片
-        <activity android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"
-            android:screenOrientation="portrait"></activity>//预览图片
-        <!-- targetSDKVersion >= 24时才需要添加这个provider，provider的authorities属性的值为${applicationId}.fileprovider，请开发者根据自己的${applicationId}来设置这个值 -->
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CollectionInformation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MyAppraisa"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.CollectionInformationMessage" />
+        <activity
+            android:name=".ui.activity.Bannser"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.UserAbout"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.FindImageView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WelcomeLoading"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MessageAdd"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.UserChangeLogo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ChangeMobiles"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ChangeUserNoticSetting"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TaskBigImgActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MyAppraisaS"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ActivityUserMessage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.FixNickName"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NoticActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MobileRegister"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MyCollaction"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TaskBigImgActivityS"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zzti.fengyongge.imagepicker.PhotoPreviewActivity"
+            android:screenOrientation="portrait" /> <!-- targetSDKVersion >= 24时才需要添加这个provider，provider的authorities属性的值为${applicationId}.fileprovider，请开发者根据自己的${applicationId}来设置这个值 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -132,31 +164,25 @@
         <provider
             android:name="com.pgyersdk.PgyerProvider"
             android:authorities="${applicationId}.com.pgyer.provider"
-            android:exported="false"/>
-        <!-- 必填 -->
+            android:exported="false" /> <!-- 必填 -->
         <meta-data
             android:name="PGYER_APPID"
-            android:value="0326108dd2be32d921b50a0d098cafa9" >
-        </meta-data>
-        <!--适配华为（huawei）刘海屏-->
+            android:value="0326108dd2be32d921b50a0d098cafa9"></meta-data> <!-- 适配华为（huawei）刘海屏 -->
         <meta-data
             android:name="android.notch_support"
-            android:value="true"/>
-        <!--适配小米（xiaomi）刘海屏-->
+            android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 -->
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
+
         <service
             android:name=".ui.sever.DemoPushService"
             android:exported="true"
             android:label="PushService"
-            android:process=":pushservice">
-        </service>
-        <!-- android:permission在2.13.1.0版本后必须配置 -->
+            android:process=":pushservice"></service> <!-- android:permission在2.13.1.0版本后必须配置 -->
         <service
             android:name=".ui.sever.DemoIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
-
 
 </manifest>

@@ -202,8 +202,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             title1.setVisibility(View.GONE);
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        messageRecyclerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        messageRecyclerview.setLayoutManager(layoutManager);
         apdater1 = new MessageApdater(R.layout.message_adapter, bean);
         Log.d("beanDate", bean.toString());
         messageRecyclerview.setAdapter(apdater1);
@@ -218,6 +218,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
                 pageIndex++;
                 Log.d("pageIndex", String.valueOf(pageIndex));
                 mPresenter.getMaga(getActivity(), map, pageIndex, 10, "1", 12);
