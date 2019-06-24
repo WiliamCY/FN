@@ -1,16 +1,22 @@
 package com.example.hemin.fnb.ui.util;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -286,4 +292,51 @@ public class Utils {
         isLoginBoolean.putBoolean("isFirst",false);
         isLoginBoolean.commit();
     }
+    /**
+     *  根据Uri获取文件真实地址
+     */
+    public static String getRealFilePath(Context context, Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String realPath = null;
+        if (scheme == null)
+            realPath = uri.getPath();
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            realPath = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri,
+                    new String[]{MediaStore.Images.ImageColumns.DATA},
+                    null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        realPath = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        if (TextUtils.isEmpty(realPath)) {
+            if (uri != null) {
+                String uriString = uri.toString();
+                int index = uriString.lastIndexOf("/");
+                String imageName = uriString.substring(index);
+                File storageDir;
+
+                storageDir = Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES);
+                File file = new File(storageDir, imageName);
+                if (file.exists()) {
+                    realPath = file.getAbsolutePath();
+                } else {
+                    storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                    File file1 = new File(storageDir, imageName);
+                    realPath = file1.getAbsolutePath();
+                }
+            }
+        }
+        return realPath;
+    }
+
 }

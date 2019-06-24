@@ -1,1 +1,1 @@
-include ':app', ':mylibrary', ':xrecyclerviews'
+include ':app', ':mylibrary', ':xrecyclerviews', ':imageshowpickerview'

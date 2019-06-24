@@ -65,44 +65,52 @@
     <!--android:layout_height="111dp"-->
     <!--android:background="@mipmap/finder_logo"/>-->
 
-<LinearLayout
-    android:layout_marginTop="@dimen/paddingTop_10"
-    app:layout_constraintTop_toBottomOf="@id/view1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/r1"
+<!--<LinearLayout-->
+    <!--android:layout_marginTop="@dimen/paddingTop_10"-->
+    <!--app:layout_constraintTop_toBottomOf="@id/view1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/r1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/paddingTop_10"-->
+         <!--/>-->
+<!--<android.support.constraint.ConstraintLayout-->
+    <!--android:id="@+id/c1"-->
+    <!--android:layout_marginLeft="@dimen/marginLeft_10"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
+    <!--<ImageView-->
+        <!--android:paddingLeft="@dimen/marginLeft_10"-->
+        <!--android:id="@+id/add_image"-->
+        <!--android:layout_width="111dp"-->
+        <!--android:layout_height="111dp"-->
+        <!--android:layout_marginLeft="@dimen/marginLeft_10"-->
+        <!--android:layout_marginRight="@dimen/marginRight_16"-->
+        <!--android:background="@mipmap/r_add"-->
+   <!--/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/imageViewNumber"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/paddingTop_10"-->
+        <!--android:text="0/9"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+       <!--app:layout_constraintTop_toBottomOf="@id/add_image" />-->
+<!--</android.support.constraint.ConstraintLayout>-->
+<!--</LinearLayout>-->
+    <com.yzs.imageshowpickerview.ImageShowPickerView
+
+        android:layout_marginTop="@dimen/marginTop_10"
+         app:layout_constraintTop_toBottomOf="@id/view1"
+        android:id="@+id/it_picker_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_10"
-         />
-<android.support.constraint.ConstraintLayout
-    android:id="@+id/c1"
-    android:layout_marginLeft="@dimen/marginLeft_10"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:paddingLeft="@dimen/marginLeft_10"
-        android:id="@+id/add_image"
-        android:layout_width="111dp"
-        android:layout_height="111dp"
-        android:layout_marginLeft="@dimen/marginLeft_10"
-        android:layout_marginRight="@dimen/marginRight_16"
-        android:background="@mipmap/r_add"
-   />
 
-    <TextView
-        android:id="@+id/imageViewNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/paddingTop_10"
-        android:text="0/9"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/add_image" />
-</android.support.constraint.ConstraintLayout>
-</LinearLayout>
-
+        app:is_show_del="true" />
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->

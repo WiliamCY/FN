@@ -7,7 +7,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "1.3.6.9"
+        versionName "1.3.7.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 GETUI_APP_ID    : "qEk2cuWrCCAR0cZIBK9pfA",
@@ -102,6 +102,10 @@ dependencies {
 
 
     implementation project(':xrecyclerviews')
+    implementation project(':imageshowpickerview')
+    implementation 'com.zhihu.android:matisse:0.4.3'
+    implementation 'pub.devrel:easypermissions:2.0.1'
+
 
 
 }
