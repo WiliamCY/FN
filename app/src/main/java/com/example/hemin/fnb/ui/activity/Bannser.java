@@ -1,6 +1,7 @@
 package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -42,11 +43,12 @@ public class Bannser extends BaseActivity {
         initViews();
 
     }
-    private void initDate(){
-        if(Utils.booleanisLogin(this)){
+
+    private void initDate() {
+        if (Utils.booleanisLogin(this)) {
             initViews();
-        }else {
-            Intent intent = new Intent(this,WelcomeLoading.class);
+        } else {
+            Intent intent = new Intent(this, WelcomeLoading.class);
             startActivity(intent);
             finish();
         }
@@ -69,9 +71,12 @@ public class Bannser extends BaseActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == xbanner.getRealCount() - 1) {
 //                    welcomeFirstBtn.setVisibility(View.VISIBLE);
-                        Intent intent = new Intent(getApplicationContext(),PasswordActivity.class);
-                        startActivity(intent);
-                        finish();
+                    Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
+                    startActivity(intent);
+                    SharedPreferences.Editor sp = getSharedPreferences("FirstLogin", MODE_PRIVATE).edit();
+                    sp.putBoolean("isFirst", true);
+                    sp.commit();
+                    finish();
                 } else {
                     welcomeFirstBtn.setVisibility(View.GONE);
                 }
@@ -92,9 +97,12 @@ public class Bannser extends BaseActivity {
         switch (view.getId()) {
 
             case R.id.welcome_first_btn:
-                 Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
-                        startActivity(intent);
-                        finish();
+                Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
+                startActivity(intent);
+                SharedPreferences.Editor sp = getSharedPreferences("FirstLogin", MODE_PRIVATE).edit();
+                sp.putBoolean("isFirst", true);
+                sp.commit();
+                finish();
                 break;
         }
     }

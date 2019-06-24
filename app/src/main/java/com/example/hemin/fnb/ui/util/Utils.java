@@ -281,4 +281,9 @@ public class Utils {
             Selection.setSelection(spanText, charSequence1.length());
         }
     }
+    public  static  void isLoginBoolean(Context context){
+        SharedPreferences.Editor isLoginBoolean = context.getSharedPreferences("FirstLogin",Context.MODE_PRIVATE).edit();
+        isLoginBoolean.putBoolean("isFirst",false);
+        isLoginBoolean.commit();
+    }
 }

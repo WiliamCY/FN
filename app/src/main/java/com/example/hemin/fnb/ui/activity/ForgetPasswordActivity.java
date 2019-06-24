@@ -65,8 +65,8 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     ImageView select;
     @BindView(R.id.user_message)
     TextView userMessage;
-    @BindView(R.id.back)
-    ImageView back;
+    @BindView(R.id.backs)
+    ImageView backs;
     @BindView(R.id.image_see)
     ImageView imageSee;
     @BindView(R.id.image_sees)
@@ -106,7 +106,7 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
 
     }
 
-    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay, R.id.back,R.id.image_see,R.id.image_sees})
+    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay, R.id.backs,R.id.image_see,R.id.image_sees})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
@@ -146,7 +146,7 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
                 break;
             case R.id.alipay:
                 break;
-            case R.id.back:
+            case R.id.backs:
                 finish();
             case R.id.image_see:
                 Utils.PwdShow(cPasswords,title6,imageSee);

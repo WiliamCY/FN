@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseActivity;
+import com.example.hemin.fnb.ui.util.AppUtils;
 import com.example.hemin.fnb.ui.util.Utils;
 
 import java.util.Timer;
@@ -31,7 +32,7 @@ public class WelcomeLoading extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //定义全屏参数
         int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
@@ -48,9 +49,19 @@ public class WelcomeLoading extends AppCompatActivity {
             @Override
             public void run() {
                 //从闪屏界面跳转到首界面
-                Intent intent = new Intent(getApplicationContext(), Bannser.class);
-                startActivity(intent);
-                finish();
+                SharedPreferences sp= getSharedPreferences("FirstLogin",MODE_PRIVATE);
+                if(sp.getBoolean("isFirst",false) == true){
+                    Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
+                    startActivity(intent);
+
+                    finish();
+                }else{
+                    Utils.isLoginBoolean(AppUtils.getContext());
+                    Intent intent = new Intent(getApplicationContext(), Bannser.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         }, 1000);//延迟5S后发送handler信息
 
