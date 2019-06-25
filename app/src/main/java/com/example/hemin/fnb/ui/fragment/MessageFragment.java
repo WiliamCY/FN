@@ -125,7 +125,6 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             initRecyclerview3((List<MessageBean3.DataBean.RecordsBean>) object);
         } else if (index == 21) {
             initRecyclerview2((List<MessageBean2.DataBean.RecordsBean>) object);
-//            adapter2.replaceData((List<MessageBean2.DataBean.RecordsBean>) object);
             refreshLayout.finishRefresh(100);
         } else if (index == 22) {
             if (((List<MessageBean2.DataBean.RecordsBean>) object).size() == 0) {
@@ -146,7 +145,6 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
             }
             refreshLayout.finishLoadMore(100);
         } else if (index == 11) {
-//            apdater1.replaceData((List<MessageBean1.DataBean.RecordsBean>) object);
             initRecyclerview1((List<MessageBean1.DataBean.RecordsBean>) object);
             refreshLayout.finishRefresh(100);
         } else if (index == 12) {

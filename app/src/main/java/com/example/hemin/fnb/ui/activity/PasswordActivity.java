@@ -93,12 +93,12 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     private void initViews() {
         userToolbar.setVisibility(View.GONE);
         title1.setText("密码登录");
-        title4.setVisibility(View.GONE);
-        cGetCode.setVisibility(View.GONE);
-        cCode.setVisibility(View.GONE);
-        title5.setVisibility(View.VISIBLE);
-        cPasswords.setVisibility(View.VISIBLE);
-        cPassword.setText("忘记密码");
+//        title4.setVisibility(View.GONE);
+//        cGetCode.setVisibility(View.GONE);
+//        cCode.setVisibility(View.GONE);
+//        title5.setVisibility(View.VISIBLE);
+//        cPasswords.setVisibility(View.VISIBLE);
+//        cPassword.setText("忘记密码");
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
     }
@@ -168,14 +168,6 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
 
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 1 && resultCode == 2) {
-//            setResult(2);
-//            finish();
-//        }
-//    }
 
     @Override
     public void showLoading() {
@@ -209,13 +201,6 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        // TODO: add setContentView(...) invocation
-//        ButterKnife.bind(this);
-//    }
 
 
 }

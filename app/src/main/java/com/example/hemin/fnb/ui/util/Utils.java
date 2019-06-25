@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.ParseException;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -34,6 +35,8 @@ import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -259,7 +262,7 @@ public class Utils {
     }
 
     public static void PwdHide(EditText pwds, ImageView hides, ImageView shows) {
-        hides.setVisibility(View.INVISIBLE);
+        hides.setVisibility(View.GONE);
         shows.setVisibility(View.VISIBLE);
 
         //隐藏密码方法一
@@ -274,7 +277,7 @@ public class Utils {
     }
 
     public static void PwdShow(EditText pwds, ImageView hides, ImageView shows) {
-        shows.setVisibility(View.INVISIBLE);
+        shows.setVisibility(View.GONE);
         hides.setVisibility(View.VISIBLE);
         //显示密码方法一
 //        HideReturnsTransformationMethod method2 = HideReturnsTransformationMethod.getInstance();
@@ -339,4 +342,28 @@ public class Utils {
         return realPath;
     }
 
+    public static String dateToStamp(String s) throws ParseException {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(s);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        long ts = date.getTime();
+        res = String.valueOf(ts);
+        return res;
+    }
+    /*
+     * 将时间戳转换为时间
+     */
+    public static String stampToDate(String s){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        long lt = new Long(s);
+        Date date = new Date(lt);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
 }

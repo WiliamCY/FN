@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
+import com.example.hemin.fnb.ui.util.Utils;
 import com.nostra13.universalimageloader.utils.L;
 
 import java.util.ArrayList;
@@ -61,8 +62,10 @@ public class AppRaisaAdapter extends RecyclerView.Adapter<AppRaisaAdapter.ViewHo
                    AppraisaBean.DataBean.RecordsBean bean = list.get(position);
                    String c = bean.getImagesUrl().trim();
                   Glide.with(context).load(c).into(holder.collect_logo);
-                  holder.app_comit.setText(bean.getCreateTime());
-                  holder.app_number.setText(bean.getCollectionNum());
+                  String time = Utils.dateToStamp(bean.getCreateTime());
+                    String times = Utils.stampToDate(time);
+                  holder.app_comit.setText("提交时间："+times);
+                  holder.app_number.setText("订单编号："+bean.getCollectionNum());
                   switch (bean.getCollectionAudit()){
                       case "0":
                           holder.app_status.setText("鉴定状态：待审核");

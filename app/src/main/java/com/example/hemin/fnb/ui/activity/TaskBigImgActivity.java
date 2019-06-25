@@ -20,6 +20,7 @@ import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.FoucesContract;
 import com.example.hemin.fnb.ui.presenter.FoucrsPresenter;
 import com.example.hemin.fnb.ui.util.CircleImageView;
+import com.example.hemin.fnb.ui.util.HackyViewPager;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.github.chrisbanes.photoview.PhotoView;
 
@@ -37,8 +38,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     @BindView(R.id.header_left_img)
     ImageView headerLeftImg;
     @BindView(R.id.big_img_vp)
-    ViewPager bigImgVp;
-    //    @BindView(R.id.header_right_tv)
+    HackyViewPager bigImgVp;
     TextView headerRightTv;
     @BindView(R.id.user_logo)
     CircleImageView userLogo;

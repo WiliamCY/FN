@@ -6,6 +6,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseActivity;
+import com.example.hemin.fnb.ui.util.HackyViewPager;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class TaskBigImgActivityS extends BaseActivity {
     @BindView(R.id.header_left_img)
     ImageView headerLeftImg;
     @BindView(R.id.big_img_vp)
-    ViewPager bigImgVp;
+    HackyViewPager bigImgVp;
     //    @BindView(R.id.header_right_tv)
     TextView headerRightTv;
     @BindView(R.id.number1)
@@ -74,19 +76,8 @@ public class TaskBigImgActivityS extends BaseActivity {
                 Log.d("messaePaths", paths.toString());
                 View adView = LayoutInflater.from(TaskBigImgActivityS.this).inflate(R.layout.item_big_imgs, null);
                 PhotoView icon = (PhotoView) adView.findViewById(R.id.flaw_img);
-//                TextView StringContents = adView.findViewById(R.id.title);
-//                headerRightTv = adView.findViewById(R.id.header_right_tv);
 
-//                zan = adView.findViewById(R.id.zan);
-//                zan.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Map token = Utils.getAuthorization(getApplication());
-//                        mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
-//                    }
-//                });
-//                StringContents.setText(StringContent);
-                icon.setBackgroundColor(getResources().getColor(R.color.c333333));
+//                icon.setBackgroundColor(getResources().getColor(R.color.c333333));
                 Glide.with(TaskBigImgActivityS.this)
                         .load(paths.get(position).trim())
                         .into(icon);
@@ -121,7 +112,7 @@ public class TaskBigImgActivityS extends BaseActivity {
 
     }
 
-    @Override
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation

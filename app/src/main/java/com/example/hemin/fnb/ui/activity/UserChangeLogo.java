@@ -76,7 +76,7 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
             case R.id.change_button1:
                 Intent intent = new Intent(this, PhotoSelectorActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra("limit", 1);//number是选择图片的数量
+                intent.putExtra("limit", 1);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.change_button2:

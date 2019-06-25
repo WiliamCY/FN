@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +72,27 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     ImageView imageSee;
     @BindView(R.id.image_sees)
     ImageView imageSees;
+    @BindView(R.id.lay2)
+    LinearLayout lay2;
+    @BindView(R.id.view2)
+    View view2;
+    @BindView(R.id.lay4)
+    LinearLayout lay4;
+    @BindView(R.id.view4)
+    View view4;
+
+    //    @BindView(R.id.number_down)
+//    ImageView numberDown;
+    @BindView(R.id.lay3)
+    LinearLayout lay3;
+    @BindView(R.id.view3)
+    View view3;
+    @BindView(R.id.title_3_down)
+    ImageView title3Down;
+    @BindView(R.id.lay1)
+    LinearLayout lay1;
+    @BindView(R.id.view1)
+    View view1;
     private Utils.TimeCount timeCount;
 
 
@@ -92,21 +114,27 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     private void initViews() {
         title1.setText("修改密码");
         cLoginButton.setText("提交");
+        title3.setVisibility(View.GONE);
+        title3Down.setVisibility(View.GONE);
+//        numberDown.setVisibility(View.GONE);
         cRegister.setVisibility(View.GONE);
         cPassword.setVisibility(View.GONE);
         qq.setVisibility(View.GONE);
         cWechat.setVisibility(View.GONE);
         alipay.setVisibility(View.GONE);
         title5.setVisibility(View.VISIBLE);
-         imageSees.setVisibility(View.VISIBLE);
+        imageSees.setVisibility(View.VISIBLE);
         title7.setVisibility(View.VISIBLE);
-
-        cUserPassword.setVisibility(View.VISIBLE);
-        cPasswords.setVisibility(View.VISIBLE);
+        lay2.setVisibility(View.VISIBLE);
+        lay4.setVisibility(View.VISIBLE);
+        view2.setVisibility(View.VISIBLE);
+        view4.setVisibility(View.VISIBLE);
+//        cUserPassword.setVisibility(View.VISIBLE);
+//        cPasswords.setVisibility(View.VISIBLE);
 
     }
 
-    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay, R.id.backs,R.id.image_see,R.id.image_sees})
+    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay, R.id.backs, R.id.image_see, R.id.image_sees})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
@@ -120,10 +148,10 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
                 timeCount.start();
                 break;
             case R.id.title_6:
-                Utils.PwdHide(cPasswords,title6,imageSee);
+                Utils.PwdHide(cPasswords, title6, imageSee);
                 break;
             case R.id.title_8:
-                Utils.PwdHide(cUserPassword,title8,imageSees);
+                Utils.PwdHide(cUserPassword, title8, imageSees);
                 break;
             case R.id.c_login_button:
                 if (getCode() == null || getPhone() == null || getPassword() == null || getPasswords() == null || Utils.isPhoneNumber(getPhone()) == false) {
@@ -149,10 +177,10 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
             case R.id.backs:
                 finish();
             case R.id.image_see:
-                Utils.PwdShow(cPasswords,title6,imageSee);
+                Utils.PwdShow(cPasswords, title6, imageSee);
                 break;
             case R.id.image_sees:
-                Utils.PwdShow(cUserPassword,title8,imageSees);
+                Utils.PwdShow(cUserPassword, title8, imageSees);
                 break;
         }
     }

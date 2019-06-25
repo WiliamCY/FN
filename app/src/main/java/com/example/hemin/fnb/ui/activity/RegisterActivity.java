@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,10 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     ImageView back;
     @BindView(R.id.image_see)
     ImageView imageSee;
+    @BindView(R.id.lay2)
+    LinearLayout lay2;
+    @BindView(R.id.view2)
+    View view2;
     private Utils.TimeCount timeCount;
 
     @Override
@@ -90,13 +95,15 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     private void initViews() {
         title1.setText("注册");
         cLoginButton.setText("注册");
+        lay2.setVisibility(View.VISIBLE);
+        view2.setVisibility(View.VISIBLE);
         qq.setVisibility(View.GONE);
         cWechat.setVisibility(View.GONE);
         alipay.setVisibility(View.GONE);
         select.setVisibility(View.VISIBLE);
         userMessage.setVisibility(View.VISIBLE);
-        title5.setVisibility(View.VISIBLE);
-        cPasswords.setVisibility(View.VISIBLE);
+//        title5.setVisibility(View.VISIBLE);
+//        cPasswords.setVisibility(View.VISIBLE);
         cRegister.setVisibility(View.GONE);
         cPassword.setVisibility(View.GONE);
 //        title6.setBackgroundResource(R.mipmap.passwords);
@@ -108,7 +115,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         });
     }
 
-    @OnClick({R.id.c_getCode, R.id.title_6, R.id.c_login_button, R.id.user_message, R.id.backs,R.id.image_see})
+    @OnClick({R.id.c_getCode, R.id.title_6, R.id.c_login_button, R.id.user_message, R.id.backs, R.id.image_see})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
@@ -138,10 +145,10 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                 finish();
                 break;
             case R.id.image_see:
-                Utils.PwdShow(cPasswords,title6,imageSee);
+                Utils.PwdShow(cPasswords, title6, imageSee);
                 break;
             case R.id.title_6:
-                Utils.PwdHide(cPasswords,title6,imageSee);
+                Utils.PwdHide(cPasswords, title6, imageSee);
                 break;
 
         }

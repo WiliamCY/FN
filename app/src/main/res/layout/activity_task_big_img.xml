@@ -92,7 +92,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <android.support.v4.view.ViewPager
+    <com.example.hemin.fnb.ui.util.HackyViewPager
         android:layout_marginTop="@dimen/paddingTop_15"
        android:layout_gravity="center"
         android:id="@+id/big_img_vp"
