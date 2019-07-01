@@ -30,29 +30,13 @@ public class MessagesApdater extends BaseQuickAdapter<MessageBean2.DataBean.Reco
 
     @Override
     protected void convert(BaseViewHolder viewHolder, MessageBean2.DataBean.RecordsBean item) {
-//        MessageBean2.DataBean.RecordsBean bean = list.get(position);
-//        Glide.with(context).load(bean.getImagesUrl()).into(holder.imageView1);
-//        holder.textView1.setText(bean.getFriendHead());
-//        Glide.with(context).load(bean.getUserUrl()).into(holder.imageView2);
-//        holder.textView2.setText(bean.getNickname());
-//        holder.textView3.setText(bean.getGiveNum());
+
         Glide.with(mContext).load(item.getImagesUrl()).into((ImageView) viewHolder.getView(R.id.image1));
         Glide.with(mContext).load(item.getUserUrl()).into((ImageView) viewHolder.getView(R.id.image2));
         viewHolder.setText(R.id.title1,item.getFriendHead()).setText(R.id.title2,item.getNickname()).setText(R.id.title3,item.getGiveNum());
 
     }
 
-
-//    private Context context;
-//    private List<MessageBean2.DataBean.RecordsBean> list = new ArrayList<>();
-//    private OnRecyclerItemClickListener monItemClickListener;
-//
-//    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener) {
-//        monItemClickListener = listener;
-//    }
-//  public MessagesApdater(){
-//
-//  }
     public void addtData(List<MessageBean2.DataBean.RecordsBean> list) {
         if (null != list) {
             this.list.addAll(list);

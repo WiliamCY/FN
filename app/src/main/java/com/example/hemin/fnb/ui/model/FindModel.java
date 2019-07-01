@@ -20,7 +20,7 @@ import java.util.Map;
 
 import io.reactivex.Flowable;
 
-public class FindModel implements FindContract.huo,FindContract.addNum,FindContract.hua,FindContract.huas,FindContract.js,FindContract.cn,FindContract.dianzan,FindContract.dianzans {
+public class FindModel implements FindContract.huo,FindContract.addNum,FindContract.hua,FindContract.huas,FindContract.js,FindContract.cn,FindContract.dianzan,FindContract.dianzans,FindContract.modle1 {
     @Override
     public Flowable<BaseObjectBean<FindHuoListBean.DataBean>> pageListHuo(Context context, Map<String, String> heard, long id, long size) {
         return RetrofitClient.getInstance().getApi().pageListHuo(heard,id,size);
@@ -64,5 +64,10 @@ public class FindModel implements FindContract.huo,FindContract.addNum,FindContr
     @Override
     public Flowable<BaseObjectBean<List<Find4Bean.DataBean>>> guessLove(Context context, Map<String, String> heard) {
           return RetrofitClient.getInstance().getApi().guessLove(heard);
+    }
+
+    @Override
+    public Flowable<BaseObjectBean> getMaga(Context context, Map token, long current, long size, String type) {
+        return RetrofitClient.getInstance().getApi().getMaga(token,current,size,type);
     }
 }

@@ -9,17 +9,17 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/c313131"
+        android:background="@color/cffffff"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/header_left_img"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="9dp"
+            android:layout_height="16dp"
             android:layout_marginLeft="@dimen/paddingLeft_10"
             android:layout_marginBottom="@dimen/marginBottom_5"
-            android:src="@mipmap/back"
+            android:src="@mipmap/black_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 

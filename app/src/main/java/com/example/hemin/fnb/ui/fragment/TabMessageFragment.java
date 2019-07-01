@@ -48,7 +48,7 @@ public class TabMessageFragment extends BaseFragment {
     @BindView(R.id.fragment_container)
     ViewPager viewPager;
     Unbinder unbinder;
-    private static final String[] date = new String[]{"资料库", "推荐", "关注"};
+    private static final String[] date = new String[]{ "推荐", "关注"};
 
     private List<String> mDataList = Arrays.asList(date);
     private List<Fragment> fragments = new ArrayList<>();

@@ -40,8 +40,8 @@ public class RetrofitClient {
     //    private static String baseUrl = "http://10.10.10.66:8080/";
 //    private static  String baseUrl = "https://www.funwl.com/";
 //    private static String baseUrl = "https://www.funwl.com/";
-        private static String baseUrl = "http://ceshi.funwl.com:8443/";
-//private static String baseUrl = "http://qq1273106281.oicp.io:47141/";
+    private static String baseUrl = "http://ceshi.funwl.com:8443/";
+    //private static String baseUrl = "http://qq1273106281.oicp.io:47141/";
     private static Context context;
 
 
@@ -84,7 +84,7 @@ public class RetrofitClient {
      *
      * @return
      */
-    private  Interceptor getInterceptor() {
+    private Interceptor getInterceptor() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
@@ -136,18 +136,18 @@ public class RetrofitClient {
             BaseObjectBean baseBean = new Gson().fromJson(result, BaseObjectBean.class);
             Log.i("retrofitCode", "baseGetError" + baseBean.getResult());
             if (baseBean.getCode() == 99993) {
-                context = AppUtils.getContext() ;
+                context = AppUtils.getContext();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         Looper.prepare();
                         Toast.makeText(context, "登录失效，请重新登录", Toast.LENGTH_SHORT).show();
-                                        Looper.loop();
+                        Looper.loop();
                     }
                 }).start();
 
                 Intent intent = new Intent(context, PasswordActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
             return chain.proceed(request);

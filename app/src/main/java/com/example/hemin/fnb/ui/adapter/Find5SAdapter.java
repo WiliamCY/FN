@@ -2,6 +2,8 @@ package com.example.hemin.fnb.ui.adapter;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,20 +18,28 @@ import com.example.hemin.fnb.ui.activity.TaskBigImgActivityS;
 import com.example.hemin.fnb.ui.bean.FindBean;
 import com.example.hemin.fnb.ui.util.AppUtils;
 import com.example.hemin.fnb.ui.util.Utils;
+import com.nostra13.universalimageloader.utils.L;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Find5SAdapter extends BaseQuickAdapter<FindBean, BaseViewHolder> {
     private ArrayList<String> path = new ArrayList<>();
-    public Find5SAdapter(int layoutResId, @Nullable List<FindBean> data) {
+    private RecyclerView zzRecyclerview;
+    private List<FindBean> beans = new ArrayList<>();
+    public Find5SAdapter(int layoutResId, @Nullable List<FindBean> data,int status) {
         super(layoutResId, data);
+        if(status == 6){
+            beans = data;
+        }
+
     }
 
 
     @Override
     protected void convert(final BaseViewHolder helper, final FindBean item) {
-            if(item.getGiveNum() != null  && item.getCollectionNum() != null && item.getWantNum() != null && item.getIsPHB() != null ){
+
+            if(item.getGiveNum() != null  && item.getCollectionNum() != null && item.getWantNum() != null  && item.getIsPHB() == 2 ){
                 helper.getView(R.id.css).setVisibility(View.VISIBLE);
                 helper.getView(R.id.imagess).setVisibility(View.GONE);
                 helper.setText(R.id.title_1,item.getGiveNum());
@@ -60,19 +70,24 @@ public class Find5SAdapter extends BaseQuickAdapter<FindBean, BaseViewHolder> {
                              Intent imgIntent = new Intent(AppUtils.getContext(), TaskBigImgActivityS.class);
                              imgIntent.putStringArrayListExtra("paths", path);
                              imgIntent.putExtra("title", "每日鉴赏");
-//                             imgIntent.putExtra("position", object.size());
-//                             imgIntent.putExtra("finderid", finderid);
-//                             imgIntent.putExtra("userId", userId);
-//                             imgIntent.putExtra("StringContent", content);
-//                             imgIntent.putExtra("userUrl", userUrl);
-//                             imgIntent.putExtra("nickName", nickName);
-//                             imgIntent.putExtra("isCollectionSum",isCollectionSum);
-//                             imgIntent.putExtra("isGiveNum",isGiveNum);
                              AppUtils.getContext().startActivity(imgIntent);
                          }
                     }
                 });
-            }else {
+            } else if(item.getIsPHB() == 3){
+                helper.getView(R.id.imagess).setVisibility(View.GONE);
+                helper.getView(R.id.refreshLayout).setVisibility(View.VISIBLE);
+                helper.getView(R.id.zzRecyclerview).setVisibility(View.VISIBLE);
+                zzRecyclerview = helper.getView(R.id.zzRecyclerview);
+                helper.getView(R.id.zaText).setVisibility(View.VISIBLE);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                zzRecyclerview.setLayoutManager(linearLayoutManager);
+                MessageZZApdater apdater = new MessageZZApdater(R.layout.message_adapter,beans);
+                zzRecyclerview.setAdapter(apdater);
+
+
+            } else if(item.getIsPHB() == 4){
                 helper.getView(R.id.find_button).setVisibility(View.GONE);
                 helper.getView(R.id.imagess).setVisibility(View.VISIBLE);
                 helper.addOnClickListener(R.id.imagess);

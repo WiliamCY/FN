@@ -49,6 +49,7 @@ public class PHBActivity extends BaseMvpActivity<PHBPresenter> implements PHBCon
     public void initView() {
         mPresenter = new PHBPresenter();
         mPresenter.attachView(this);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         title.setVisibility(View.GONE);
         map = Utils.getAuthorization(this);
         mPresenter.getRankingList(this, map, 1, 100);

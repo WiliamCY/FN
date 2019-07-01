@@ -75,7 +75,7 @@
                 android:drawablePadding="3dp"
                 android:drawableTop="@drawable/tab_shop"
                 android:gravity="center"
-                android:text="商城"
+                android:text="藏宝阁"
                 android:textColor="@color/color_radiobutton"
                 android:textSize="@dimen/text_size_12" />
 

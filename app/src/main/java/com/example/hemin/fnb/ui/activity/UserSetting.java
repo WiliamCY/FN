@@ -57,6 +57,7 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
 
     @Override
     public void initView() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         mPresenter = new UserPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);

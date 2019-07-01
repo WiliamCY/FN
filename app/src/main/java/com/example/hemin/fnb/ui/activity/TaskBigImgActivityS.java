@@ -58,6 +58,7 @@ public class TaskBigImgActivityS extends BaseActivity {
         Intent intent = getIntent();
         paths = intent.getStringArrayListExtra("paths");
         String titles = intent.getStringExtra("title");
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         headerTitle.setText(titles);
         number1.setText(1 + "/" + paths.size());
         bigImgVp.setAdapter(new PagerAdapter() {

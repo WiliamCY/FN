@@ -1,8 +1,9 @@
 package com.example.hemin.fnb.ui.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MessageBean1 {
+public class MessageBean1{
     /**
      * code : 0
      * msg : 请求成功
@@ -11,6 +12,10 @@ public class MessageBean1 {
 
 
     private DataBean data;
+    private List<MessageBean1.DataBean.RecordsBean> beans = new ArrayList<>();
+    public  MessageBean1(List<MessageBean1.DataBean.RecordsBean> beans){
+        this.beans = beans;
+    }
 
 
 
@@ -35,7 +40,7 @@ public class MessageBean1 {
         private int size;
         private int pages;
         private int current;
-        private List<RecordsBean> records;
+        public List<RecordsBean> records;
 
         public int getTotal() {
             return total;

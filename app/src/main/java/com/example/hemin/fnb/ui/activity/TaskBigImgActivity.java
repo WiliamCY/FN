@@ -1,5 +1,6 @@
 package com.example.hemin.fnb.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -61,10 +62,12 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         return R.layout.activity_task_big_img;
     }
 
+    @SuppressLint("ResourceAsColor")
     public void initView() {
         mPresenter = new FoucrsPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         Intent intent = getIntent();
         SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
         paths = intent.getStringArrayListExtra("paths");
@@ -92,9 +95,13 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             if(isCollectionSum.equals("1")){
                 FocuseStatus = false;
                 headerTitle.setText("已关注");
+                headerTitle.setBackgroundResource(R.drawable.shape_yellows);
+                headerTitle.setTextColor(R.color.c999999);
 
             }else if(isCollectionSum.equals("2")){
-                headerTitle.setText("未关注");
+                headerTitle.setText("关注");
+                headerTitle.setBackgroundResource(R.drawable.shape_yellow);
+                headerTitle.setTextColor(R.color.c333333);
                 FocuseStatus = true;
 
         }else {
@@ -198,13 +205,18 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
              }
          }
   }
+  @SuppressLint("ResourceAsColor")
   public  void  FoucesStatus(int status){
    if(status == 0){
        if(FocuseStatus == false){
-           headerTitle.setText("未关注");
+           headerTitle.setText("关注");
+           headerTitle.setBackgroundResource(R.drawable.shape_yellow);
+           headerTitle.setTextColor(R.color.c333333);
            FocuseStatus = true;
        }else {
            headerTitle.setText("已关注");
+           headerTitle.setBackgroundResource(R.drawable.shape_yellows);
+           headerTitle.setTextColor(R.color.c999999);
          FocuseStatus = false;
        }
    }

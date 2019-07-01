@@ -1,46 +1,45 @@
 package com.example.hemin.fnb.ui.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.activity.UserAbout;
-import com.example.hemin.fnb.ui.adapter.Find5SAdapter;
-import com.example.hemin.fnb.ui.adapter.FindAdapter;
+import com.example.hemin.fnb.ui.adapter.FindDailydapter;
+import com.example.hemin.fnb.ui.adapter.FindHTAdapter;
+import com.example.hemin.fnb.ui.adapter.FindHDAdapter;
+import com.example.hemin.fnb.ui.adapter.FindRankdapter;
+import com.example.hemin.fnb.ui.adapter.FindYLAdapter;
+import com.example.hemin.fnb.ui.adapter.FindZaZhiSAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.DailyItem;
+import com.example.hemin.fnb.ui.bean.Find2Bean;
+import com.example.hemin.fnb.ui.bean.Find2Tiem;
+import com.example.hemin.fnb.ui.bean.Find4Bean;
+import com.example.hemin.fnb.ui.bean.Find5Bean;
 import com.example.hemin.fnb.ui.bean.FindBean;
+import com.example.hemin.fnb.ui.bean.FindDeilyBean;
+import com.example.hemin.fnb.ui.bean.HDItem;
+import com.example.hemin.fnb.ui.bean.MessageBean1;
+import com.example.hemin.fnb.ui.bean.RankItem;
+import com.example.hemin.fnb.ui.bean.YlItem;
+import com.example.hemin.fnb.ui.bean.ZZSItem;
 import com.example.hemin.fnb.ui.contract.FindContract;
-import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.FindPresenter;
 import com.example.hemin.fnb.ui.util.Utils;
-import com.pgyersdk.update.DownloadFileListener;
-import com.pgyersdk.update.PgyUpdateManager;
-import com.pgyersdk.update.UpdateManagerListener;
-import com.pgyersdk.update.javabean.AppBean;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +47,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.drakeet.multitype.Items;
+import me.drakeet.multitype.MultiTypeAdapter;
 
 public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements FindContract.View {
     @BindView(R.id.find_recyclerview)
@@ -62,17 +63,20 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     LinearLayout lay1;
     private int sendPost = 0;
     private Map Authorization = new HashMap();
-    private PopupWindow pw;
-    private View myView;
-    private TextView userTitles, userAbouts;
-    private Button userUpdates;
     private String userId;
+    private MultiTypeAdapter adapter;
+    private Items items;
+    private List<FindBean> findBeanList = new ArrayList<>();
+    private List<MessageBean1.DataBean.RecordsBean> zzList = null;
+    private List<Find2Bean.DataBean.RecordsBean> find2List = null;
+    private FindDeilyBean.DataBean find3List = null;
+    private Find4Bean.DataBean find4List = null;
+    private Find5Bean.DataBean.RecordsBean find5List = null;
 
     @Override
     protected void initView(View view) {
         mPresenter = new FindPresenter();
         mPresenter.attachView(this);
-//        AlertDialogUpdateStyle();
         initDate();
     }
 
@@ -93,9 +97,9 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-        if(bean.getErrorCode() != 0){
+        if (bean.getErrorCode() != 0) {
             Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             sendPost++;
             initNetWork(sendPost);
         }
@@ -107,15 +111,17 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         if (sendPost == 1) {
             mPresenter.addHua(getActivity(), Authorization, 1, 1);
             return;
-        }else if(sendPost == 2){
+        } else if (sendPost == 2) {
             mPresenter.getDaily(getActivity(), Authorization, Long.parseLong(userId));
             return;
-        }else if(sendPost == 3){
+        } else if (sendPost == 3) {
             mPresenter.guessLove(getActivity(), Authorization);
             return;
-        }else if(sendPost == 4){
+        } else if (sendPost == 4) {
             mPresenter.getRankingList(getActivity(), Authorization, 1, 10);
             return;
+        } else if (sendPost == 5) {
+            mPresenter.getMaga(getActivity(), Authorization, 1, 10, "1", 1);
         }
 
 
@@ -132,51 +138,60 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     }
 
 
-
     @Override
-    public void Date(List<FindBean> bean, int status) {
-        initRecyclerView(bean);
+    public void Date(Object bean, int status) {
+        if (status == 1) {
+            findBeanList = (List<FindBean>) bean;
+        } else if (status == 2) {
+            find2List = (List<Find2Bean.DataBean.RecordsBean>) bean;
+        } else if (status == 3) {
+            find3List = (FindDeilyBean.DataBean) bean;
+        } else if (status == 4) {
+            find4List = (Find4Bean.DataBean) bean;
+        } else if (status == 5) {
+            find5List = (Find5Bean.DataBean.RecordsBean) bean;
+        } else if (status == 6) {
+            zzList = (List<MessageBean1.DataBean.RecordsBean>) bean;
+            initRecyclerView(findBeanList, find2List, find3List, find4List, find5List, zzList);
+        }
 
     }
 
 
-    private void initRecyclerView(final List<FindBean> bean) {
+    private void initRecyclerView(final List<FindBean> bean, List<Find2Bean.DataBean.RecordsBean> find2List, FindDeilyBean.DataBean find3List, Find4Bean.DataBean find4List, Find5Bean.DataBean.RecordsBean find5List, List<MessageBean1.DataBean.RecordsBean> zz) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        findRecyclerview.setLayoutManager(layoutManager);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        Find5SAdapter adapter = new Find5SAdapter(R.layout.find_card5_view,bean);
-        findRecyclerview.setAdapter(adapter);
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                adapter.getViewByPosition(findRecyclerview,position,R.id.find_button);
-                Intent intent = new Intent(getActivity(), UserAbout.class);
-                String paths = bean.get(position).getPathUrl();
-                intent.putExtra("path", paths);
-                startActivity(intent);
-            }
-        });
+        findRecyclerview.setLayoutManager(layoutManager);
+        adapter = new MultiTypeAdapter();
+        adapter.register(HDItem.class, new FindHDAdapter());
+        adapter.register(Find2Tiem.class, new FindHTAdapter());
+        adapter.register(DailyItem.class, new FindDailydapter());
+        adapter.register(YlItem.class, new FindYLAdapter());
+        adapter.register(RankItem.class,new FindRankdapter());
+        adapter.register(ZZSItem.class, new FindZaZhiSAdapter());
 
-//        FindAdapter adapter = new FindAdapter(getActivity(), bean);
-//        Log.d("beanDate", bean.toString());
-//        findRecyclerview.setAdapter(adapter);
-//        final int size = adapter.getItemCount();
-//        Log.d("findSize1:", String.valueOf(size));
-//        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
-//            @Override
-//            public void onItemClick(int Position, String path) {
-//
-//            }
-//
-//            @Override
-//            public void onItemClick(int position) {
-//                Intent intent = new Intent(getActivity(), UserAbout.class);
-//                String paths = bean.get(position).getPathUrl();
-//                intent.putExtra("path", paths);
-//                startActivity(intent);
-//
-//            }
-//        });
+        findRecyclerview.setAdapter(adapter);
+        items = new Items();
+
+
+        for (int m = 0; m < bean.size(); m++) {
+            HDItem item1 = new HDItem(bean.get(m));
+            items.add(item1);
+        }
+        for (int a = 0; a < find2List.size(); a++) {
+            Find2Tiem item2 = new Find2Tiem(find2List.get(a));
+            items.add(item2);
+        }
+        DailyItem item3 = new DailyItem(find3List);
+        items.add(item3);
+        YlItem item4 = new YlItem(find4List);
+        items.add(item4);
+        RankItem item5 = new RankItem(find5List);
+        items.add(item5);
+        ZZSItem item6 = new ZZSItem(zz);
+        items.add(item6);
+        adapter.setItems(items);
+        adapter.notifyDataSetChanged();
 
 
     }
@@ -193,180 +208,6 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         super.onDestroyView();
 //        unbinder.unbind();
         unbinder1.unbind();
-    }
-
-//    /**
-//     * layout_parent = HorizontalScrollView
-//     *
-//     * @param
-//     * @param index 代表这个数据源插入的位置 比如你一个数据源有3条数据 你的addView_2中的index就应该是3
-//     */
-//    private void addView_1(List<FindFirstBean.DataBean.RecordsBean> beans, int index) {
-//        for (int i = 0; i < beans.size(); i++) {
-//            View view = LayoutInflater.from(getActivity()).inflate(R.layout.find_card_view, null);
-//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);//这个类型根据你自己的父亲布局来，
-//            view.setLayoutParams(params);
-//            //这里写对应的控件数据
-////            TextView tv = view.findViewById(R.id.tv);
-//
-//            //添加进父布局
-//            layoutParent.addView(view, index);
-//            index++;
-//        }
-//    }
-//
-//    /**
-//     * layout_parent = HorizontalScrollView
-//     *
-//     * @param
-//     */
-//    private void addView_2(List<Find2Bean.DataBean.RecordsBean> beans, int index) {
-//        for (int i = 0; i < beans.size(); i++) {
-//            View view = LayoutInflater.from(getActivity()).inflate(R.layout.find_card2_view, null);
-//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);//这个类型根据你自己的父亲布局来，
-//            view.setLayoutParams(params);
-//            //这里写对应的控件数据
-////            TextView tv = view.findViewById(R.id.tv);
-//
-//            //添加进父布局
-//            layoutParent.addView(view);
-//            index++;
-//        }
-//    }
-
-    //    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        // TODO: inflate a fragment view
-//        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-//        unbinder1 = ButterKnife.bind(this, rootView);
-//        return rootView;
-//    }
-    private void AlertDialogUpdateStyle() {
-        new PgyUpdateManager.Builder()
-                .setForced(true)                //设置是否强制更新,非自定义回调更新接口此方法有用
-                .setUserCanRetry(false)         //失败后是否提示重新下载，非自定义下载 apk 回调此方法有用
-                .setDeleteHistroyApk(false)     // 检查更新前是否删除本地历史 Apk
-                .setUpdateManagerListener(new UpdateManagerListener() {
-
-                    @Override
-                    public void onNoUpdateAvailable() {
-                        //没有更新是回调此方法
-                        Log.d("pgyer", "there is no new version");
-//                        Toast.makeText(getActivity(), "当前为最新版本", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onUpdateAvailable(final AppBean appBean) {
-                        //没有更新是回调此方法
-                        Log.d("pgyer", "there is new version can update"
-                                + "new versionCode is " + appBean.getVersionCode());
-
-                        //调用以下方法，DownloadFileListener 才有效；如果完全使用自己的下载方法，不需要设置DownloadFileListener
-//                        new AlertDialog(PersionActivity.this).builder().setMsg("发现新版本是否更新?")
-//                                .setPositiveButton("确定", new View.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(View v) {
-//
-//                                        PgyUpdateManager.downLoadApk(appBean.getDownloadURL());
-//                                    }
-//                                }).setNegativeButton("取消", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                Toast.makeText(getApplication(), "取消更新", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).show();
-                        update();
-                    }
-
-
-                    @Override
-                    public void checkUpdateFailed(Exception e) {
-                        //更新检测失败回调
-                        Log.e("pgyer", "check update failed ", e);
-//                        Toast.makeText(getApplicationContext(),"检查更新失败",Toast.LENGTH_SHORT).show();
-
-                    }
-                })
-                //注意 ：下载方法调用 PgyUpdateManager.downLoadApk(appBean.getDownloadURL()); 此回调才有效
-                .setDownloadFileListener(new DownloadFileListener() {   // 使用蒲公英提供的下载方法，这个接口才有效。
-                    @Override
-                    public void downloadFailed() {
-                        //下载失败
-                        Log.e("pgyer", "download apk failed");
-//                        Toast.makeText(getApplicationContext(),"下载失败",Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void downloadSuccessful(Uri uri) {
-                        Log.e("pgyer", "download apk failed");
-//                        Toast.makeText(getApplicationContext(),"下载成功",Toast.LENGTH_SHORT).show();
-                        PgyUpdateManager.installApk(uri);  // 使用蒲公英提供的安装方法提示用户 安装apk
-
-                    }
-
-                    @Override
-                    public void onProgressUpdate(Integer... integers) {
-                        Log.e("pgyer", "update download apk progress : " + integers[0]);
-
-                    }
-                })
-                .register();
-
-    }
-
-    private void update() {
-        Toast.makeText(getActivity(),"请更新",Toast.LENGTH_SHORT).show();
-        myView = LayoutInflater.from(getActivity()).inflate(R.layout.user_about_popwindow, null, true);
-        userTitles = myView.findViewById(R.id.user_update_title);
-        userAbouts = myView.findViewById(R.id.tv_update_content);
-//        bankcard = myView.findViewById(R.id.bankcard);
-        pw = new PopupWindow(getActivity());
-        pw.setContentView(myView);
-        int popwidth = getResources().getDisplayMetrics().widthPixels;
-        int popheight = getResources().getDisplayMetrics().heightPixels;
-        pw.setWidth(Math.round(popwidth * 0.8f));
-        pw.setHeight(Math.round(popheight * 0.45f));
-        pw.setOutsideTouchable(false);
-        pw.setFocusable(false);
-        ColorDrawable dw = new ColorDrawable(Color.TRANSPARENT);
-        darkenBackground(0.8f);
-        pw.setBackgroundDrawable(dw);
-        pw.showAsDropDown(lay1);
-//        pw.showAtLocation(lay1, Gravity.CENTER | Gravity.CENTER, 0, 0);
-        pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-//                darkenBackground(1f);
-//                pw.dismiss();
-            }
-        });
-//        wthdrawColse.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pw.dismiss();
-//            }
-//        });
-//        Alipay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent alipay = new Intent(getActivity(), FragmentAlipay.class);
-//                startActivity(alipay);
-//            }
-//        });
-//        bankcard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent backCadrk = new Intent(getActivity(), FragmentBankWi.class);
-//                startActivity(backCadrk);
-//            }
-//        });
-    }
-
-    private void darkenBackground(Float bgcolor) {
-        WindowManager.LayoutParams ip = getActivity().getWindow().getAttributes();
-        ip.alpha = bgcolor;
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        getActivity().getWindow().setAttributes(ip);
     }
 
     @Override

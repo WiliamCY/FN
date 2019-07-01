@@ -8,8 +8,8 @@ import java.util.List;
 public class FindBean {
     private String imageUrl;
     private String pathUrl;
-    private int status;
-    private String GiveNum,CollectionNum,WantNum,isPHB;
+    private int status,isPHB;
+    private String GiveNum,CollectionNum,WantNum;
     private ArrayList<String> dailyList = new ArrayList<>();
 
 
@@ -17,10 +17,11 @@ public class FindBean {
 
     }
 
-    public FindBean(String url,String pathUrl, int status) {
+    public FindBean(String url,String pathUrl, int status,int isPHB) {
         this.imageUrl = url;
         this.status = status;
         this.pathUrl = pathUrl;
+        this.isPHB = isPHB;
     }
     public FindBean(String url,String pathUrl, int status,String GiveNum,String CollectionNum,String WantNum,ArrayList<String> dailyList ) {
         this.imageUrl = url;
@@ -31,7 +32,7 @@ public class FindBean {
         this.WantNum = WantNum;
         this.dailyList = dailyList;
     }
-    public FindBean(String url,String pathUrl, int status,String GiveNum,String CollectionNum,String WantNum,String isPHB) {
+    public FindBean(String url,String pathUrl, int status,String GiveNum,String CollectionNum,String WantNum,int isPHB) {
         this.imageUrl = url;
         this.status = status;
         this.pathUrl = pathUrl;
@@ -41,11 +42,21 @@ public class FindBean {
         this.isPHB = isPHB;
     }
 
-    public String getIsPHB() {
+    public FindBean(String url,String pathUrl, int status,String GiveNum,String WantNum,int isPHB) {
+        this.imageUrl = url;
+        this.status = status;
+        this.pathUrl = pathUrl;
+        this.GiveNum = GiveNum;
+        this.WantNum = WantNum;
+        this.isPHB = isPHB;
+    }
+
+
+    public int getIsPHB() {
         return isPHB;
     }
 
-    public void setIsPHB(String isPHB) {
+    public void setIsPHB(int isPHB) {
         this.isPHB = isPHB;
     }
 

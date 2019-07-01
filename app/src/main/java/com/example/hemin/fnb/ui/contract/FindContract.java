@@ -52,6 +52,10 @@ public interface FindContract {
     interface dianzans {
         Flowable<BaseObjectBean> getRanking(Context context, Map<String, String> heard, long collectionId);
     }
+    interface modle1{
+        Flowable<BaseObjectBean> getMaga(Context context,Map token, long current, long size, String type );
+
+    }
 
     interface View extends BaseView {
         @Override
@@ -59,7 +63,7 @@ public interface FindContract {
 
         @Override
         void hideLoading();
-            void Date(List<FindBean> bean, int status);
+            void Date(Object bean, int status);
 
         @Override
         void onError(Throwable throwable);
@@ -82,6 +86,7 @@ public interface FindContract {
         void getRankingList(Context context, Map<String, String> heard, long current, long size);
 
         void getRanking(Context context, Map<String, String> heard, long collectionId);
+        void getMaga(Context context, Map token,long current,long size,String type,int status);
 
     }
 
