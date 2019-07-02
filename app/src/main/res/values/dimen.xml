@@ -58,6 +58,7 @@
 
     <!--marginTop -->
     <dimen name="marginTop_1">1dp</dimen>
+    <dimen name="marginTop_2">2dp</dimen>
     <dimen name="marginTop_3">3dp</dimen>
     <dimen name="marginTop_5">5dp</dimen>
     <dimen name="marginTop_6">6dp</dimen>

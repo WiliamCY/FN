@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cffffff"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="71dp"
+        android:text="我要发布"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_17"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/marginBottom_50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_1"
+        android:layout_width="@dimen/layout_width_50"
+        android:layout_height="@dimen/layout_height_50"
+        android:layout_marginTop="@dimen/marginTop_25"
+        android:background="@mipmap/upload_image"
+        app:layout_constraintLeft_toRightOf="@id/title1"
+        app:layout_constraintRight_toLeftOf="@id/title1"
+        app:layout_constraintTop_toBottomOf="@id/title1" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop_10"
+        android:text="相册"
+        android:textColor="@color/c333333"
+        app:layout_constraintLeft_toRightOf="@id/image_1"
+        app:layout_constraintRight_toLeftOf="@id/image_1"
+        app:layout_constraintTop_toBottomOf="@id/image_1" />
+
+    <ImageView
+        android:id="@+id/image_2"
+        android:layout_width="@dimen/layout_width_50"
+        android:layout_height="@dimen/layout_height_50"
+        android:layout_marginTop="@dimen/marginTop_25"
+        android:layout_marginRight="71dp"
+        android:background="@mipmap/upload_video"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop_10"
+        android:text="拍摄"
+        android:textColor="@color/c333333"
+        app:layout_constraintLeft_toRightOf="@id/image_2"
+        app:layout_constraintRight_toLeftOf="@id/image_2"
+        app:layout_constraintTop_toBottomOf="@id/image_2" />
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop_50"
+        android:text="我要鉴定"
+        android:textColor="@color/c333333"
+        android:textSize="@dimen/text_size_17"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/title1"
+        app:layout_constraintTop_toBottomOf="@id/text1" />
+
+    <ImageView
+        android:id="@+id/image_3"
+        android:layout_marginTop="@dimen/marginTop_25"
+        app:layout_constraintLeft_toRightOf="@id/title2"
+        app:layout_constraintRight_toLeftOf="@id/title2"
+        app:layout_constraintTop_toBottomOf="@id/title2"
+        android:layout_width="@dimen/layout_width_50"
+        android:layout_height="@dimen/layout_height_50"
+        android:background="@mipmap/upload_jd" />
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop_10"
+        android:text="鉴定"
+        android:textColor="@color/c333333"
+        app:layout_constraintLeft_toRightOf="@id/image_3"
+        app:layout_constraintRight_toLeftOf="@id/image_3"
+        app:layout_constraintTop_toBottomOf="@id/image_3" />
+
+<ImageView
+    android:id="@+id/upload_dissmiss"
+    android:layout_marginBottom="@dimen/marginBottom_30"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    android:background="@mipmap/upload_dissmiss"
+    android:layout_width="@dimen/layout_width_15"
+    android:layout_height="@dimen/layout_height_15" />
+</android.support.constraint.ConstraintLayout>

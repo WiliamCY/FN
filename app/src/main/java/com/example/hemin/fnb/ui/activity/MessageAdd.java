@@ -114,6 +114,10 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         //展示有动画和无动画
         itPickerView.setShowAnim(true);
         itPickerView.setMaxNum(9);
+        Intent intent2 = new Intent(AppUtils.getContext(), PhotoSelectorActivity.class);
+        intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent2.putExtra("limit", 9 - adapter.getItemCount());//number是选择图片的数量
+        startActivityForResult(intent2, 0);
         itPickerView.setPickerListener(new ImageShowPickerListener() {
             @Override
             public void addOnClickListener(int remainNum) {
@@ -144,7 +148,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
-                finish();
+              Intent intent = new Intent(MessageAdd.this,MainActivity.class);
+                  startActivity(intent);
                 break;
             case R.id.add:
                 if (TextUtils.isEmpty(getEdittext())) {

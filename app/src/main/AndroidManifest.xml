@@ -147,6 +147,12 @@
             android:name=".ui.activity.TaskBigImgActivityS"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.UploadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PublishingCollections"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.zzti.fengyongge.imagepicker.PhotoSelectorActivity"
             android:screenOrientation="portrait" />
         <activity

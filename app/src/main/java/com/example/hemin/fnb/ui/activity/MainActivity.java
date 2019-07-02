@@ -8,19 +8,19 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.sever.DemoIntentService;
-import com.example.hemin.fnb.ui.sever.DemoPushService;
 import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.base.BaseFragment;
 import com.example.hemin.fnb.ui.fragment.TabFindFragment;
 import com.example.hemin.fnb.ui.fragment.TabMessageFragment;
 import com.example.hemin.fnb.ui.fragment.TabMyFragment;
 import com.example.hemin.fnb.ui.fragment.TabShopFragment;
+import com.example.hemin.fnb.ui.sever.DemoIntentService;
+import com.example.hemin.fnb.ui.sever.DemoPushService;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
@@ -39,21 +39,23 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     FrameLayout activityMaterialDesign;
     @BindView(R.id.rg_oper)
     RadioGroup rgOper;
-    @BindView(R.id.img_protruding)
-    ImageView imgProtruding;
+    //    @BindView(R.id.img_protruding)
+//    ImageView imgProtruding;
     @BindView(R.id.fl)
     FrameLayout fl;
     @BindView(R.id.r1)
     RelativeLayout r1;
     @BindView(R.id.vb_mian_show)
     ViewStub vbMianShow;
+    @BindView(R.id.img_protruding)
+    RadioButton imgProtruding;
     private List<BaseFragment> fragmentList = new ArrayList<>();
     private TabFindFragment tabFindFragment;
     private TabShopFragment tabShopFragment;
     private TabMessageFragment tabMessageFragment;
     private TabMyFragment tabMyFragment;
     private FragmentManager fm;
-    private PublishingCollections pubFragment;
+//    private PublishingCollections pubFragment;
     FragmentTransaction transaction;
     private RadioGroup mRadioButtonRg;
     private FragmentTransaction transaction1;
@@ -77,14 +79,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         FragmentManager fragmentManager = getSupportFragmentManager();
         tabFindFragment = new TabFindFragment();
         fragmentManager.beginTransaction().replace(R.id.fl, tabFindFragment, homepage).commit();
-//        Utils.initLogins(this);
-//        if (Utils.booleanisLogin(this)) {
-//            Intent intent = new Intent(this,Bannser.class);
-//            startActivity(intent);
-//            Intent intent = new Intent(this, PasswordActivity.class);
-//            startActivity(intent);
-//        }
-
+        imgProtruding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UploadActivity.class);
+                startActivity(intent);
+            }
+        });
 //
         if (Utils.booleanisLogin(this)) {
             Intent intent = new Intent(this, WelcomeLoading.class);
@@ -93,8 +94,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
 
     }
-
-
 
 
     private void initViews() {
@@ -106,8 +105,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         tabShopFragment = (TabShopFragment) fm.findFragmentByTag("shop");
         tabMessageFragment = (TabMessageFragment) fm.findFragmentByTag("message");
         tabMyFragment = (TabMyFragment) fm.findFragmentByTag("my");
-        pubFragment = (PublishingCollections) fm.findFragmentByTag("pub");
-        imgProtruding = (ImageView) findViewById(R.id.img_protruding);
+//        pubFragment = (PublishingCollections) fm.findFragmentByTag("pub");
         XXPermissions.with(this)
                 .constantRequest() //可设置被拒绝后继续申请，直到用户授权或者永久拒绝
                 //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES) //支持请求6.0悬浮窗权限8.0请求安装权限
@@ -144,9 +142,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         if (tabMyFragment != null) {
             transaction1.hide(tabMyFragment);
         }
-        if (pubFragment != null) {
-            transaction1.hide(pubFragment);
-        }
+//        if (pubFragment != null) {
+//            transaction1.hide(pubFragment);
+//        }
         if (checkedId == R.id.rd_analysis) {
             if (tabFindFragment == null) {
                 tabFindFragment = new TabFindFragment();
@@ -182,13 +180,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 transaction1.show(tabMyFragment);
             }
 
-        } else if (checkedId == R.id.rd_daily) {
-            if (pubFragment == null) {
-                pubFragment = new PublishingCollections();
-                transaction1.add(R.id.fl, pubFragment, "pub");
-            } else {
-                transaction1.show(pubFragment);
-            }
+//        } else if (checkedId == R.id.img_protruding) {
+//            if (pubFragment == null) {
+//                pubFragment = new PublishingCollections();
+//                transaction1.add(R.id.fl, pubFragment, "pub");
+//            } else {
+//                transaction1.show(pubFragment);
+//            }
 
         }
 
@@ -202,7 +200,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //        ButterKnife.bind(this);
 //    }
 
-//
+    //
 //    @Override
 //    public void onBackPressed() {
 //         if(!mBackKeyPressed){
@@ -220,14 +218,21 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //System.exit(0);
 //        }
 //    }
-@Override
-public boolean dispatchKeyEvent(KeyEvent event) {
-    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-        //do something.
-       this.finish();
-        return true;
-    } else {
-        return super.dispatchKeyEvent(event);
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            //do something.
+            this.finish();
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
     }
-}
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

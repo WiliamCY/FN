@@ -23,7 +23,6 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.adapter.ImageViewAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
-import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.GetTypeContract;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
@@ -50,7 +49,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 
-public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> implements GetTypeContract.View {
+public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> implements GetTypeContract.View {
     private final int REQUEST_CODE = 111;
     @BindView(R.id.pc_photo)
     ImageView pcPhoto;
@@ -88,6 +87,8 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
     ImageView imageAddButton;
     @BindView(R.id.imageNumber)
     TextView imageViewNumber;
+    @BindView(R.id.back)
+    ImageView back;
     private Button button;
     private String cachePath;
     private List<String> imagePath = new ArrayList<String>();
@@ -96,31 +97,32 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
     private String typeIds;
     private int i = 0;
 
-    @Override
-    protected void initView(View view) {
-        if(!EventBus.getDefault().isRegistered(this)){
-            EventBus.getDefault().register(this);
-        }
-        mPresenter = new GetTypePresenter();
-        mPresenter.attachView(this);
-        ButterKnife.bind(getActivity());
-
-        cachePath = getActivity().getExternalFilesDir(null) + "/mypics/photos/";
-    }
 
     @Override
     public int getLayoutId() {
         return R.layout.publishing_collections;
     }
 
+    @Override
+    public void initView() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+        mPresenter = new GetTypePresenter();
+        mPresenter.attachView(this);
+        ButterKnife.bind(this);
+
+        cachePath = getExternalFilesDir(null) + "/mypics/photos/";
+    }
 
 
-    @OnClick({R.id.pc_photo, R.id.pc_button, R.id.submission, R.id.image_add_button})
+    @OnClick({R.id.pc_photo, R.id.pc_button, R.id.submission, R.id.image_add_button,R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.pc_photo:
                 //发起图片选择
-                Intent intent = new Intent(getActivity(), PhotoSelectorActivity.class);
+                Intent intent = new Intent(this, PhotoSelectorActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("limit", 12);//number是选择图片的数量
                 startActivityForResult(intent, 0);
@@ -128,45 +130,51 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
             case R.id.pc_button:
                 Map<String, String> map = new HashMap<>();
                 map.put("Authorization", "usERa" + getToken());
-                mPresenter.getType(getActivity(), map);
+                mPresenter.getType(this, map);
 
                 break;
             case R.id.submission:
-                if (pcButton.getText().equals("选择分类")||TextUtils.isEmpty(getEdittect())) {
-                    Utils.showMyToast(Toast.makeText(getActivity(),"请输入完整",Toast.LENGTH_SHORT),400);
+                if (pcButton.getText().equals("选择分类") || TextUtils.isEmpty(getEdittect())) {
+                    Utils.showMyToast(Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT), 400);
                     return;
                 } else if (adapter.getItemCount() < 5 || adapter.getItemCount() > 12) {
-                    Utils.showMyToast(Toast.makeText(getActivity(),"图片在5-12张范围之内",Toast.LENGTH_SHORT),400);
+                    Utils.showMyToast(Toast.makeText(this, "图片在5-12张范围之内", Toast.LENGTH_SHORT), 400);
                     return;
                 }
                 Log.d("imageSizeSend", String.valueOf(imageUrls.size()));
                 String dates = imageUrls.toString().trim();
-                if(dates.trim().contains("[") || dates.trim().contains("]") ){
-                 dates = dates.substring(1,dates.length()-1);
+                if (dates.trim().contains("[") || dates.trim().contains("]")) {
+                    dates = dates.substring(1, dates.length() - 1);
                 }
-                SharedPreferences sp = getActivity().getSharedPreferences("userDate", getActivity().MODE_PRIVATE);
+                SharedPreferences sp = this.getSharedPreferences("userDate", this.MODE_PRIVATE);
                 String id = sp.getString("userId", "");
                 HashMap<String, String> map2 = new HashMap<>();
                 map2.put("collectionType", typeIds);
                 map2.put("imagesDetails", getEdittect());
                 map2.put("imagesUrl", dates);
-                Log.d("sendImage:",dates);
+                Log.d("sendImage:", dates);
                 map2.put("userId", id);
                 HashMap<String, String> token = new HashMap<>();
                 token.put("Authorization", "usERa" + getToken());
-                mPresenter.submitImage(getActivity(), token, Utils.RetrofitHead(map2));
+                mPresenter.submitImage(this, token, Utils.RetrofitHead(map2));
                 break;
             case R.id.image_add_button:
-                if(adapter.getItemCount()>11){
-                    Utils.showMyToast(Toast.makeText(getActivity(),"放置图片已经最大值",Toast.LENGTH_SHORT),400);
+                if (adapter.getItemCount() > 11) {
+                    Utils.showMyToast(Toast.makeText(this, "放置图片已经最大值", Toast.LENGTH_SHORT), 400);
                     return;
                 }
-                Intent intent2 = new Intent(getActivity(), PhotoSelectorActivity.class);
+                Intent intent2 = new Intent(this, PhotoSelectorActivity.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent2.putExtra("limit", 12-adapter.getItemCount());//number是选择图片的数量
+                intent2.putExtra("limit", 12 - adapter.getItemCount());//number是选择图片的数量
                 startActivityForResult(intent2, 0);
+                break;
+            case R.id.back:
+             Intent intent1 = new Intent(this,MainActivity.class);
+             startActivity(intent1);
         }
+
     }
+
     @Subscribe(id = 4)
     public void printss(String message) {
         if (Integer.parseInt(message) < 13) {
@@ -179,6 +187,7 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
             imageViewNumber.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -189,20 +198,20 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
 
                     addImageView(paths);
-                    imageViewNumber.setText(adapter.getItemCount()+"/12");
+                    imageViewNumber.setText(adapter.getItemCount() + "/12");
                     for (int i = 0; i < paths.size(); i++) {
                         String path = paths.get(i);
-                        Log.d("pathsss:",path);
+                        Log.d("pathsss:", path);
                         File file = new File(paths.get(i));
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
-                        mPresenter.postImage(getActivity(), map, imageBodyPart);
+                        mPresenter.postImage(this, map, imageBodyPart);
                     }
                     //处理代码
                     Log.d("photoPath", paths.toString());
                     if (adapter.getItemCount() > 11) {
 //                       imageAddButton.setVisibility(View.GONE);
-                        Utils.showMyToast(Toast.makeText(getActivity(),"添加的图片已经是最大值了",Toast.LENGTH_SHORT),400);
+                        Utils.showMyToast(Toast.makeText(this, "添加的图片已经是最大值了", Toast.LENGTH_SHORT), 400);
                     }
 
 
@@ -218,7 +227,7 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
         for (int i = 0; i < path.size(); i++) {
             if (Arrays.asList(imagePath).contains(path.get(i))) {
 
-                Utils.showMyToast(Toast.makeText(getActivity(),"已经存在",Toast.LENGTH_SHORT),400);
+                Utils.showMyToast(Toast.makeText(this, "已经存在", Toast.LENGTH_SHORT), 400);
             } else {
 
                 imagePath.add(path.get(i));
@@ -228,11 +237,11 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
                 pcAdd.setVisibility(View.GONE);
                 imageViewNumber.setVisibility(View.VISIBLE);
                 imageAddButton.setVisibility(View.VISIBLE);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                 imageviewRecyclerview.setLayoutManager(linearLayoutManager);
                 linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
                 Log.d("imagePaths", imagePath.toString());
-                adapter = new ImageViewAdapter(imagePath, getActivity());
+                adapter = new ImageViewAdapter(imagePath, this);
                 imageviewRecyclerview.setAdapter(adapter);
                 adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
                     @Override
@@ -259,7 +268,7 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
     }
 
     private String getToken() {
-        SharedPreferences sp = getActivity().getSharedPreferences("userDate", getActivity().MODE_PRIVATE);
+        SharedPreferences sp = this.getSharedPreferences("userDate", MODE_PRIVATE);
         String c = sp.getString("Authorization", "");
         System.out.println(c);
         return sp.getString("Authorization", "");
@@ -268,8 +277,8 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
     @Override
     public void onSuccess(BaseObjectBean bean) {
 
-        if(bean.getErrorCode() != 0){
-            Toast.makeText(getActivity(), bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        if (bean.getErrorCode() != 0) {
+            Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -279,7 +288,7 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
 
     @Override
     public void showLoading() {
-        ProgressDialog.getInstance().show(getActivity());
+        ProgressDialog.getInstance().show(this);
     }
 
     @Override
@@ -300,19 +309,19 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
 
     }
 
-    public void getDate(List<String> date,List<String> ids) {
-        initOptionPicker(date,ids);
+    public void getDate(List<String> date, List<String> ids) {
+        initOptionPicker(date, ids);
     }
 
-    private void initOptionPicker(final List<String> typeName,final List<String> ids) {
-        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
+    private void initOptionPicker(final List<String> typeName, final List<String> ids) {
+        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 pcButton.setText(typeName.get(options1));
-                 typeIds = ids.get(options1);
+                typeIds = ids.get(options1);
             }
-        }).setSubmitColor(ContextCompat.getColor(getActivity(), R.color.c4D6EEF))
-                .setCancelColor(ContextCompat.getColor(getActivity(), R.color.c4D6EEF))
+        }).setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
+                .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setDividerColor(Color.BLACK)
                 .setCancelText("取消")
                 .setSubmitText("确定")
@@ -327,8 +336,15 @@ public class PublishingCollections extends BaseMvpFragment<GetTypePresenter> imp
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(EventBus.getDefault().isRegistered(this)){
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ViewStub
-        android:layout="@layout/toolbar"
         android:id="@+id/vb_mian_show"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"/>
+        android:layout_height="?actionBarSize"
+        android:layout="@layout/toolbar" />
+
     <RelativeLayout
         android:id="@+id/r1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="#fff">
 
@@ -33,47 +35,45 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@+id/rg_oper"
-            android:layout_marginBottom="5dp"
             android:background="@color/stroke_line" />
 
 
-
-
-        <RadioGroup
+            <RadioGroup
             android:id="@+id/rg_oper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:background="#00000000"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/paddingBottom_5">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rd_analysis"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+               android:layout_marginTop="@dimen/marginTop_2"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:button="@null"
                 android:checked="true"
-                android:drawablePadding="3dp"
                 android:drawableTop="@drawable/tab_find"
+                android:drawablePadding="3dp"
                 android:gravity="center"
-                android:layout_marginLeft="5dp"
                 android:text="发现"
                 android:textColor="@color/color_radiobutton"
                 android:textSize="@dimen/text_size_12" />
 
             <RadioButton
-
+                android:layout_marginTop="@dimen/marginTop_2"
                 android:id="@+id/rd_educationadmin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:button="@null"
-                android:drawablePadding="3dp"
                 android:drawableTop="@drawable/tab_shop"
+                android:drawablePadding="3dp"
                 android:gravity="center"
                 android:text="藏宝阁"
                 android:textColor="@color/color_radiobutton"
@@ -81,57 +81,50 @@
 
 
             <RadioButton
-                android:id="@+id/rd_daily"
+                android:id="@+id/img_protruding"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTop_5"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:button="@null"
-                android:clipChildren="false"
-                android:gravity="center|bottom"
-                android:text="上传"
-                android:textColor="@color/color_radiobutton"
-                android:textSize="@dimen/text_size_12" />
+                android:drawableTop="@mipmap/photos"
+                android:drawablePadding="3dp"
+                android:gravity="center" />
 
             <RadioButton
-
+                android:layout_marginTop="@dimen/marginTop_2"
                 android:id="@+id/rd_finance"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:button="@null"
-                android:drawablePadding="3dp"
                 android:drawableTop="@drawable/tab_message"
+                android:drawablePadding="3dp"
                 android:gravity="center"
                 android:text="藏友圈"
                 android:textColor="@color/color_radiobutton"
                 android:textSize="@dimen/text_size_12" />
 
             <RadioButton
+                android:layout_marginTop="@dimen/marginTop_2"
                 android:id="@+id/rd_me"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:button="@null"
-                android:drawablePadding="3dp"
                 android:drawableTop="@drawable/tab_my"
+                android:drawablePadding="3dp"
                 android:gravity="center"
                 android:text="我的"
                 android:textColor="@color/color_radiobutton"
-                android:textSize="@dimen/text_size_12"
-                android:layout_marginRight="5dp"/>
+                android:textSize="@dimen/text_size_12" />
         </RadioGroup>
 
-        <ImageView
-            android:id="@+id/img_protruding"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="23dp"
-            android:src="@mipmap/photo" />
+
     </RelativeLayout>
 
 </LinearLayout>
