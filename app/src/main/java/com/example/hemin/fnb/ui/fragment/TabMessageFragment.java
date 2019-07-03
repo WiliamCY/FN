@@ -18,6 +18,7 @@ import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.MessageAdd;
 import com.example.hemin.fnb.ui.adapter.BaseViewPagerAdapter;
 import com.example.hemin.fnb.ui.base.BaseFragment;
+import com.example.hemin.fnb.ui.util.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -27,6 +28,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
@@ -95,10 +97,11 @@ public class TabMessageFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);
-                SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
-                simplePagerTitleView.setNormalColor(R.color.c999999);
-                simplePagerTitleView.setSelectedColor(Color.BLACK);
+                SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
+                simplePagerTitleView.setNormalColor(Color.parseColor("#666666"));
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#333333"));
                 simplePagerTitleView.setText(mDataList.get(index));
+                simplePagerTitleView.setTextSize(18);
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -114,8 +117,9 @@ public class TabMessageFragment extends BaseFragment {
 
             @Override
             public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
-                return linePagerIndicator;
+                WrapPagerIndicator indicator = new WrapPagerIndicator(context);
+                indicator.setFillColor(Color.parseColor("#FBED44"));
+                return indicator;
             }
         });
         magicIndicator.setNavigator(commonNavigator);

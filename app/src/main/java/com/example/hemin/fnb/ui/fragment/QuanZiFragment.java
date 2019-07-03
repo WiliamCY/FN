@@ -83,17 +83,24 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         Log.d("indexNumbersssIIII", String.valueOf(i));
         QuanZiFragment quanZiFragment = new QuanZiFragment();
         Bundle bundle = new Bundle();
-        if (i == "我的关注") {
+        if (i == "发布") {
             bundle.putInt("index", 0);
-        } else {
-            bundle.putInt("index", 1);
+        } else if (i == "收藏") {
+              bundle.putInt("index",1);
+        } else if (i == "想要") {
+
         }
+//        if (i == "关注") {
+//            bundle.putInt("index", 0);
+//        } else {
+//   bundle.putInt("index", 1);
+//        }
         quanZiFragment.setArguments(bundle);
         return quanZiFragment;
     }
 
     @Override
-    protected void initView(View view) {
+    public void lazyInitView(View view) {
         mPresenter = new WoDoQuanZiPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
@@ -101,10 +108,10 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         token = Utils.getAuthorization(getActivity());
         userId = sp.getString("userId", "");
-        if (index == 0) {//我的关注
-            mPresenter.myGuanzhu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 1);
-        } else {///我的发布
-            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
+        if (index == 0) {//我的发布
+           mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
+        } else if(index == 1) {///我的收藏
+       mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),0);
         }
 
 
@@ -166,13 +173,13 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     }
 
     @Override
-    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName,String isGiveNum) {
+    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName, String isGiveNum) {
 
-        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName,isGiveNum);
+        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName, isGiveNum);
 
     }
 
-    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName,String isGiveNum) {
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName, String isGiveNum) {
         recordPaths.clear();
         for (int i = 0; i < object.size(); i++) {
             String path = object.get(i).getImagesUrl();
@@ -190,7 +197,7 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         imgIntent.putExtra("StringContent", content);
         imgIntent.putExtra("userUrl", userUrl);
         imgIntent.putExtra("nickName", nickName);
-        imgIntent.putExtra("isGiveNum",isGiveNum);
+        imgIntent.putExtra("isGiveNum", isGiveNum);
         startActivity(imgIntent);
 
     }

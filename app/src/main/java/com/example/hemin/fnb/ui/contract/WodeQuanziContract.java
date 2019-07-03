@@ -23,6 +23,9 @@ public interface WodeQuanziContract  {
        Flowable<BaseObjectBean> Remove(Context context,Map token,String fuId);
 
     }
+    interface  Collect{
+        Flowable<BaseObjectBean>  MyCollect(Context context,Map token,long current,long size,long userId);
+    }
 
     interface View extends BaseView {
         @Override
@@ -44,6 +47,7 @@ public interface WodeQuanziContract  {
 
         void getFidner(Context context,Map token, long friendId,int userId);
         void  Remove(Context context,Map token,String fuid);
+        void  MyCollect(Context context,Map token,long current,long size,long userId,int status);
     }
 
 }

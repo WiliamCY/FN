@@ -328,5 +328,5 @@ public interface APIService {
    * */
   @PUT("/app/user/myCollection/{current}/{size}/{userId}")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
-  Flowable<BaseObjectBean>  MyCollect(@HeaderMap Map<String,String> heard , @Path("current") long current, @Path("size") long size, @Path("userId") String userId);
+  Flowable<BaseObjectBean>  MyCollect(@HeaderMap Map<String,String> heard , @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
 }

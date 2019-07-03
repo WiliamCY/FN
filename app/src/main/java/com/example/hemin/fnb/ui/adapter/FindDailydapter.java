@@ -1,5 +1,6 @@
 package com.example.hemin.fnb.ui.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
@@ -17,6 +19,9 @@ import com.example.hemin.fnb.ui.activity.TaskBigImgActivityS;
 import com.example.hemin.fnb.ui.activity.UserAbout;
 import com.example.hemin.fnb.ui.bean.DailyItem;
 import com.example.hemin.fnb.ui.bean.Find2Tiem;
+import com.example.hemin.fnb.ui.bean.FindDeilyBean;
+import com.example.hemin.fnb.ui.interfaces.OnFindClickListener;
+import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.util.AppUtils;
 
 import java.util.ArrayList;
@@ -25,6 +30,11 @@ import me.drakeet.multitype.ItemViewBinder;
 
 public class FindDailydapter extends ItemViewBinder<DailyItem, FindDailydapter.FindZaZhiHolder> {
     private ArrayList<String> path = new ArrayList<>();
+    private OnFindClickListener monItemClickListener;
+    public void setRecyclerItemClickListener(OnFindClickListener monItemClickListener) {
+        this.monItemClickListener = monItemClickListener;
+    }
+
     @NonNull
     @Override
     protected FindDailydapter.FindZaZhiHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
@@ -56,19 +66,36 @@ public class FindDailydapter extends ItemViewBinder<DailyItem, FindDailydapter.F
                        }
                    }
                });
-//        helper.setText(R.id.title_1,item.getGiveNum());
-//        helper.setText(R.id.title_2,item.getCollectionNum());
-//        helper.setText(R.id.title_3,item.getWantNum());
-//            Glide.with(AppUtils.getContext()).load(item.beans.getTopicUrl().trim()).into(holder.image);
-//               holder.image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(AppUtils.getContext(), UserAbout.class);
-//                intent.putExtra("path",item.beans.getTopicUrl());
-//                AppUtils.getContext().startActivity(intent);
-//            }
-//        });
-
+            holder.title_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(monItemClickListener != null){
+                        monItemClickListener.onItemClick(holder.title_1,0);
+                    }else {
+                      Toast.makeText(AppUtils.getContext(),"11111",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        holder.title_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(monItemClickListener != null){
+                    monItemClickListener.onItemClick(holder.title_2,1);
+                }else {
+                    Toast.makeText(AppUtils.getContext(),"11111",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        holder.title_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(monItemClickListener != null){
+                    monItemClickListener.onItemClick(holder.title_3,2);
+                }else {
+                    Toast.makeText(AppUtils.getContext(),"11111",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public class FindZaZhiHolder extends RecyclerView.ViewHolder {
@@ -86,6 +113,7 @@ public class FindDailydapter extends ItemViewBinder<DailyItem, FindDailydapter.F
             title_2 = view.findViewById(R.id.title_2);
             title_3 = view.findViewById(R.id.title_3);
             find_button = view.findViewById(R.id.find_button);
+
         }
     }
 }

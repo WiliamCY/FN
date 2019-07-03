@@ -70,17 +70,30 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     private Message3Apdater adapter3 = new Message3Apdater(R.layout.message_adapter, data3);
     private int pageIndex = 1;
 
+//
+//    @Override
+//    protected void initView(View view) {
+//        mPresenter = new MessagePresenter();
+//        mPresenter.attachView(this);
+//        int index = this.getArguments().getInt("index");
+//        Log.d("MessageIndex", String.valueOf(index));
+//        map = Utils.getAuthorization(getActivity());
+//        initDate(index);
+//
+//
+//    }
+@Override
+protected int getLayoutId() {
+    return R.layout.message;
+}
+
 
     @Override
-    protected void initView(View view) {
+    public void lazyInitView(View view) {
         mPresenter = new MessagePresenter();
         mPresenter.attachView(this);
         int index = this.getArguments().getInt("index");
-        Log.d("MessageIndex", String.valueOf(index));
-        map = Utils.getAuthorization(getActivity());
         initDate(index);
-
-
     }
 
     public static MessageFragment getInstance(String status) {
@@ -98,6 +111,8 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     }
 
     private void initDate(int index) {
+        Log.d("MessageIndex", String.valueOf(index));
+        map = Utils.getAuthorization(getActivity());
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         userId = sp.getString("userId", "");
         if (index == 0) {
@@ -109,10 +124,6 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         }
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.message;
-    }
 
     @Override
     public void Date(final Object object, int index) {

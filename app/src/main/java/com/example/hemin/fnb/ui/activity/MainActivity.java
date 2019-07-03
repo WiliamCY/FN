@@ -36,11 +36,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private static String homepage = "findFragment";
-    FrameLayout activityMaterialDesign;
     @BindView(R.id.rg_oper)
     RadioGroup rgOper;
-    //    @BindView(R.id.img_protruding)
-//    ImageView imgProtruding;
     @BindView(R.id.fl)
     FrameLayout fl;
     @BindView(R.id.r1)
@@ -49,7 +46,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     ViewStub vbMianShow;
     @BindView(R.id.img_protruding)
     RadioButton imgProtruding;
-    private List<BaseFragment> fragmentList = new ArrayList<>();
     private TabFindFragment tabFindFragment;
     private TabShopFragment tabShopFragment;
     private TabMessageFragment tabMessageFragment;
@@ -107,8 +103,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         tabMyFragment = (TabMyFragment) fm.findFragmentByTag("my");
 //        pubFragment = (PublishingCollections) fm.findFragmentByTag("pub");
         XXPermissions.with(this)
-                .constantRequest() //可设置被拒绝后继续申请，直到用户授权或者永久拒绝
-                //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES) //支持请求6.0悬浮窗权限8.0请求安装权限
+                .constantRequest()
                 .permission(Permission.Group.STORAGE, Permission.Group.CALENDAR) //不指定权限则自动获取清单中的危险权限
                 .request(new OnPermission() {
 
@@ -193,31 +188,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         transaction1.commit();
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        // TODO: add setContentView(...) invocation
-//        ButterKnife.bind(this);
-//    }
 
-    //
-//    @Override
-//    public void onBackPressed() {
-//         if(!mBackKeyPressed){
-//    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-//    mBackKeyPressed = true;
-//    new Timer().schedule(new TimerTask() {//延时两秒，如果超出则擦错第一次按键记录
-//         @Override
-//         public void run() {
-//         mBackKeyPressed = false;
-//     }
-//            }, 2000);
-//        }
-//        else{//退出程序
-//     this.finish();
-//System.exit(0);
-//        }
-//    }
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {

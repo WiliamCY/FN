@@ -23,12 +23,14 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
     private WodeQuanziContract.Mode2 mode2;
     private WodeQuanziContract.modle4 modle4;
     private WodeQuanziContract.modle5 modle5;
+    private WodeQuanziContract.Collect modle6;
 
     public WoDoQuanZiPresenter() {
         mode2 = new WoDeQuanZiModel();
         model = new WoDeQuanZiModel();
         modle4 = new WoDeQuanZiModel();
         modle5 = new WoDeQuanZiModel();
+        modle6 = new WoDeQuanZiModel();
     }
 
 
@@ -74,7 +76,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-//                        mView.hideLoading();
+
                         ReleaseBean.DataBean bean1 = (ReleaseBean.DataBean) bean.getResult();
                         List<ReleaseBean.DataBean.RecordsBean> list = bean1.getRecords();
                         mView.Date(list,status);
@@ -88,10 +90,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                 });
     }
 
-//    @Override
-//    public void getFidner(Context context, Map token, long friendId, int userId) {
-//
-//    }
+
     @Override
     public void getFidner(Context context, Map token, long friendId, final int userId) {
         if(!isViewAttached()){
@@ -139,6 +138,30 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                         mView.onSuccess(bean);
                         mView.hideLoading();
                         mView.Date("1",99);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void MyCollect(Context context, Map token, long current, long size, long userId,int status) {
+        if(!isViewAttached()){
+            return;
+        }
+        mView.showLoading();
+        modle6.MyCollect(context, token,current,size,userId)
+                .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
+                .as(mView.<BaseObjectBean>bindAutoDispose())
+                .subscribe(new Consumer<BaseObjectBean>() {
+                    @Override
+                    public void accept(BaseObjectBean bean) throws Exception {
+                        mView.onSuccess(bean);
+                        mView.hideLoading();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

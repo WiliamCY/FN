@@ -244,7 +244,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.titl1,R.id.zan,R.id.header_left_img})
+    @OnClick({R.id.titl1,R.id.zan,R.id.header_left_img,R.id.collect})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.titl1:
@@ -255,12 +255,14 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
 
                 break;
             case R.id.zan:
-                                         token = Utils.getAuthorization(getApplication());
+                token = Utils.getAuthorization(getApplication());
                         mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
                         break;
             case R.id.header_left_img:
                 finish();
                 break;
+            case R.id.collect:
+
 
         }
     }

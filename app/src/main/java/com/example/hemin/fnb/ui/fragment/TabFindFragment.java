@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
@@ -36,6 +37,8 @@ import com.example.hemin.fnb.ui.bean.RankItem;
 import com.example.hemin.fnb.ui.bean.YlItem;
 import com.example.hemin.fnb.ui.bean.ZZSItem;
 import com.example.hemin.fnb.ui.contract.FindContract;
+import com.example.hemin.fnb.ui.interfaces.OnFindClickListener;
+import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.FindPresenter;
 import com.example.hemin.fnb.ui.util.Utils;
 
@@ -72,12 +75,20 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     private FindDeilyBean.DataBean find3List = null;
     private Find4Bean.DataBean find4List = null;
     private Find5Bean.DataBean.RecordsBean find5List = null;
+    private     FindDailydapter findDailydapter = new FindDailydapter();
+
+
 
     @Override
     protected void initView(View view) {
         mPresenter = new FindPresenter();
         mPresenter.attachView(this);
         initDate();
+    }
+
+    @Override
+    public void lazyInitView(View view) {
+
     }
 
     private void initDate() {
@@ -165,15 +176,12 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         adapter = new MultiTypeAdapter();
         adapter.register(HDItem.class, new FindHDAdapter());
         adapter.register(Find2Tiem.class, new FindHTAdapter());
-        adapter.register(DailyItem.class, new FindDailydapter());
+        adapter.register(DailyItem.class, findDailydapter);
         adapter.register(YlItem.class, new FindYLAdapter());
         adapter.register(RankItem.class,new FindRankdapter());
         adapter.register(ZZSItem.class, new FindZaZhiSAdapter());
-
         findRecyclerview.setAdapter(adapter);
         items = new Items();
-
-
         for (int m = 0; m < bean.size(); m++) {
             HDItem item1 = new HDItem(bean.get(m));
             items.add(item1);
@@ -191,8 +199,17 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         ZZSItem item6 = new ZZSItem(zz);
         items.add(item6);
         adapter.setItems(items);
-        adapter.notifyDataSetChanged();
+        findDailydapter.setRecyclerItemClickListener(new OnFindClickListener() {
+            @Override
+            public void onItemClick(  TextView textView,int position) {
+                Log.d("wdawda",String.valueOf(position));
+                if(position == 0){
 
+                }
+            }
+        });
+
+        adapter.notifyDataSetChanged();
 
     }
 

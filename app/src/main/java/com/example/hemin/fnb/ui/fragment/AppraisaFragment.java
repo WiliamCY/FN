@@ -157,19 +157,43 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     }
 
+//    @Override
+//    protected void initView(View view) {
+//        mPresenter = new AppraisaPresenter();
+//        mPresenter.attachView(this);
+//        ButterKnife.bind(getActivity());
+//        boolean status = this.getArguments().getBoolean("status");
+//         indexNumber = this.getArguments().getInt("indexNumber");
+//        Log.d("indexNumbers", String.valueOf(indexNumber));
+//        SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
+//        String tokenType = sp.getString("tokenType", "");
+//        String Authorization = sp.getString("Authorization", "");
+//         userId = sp.getString("userId", "");
+//         map = new HashMap<>();
+//        map.put("Authorization", tokenType + Authorization);
+//        if (status == true) {
+//            mPresenter.Appraisa(map, 1, 10, indexNumber, Long.parseLong(userId),1);
+//
+//
+//        } else {
+//            mPresenter.Appraisas(getActivity(), map, 1, 10, indexNumber, Long.parseLong(userId),2);
+//        }
+//
+//    }
+
     @Override
-    protected void initView(View view) {
+    public void lazyInitView(View view) {
         mPresenter = new AppraisaPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(getActivity());
         boolean status = this.getArguments().getBoolean("status");
-         indexNumber = this.getArguments().getInt("indexNumber");
+        indexNumber = this.getArguments().getInt("indexNumber");
         Log.d("indexNumbers", String.valueOf(indexNumber));
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         String tokenType = sp.getString("tokenType", "");
         String Authorization = sp.getString("Authorization", "");
-         userId = sp.getString("userId", "");
-         map = new HashMap<>();
+        userId = sp.getString("userId", "");
+        map = new HashMap<>();
         map.put("Authorization", tokenType + Authorization);
         if (status == true) {
             mPresenter.Appraisa(map, 1, 10, indexNumber, Long.parseLong(userId),1);
@@ -178,7 +202,6 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
         } else {
             mPresenter.Appraisas(getActivity(), map, 1, 10, indexNumber, Long.parseLong(userId),2);
         }
-
     }
 
     @Override
