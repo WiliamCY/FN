@@ -148,7 +148,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.c1, R.id.c2, R.id.c3, R.id.c4, R.id.c5, R.id.back})
+    @OnClick({R.id.c1, R.id.c2, R.id.c3, R.id.c4, R.id.c5, R.id.back,R.id.c6})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c1:
@@ -172,9 +172,14 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
                 intent5.putExtra("status", 1);
                 startActivity(intent5);
                 break;
+            case R.id.c6:
+                initAddress();
             case R.id.back:
                 finish();
         }
+    }
+    private  void initAddress(){
+
     }
 
     private void initOptionPicker(final List<String> typeName) {

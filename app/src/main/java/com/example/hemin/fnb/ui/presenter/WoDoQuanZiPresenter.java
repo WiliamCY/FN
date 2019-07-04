@@ -76,10 +76,11 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-
-                        ReleaseBean.DataBean bean1 = (ReleaseBean.DataBean) bean.getResult();
-                        List<ReleaseBean.DataBean.RecordsBean> list = bean1.getRecords();
-                        mView.Date(list,status);
+                          if(bean.getErrorCode() == 0) {
+                              ReleaseBean.DataBean bean1 = (ReleaseBean.DataBean) bean.getResult();
+                              List<ReleaseBean.DataBean.RecordsBean> list = bean1.getRecords();
+                              mView.Date(list, status);
+                          }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

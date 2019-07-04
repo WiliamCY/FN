@@ -85,7 +85,16 @@
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
-
+    <style name="UserTitleAvatar">
+        <item name="android:layout_width">@dimen/thirty_two</item>
+        <item name="android:layout_height">@dimen/thirty_two</item>
+        <item name="android:layout_marginEnd">@dimen/five</item>
+    </style>
+    <style name="LineEight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/colorGray</item>
+        <item name="android:layout_height">@dimen/eight</item>
+    </style>
 
 
 </resources>

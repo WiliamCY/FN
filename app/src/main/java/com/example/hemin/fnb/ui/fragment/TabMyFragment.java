@@ -79,8 +79,6 @@ public class TabMyFragment extends BaseFragment {
     LinearLayout lay3;
     @BindView(R.id.lay4)
     LinearLayout lay4;
-    @BindView(R.id.magic_indicator)
-    MagicIndicator magicIndicator;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     @BindView(R.id.iv_header)
@@ -89,7 +87,20 @@ public class TabMyFragment extends BaseFragment {
     JudgeNestedScrollView scrollView;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-
+    @BindView(R.id.buttonBarLayout)
+    ButtonBarLayout buttonBarLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.magic_indicator)
+    MagicIndicator magicIndicator;
+    @BindView(R.id.magic_indicator_title)
+    MagicIndicator magicIndicatorTitle;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.iv_menu)
+    ImageView ivMenu;
+    @BindView(R.id.toolbar_username)
+    TextView toolbarUsername;
 
     private String birthday, nicknames, signature, url, userid, sex;
     private final String[] date = new String[]{"发布", "收藏", "想要"};
@@ -101,6 +112,8 @@ public class TabMyFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+        StatusBarUtil.immersive(getActivity());
+        StatusBarUtil.setPaddingSmart(getActivity(), toolbar);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -114,6 +127,7 @@ public class TabMyFragment extends BaseFragment {
         userid = sp.getString("userId", "");
         qm.setText(signature);
         login.setText(nickname);
+        toolbarUsername.setText(nickname);
         Glide.with(this).load(url).into(userLogo);
         viewPager.setAdapter(adapter);
         initViewss();
@@ -121,87 +135,84 @@ public class TabMyFragment extends BaseFragment {
 
     private void initViewss() {
 
-//        refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
-//            @Override
-//            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int bottomHeight, int extendHeight) {
-//                mOffset = offset / 2;
-//                ivHeader.setTranslationY(mOffset - mScrollY);
-//                toolbar.setAlpha(1 - Math.min(percent, 1));
-//            }
-//
-//            @Override
-//            public void onFooterMoving(RefreshHeader header,boolean isDragging, float percent, int offset, int bottomHeight, int extendHeight) {
-//                mOffset = offset / 2;
-//                ivHeader.setTranslationY(mOffset - mScrollY);
-//                toolbar.setAlpha(1 - Math.min(percent, 1));
-//            }
-//
-//            @Override
-//            public void onFooterMoving(RefreshFooter footer, boolean isDragging, float percent, int offset, int footerHeight, int maxDragHeight) {
-//                mOffset = offset / 2;
-//                ivHeader.setTranslationY(mOffset - mScrollY);
-//                toolbar.setAlpha(1 - Math.min(percent, 1));
-//            }
-//        });
-//        toolbar.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                dealWithViewPager();
-//            }
-//        });
-//        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            int lastScrollY = 0;
-//            int h = DensityUtil.dp2px(200);
-//            int color = ContextCompat.getColor(getActivity(), R.color.cffffff) & 0x00ffffff;
-//
-//            @Override
-//            public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                int[] location = new int[2];
-//                magicIndicator.getLocationOnScreen(location);
-//                int yPosition = location[1];
-//                if (yPosition < toolBarPositionY) {
-//                    magicIndicatorTitle.setVisibility(View.VISIBLE);
-//                    scrollView.setNeedScroll(false);
-//                } else {
-//                    magicIndicatorTitle.setVisibility(View.GONE);
-//                    scrollView.setNeedScroll(true);
-//
-//                }
-//
-//                if (lastScrollY < h) {
-//                    scrollY = Math.min(h, scrollY);
-//                    mScrollY = scrollY > h ? h : scrollY;
-//                    buttonBarLayout.setAlpha(1f * mScrollY / h);
-//                    toolbar.setBackgroundColor(((255 * mScrollY / h) << 24) | color);
-//                    ivHeader.setTranslationY(mOffset - mScrollY);
-//                }
-//                if (scrollY == 0) {
-//                    ivBack.setImageResource(R.mipmap.black_right);
-//                    ivMenu.setImageResource(R.mipmap.icon_menu_white);
-//                } else {
-//                    ivBack.setImageResource(R.mipmap.black_right);
-//                    ivMenu.setImageResource(R.mipmap.icon_menu_white);
-//                }
-//
-//                lastScrollY = scrollY;
-//            }
-//        });
-//        buttonBarLayout.setAlpha(0);
-//        toolbar.setBackgroundColor(0);
-//
+        refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
+            @Override
+            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int bottomHeight, int extendHeight) {
+                mOffset = offset / 2;
+                ivHeader.setTranslationY(mOffset - mScrollY);
+                toolbar.setAlpha(1 - Math.min(percent, 1));
+            }
+
+
+            @Override
+            public void onFooterMoving(RefreshFooter footer, boolean isDragging, float percent, int offset, int footerHeight, int maxDragHeight) {
+                mOffset = offset / 2;
+                ivHeader.setTranslationY(mOffset - mScrollY);
+                toolbar.setAlpha(1 - Math.min(percent, 1));
+            }
+        });
+        toolbar.post(new Runnable() {
+            @Override
+            public void run() {
+                dealWithViewPager();
+            }
+        });
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            int lastScrollY = 0;
+            int h = DensityUtil.dp2px(250);
+            int color = ContextCompat.getColor(getActivity(), R.color.cffffff) & 0x00ffffff;
+
+            @Override
+            public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                int[] location = new int[2];
+                magicIndicator.getLocationOnScreen(location);
+                int yPosition = location[1];
+                if (yPosition < toolBarPositionY) {
+                    magicIndicatorTitle.setVisibility(View.VISIBLE);
+                    scrollView.setNeedScroll(false);
+                } else {
+                    magicIndicatorTitle.setVisibility(View.GONE);
+                    scrollView.setNeedScroll(true);
+
+                }
+
+                if (lastScrollY < h) {
+                    scrollY = Math.min(h, scrollY);
+                    mScrollY = scrollY > h ? h : scrollY;
+                    buttonBarLayout.setAlpha(1f * mScrollY / h);
+                    toolbar.setBackgroundColor(((255 * mScrollY / h) << 24) | color);
+                    ivHeader.setTranslationY(mOffset - mScrollY);
+                }
+                if (scrollY == 0) {
+                    ivMenu.setVisibility(View.GONE);
+                } else {
+                    ivMenu.setVisibility(View.VISIBLE);
+
+                }
+
+                lastScrollY = scrollY;
+            }
+        });
+        buttonBarLayout.setAlpha(0);
+        toolbar.setBackgroundColor(0);
 
         viewPager.setAdapter(new ComFragmentAdapter(getActivity().getSupportFragmentManager(), getFragments()));
         viewPager.setOffscreenPageLimit(10);
+        viewPager.setOffscreenPageLimit(10);
         initMagicIndicator();
+        initMagicIndicatorTitle();
+    }
 
+    private void dealWithViewPager() {
+        toolBarPositionY = toolbar.getHeight();
+        ViewGroup.LayoutParams params = viewPager.getLayoutParams();
+        params.height = ScreenUtil.getScreenHeightPx(getActivity().getApplicationContext()) - toolBarPositionY - magicIndicator.getHeight() + 1;
+        viewPager.setLayoutParams(params);
     }
 
     private List<Fragment> getFragments() {
         List<Fragment> fragments = new ArrayList<>();
-//        fragments.add(FragmentMyPublish.getInstance());
-//        fragments.add(FragmentMyCollect.getInstance());
-//        fragments.add(FragmentMyWant.getInstance());
-        for(int i =0;i<dates.size();i++){
+        for (int i = 0; i < dates.size(); i++) {
             fragments.add(QuanZiFragment.getInstance(dates.get(i)));
         }
         return fragments;
@@ -244,13 +255,51 @@ public class TabMyFragment extends BaseFragment {
         ViewPagerHelper.bind(magicIndicator, viewPager);
     }
 
+    private void initMagicIndicatorTitle() {
+        CommonNavigator commonNavigator = new CommonNavigator(getActivity());
+        commonNavigator.setScrollPivotX(0.65f);
+        commonNavigator.setAdjustMode(true);
+        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+            @Override
+            public int getCount() {
+                return dates == null ? 0 : dates.size();
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, final int index) {
+                SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
+                simplePagerTitleView.setText(dates.get(index));
+                simplePagerTitleView.setNormalColor(Color.parseColor("#666666"));
+                simplePagerTitleView.setTextSize(18);
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#333333"));
+                simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPager.setCurrentItem(index);
+                    }
+                });
+                return simplePagerTitleView;
+            }
+
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                WrapPagerIndicator indicator = new WrapPagerIndicator(context);
+                indicator.setFillColor(Color.parseColor("#FBED44"));
+                return indicator;
+            }
+        });
+        magicIndicatorTitle.setNavigator(commonNavigator);
+        ViewPagerHelper.bind(magicIndicatorTitle, viewPager);
+
+    }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_tab_my;
     }
 
-    @OnClick({R.id.setting, R.id.user_logo, R.id.qm, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4})
+    @OnClick({R.id.setting, R.id.user_logo, R.id.qm, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4,R.id.iv_menu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
@@ -271,6 +320,9 @@ public class TabMyFragment extends BaseFragment {
                 break;
             case R.id.lay4:
                 break;
+            case R.id.iv_menu:
+                Intent intent2 = new Intent(getActivity(), UserSetting.class);
+                startActivity(intent2);
 
         }
     }
