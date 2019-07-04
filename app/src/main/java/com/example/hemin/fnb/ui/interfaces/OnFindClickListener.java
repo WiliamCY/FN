@@ -4,6 +4,6 @@ import android.widget.TextView;
 
 public interface OnFindClickListener {
     //RecyclerView的点击事件，将信息回调给view
-    void onItemClick(TextView textView,int Position);
+    void onItemClick(long id,TextView textView,int Position);
 
 }

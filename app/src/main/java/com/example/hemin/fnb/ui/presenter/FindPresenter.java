@@ -35,6 +35,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
     private FindContract.dianzan modle7;
     private FindContract.dianzans modle8;
     private FindContract.modle1 za;
+    private FindContract.DzScXy dcy;
     private List<FindBean> beansDate = new ArrayList<>();
     private List<String> imageUrls = new ArrayList<>();
     private List<String> pathUrl = new ArrayList<>();
@@ -52,6 +53,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
         modle7 = new FindModel();
         modle8 = new FindModel();
         za = new FindModel();
+        dcy = new FindModel();
 
     }
 
@@ -227,6 +229,33 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                         MessageBean1.DataBean bean1 = (MessageBean1.DataBean) bean.getData();
                         List<MessageBean1.DataBean.RecordsBean> list = bean1.getRecords();
                         mView.Date(list, 6);
+
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void getDCX(Context context, Map token, long type, long dailyId, long userId, int status) {
+        if (!isViewAttached()) {
+            return;
+        }
+        mView.showLoading();
+        dcy.getDCX(context, token, type, dailyId, userId)
+                .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
+                .as(mView.<BaseObjectBean>bindAutoDispose())
+                .subscribe(new Consumer<BaseObjectBean>() {
+                    @Override
+                    public void accept(BaseObjectBean bean) throws Exception {
+                        mView.onSuccess(bean);
+                        mView.hideLoading();
+                      mView.Date("111",7);
 
 
                     }

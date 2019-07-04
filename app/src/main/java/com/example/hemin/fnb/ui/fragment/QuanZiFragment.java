@@ -110,8 +110,9 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         userId = sp.getString("userId", "");
         if (index == 0) {//我的发布
            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
-        } else if(index == 1) {///我的收藏
-       mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),0);
+        } else{///我的收藏
+//          mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),0);
+            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
         }
 
 

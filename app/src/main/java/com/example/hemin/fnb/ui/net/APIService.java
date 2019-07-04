@@ -329,4 +329,14 @@ public interface APIService {
   @PUT("/app/user/myCollection/{current}/{size}/{userId}")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
   Flowable<BaseObjectBean>  MyCollect(@HeaderMap Map<String,String> heard , @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
+
+
+
+
+  /**
+   * 点赞收藏想要
+   * */
+  @PUT("/app/collection/praise/{type}/{dailyId}/{userId}")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean>  FindCollect(@HeaderMap Map<String,String> heard , @Path("type") long current, @Path("dailyId") long dailyId, @Path("userId") long userId);
 }

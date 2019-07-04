@@ -2,6 +2,7 @@ package com.example.hemin.fnb.ui.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.AudioAttributes;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -75,8 +76,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     private FindDeilyBean.DataBean find3List = null;
     private Find4Bean.DataBean find4List = null;
     private Find5Bean.DataBean.RecordsBean find5List = null;
-    private     FindDailydapter findDailydapter = new FindDailydapter();
-
+    private FindDailydapter findDailydapter = new FindDailydapter();
 
 
     @Override
@@ -178,7 +178,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         adapter.register(Find2Tiem.class, new FindHTAdapter());
         adapter.register(DailyItem.class, findDailydapter);
         adapter.register(YlItem.class, new FindYLAdapter());
-        adapter.register(RankItem.class,new FindRankdapter());
+        adapter.register(RankItem.class, new FindRankdapter());
         adapter.register(ZZSItem.class, new FindZaZhiSAdapter());
         findRecyclerview.setAdapter(adapter);
         items = new Items();
@@ -201,10 +201,14 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         adapter.setItems(items);
         findDailydapter.setRecyclerItemClickListener(new OnFindClickListener() {
             @Override
-            public void onItemClick(  TextView textView,int position) {
-                Log.d("wdawda",String.valueOf(position));
-                if(position == 0){
-
+            public void onItemClick(long id,TextView textView, int position) {
+                Log.d("wdawda", String.valueOf(position));
+                if (position == 0) {
+                    mPresenter.getDCX(getActivity(),Authorization,1,id, Long.parseLong(userId),7);
+                } else if (position == 1) {
+                    mPresenter.getDCX(getActivity(),Authorization,2,id, Long.parseLong(userId),8);
+                } else if (position == 2) {
+                    mPresenter.getDCX(getActivity(),Authorization,3,id, Long.parseLong(userId),9);
                 }
             }
         });

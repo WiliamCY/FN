@@ -56,6 +56,10 @@ public interface FindContract {
         Flowable<BaseObjectBean> getMaga(Context context,Map token, long current, long size, String type );
 
     }
+    interface  DzScXy{
+        Flowable<BaseObjectBean> getDCX(Context context,Map token,long type,long dailyId,long userId );
+    }
+
 
     interface View extends BaseView {
         @Override
@@ -87,6 +91,8 @@ public interface FindContract {
 
         void getRanking(Context context, Map<String, String> heard, long collectionId);
         void getMaga(Context context, Map token,long current,long size,String type,int status);
+
+        void  getDCX(Context context,Map token,long type,long dailyId,long userId,int status);
 
     }
 

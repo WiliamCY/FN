@@ -43,7 +43,7 @@ public class FindDeilyBean {
         private String collectionNum;
         private String ctName;
         private String collectionDetails;
-        private int dailyId;
+        private long dailyId;
         private String giveNum;
         private String isGiveNum;
         private String collectionSum;
@@ -84,11 +84,11 @@ public class FindDeilyBean {
             this.collectionDetails = collectionDetails;
         }
 
-        public int getDailyId() {
+        public long getDailyId() {
             return dailyId;
         }
 
-        public void setDailyId(int dailyId) {
+        public void setDailyId(long dailyId) {
             this.dailyId = dailyId;
         }
 

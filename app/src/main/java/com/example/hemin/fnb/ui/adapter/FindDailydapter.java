@@ -70,7 +70,7 @@ public class FindDailydapter extends ItemViewBinder<DailyItem, FindDailydapter.F
                 @Override
                 public void onClick(View v) {
                     if(monItemClickListener != null){
-                        monItemClickListener.onItemClick(holder.title_1,0);
+                        monItemClickListener.onItemClick(item.bean.getDailyId(),holder.title_1,0);
                     }else {
                       Toast.makeText(AppUtils.getContext(),"11111",Toast.LENGTH_SHORT).show();
                     }
@@ -80,7 +80,7 @@ public class FindDailydapter extends ItemViewBinder<DailyItem, FindDailydapter.F
             @Override
             public void onClick(View v) {
                 if(monItemClickListener != null){
-                    monItemClickListener.onItemClick(holder.title_2,1);
+                    monItemClickListener.onItemClick(item.bean.getDailyId(),holder.title_2,1);
                 }else {
                     Toast.makeText(AppUtils.getContext(),"11111",Toast.LENGTH_SHORT).show();
                 }
@@ -90,7 +90,7 @@ public class FindDailydapter extends ItemViewBinder<DailyItem, FindDailydapter.F
             @Override
             public void onClick(View v) {
                 if(monItemClickListener != null){
-                    monItemClickListener.onItemClick(holder.title_3,2);
+                    monItemClickListener.onItemClick(item.bean.getDailyId(),holder.title_3,2);
                 }else {
                     Toast.makeText(AppUtils.getContext(),"11111",Toast.LENGTH_SHORT).show();
                 }
