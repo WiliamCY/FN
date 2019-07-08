@@ -2,6 +2,7 @@ package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -96,6 +97,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     private ImageViewAdapter adapter = new ImageViewAdapter();
     private String typeIds;
     private int i = 0;
+    private Map<String ,String> map = Utils.getAuthorization(this);
 
 
     @Override
@@ -112,8 +114,8 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
         mPresenter = new GetTypePresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
-
         cachePath = getExternalFilesDir(null) + "/mypics/photos/";
+
     }
 
 
@@ -187,16 +189,22 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
             imageViewNumber.setVisibility(View.GONE);
         }
     }
+//@Subscribe(id = 11)
+// public  void photoResule(Bitmap bitmap){
+//      File file = Utils.getFile(bitmap);
+//    RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//    MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
+//    mPresenter.postImage(this, map, imageBodyPart);
+//}
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:
                 if (data != null) {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("Authorization", "usERa" + getToken());
+//                    Map<String, String> map = new HashMap<>();
+//                    map.put("Authorization", "usERa" + getToken());
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
-
                     addImageView(paths);
                     imageViewNumber.setText(adapter.getItemCount() + "/12");
                     for (int i = 0; i < paths.size(); i++) {
@@ -246,14 +254,6 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
                     @Override
                     public void onItemClick(int position, String path) {
-//                            List<PhotoModel> single_photos = new ArrayList<PhotoModel>();
-////PhotoModel 开发者将自己本地bean的list封装成PhotoModel的list，PhotoModel属性源码可查看
-//                            Bundle bundle = new Bundle();
-//                            bundle.putSerializable("photos",(Serializable)single_photos);
-//                            bundle.putInt("position", position);//position预览图片地址
-//                            Log.d("positions", String.valueOf(position));
-//                            bundle.putBoolean("isSave",false);//isSave表示是否可以保存预览图片，建议只有预览网络图片时设置true
-//                            CommonUtils.launchActivity(PublishingCollections.this, PhotoPreviewActivity.class, bundle);
                         String deleteImagePath = path;
 
                     }

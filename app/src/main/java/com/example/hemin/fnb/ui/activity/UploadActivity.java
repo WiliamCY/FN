@@ -72,6 +72,8 @@ public class UploadActivity extends BaseMvpActivity {
 
                 break;
             case R.id.image_2:
+                Intent intent2 = new Intent(this,MediaRecordActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.image_3:
                 Intent intent3 = new Intent(this,PublishingCollections.class);

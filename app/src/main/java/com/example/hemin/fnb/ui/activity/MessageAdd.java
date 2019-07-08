@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.adapter.ImageViewAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
@@ -77,23 +83,15 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     @BindView(R.id.it_picker_view)
     ImageShowPickerView itPickerView;
     private static final int REQUEST_CODE_CHOOSE = 233;
-    //    @BindView(R.id.r1)
-//    RecyclerView r1;
-//    @BindView(R.id.add_image)
-//    ImageView addImage;
-//    @BindView(R.id.imageViewNumber)
-//    TextView imageViewNumber;
-//    @BindView(R.id.c1)
-//    ConstraintLayout c1;
-    //    @BindView(R.id.user_logos)
-//    ImageView userLogos;
     private String[] mPerms = {Manifest.permission.CAMERA};
-
     private static final int PERMISSIONS = 100;
     private ImageViewAdapter adapter = new ImageViewAdapter();
-    private List<String> imagePath = new ArrayList<String>();
     private List<String> imageUrls = new ArrayList<>();
     List<ImageBean> list = new ArrayList<>();
+    private Map<String ,String> map = new HashMap<>();
+    private static final String[] date2 = new String[]{"相册", "拍摄"};
+    private List<String> mDataList2 = Arrays.asList(date2);
+
 
 
     @Override
@@ -109,6 +107,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         mPresenter = new MessageAddPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
+        map =  Utils.getAuthorization(this);
         itPickerView.setImageLoaderInterface(new Loader());
         itPickerView.setNewData(list);
         //展示有动画和无动画
@@ -118,24 +117,29 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         intent2.putExtra("limit", 9 - adapter.getItemCount());//number是选择图片的数量
         startActivityForResult(intent2, 0);
+//        itPickerView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
         itPickerView.setPickerListener(new ImageShowPickerListener() {
             @Override
             public void addOnClickListener(int remainNum) {
-                Intent intent2 = new Intent(AppUtils.getContext(), PhotoSelectorActivity.class);
-                intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent2.putExtra("limit", 9 - adapter.getItemCount());//number是选择图片的数量
-                startActivityForResult(intent2, 0);
-
+//                Intent intent2 = new Intent(AppUtils.getContext(), PhotoSelectorActivity.class);
+//                intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                intent2.putExtra("limit", 9 - adapter.getItemCount());//number是选择图片的数量
+//                startActivityForResult(intent2, 0);
+                initOptionPicker(mDataList2);
             }
 
             @Override
             public void picOnClickListener(List<ImageShowPickerBean> list, int position, int remainNum) {
-//                Toast.makeText(MessageAdd.this, list.size() + "========" + position + "remainNum" + remainNum, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MessageAdd.this,"111",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void delOnClickListener(int position, int remainNum) {
-//                Toast.makeText(MessageAdd.this, "delOnClickListenerremainNum" + remainNum, Toast.LENGTH_SHORT).show();
                 imageUrls.remove(position);
             }
         });
@@ -159,7 +163,6 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                     Utils.showMyToast(Toast.makeText(this, "图片在1-9张范围之内", Toast.LENGTH_SHORT), 400);
 
                 }
-//                Log.d("imageSizeSend", String.valueOf(imageUrls.size()));
                 String dates = imageUrls.toString().trim();
                 if (dates.trim().contains("[") || dates.trim().contains("]")) {
                     dates = dates.substring(1, dates.length() - 1);
@@ -182,7 +185,34 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
         }
     }
+    private void initOptionPicker(final List<String> typeName) {
+        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+             String   sexs = typeName.get(options1);
+                if(sexs.equals("相册")){
+                    Intent intent2 = new Intent(AppUtils.getContext(), PhotoSelectorActivity.class);
+                    intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    intent2.putExtra("limit", 9 - imageUrls.size());//number是选择图片的数量
+                    startActivityForResult(intent2, 0);
 
+                }else if(sexs.equals("拍摄")){
+                    startActivityForResult(new Intent(MessageAdd.this,MediaRecordActivity.class), 100);
+                }
+
+            }
+        }).setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
+                .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
+                .setDividerColor(Color.BLACK)
+                .setCancelText("取消")
+                .setSubmitText("确定")
+                .setTextColorCenter(Color.BLACK)
+                .setContentTextSize(20)
+                .build();
+        optionsPickerView.setPicker(typeName);
+
+        optionsPickerView.show();
+    }
     private String getEdittext() {
         return title.getText().toString();
     }
@@ -220,33 +250,50 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     }
 
     public void getPostImageUrls(String urils) {
-
-        imageUrls.add(urils);
+         imageUrls.add(urils);
         Log.d("imageUrlsiZE", String.valueOf(imageUrls.size()));
 
 
     }
-
+    @Subscribe(id = 11)
+    public  void photoResule(String bitmap){
+        imageUrls.add(bitmap);
+        itPickerView.addData(new ImageBean(Utils.getRealFilePath(MessageAdd.this,Uri.parse(bitmap))));
+        itPickerView.show();
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:
                 if (data != null) {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("Authorization", "usERa" + getToken());
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
                     for (int i = 0; i < paths.size(); i++) {
                             itPickerView.addData(new ImageBean(Utils.getRealFilePath(MessageAdd.this, Uri.parse(paths.get(i)))));
-
-                        String path = paths.get(i);
+                            String path = paths.get(i);
                         Log.d("pathsss:", path);
                         File file = new File(paths.get(i));
                         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
                         mPresenter.postImage(this, map, imageBodyPart);
                     }
-
-
+                }
+                break;
+            case 100:
+                if(resultCode == 101){
+                    String photoPath = data.getStringExtra("path");
+                    imageUrls.add(photoPath);
+                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(MessageAdd.this, Uri.parse(photoPath))));
+                    File file = new File(photoPath);
+                    RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
+                    mPresenter.postImage(this, map, imageBodyPart);
+                }else if(resultCode == 102){
+                    String firstVideoPicture = data.getStringExtra("path");
+                    imageUrls.add(firstVideoPicture);
+                    Log.d("wdwarhtrdf",firstVideoPicture);
+                    //视频路径，该路径为已压缩过的视频路径
+                    String videoPath = data.getStringExtra("videoUrl");
+                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(MessageAdd.this, Uri.parse(firstVideoPicture))));
                 }
                 break;
             default:
@@ -266,6 +313,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         }
 
     }
+
+
     @AfterPermissionGranted(PERMISSIONS)
     private void requestPermission() {
         if (EasyPermissions.hasPermissions(this, mPerms)) {

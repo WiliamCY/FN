@@ -37,7 +37,6 @@
             android:id="@+id/image2"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_alignBottom="@+id/my_background"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/marginLeft_10"
             android:layout_marginBottom="@dimen/marginBottom_10"

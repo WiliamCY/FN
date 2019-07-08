@@ -22,6 +22,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
     <application
         android:name=".ui.activity.BaseApplication"
         android:allowBackup="true"
@@ -33,8 +39,12 @@
         android:theme="@style/MyToolbartheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.PHBActivity"
-            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".ui.activity.MediaRecordActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.activity.PHBActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MyMessage"
             android:screenOrientation="portrait" />
@@ -173,7 +183,7 @@
             android:exported="false" /> <!-- 必填 -->
         <meta-data
             android:name="PGYER_APPID"
-            android:value="0326108dd2be32d921b50a0d098cafa9"></meta-data> <!-- 适配华为（huawei）刘海屏 -->
+            android:value="0326108dd2be32d921b50a0d098cafa9" /> <!-- 适配华为（huawei）刘海屏 -->
         <meta-data
             android:name="android.notch_support"
             android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 -->
@@ -185,7 +195,7 @@
             android:name=".ui.sever.DemoPushService"
             android:exported="true"
             android:label="PushService"
-            android:process=":pushservice"></service> <!-- android:permission在2.13.1.0版本后必须配置 -->
+            android:process=":pushservice" /> <!-- android:permission在2.13.1.0版本后必须配置 -->
         <service
             android:name=".ui.sever.DemoIntentService"
             android:permission="android.permission.BIND_JOB_SERVICE" />

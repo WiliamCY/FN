@@ -70,14 +70,6 @@ public class MessageAddPresenter extends BasePresenter<MessageAdd> implements Me
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-//                        picLength++;
-//                        if(picLength>1){
-//                            mView.hideLoading();
-//                        }
-//                      if(picLength>=2){
-//                          mView.hideLoading();
-//                      }
-
                         ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
                         String urls = url.getUrl();
                         mView.getPostImageUrls(urls);

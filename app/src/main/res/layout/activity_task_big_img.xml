@@ -29,7 +29,6 @@
             android:id="@+id/user_logo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignBottom="@+id/my_background"
             android:layout_marginLeft="@dimen/marginLeft_15"
             android:layout_marginBottom="@dimen/marginBottom_5"
             android:scaleType="fitXY"

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ParseException;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +36,11 @@ import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.PasswordActivity;
 import com.google.gson.Gson;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -366,4 +372,35 @@ public class Utils {
         res = simpleDateFormat.format(date);
         return res;
     }
+
+    public static  File getFile(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        File file = new File(Environment.getExternalStorageDirectory() + "/temp.jpg");
+        try {
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+            int x = 0;
+            byte[] b = new byte[1024 * 100];
+            while ((x = is.read(b)) != -1) {
+                fos.write(b, 0, x);
+            }
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+    public static String bitmapToString(Bitmap bitmap){
+        //将Bitmap转换成字符串
+        String string=null;
+        ByteArrayOutputStream bStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,bStream);
+        byte[]bytes=bStream.toByteArray();
+        string= Base64.encodeToString(bytes,Base64.DEFAULT);
+        return string;
+    }
+
+
 }

@@ -72,7 +72,6 @@
                                 android:id="@+id/user_logo"
                                 android:layout_width="@dimen/layout_width_50"
                                 android:layout_height="@dimen/layout_height_50"
-                                android:layout_alignBottom="@+id/my_background"
                                 android:layout_marginLeft="@dimen/marginLeft_25"
                                 android:layout_marginTop="@dimen/marginTop_90"
                                 android:scaleType="fitXY"

@@ -16,7 +16,6 @@
         android:id="@+id/q_1"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignBottom="@+id/my_background"
         android:layout_centerHorizontal="true"
 
        />
