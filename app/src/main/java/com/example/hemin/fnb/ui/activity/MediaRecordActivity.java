@@ -37,12 +37,14 @@ public class MediaRecordActivity extends AppCompatActivity {
     public static final int RESULT_CODE_RETURN_VIDEO = 102;
     private JCameraView jCameraView;
     private boolean granted = false;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media_record);
-
+         Intent intent = getIntent();
+         type = intent.getStringExtra("type");
         jCameraView = (JCameraView) findViewById(R.id.jcameraview);
 
         //设置视频保存路径
@@ -66,11 +68,26 @@ public class MediaRecordActivity extends AppCompatActivity {
             @Override
             public void captureSuccess(Bitmap bitmap) {
                 String path = FileUtil.saveBitmap("imagePicker", bitmap);
-                Intent intent = new Intent(MediaRecordActivity.this,MessageAdd.class);
-                intent.putExtra("path", path);
-                setResult(RESULT_CODE_RETURN_PHOTO, intent);
+                if(type != null && type.equals("1")){
+                    Intent intent = new Intent(MediaRecordActivity.this,MessageAdd.class);
+                    intent.putExtra("path", path);
+                        startActivity(intent);
+                        finish();
+                }else {
+                    Intent intent = new Intent(MediaRecordActivity.this,MessageAdd.class);
+                    intent.putExtra("path", path);
+                    setResult(RESULT_CODE_RETURN_PHOTO, intent);
+                    finish();
+                }
 
-                finish();
+//                startActivity(intent);
+//                onActivityResult(100,RESULT_CODE_RETURN_PHOTO,intent);
+//               startActivityForResult(intent,RESULT_CODE_RETURN_PHOTO);
+//                startActivity(intent);
+
+
+//
+//                finish();
 
             }
 
@@ -78,6 +95,13 @@ public class MediaRecordActivity extends AppCompatActivity {
             public void recordSuccess(String url, Bitmap firstFrame) {
                 //获取视频路径
                 String path = FileUtil.saveBitmap("imagePicker", firstFrame);//FileUtil是本库自带的
+
+                if(type != null && type.equals("1")){
+                    Intent intent = new Intent(MediaRecordActivity.this,MessageAdd.class);
+                    intent.putExtra("path", path);
+                    intent.putExtra("videoUrl", url);
+                    startActivity(intent);
+                }
                 Intent intent = new Intent(MediaRecordActivity.this,MessageAdd.class);
                 intent.putExtra("path", path);
                 intent.putExtra("videoUrl", url);

@@ -13,7 +13,7 @@ import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-public class FinderAddModel implements MessageFinderAddContract.modle1 ,MessageFinderAddContract.Mode2{
+public class FinderAddModel implements MessageFinderAddContract.modle1 ,MessageFinderAddContract.Mode2,MessageFinderAddContract.mode3{
     @Override
     public Flowable<BaseObjectBean> friendAdd(Context context, Map token, RequestBody body) {
         return RetrofitClient.getInstance().getApi().friendAdd(token,body);
@@ -22,5 +22,10 @@ public class FinderAddModel implements MessageFinderAddContract.modle1 ,MessageF
     @Override
     public Flowable<BaseObjectBean<ImageUrlBean.DataBean>> postImage(Context context, Map token, MultipartBody.Part partList) {
         return RetrofitClient.getInstance().getApi().postImage(token,partList);
+    }
+
+    @Override
+    public Flowable<BaseObjectBean> postMp4(Context context, Map token, MultipartBody.Part part) {
+        return RetrofitClient.getInstance().getApi().postMp4(token,part);
     }
 }

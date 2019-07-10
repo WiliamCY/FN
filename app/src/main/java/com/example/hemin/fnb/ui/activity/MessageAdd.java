@@ -75,7 +75,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements MessageFinderAddContract.View, EasyPermissions.PermissionCallbacks, View.OnClickListener {
+public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements MessageFinderAddContract.View, EasyPermissions.PermissionCallbacks, View.OnClickListener {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.add)
@@ -100,6 +100,7 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
     private PopupWindow popupWindow;
     private ImageView imageView1, imageView2, imageView3, dissmissage;
     private boolean mIsVisibleToUser = false;
+    ArrayList<String> infoList = new ArrayList<String>();
 
 
     @Override
@@ -108,16 +109,15 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
     }
 
     @Override
-    public void initView(View view) {
-
+    public void initView() {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+
         mPresenter = new MessageAddPresenter();
         mPresenter.attachView(this);
-        ButterKnife.bind(getActivity());
-//        initPopwdowns();
-        map = Utils.getAuthorization(getActivity());
+        ButterKnife.bind(this);
+        map = Utils.getAuthorization(this);
         itPickerView.setImageLoaderInterface(new Loader());
         itPickerView.setNewData(list);
         //展示有动画和无动画
@@ -131,7 +131,6 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
 
             @Override
             public void picOnClickListener(List<ImageShowPickerBean> list, int position, int remainNum) {
-                Toast.makeText(getActivity(), "111", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -140,9 +139,27 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
             }
         });
         itPickerView.show();
-
-
+        String path = getIntent().getStringExtra("path");
+        if(path != null){
+            imageUrls.add(path);
+            itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(path))));
+            postFile(path,1);
+        }
+        infoList = getIntent().getStringArrayListExtra("paths");
+        if(infoList != null) {
+            for (int i = 0; i < infoList.size(); i++) {
+                imageUrls.add(infoList.get(i));
+                itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(infoList.get(i)))));
+                postFile(infoList.get(i),1);
+            }
+        }
+        String video = getIntent().getStringExtra("videoUrl");
+        if(video != null){
+            postFile(video,2);
+        }
     }
+
+
 
 //    private void initPopwdowns() {
 //        View view = LayoutInflater.from(getActivity()).inflate(R.layout.upload_activity, null, false);
@@ -185,24 +202,24 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
 //    }
 
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        mIsVisibleToUser = hidden;
-        if (hidden) {
-            Log.d("wdwaidhawlhdivs", String.valueOf(hidden));
-              popupWindow.dismiss();
-
-        } else {
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.message_add, null, false);
-            userToolbar = view.findViewById(R.id.user_toolbar);
-//        userToolbar = getActivity().findViewById(R.id.view1);
-            popupWindow.showAsDropDown(userToolbar);
-            getActivity().getSupportFragmentManager().popBackStack();
-
-//           popupWindow.show
-        }
-    }
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        mIsVisibleToUser = hidden;
+//        if (hidden) {
+//            Log.d("wdwaidhawlhdivs", String.valueOf(hidden));
+//              popupWindow.dismiss();
+//
+//        } else {
+//            View view = LayoutInflater.from(getActivity()).inflate(R.layout.message_add, null, false);
+//            userToolbar = view.findViewById(R.id.user_toolbar);
+////        userToolbar = getActivity().findViewById(R.id.view1);
+//            popupWindow.showAsDropDown(userToolbar);
+//            getActivity().getSupportFragmentManager().popBackStack();
+//
+////           popupWindow.show
+//        }
+//    }
 
     @OnClick({R.id.back, R.id.add})
     public void onViewClicked(View view) {
@@ -213,17 +230,17 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
                 break;
             case R.id.add:
                 if (TextUtils.isEmpty(getEdittext())) {
-                    Utils.showMyToast(Toast.makeText(getActivity(), "请输入完整", Toast.LENGTH_SHORT), 400);
+                    Utils.showMyToast(Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT), 400);
                     return;
                 } else if (imageUrls.size() < 1 || imageUrls.size() > 9) {
-                    Utils.showMyToast(Toast.makeText(getActivity(), "图片在1-9张范围之内", Toast.LENGTH_SHORT), 400);
+                    Utils.showMyToast(Toast.makeText(this, "图片在1-9张范围之内", Toast.LENGTH_SHORT), 400);
 
                 }
                 String dates = imageUrls.toString().trim();
                 if (dates.trim().contains("[") || dates.trim().contains("]")) {
                     dates = dates.substring(1, dates.length() - 1);
                 }
-                SharedPreferences sp = getActivity().getSharedPreferences("userDate", getActivity().MODE_PRIVATE);
+                SharedPreferences sp = this.getSharedPreferences("userDate", MODE_PRIVATE);
                 String id = sp.getString("userId", "");
                 HashMap<String, String> map2 = new HashMap<>();
                 map2.put("friendContent", getEdittext());
@@ -235,7 +252,7 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
                 HashMap<String, String> token = new HashMap<>();
                 token.put("Authorization", "usERa" + getToken());
                 Log.d("messageFdinder", String.valueOf(Utils.RetrofitHead(map2)));
-                mPresenter.friendAdd(getActivity(), token, Utils.RetrofitHead(map2));
+                mPresenter.friendAdd(this, token, Utils.RetrofitHead(map2));
 
                 break;
 
@@ -243,7 +260,7 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
     }
 
     private void initOptionPicker(final List<String> typeName) {
-        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
+        OptionsPickerView optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 String sexs = typeName.get(options1);
@@ -254,12 +271,12 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
                     startActivityForResult(intent2, 0);
 
                 } else if (sexs.equals("拍摄")) {
-                    startActivityForResult(new Intent(getActivity(), MediaRecordActivity.class), 100);
+                    startActivityForResult(new Intent(AppUtils.getContext(), MediaRecordActivity.class), 100);
                 }
 
             }
-        }).setSubmitColor(ContextCompat.getColor(getActivity(), R.color.c4D6EEF))
-                .setCancelColor(ContextCompat.getColor(getActivity(), R.color.c4D6EEF))
+        }).setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
+                .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setDividerColor(Color.BLACK)
                 .setCancelText("取消")
                 .setSubmitText("确定")
@@ -283,7 +300,7 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
     @Override
     public void Status(int index) {
         if (index == 1) {
-            getActivity().finish();
+            finish();
         }
     }
 
@@ -317,9 +334,11 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
     @Subscribe(id = 11)
     public void photoResule(String bitmap) {
         imageUrls.add(bitmap);
-        itPickerView.addData(new ImageBean(Utils.getRealFilePath(getActivity(), Uri.parse(bitmap))));
+        itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(bitmap))));
         itPickerView.show();
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -328,13 +347,10 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
                 if (data != null) {
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
                     for (int i = 0; i < paths.size(); i++) {
-                        itPickerView.addData(new ImageBean(Utils.getRealFilePath(getActivity(), Uri.parse(paths.get(i)))));
+                        itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(paths.get(i)))));
                         String path = paths.get(i);
                         Log.d("pathsss:", path);
-                        File file = new File(paths.get(i));
-                        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                        MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
-                        mPresenter.postImage(getActivity(), map, imageBodyPart);
+                        postFile(path,1);
                     }
                 }
                 break;
@@ -342,24 +358,34 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
                 if (resultCode == 101) {
                     String photoPath = data.getStringExtra("path");
                     imageUrls.add(photoPath);
-                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(getActivity(), Uri.parse(photoPath))));
-                    File file = new File(photoPath);
-                    RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                    MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
-                    mPresenter.postImage(getActivity(), map, imageBodyPart);
+                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(photoPath))));
+                     postFile(photoPath,1);
                 } else if (resultCode == 102) {
                     String firstVideoPicture = data.getStringExtra("path");
                     imageUrls.add(firstVideoPicture);
                     Log.d("wdwarhtrdf", firstVideoPicture);
                     //视频路径，该路径为已压缩过的视频路径
                     String videoPath = data.getStringExtra("videoUrl");
-                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(getActivity(), Uri.parse(firstVideoPicture))));
+                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(firstVideoPicture))));
+                   postFile(videoPath,2);
+
                 }
                 break;
             default:
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    private  void postFile(String path,int type){
+        File file = new File(path);
+        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
+        //1.相机  2视频
+           if(type == 1){
+               mPresenter.postImage(this, map, imageBodyPart);
+           }else if(type == 2){
+               mPresenter.postMp4(this,map,imageBodyPart);
+           }
     }
 
     @Subscribe(id = 4)
@@ -377,7 +403,7 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
 
     @AfterPermissionGranted(PERMISSIONS)
     private void requestPermission() {
-        if (EasyPermissions.hasPermissions(getActivity(), mPerms)) {
+        if (EasyPermissions.hasPermissions(this, mPerms)) {
             //Log.d(TAG, "onClick: 获取读写内存权限,Camera权限和wifi权限");
         } else {
             EasyPermissions.requestPermissions(this, "上传朋友圈可能用到相机需要相机权限", PERMISSIONS, mPerms);
@@ -412,7 +438,7 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
     }
 
     private String getToken() {
-        SharedPreferences sp = getActivity().getSharedPreferences("userDate", getActivity().MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("userDate", MODE_PRIVATE);
         String c = sp.getString("Authorization", "");
         System.out.println(c);
         return sp.getString("Authorization", "");
@@ -434,16 +460,22 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
 //        }
 //    }
 
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//
+//    }
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestroy() {
+        super.onDestroy();
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
     }
-
-    @Override
-    public void lazyInitView(View view) {
+    //
+//    @Override
+//    public void lazyInitView(View view) {
 //        if (!EventBus.getDefault().isRegistered(this)) {
 //            EventBus.getDefault().register(this);
 //        }
@@ -487,8 +519,8 @@ public class MessageAdd extends BaseMvpFragment<MessageAddPresenter> implements 
 //            }
 //        });
 //        itPickerView.show();
-
-    }
+//
+//    }
 
     @Override
     public void onClick(View v) {

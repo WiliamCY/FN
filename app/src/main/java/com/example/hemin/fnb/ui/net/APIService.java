@@ -339,4 +339,13 @@ public interface APIService {
   @PUT("/app/collection/praise/{type}/{dailyId}/{userId}")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
   Flowable<BaseObjectBean>  FindCollect(@HeaderMap Map<String,String> heard , @Path("type") long current, @Path("dailyId") long dailyId, @Path("userId") long userId);
+
+
+  /**
+   * 图片上传
+   * */
+  @Multipart
+  @POST("sys/upload/addMp4")
+//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean> postMp4(@HeaderMap Map<String,String> heard,@Part  MultipartBody.Part partList);
 }

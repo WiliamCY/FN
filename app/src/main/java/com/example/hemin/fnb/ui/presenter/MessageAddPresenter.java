@@ -20,9 +20,11 @@ import okhttp3.RequestBody;
 public class MessageAddPresenter extends BasePresenter<MessageAdd> implements MessageFinderAddContract.Presenter {
     private MessageFinderAddContract.modle1 modle1;
     private MessageFinderAddContract.Mode2 mode2;
+    private MessageFinderAddContract.mode3 mode3;
     public  MessageAddPresenter(){
         this.modle1 = new FinderAddModel();
         this.mode2 = new FinderAddModel();
+        this.mode3 = new FinderAddModel();
     }
     @Override
     public void friendAdd(Context context, Map token, RequestBody body) {
@@ -86,5 +88,39 @@ public class MessageAddPresenter extends BasePresenter<MessageAdd> implements Me
 //                        mView.hideLoading();
                     }
                 });
+    }
+
+    @Override
+    public void postMp4(Context context, Map token, MultipartBody.Part part) {
+        if (!isViewAttached()) {
+            return;
+        }
+
+//
+//        mView.showLoading();
+        mode3.postMp4(context, token, part)
+                .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
+                .as(mView.<BaseObjectBean>bindAutoDispose())
+                .subscribe(new Consumer<BaseObjectBean>() {
+                    @Override
+                    public void accept(BaseObjectBean bean) throws Exception {
+                        mView.onSuccess(bean);
+//                        ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
+//                        String urls = url.getUrl();
+//                        mView.getPostImageUrls(urls);
+//                        if(bean.getErrorCode() == 0){
+//                            mView.Status(0);
+//                        }
+
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+//                        mView.hideLoading();
+                    }
+                });
+
     }
 }

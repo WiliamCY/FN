@@ -20,6 +20,10 @@ public interface MessageFinderAddContract {
     interface Mode2 {
         Flowable<BaseObjectBean<ImageUrlBean.DataBean>> postImage(Context context, Map token, MultipartBody.Part partList);
     }
+    interface  mode3{
+        Flowable<BaseObjectBean> postMp4(Context context,Map token,MultipartBody.Part part);
+
+    }
 
 
     interface View extends BaseView {
@@ -39,6 +43,7 @@ public interface MessageFinderAddContract {
 
         void friendAdd(Context context, Map token, RequestBody body);
         void postImage(Context context, Map token, MultipartBody.Part partList);
+        void postMp4(Context context,Map token,MultipartBody.Part part);
 
     }
 

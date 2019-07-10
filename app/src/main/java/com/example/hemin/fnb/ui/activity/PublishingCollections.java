@@ -97,7 +97,8 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     private ImageViewAdapter adapter = new ImageViewAdapter();
     private String typeIds;
     private int i = 0;
-    private Map<String ,String> map = Utils.getAuthorization(this);
+    private Map<String ,String> map = new HashMap<>();
+
 
 
     @Override
@@ -111,6 +112,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        map = Utils.getAuthorization(this);
         mPresenter = new GetTypePresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
@@ -171,8 +173,9 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 startActivityForResult(intent2, 0);
                 break;
             case R.id.back:
-             Intent intent1 = new Intent(this,MainActivity.class);
-             startActivity(intent1);
+//             Intent intent1 = new Intent(this,MainActivity.class);
+//             startActivity(intent1);
+                finish();
         }
 
     }
