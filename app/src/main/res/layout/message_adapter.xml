@@ -44,6 +44,6 @@
         app:layout_constraintTop_toBottomOf="@id/messahe_image1"
         android:background="@color/cEEEEEE"
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="1dp"/>
 
 </android.support.constraint.ConstraintLayout>

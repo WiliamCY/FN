@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.hemin.fnb.ui.base.BaseView;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ImageUrlBean;
+import com.example.hemin.fnb.ui.bean.Mp4Bean;
 
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public interface MessageFinderAddContract {
         Flowable<BaseObjectBean<ImageUrlBean.DataBean>> postImage(Context context, Map token, MultipartBody.Part partList);
     }
     interface  mode3{
-        Flowable<BaseObjectBean> postMp4(Context context,Map token,MultipartBody.Part part);
+        Flowable<BaseObjectBean<Mp4Bean.DataBean>> postMp4(Context context, Map token,RequestBody requestBody, MultipartBody.Part part);
 
     }
 
@@ -43,7 +44,7 @@ public interface MessageFinderAddContract {
 
         void friendAdd(Context context, Map token, RequestBody body);
         void postImage(Context context, Map token, MultipartBody.Part partList);
-        void postMp4(Context context,Map token,MultipartBody.Part part);
+        void postMp4(Context context,Map token,RequestBody requestBody,MultipartBody.Part part);
 
     }
 

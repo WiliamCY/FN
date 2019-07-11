@@ -6,6 +6,7 @@ import com.example.hemin.fnb.ui.activity.MessageAdd;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ImageUrlBean;
+import com.example.hemin.fnb.ui.bean.Mp4Bean;
 import com.example.hemin.fnb.ui.contract.MessageFinderAddContract;
 import com.example.hemin.fnb.ui.model.FinderAddModel;
 import com.example.hemin.fnb.ui.net.RxScheduler;
@@ -74,7 +75,7 @@ public class MessageAddPresenter extends BasePresenter<MessageAdd> implements Me
                         mView.onSuccess(bean);
                         ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
                         String urls = url.getUrl();
-                        mView.getPostImageUrls(urls);
+                        mView.getPostImageUrls(urls,0);
                         if(bean.getErrorCode() == 0){
                             mView.Status(0);
                         }
@@ -91,26 +92,23 @@ public class MessageAddPresenter extends BasePresenter<MessageAdd> implements Me
     }
 
     @Override
-    public void postMp4(Context context, Map token, MultipartBody.Part part) {
+    public void postMp4(Context context, Map token,RequestBody requestBody, MultipartBody.Part part) {
         if (!isViewAttached()) {
             return;
         }
 
 //
 //        mView.showLoading();
-        mode3.postMp4(context, token, part)
+        mode3.postMp4(context, token,requestBody, part)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
                 .subscribe(new Consumer<BaseObjectBean>() {
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-//                        ImageUrlBean.DataBean url = (ImageUrlBean.DataBean) bean.getResult();
-//                        String urls = url.getUrl();
-//                        mView.getPostImageUrls(urls);
-//                        if(bean.getErrorCode() == 0){
-//                            mView.Status(0);
-//                        }
+                        Mp4Bean.DataBean url = (Mp4Bean.DataBean) bean.getResult();
+                        String urls = url.getUrl();
+                        mView.getPostImageUrls(urls,1);
 
 
                     }

@@ -63,8 +63,8 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     Unbinder unbinder1;
     @BindView(R.id.find_logo)
     ImageView findLogo;
-    @BindView(R.id.lay1)
-    LinearLayout lay1;
+//    @BindView(R.id.lay1)
+//    LinearLayout lay1;
     private int sendPost = 0;
     private Map Authorization = new HashMap();
     private String userId;

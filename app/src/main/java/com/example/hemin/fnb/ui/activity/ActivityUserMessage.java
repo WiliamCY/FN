@@ -29,21 +29,15 @@ import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.JsonBean;
 import com.example.hemin.fnb.ui.contract.UpdateAboutContract;
-import com.example.hemin.fnb.ui.presenter.FixNickNameAboutPresenter;
 import com.example.hemin.fnb.ui.presenter.UpdateAboutPresenter;
-import com.example.hemin.fnb.ui.util.AppUtils;
 import com.example.hemin.fnb.ui.util.GetJsonDataUtil;
 import com.example.hemin.fnb.ui.util.GlideLoadUtils;
 import com.example.hemin.fnb.ui.util.MessageEvent;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.google.gson.Gson;
 
-//import org.greenrobot.eventbus.Subscribe;
-//import org.greenrobot.eventbus.ThreadMode;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 
 import java.text.SimpleDateFormat;
@@ -58,6 +52,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+//import org.greenrobot.eventbus.Subscribe;
+//import org.greenrobot.eventbus.ThreadMode;
 
 public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> implements UpdateAboutContract.View {
     @BindView(R.id.back)
@@ -114,12 +111,20 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
     ConstraintLayout c4;
     @BindView(R.id.c5)
     ConstraintLayout c5;
+    @BindView(R.id.title6)
+    TextView title6;
+    @BindView(R.id.user_logo6)
+    TextView userLogo6;
+    @BindView(R.id.user_righ6)
+    ImageView userRigh6;
+    @BindView(R.id.c6)
+    ConstraintLayout c6;
     private TimePickerView pickerView;
     private static final String[] date2 = new String[]{"男", "女"};
     private List<String> mDataList2 = Arrays.asList(date2);
     private String sexStatus;
-    private String url,time;
-    private String birthday,nicknames,signature,userid,sexs,sex;
+    private String url, time;
+    private String birthday, nicknames, signature, userid, sexs, sex;
     private Thread thread;
     private static final int MSG_LOAD_DATA = 0x0001;
     private static final int MSG_LOAD_SUCCESS = 0x0002;
@@ -134,23 +139,25 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
     public int getLayoutId() {
         return R.layout.activity_user_message;
     }
-    private Map<String,String> token = new HashMap<>();
+
+    private Map<String, String> token = new HashMap<>();
+
     @Override
     public void initView() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         mPresenter = new UpdateAboutPresenter();
         mPresenter.attachView(this);
-        if(!EventBus.getDefault().isRegistered(this)){
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        SharedPreferences sp =getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
         nicknames = sp.getString("nickName", "");
-         url = sp.getString("url", "").trim();
+        url = sp.getString("url", "").trim();
         userLogo2.setText(nicknames);
-        birthday = sp.getString("birthday","");
-        sex = sp.getString("sex","");
-        signature = sp.getString("signature","");
-        userid = sp.getString("userId","");
+        birthday = sp.getString("birthday", "");
+        sex = sp.getString("sex", "");
+        signature = sp.getString("signature", "");
+        userid = sp.getString("userId", "");
         token = Utils.getAuthorization(this);
         Glide.with(this).load(url).into(userLogo);
         userLogo3.setText(sex);
@@ -159,6 +166,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
         mHandler.sendEmptyMessage(MSG_LOAD_DATA);
 
     }
+
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -185,6 +193,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,12 +201,12 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.c1, R.id.c2, R.id.c3, R.id.c4, R.id.c5, R.id.back,R.id.c6})
+    @OnClick({R.id.c1, R.id.c2, R.id.c3, R.id.c4, R.id.c5, R.id.back, R.id.c6})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c1:
                 Intent intent = new Intent(this, UserChangeLogo.class);
-                intent.putExtra("url",url);
+                intent.putExtra("url", url);
                 startActivity(intent);
                 break;
             case R.id.c2:
@@ -228,6 +237,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
                 break;
         }
     }
+
     private void showPickerView() {// 弹出选择器
 
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
@@ -247,7 +257,8 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
                         options3Items.get(options1).get(options2).get(options3) : "";
 
                 String tx = opt1tx + opt2tx + opt3tx;
-                Toast.makeText(ActivityUserMessage.this, tx, Toast.LENGTH_SHORT).show();
+
+                userLogo6.setText(tx);
             }
         })
 
@@ -324,19 +335,19 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
 //                userLogo3.setText(typeName.get(options1));
                 sexs = typeName.get(options1);
-                if(sexs.equals("男")){
-                     sexStatus = "0";
-                }else {
+                if (sexs.equals("男")) {
+                    sexStatus = "0";
+                } else {
                     sexStatus = "1";
                 }
-                HashMap<String,String> map = new HashMap<>();
+                HashMap<String, String> map = new HashMap<>();
 //                         map.put("birthday",birthday);
-                    map.put("nickname",nicknames);
-                         map.put("sex",sexStatus);
+                map.put("nickname", nicknames);
+                map.put("sex", sexStatus);
 //                         map.put("signature",signature);
 //                         map.put("url",url);
-                map.put("userId",userid);
-                mPresenter.updateAbout(token,Utils.RetrofitHead(map),0);
+                map.put("userId", userid);
+                mPresenter.updateAbout(token, Utils.RetrofitHead(map), 0);
             }
         }).setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
@@ -375,15 +386,15 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
             public void onTimeSelect(Date date, View v) {
 //                Toast.makeText(getApplicationContext(), getTime(date), Toast.LENGTH_SHORT).show();
 //                userLogo4.setText(getTime(date));
-                 time = getTime(date);
-                HashMap<String,String> map = new HashMap<>();
-                         map.put("birthday",getTime(date));
-                map.put("nickname",nicknames);
+                time = getTime(date);
+                HashMap<String, String> map = new HashMap<>();
+                map.put("birthday", getTime(date));
+                map.put("nickname", nicknames);
 //                map.put("sex",sexStatus);
 //                         map.put("signature",signature);
 //                         map.put("url",url);
-                map.put("userId",userid);
-                mPresenter.updateAbout(token,Utils.RetrofitHead(map),1);
+                map.put("userId", userid);
+                mPresenter.updateAbout(token, Utils.RetrofitHead(map), 1);
             }
         })
                 .setCancelText("取消")
@@ -391,25 +402,27 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
                 .setSubmitColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setCancelColor(ContextCompat.getColor(this, R.color.c4D6EEF))
                 .setRangDate(startDate, endDate)
-                .setType(new boolean[]{true,true,true,false,false,false})
+                .setType(new boolean[]{true, true, true, false, false, false})
                 .build();
         pickerView.show();
 
     }
+
     @Subscribe(id = 2)
     public void Event(MessageEvent messageEvent) {
 //        Glide.with(this).load(messageEvent.getMessage()).into(userLogo);
-        GlideLoadUtils.getInstance().glideLoad(this,messageEvent.getMessage(),userLogo);
+        GlideLoadUtils.getInstance().glideLoad(this, messageEvent.getMessage(), userLogo);
     }
+
     @Subscribe(id = 1)
-    public void print(String message){
-        Log.i("tagccccc",message);
+    public void print(String message) {
+        Log.i("tagccccc", message);
         userLogo2.setText(message);
     }
 
     @Subscribe(id = 3)
-    public void prints(String message){
-        Log.i("tagccccc",message);
+    public void prints(String message) {
+        Log.i("tagccccc", message);
         userLogo5.setText(message);
     }
 
@@ -428,6 +441,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
     public void onError(Throwable throwable) {
 
     }
+
     public ArrayList<JsonBean> parseData(String result) {//Gson 解析
         ArrayList<JsonBean> detail = new ArrayList<>();
         try {
@@ -445,28 +459,29 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
     }
 
     @Override
-    public void onSuccess(BaseObjectBean bean,int status) {
-        if(status == 0 && bean.getCode() == 0){
-            SharedPreferences.Editor sp = this.getSharedPreferences("userDate",Context.MODE_PRIVATE).edit();
-            sp.putString("sex",sexs);
+    public void onSuccess(BaseObjectBean bean, int status) {
+        if (status == 0 && bean.getCode() == 0) {
+            SharedPreferences.Editor sp = this.getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
+            sp.putString("sex", sexs);
             sp.commit();
             userLogo3.setText(sexs);
 
-        }else if(status == 1 && bean.getCode() == 0){
-            SharedPreferences.Editor sp = this.getSharedPreferences("userDate",Context.MODE_PRIVATE).edit();
-            sp.putString("birthday",time);
+        } else if (status == 1 && bean.getCode() == 0) {
+            SharedPreferences.Editor sp = this.getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
+            sp.putString("birthday", time);
             sp.commit();
             userLogo4.setText(time);
 
-        }else {
-            Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(EventBus.getDefault().isRegistered(this)){
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
         if (mHandler != null) {

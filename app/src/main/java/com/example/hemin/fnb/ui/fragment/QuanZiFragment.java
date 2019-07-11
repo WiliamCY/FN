@@ -90,11 +90,7 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         } else if (i == "想要") {
 
         }
-//        if (i == "关注") {
-//            bundle.putInt("index", 0);
-//        } else {
-//   bundle.putInt("index", 1);
-//        }
+
         quanZiFragment.setArguments(bundle);
         return quanZiFragment;
     }
@@ -111,8 +107,8 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         if (index == 0) {//我的发布
            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
         } else{///我的收藏
-//          mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),0);
-            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
+          mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),0);
+//            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
         }
 
 

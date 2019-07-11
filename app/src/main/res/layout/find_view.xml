@@ -9,6 +9,9 @@
     tools:ignore="MissingConstraints">
 
     <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/c1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_height_80"
@@ -74,20 +77,26 @@
         </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/lay1"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/c1">
-
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/marginBottom_80"
+            android:layout_marginBottom="@dimen/marginBottom_10"
+            android:layout_marginLeft="@dimen/marginLeft_5"
+            android:layout_marginRight="@dimen/marginRight_5"
+            app:layout_constraintTop_toBottomOf="@id/c1"
             android:id="@+id/find_recyclerview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/lay1"-->
+
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/c1">-->
 
 
-    </LinearLayout>
+
+
+    <!--</LinearLayout>-->
 </android.support.constraint.ConstraintLayout>

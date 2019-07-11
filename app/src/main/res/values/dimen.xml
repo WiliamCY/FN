@@ -45,6 +45,7 @@
     <dimen name="marginLeft_30">30dp</dimen>
     <dimen name="marginLeft_40">40dp</dimen>
     <!-- marginRight-->
+    <dimen name="marginRight_5">5dp</dimen>
     <dimen name="marginRight_10">10dp</dimen>
     <dimen name="marginRight_11">11dp</dimen>
     <dimen name="marginRight_12">12dp</dimen>
@@ -119,6 +120,7 @@
     <dimen name="marginBottom_50">50dp</dimen>
     <dimen name="marginBottom_60">60dp</dimen>
     <dimen name="marginBottom_70">70dp</dimen>
+    <dimen name="marginBottom_80">80dp</dimen>
     <dimen name="marginBottom_90">90dp</dimen>
     <!--layout_margin -->
     <dimen name="margin_1">1dp</dimen>

@@ -159,7 +159,13 @@ public class Utils {
         map.put("Authorization", token_type + Authorization);
         return map;
     }
-
+    public static String getAuthorizationHeard(final Context context) {
+        SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        String Authorization = sp.getString("Authorization", "");
+        String token_type = sp.getString("tokenType", "");
+               String heard = token_type+Authorization;
+               return heard;
+    }
     /**
      * 删除单个文件
      *

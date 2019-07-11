@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ImageUrlBean;
+import com.example.hemin.fnb.ui.bean.Mp4Bean;
 import com.example.hemin.fnb.ui.contract.MessageFinderAddContract;
 import com.example.hemin.fnb.ui.net.RetrofitClient;
 
@@ -25,7 +26,7 @@ public class FinderAddModel implements MessageFinderAddContract.modle1 ,MessageF
     }
 
     @Override
-    public Flowable<BaseObjectBean> postMp4(Context context, Map token, MultipartBody.Part part) {
-        return RetrofitClient.getInstance().getApi().postMp4(token,part);
+    public Flowable<BaseObjectBean<Mp4Bean.DataBean>> postMp4(Context context, Map token,RequestBody requestBody, MultipartBody.Part part) {
+        return RetrofitClient.getInstance().getApi().postMp4(token,requestBody,part);
     }
 }

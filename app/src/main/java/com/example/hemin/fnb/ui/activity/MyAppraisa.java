@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseActivity;
 import com.example.hemin.fnb.ui.fragment.AppraisaFragment;
+import com.example.hemin.fnb.ui.util.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -80,11 +81,11 @@ public class MyAppraisa extends BaseActivity {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);
-                SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
-                simplePagerTitleView.setNormalColor(Color.GRAY);
-                simplePagerTitleView.setSelectedColor(Color.BLACK);
+                SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
+                simplePagerTitleView.setNormalColor(Color.parseColor("#666666"));
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#333333"));
                 simplePagerTitleView.setText(date.get(index));
-                simplePagerTitleView.setTextSize(15);
+                simplePagerTitleView.setTextSize(18);
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -100,8 +101,9 @@ public class MyAppraisa extends BaseActivity {
 
             @Override
             public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
-                return linePagerIndicator;
+                WrapPagerIndicator indicator = new WrapPagerIndicator(context);
+                indicator.setFillColor(Color.parseColor("#FBED44"));
+                return indicator;
             }
         });
         magicIndicator.setNavigator(commonNavigator);

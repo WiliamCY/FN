@@ -38,6 +38,7 @@ public class MediaRecordActivity extends AppCompatActivity {
     private JCameraView jCameraView;
     private boolean granted = false;
     private String type;
+    private int StatusType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +46,23 @@ public class MediaRecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_media_record);
          Intent intent = getIntent();
          type = intent.getStringExtra("type");
+        StatusType = intent.getIntExtra("StatusType",0);
         jCameraView = (JCameraView) findViewById(R.id.jcameraview);
 
         //设置视频保存路径
-        jCameraView.setSaveVideoPath(Environment.getExternalStorageDirectory().getPath() + File.separator + "JCamera");
+//        jCameraView.setSaveVideoPath(Environment.getExternalStorageDirectory().getPath() + File.separator + "JCamera");
+        jCameraView.setSaveVideoPath("storage/emulated/0/imagepicker");
         //设置只能录像或只能拍照或两种都可以（默认两种都可以）
-        jCameraView.setFeatures(JCameraView.BUTTON_STATE_BOTH);
+        if(StatusType == 0){
+            jCameraView.setFeatures(JCameraView.BUTTON_STATE_BOTH);
+        }else if(StatusType == 1){
+            jCameraView.setFeatures(JCameraView.BUTTON_STATE_ONLY_CAPTURE);
+        jCameraView.setTip("轻触拍照");
+        }else if(StatusType == 2){
+            jCameraView.setFeatures(JCameraView.BUTTON_STATE_ONLY_RECORDER);
+            jCameraView.setTip("长按摄像");
+        }
+
         //设置视频质量
         jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE);
         jCameraView.setErrorLisenter(new ErrorListener() {
@@ -67,7 +79,7 @@ public class MediaRecordActivity extends AppCompatActivity {
         jCameraView.setJCameraLisenter(new JCameraListener() {
             @Override
             public void captureSuccess(Bitmap bitmap) {
-                String path = FileUtil.saveBitmap("imagePicker", bitmap);
+                String path = FileUtil.saveBitmap("storage/emulated/0/imagepicker", bitmap);
                 if(type != null && type.equals("1")){
                     Intent intent = new Intent(MediaRecordActivity.this,MessageAdd.class);
                     intent.putExtra("path", path);
@@ -98,12 +110,12 @@ public class MediaRecordActivity extends AppCompatActivity {
 
                 if(type != null && type.equals("1")){
                     Intent intent = new Intent(MediaRecordActivity.this,MessageAdd.class);
-                    intent.putExtra("path", path);
+                    intent.putExtra("videopath", path);
                     intent.putExtra("videoUrl", url);
                     startActivity(intent);
                 }
                 Intent intent = new Intent(MediaRecordActivity.this,MessageAdd.class);
-                intent.putExtra("path", path);
+                intent.putExtra("videopath", path);
                 intent.putExtra("videoUrl", url);
                 setResult(RESULT_CODE_RETURN_VIDEO, intent);
                 finish();

@@ -97,10 +97,15 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     private Map<String, String> map = new HashMap<>();
     private static final String[] date2 = new String[]{"相册", "拍摄"};
     private List<String> mDataList2 = Arrays.asList(date2);
+    private static final String[] date3 = new String[]{ "拍摄"};
+    private List<String> mDataList3 = Arrays.asList(date3);
     private PopupWindow popupWindow;
     private ImageView imageView1, imageView2, imageView3, dissmissage;
     private boolean mIsVisibleToUser = false;
     ArrayList<String> infoList = new ArrayList<String>();
+    private List<String> returnList = new ArrayList<>();
+    private int status = 0;
+    private  int statusType = 0;
 
 
     @Override
@@ -126,7 +131,12 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         itPickerView.setPickerListener(new ImageShowPickerListener() {
             @Override
             public void addOnClickListener(int remainNum) {
-                initOptionPicker(mDataList2);
+                if(statusType == 0 || statusType == 1){
+                    initOptionPicker(mDataList2);
+                }else if(statusType == 2){
+                    initOptionPicker(mDataList3);
+                }
+
             }
 
             @Override
@@ -135,27 +145,33 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
             @Override
             public void delOnClickListener(int position, int remainNum) {
-                imageUrls.remove(position);
+                returnList.remove(position);
             }
         });
         itPickerView.show();
         String path = getIntent().getStringExtra("path");
         if(path != null){
             imageUrls.add(path);
-            itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(path))));
             postFile(path,1);
+//            itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(path))));
+            statusType = 1;
         }
         infoList = getIntent().getStringArrayListExtra("paths");
         if(infoList != null) {
             for (int i = 0; i < infoList.size(); i++) {
                 imageUrls.add(infoList.get(i));
-                itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(infoList.get(i)))));
                 postFile(infoList.get(i),1);
+//                itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(infoList.get(i)))));
+                statusType = 1;
             }
         }
+        String videopath = getIntent().getStringExtra("videopath");
         String video = getIntent().getStringExtra("videoUrl");
-        if(video != null){
+        if(video != null && videopath != null){
+            imageUrls.add(video);
             postFile(video,2);
+            itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(videopath))));
+            statusType = 2;
         }
     }
 
@@ -225,32 +241,34 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
-//              Intent intent = new Intent(getActivity(),MainActivity.class);
-//                  startActivity(intent);
+                 finish();
                 break;
             case R.id.add:
                 if (TextUtils.isEmpty(getEdittext())) {
                     Utils.showMyToast(Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT), 400);
                     return;
-                } else if (imageUrls.size() < 1 || imageUrls.size() > 9) {
+                } else if (returnList.size() < 1 || returnList.size() > 9) {
                     Utils.showMyToast(Toast.makeText(this, "图片在1-9张范围之内", Toast.LENGTH_SHORT), 400);
+                    return;
 
                 }
-                String dates = imageUrls.toString().trim();
+                String dates = returnList.toString().trim();
                 if (dates.trim().contains("[") || dates.trim().contains("]")) {
-                    dates = dates.substring(1, dates.length() - 1);
+                    dates = dates.substring(1, dates.length() - 1).trim();
                 }
                 SharedPreferences sp = this.getSharedPreferences("userDate", MODE_PRIVATE);
                 String id = sp.getString("userId", "");
-                HashMap<String, String> map2 = new HashMap<>();
+                HashMap map2 = new HashMap<>();
                 map2.put("friendContent", getEdittext());
                 Log.d("messageFinder", getEdittext());
+                map2.put("friendType",status);
                 map2.put("friendUrl", dates);
                 Log.d("messageFinder1", dates);
                 map2.put("userId", id);
                 Log.d("messageFinder2", id);
                 HashMap<String, String> token = new HashMap<>();
-                token.put("Authorization", "usERa" + getToken());
+                token.put("Authorization", Utils.getAuthorizationHeard(this));
+                Utils.getAuthorization(this);
                 Log.d("messageFdinder", String.valueOf(Utils.RetrofitHead(map2)));
                 mPresenter.friendAdd(this, token, Utils.RetrofitHead(map2));
 
@@ -271,7 +289,10 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                     startActivityForResult(intent2, 0);
 
                 } else if (sexs.equals("拍摄")) {
-                    startActivityForResult(new Intent(AppUtils.getContext(), MediaRecordActivity.class), 100);
+                    Intent intent  = new Intent(AppUtils.getContext(),MediaRecordActivity.class);
+                    intent.putExtra("StatusType",statusType);
+                    startActivityForResult(intent,100);
+//                    startActivityForResult(new Intent(AppUtils.getContext(), MediaRecordActivity.class), 100);
                 }
 
             }
@@ -289,7 +310,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     }
 
     private String getEdittext() {
-        return title.getText().toString();
+        return title.getText().toString().trim();
     }
 
     @Override
@@ -300,7 +321,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     @Override
     public void Status(int index) {
         if (index == 1) {
-            finish();
+         Intent intent = new Intent(this,MainActivity.class);
+         startActivity(intent);
         }
     }
 
@@ -324,9 +346,13 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
     }
 
-    public void getPostImageUrls(String urils) {
-        imageUrls.add(urils);
-        Log.d("imageUrlsiZE", String.valueOf(imageUrls.size()));
+    public void getPostImageUrls(String urils,int statu) {
+
+        returnList.add(urils);
+        status = statu;
+//        itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(urils))));
+        itPickerView.addData(new ImageBean(urils.trim()));
+        Log.d("imageUrlsiZE", String.valueOf(returnList.size()));
 
 
     }
@@ -347,24 +373,22 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                 if (data != null) {
                     List<String> paths = (List<String>) data.getExtras().getSerializable("photos");//path是选择拍照或者图片的地址数组
                     for (int i = 0; i < paths.size(); i++) {
-                        itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(paths.get(i)))));
-                        String path = paths.get(i);
-                        Log.d("pathsss:", path);
-                        postFile(path,1);
+//                        itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(paths.get(i)))));
+//                        String path = paths.get(i);
+//                        Log.d("pathsss:", path);
+                        postFile(paths.get(i),1);
                     }
                 }
                 break;
             case 100:
                 if (resultCode == 101) {
                     String photoPath = data.getStringExtra("path");
-                    imageUrls.add(photoPath);
-                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(photoPath))));
+//                    imageUrls.add(photoPath);
+//                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(photoPath))));
                      postFile(photoPath,1);
                 } else if (resultCode == 102) {
-                    String firstVideoPicture = data.getStringExtra("path");
+                    String firstVideoPicture = data.getStringExtra("videopath");
                     imageUrls.add(firstVideoPicture);
-                    Log.d("wdwarhtrdf", firstVideoPicture);
-                    //视频路径，该路径为已压缩过的视频路径
                     String videoPath = data.getStringExtra("videoUrl");
                     itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(firstVideoPicture))));
                    postFile(videoPath,2);
@@ -384,7 +408,9 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
            if(type == 1){
                mPresenter.postImage(this, map, imageBodyPart);
            }else if(type == 2){
-               mPresenter.postMp4(this,map,imageBodyPart);
+               RequestBody descriptions = RequestBody.create(MediaType.parse("video/mp4"), file);
+               MultipartBody.Part imageBodyParts = MultipartBody.Part.createFormData("file", file.getName(), descriptions);
+               mPresenter.postMp4(this,map,descriptions ,imageBodyParts);
            }
     }
 

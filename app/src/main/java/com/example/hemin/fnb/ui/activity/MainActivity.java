@@ -192,6 +192,7 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent3 = new Intent(MainActivity.this,MediaRecordActivity.class);
                 intent3.putExtra("type","1");
+                intent3.putExtra("StatusType",0);
                 startActivity(intent3);
 //                startActivityForResult(new Intent(MainActivity.this, MediaRecordActivity.class), 100);
             }

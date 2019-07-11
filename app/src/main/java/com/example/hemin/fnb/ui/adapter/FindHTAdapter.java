@@ -20,7 +20,7 @@ public class FindHTAdapter extends ItemViewBinder<Find2Tiem, FindHTAdapter.FindZ
     @NonNull
     @Override
     protected FindHTAdapter.FindZaZhiHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View view = inflater.inflate(R.layout.find_card5_view,parent,false);
+        View view = inflater.inflate(R.layout.find_cardc_view,parent,false);
         return new FindZaZhiHolder(view);
     }
 

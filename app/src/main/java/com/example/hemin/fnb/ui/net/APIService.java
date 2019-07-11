@@ -22,6 +22,7 @@ import com.example.hemin.fnb.ui.bean.MessageBean2;
 import com.example.hemin.fnb.ui.bean.MessageBean3;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
 import com.example.hemin.fnb.ui.bean.MessageImages;
+import com.example.hemin.fnb.ui.bean.Mp4Bean;
 import com.example.hemin.fnb.ui.bean.ReleaseBean;
 import com.example.hemin.fnb.ui.bean.TypeBean;
 import com.example.hemin.fnb.ui.bean.UserDateBean;
@@ -326,7 +327,7 @@ public interface APIService {
   /**
    * 我的收藏
    * */
-  @PUT("/app/user/myCollection/{current}/{size}/{userId}")
+  @GET("/app/user/myCollection/{current}/{size}/{userId}")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
   Flowable<BaseObjectBean>  MyCollect(@HeaderMap Map<String,String> heard , @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
 
@@ -341,11 +342,19 @@ public interface APIService {
   Flowable<BaseObjectBean>  FindCollect(@HeaderMap Map<String,String> heard , @Path("type") long current, @Path("dailyId") long dailyId, @Path("userId") long userId);
 
 
+//  /**
+//   * 图片上传
+//   * */
+//  @Multipart
+//  @POST("sys/upload/addMp4")
+////    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+//  Flowable<BaseObjectBean<Mp4Bean.DataBean>> postMp4(@HeaderMap Map<String,String> heard,@Part("description") RequestBody description, @Part  MultipartBody.Part partList);
+//}
   /**
    * 图片上传
    * */
   @Multipart
   @POST("sys/upload/addMp4")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-  Flowable<BaseObjectBean> postMp4(@HeaderMap Map<String,String> heard,@Part  MultipartBody.Part partList);
+  Flowable<BaseObjectBean<Mp4Bean.DataBean>> postMp4(@HeaderMap Map<String,String> heard,@Part("description") RequestBody description, @Part  MultipartBody.Part partList);
 }
