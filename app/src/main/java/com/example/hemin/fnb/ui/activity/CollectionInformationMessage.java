@@ -116,7 +116,7 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
         @Override
         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
             Log.d("adawdawd", "onException: " + e.toString() + "  model:" + model + " isFirstResource: " + isFirstResource);
-            images.setImageResource(R.mipmap.ic_launcher);
+            images.setImageResource(R.mipmap.logos);
             return false;
         }
 

@@ -47,7 +47,7 @@ public class FoucrsPresenter extends BasePresenter<TaskBigImgActivity> implement
     }
 
     @Override
-    public void getZan(Context context, Map token, long finder, long userId, long type) {
+    public void getZan(Context context, Map token, long finder, long userId, final long type) {
         if(!isViewAttached()){
             return;
         }
@@ -60,7 +60,7 @@ public class FoucrsPresenter extends BasePresenter<TaskBigImgActivity> implement
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean,1);
                         mView.hideLoading();
-                        mView.zanResult(bean.getErrorCode());
+                        mView.zanResult(bean.getErrorCode(),type);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity {
         rgOper.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.rd_analysis:
                         addFragment("fragment1");
                         break;
@@ -161,10 +161,11 @@ public class MainActivity extends BaseActivity {
             currentFragment = fragment;
         } else {
             transaction1 = fragmentManager.beginTransaction();
-            transaction1.show(fragment);
             transaction1.hide(currentFragment);
+            transaction1.show(fragment);
             currentFragment = fragment;
             transaction1.commit();
+//            }
         }
     }
 
@@ -190,17 +191,16 @@ public class MainActivity extends BaseActivity {
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(MainActivity.this,MediaRecordActivity.class);
-                intent3.putExtra("type","1");
-                intent3.putExtra("StatusType",0);
+                Intent intent3 = new Intent(MainActivity.this, MediaRecordActivity.class);
+                intent3.putExtra("type", "1");
+                intent3.putExtra("StatusType", 0);
                 startActivity(intent3);
-//                startActivityForResult(new Intent(MainActivity.this, MediaRecordActivity.class), 100);
             }
         });
         imageView3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,PublishingCollections.class);
+                Intent intent = new Intent(MainActivity.this, PublishingCollections.class);
                 startActivity(intent);
             }
         });
@@ -213,6 +213,7 @@ public class MainActivity extends BaseActivity {
         });
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {

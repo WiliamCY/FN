@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseActivity;
+import com.example.hemin.fnb.ui.util.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +49,7 @@ public class AboutActivity extends BaseActivity {
     @Override
     public void initView() {
         title.setText("关于玩鉴");
+        titles.setText("版本号："+ Utils.getVerName(this));
     }
 
     @Override

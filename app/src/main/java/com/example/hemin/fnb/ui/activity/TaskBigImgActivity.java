@@ -49,10 +49,12 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     TextView title;
     @BindView(R.id.zan)
     ImageView zan;
+    @BindView(R.id.collect)
+    ImageView collect;
     private int position = 0;
     private ArrayList<String> paths;
     private long finderid, finderids;
-    private String userId, userIds, StringContent, userUrl, nickName,isCollectionSum,isGiveNum ;
+    private String userId, userIds, StringContent, userUrl, nickName, isCollectionSum, isGiveNum;
     private Map token = new HashMap();
     private Boolean isGiveNumStatus = false;
     private Boolean FocuseStatus = false;
@@ -91,27 +93,27 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         } else {
             headerTitle.setVisibility(View.VISIBLE);
         }
-        if(isCollectionSum != null){
-            if(isCollectionSum.equals("1")){
+        if (isCollectionSum != null) {
+            if (isCollectionSum.equals("1")) {
                 FocuseStatus = false;
                 headerTitle.setText("已关注");
                 headerTitle.setBackgroundResource(R.drawable.shape_yellows);
                 headerTitle.setTextColor(R.color.c999999);
 
-            }else if(isCollectionSum.equals("2")){
+            } else if (isCollectionSum.equals("2")) {
                 headerTitle.setText("关注");
                 headerTitle.setBackgroundResource(R.drawable.shape_yellow);
                 headerTitle.setTextColor(R.color.c333333);
                 FocuseStatus = true;
 
-        }else {
+            } else {
                 headerTitle.setVisibility(View.GONE);
             }
         }
-        if(isGiveNum.equals("1")){
+        if (isGiveNum.equals("1")) {
             isGiveNumStatus = true;
             zan.setBackgroundResource(R.mipmap.zan_black);
-        }else{
+        } else {
             isGiveNumStatus = false;
             zan.setBackgroundResource(R.mipmap.white_zan);
         }
@@ -131,18 +133,8 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                 Log.d("messaePaths", paths.toString());
                 View adView = LayoutInflater.from(TaskBigImgActivity.this).inflate(R.layout.item_big_img, null);
                 PhotoView icon = (PhotoView) adView.findViewById(R.id.flaw_img);
-//                TextView StringContents = adView.findViewById(R.id.title);
                 headerRightTv = adView.findViewById(R.id.header_right_tv);
                 headerRightTv.setText(1 + "/" + paths.size());
-//                zan = adView.findViewById(R.id.zan);
-//                zan.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Map token = Utils.getAuthorization(getApplication());
-//                        mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
-//                    }
-//                });
-//                StringContents.setText(StringContent);
                 icon.setBackgroundColor(getResources().getColor(R.color.c333333));
                 Glide.with(TaskBigImgActivity.this)
                         .load(paths.get(position).trim())
@@ -174,53 +166,51 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             }
 
         });
-//
-//        bigImgVp.setCurrentItem(position, false);
-
     }
-//
-//    @OnClick(R.id.header_left_img)
-//    public void onClick() {
-//        finish();
-//    }
 
     @Override
     public void onSuccess(BaseObjectBean bean, int status) {
-//        if (status == 0 && bean.getErrorCode() == 0) {
-//            headerTitle.setText("已关注");
-//        } else if (status == 1) {
-//            zan.setBackgroundResource(R.mipmap.zan_black);
-//        }
+
 
     }
-  public void  zanResult(int status){
 
-         if(status == 0){
-             if(isGiveNumStatus == false){
-                 zan.setBackgroundResource(R.mipmap.zan_black);
-                 isGiveNumStatus = true;
-             }else {
-                 zan.setBackgroundResource(R.mipmap.white_zan);
-                 isGiveNumStatus = false;
-             }
-         }
-  }
-  @SuppressLint("ResourceAsColor")
-  public  void  FoucesStatus(int status){
-   if(status == 0){
-       if(FocuseStatus == false){
-           headerTitle.setText("关注");
-           headerTitle.setBackgroundResource(R.drawable.shape_yellow);
-           headerTitle.setTextColor(R.color.c333333);
-           FocuseStatus = true;
-       }else {
-           headerTitle.setText("已关注");
-           headerTitle.setBackgroundResource(R.drawable.shape_yellows);
-           headerTitle.setTextColor(R.color.c999999);
-         FocuseStatus = false;
-       }
-   }
-  }
+    public void zanResult(int status,long type) {
+        if(type == 0 || status == 0){
+            if (isGiveNumStatus == false) {
+                zan.setBackgroundResource(R.mipmap.zan_black);
+                isGiveNumStatus = true;
+            } else {
+                zan.setBackgroundResource(R.mipmap.white_zan);
+                isGiveNumStatus = false;
+            }
+        }else if(type == 1 || status == 0){
+            collect.setBackgroundResource(R.mipmap.collect_black);
+            isGiveNumStatus = true;
+        } else {
+            zan.setBackgroundResource(R.mipmap.collect);
+            isGiveNumStatus = false;
+        }
+
+
+    }
+
+    @SuppressLint("ResourceAsColor")
+    public void FoucesStatus(int status) {
+        if (status == 0) {
+            if (FocuseStatus == false) {
+                headerTitle.setText("关注");
+                headerTitle.setBackgroundResource(R.drawable.shape_yellow);
+                headerTitle.setTextColor(R.color.c333333);
+                FocuseStatus = true;
+            } else {
+                headerTitle.setText("已关注");
+                headerTitle.setBackgroundResource(R.drawable.shape_yellows);
+                headerTitle.setTextColor(R.color.c999999);
+                FocuseStatus = false;
+            }
+        }
+    }
+
     @Override
     public void showLoading() {
 
@@ -244,11 +234,11 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.titl1,R.id.zan,R.id.header_left_img,R.id.collect})
+    @OnClick({R.id.titl1, R.id.zan, R.id.header_left_img, R.id.collect})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.titl1:
-                 token = Utils.getAuthorization(this);
+                token = Utils.getAuthorization(this);
                 mPresenter.Fouces(this, token, finderid, Long.parseLong(userIds));
                 Log.d("dwdwagtdjhdr", String.valueOf(finderid));
                 Log.d("dwdwagtdjhdrs", userIds);
@@ -256,13 +246,15 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                 break;
             case R.id.zan:
                 token = Utils.getAuthorization(getApplication());
-                        mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
-                        break;
+                mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
+                break;
             case R.id.header_left_img:
                 finish();
                 break;
             case R.id.collect:
-
+                token = Utils.getAuthorization(getApplication());
+                mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 1);
+               break;
 
         }
     }

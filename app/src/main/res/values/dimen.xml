@@ -116,6 +116,7 @@
     <dimen name="marginBottom_18">18dp</dimen>
     <dimen name="marginBottom_19">19dp</dimen>
     <dimen name="marginBottom_20">20dp</dimen>
+    <dimen name="marginBottom_25">25dp</dimen>
     <dimen name="marginBottom_30">30dp</dimen>
     <dimen name="marginBottom_50">50dp</dimen>
     <dimen name="marginBottom_60">60dp</dimen>

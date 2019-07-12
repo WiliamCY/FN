@@ -29,6 +29,7 @@
         <!--设置处理第三方的actionbar和toolbar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!--<item name="android:typeface">serif</item>-->
 
 
 
