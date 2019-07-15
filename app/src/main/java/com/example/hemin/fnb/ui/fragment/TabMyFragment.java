@@ -54,6 +54,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,6 +102,8 @@ public class TabMyFragment extends BaseFragment {
     ImageView ivMenu;
     @BindView(R.id.toolbar_username)
     TextView toolbarUsername;
+    @BindView(R.id.title1)
+    TextView title1;
 
     private String birthday, nicknames, signature, url, userid, sex;
     private final String[] date = new String[]{"发布", "收藏", "想要"};
@@ -299,7 +302,7 @@ public class TabMyFragment extends BaseFragment {
         return R.layout.fragment_tab_my;
     }
 
-    @OnClick({R.id.setting, R.id.user_logo, R.id.qm, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4,R.id.iv_menu})
+    @OnClick({R.id.setting, R.id.user_logo, R.id.qm, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.iv_menu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
@@ -353,6 +356,14 @@ public class TabMyFragment extends BaseFragment {
     public void printss(String message) {
         Log.i("sdawdwdwadadh", message);
         login.setText(message);
+    }
+
+    @Subscribe(id = 41)
+    public void fans(Map map) {
+        String focus = (String) map.get("focus");
+        String fans = (String) map.get("fans");
+    title1.setText(" 关注 "+focus+"  |  "+" 粉丝 "+fans);
+
     }
 
     @Override

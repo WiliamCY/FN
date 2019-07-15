@@ -6,6 +6,7 @@ import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.bean.AppraisasBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ColletionBean;
+import com.example.hemin.fnb.ui.bean.FansBean;
 import com.example.hemin.fnb.ui.bean.Find2Bean;
 import com.example.hemin.fnb.ui.bean.Find4Bean;
 import com.example.hemin.fnb.ui.bean.Find5Bean;
@@ -342,14 +343,6 @@ public interface APIService {
   Flowable<BaseObjectBean>  FindCollect(@HeaderMap Map<String,String> heard , @Path("type") long current, @Path("dailyId") long dailyId, @Path("userId") long userId);
 
 
-//  /**
-//   * 图片上传
-//   * */
-//  @Multipart
-//  @POST("sys/upload/addMp4")
-////    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-//  Flowable<BaseObjectBean<Mp4Bean.DataBean>> postMp4(@HeaderMap Map<String,String> heard,@Part("description") RequestBody description, @Part  MultipartBody.Part partList);
-//}
   /**
    * 图片上传
    * */
@@ -357,4 +350,10 @@ public interface APIService {
   @POST("sys/upload/addMp4")
 //    @Headers({ "Content-Type: application/json;charset=UTF-8"})
   Flowable<BaseObjectBean<Mp4Bean.DataBean>> postMp4(@HeaderMap Map<String,String> heard,@Part("description") RequestBody description, @Part  MultipartBody.Part partList);
+
+  /**
+   * 粉丝数，关注数
+   * */
+  @GET("/app/friend/getFansAndFocusSum")
+  Flowable<BaseObjectBean<FansBean.DataBean>> getFansAndFocusSum(@HeaderMap Map<String,String> heard);
 }

@@ -69,7 +69,7 @@ public class FragmentMyPublish extends BaseMvpFragment<WoDoQuanZiPresenter> impl
     }
 
     @Override
-    public void DateUserId(Object object, String userId, String content, String url, String nickName, String isGiveNum) {
+    public void DateUserId(Object object, String userId, String content, String url, String nickName, String isGiveNum,String edf) {
 
     }
 

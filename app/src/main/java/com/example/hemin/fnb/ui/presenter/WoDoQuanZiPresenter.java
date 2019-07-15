@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.hemin.fnb.ui.activity.MyAppraisaS;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.FansBean;
 import com.example.hemin.fnb.ui.bean.GuanZhuBean;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
 import com.example.hemin.fnb.ui.bean.ReleaseBean;
@@ -13,6 +14,9 @@ import com.example.hemin.fnb.ui.fragment.QuanZiFragment;
 import com.example.hemin.fnb.ui.model.WoDeQuanZiModel;
 import com.example.hemin.fnb.ui.net.RxScheduler;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +28,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
     private WodeQuanziContract.modle4 modle4;
     private WodeQuanziContract.modle5 modle5;
     private WodeQuanziContract.Collect modle6;
+    private WodeQuanziContract.mdle6 mdle6s;
 
     public WoDoQuanZiPresenter() {
         mode2 = new WoDeQuanZiModel();
@@ -31,6 +36,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
         modle4 = new WoDeQuanZiModel();
         modle5 = new WoDeQuanZiModel();
         modle6 = new WoDeQuanZiModel();
+        mdle6s = new WoDeQuanZiModel();
     }
 
 
@@ -113,7 +119,8 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                         String userid = bean1.getUserId();
                         String contnet = bean1.getFriendContent();
                         String isGiveNum = bean1.getIsGiveNum();
-                        mView.DateUserId(list,userid,contnet,userUrl,nickName,isGiveNum);
+                        String isFocus = bean1.getIsFocus();
+                        mView.DateUserId(list,userid,contnet,userUrl,nickName,isGiveNum,isFocus);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -163,6 +170,38 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void getFansAndFocusSum(Context context, Map token) {
+        if(!isViewAttached()){
+            return;
+        }
+        mView.showLoading();
+        mdle6s.getFansAndFocusSum(context,token)
+                .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
+                .as(mView.<BaseObjectBean>bindAutoDispose())
+                .subscribe(new Consumer<BaseObjectBean>() {
+                    @Override
+                    public void accept(BaseObjectBean bean) throws Exception {
+                        mView.onSuccess(bean);
+                        mView.hideLoading();
+                        FansBean.DataBean bean1 = (FansBean.DataBean) bean.getData();
+                        String focus = bean1.getFocus();
+                        String fans = bean1.getFans();
+                        Map<String,String> map = new HashMap<>();
+                        map.put("focus",focus);
+                        map.put("fans",fans);
+                        EventBus.getDefault().post(41,map);
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

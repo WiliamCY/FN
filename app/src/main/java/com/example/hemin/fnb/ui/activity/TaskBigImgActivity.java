@@ -54,10 +54,11 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     private int position = 0;
     private ArrayList<String> paths;
     private long finderid, finderids;
-    private String userId, userIds, StringContent, userUrl, nickName, isCollectionSum, isGiveNum;
+    private String userId, userIds, StringContent, userUrl, nickName, isCollectionSum, isGiveNum,isFocus;
     private Map token = new HashMap();
     private Boolean isGiveNumStatus = false;
     private Boolean FocuseStatus = false;
+    private Boolean isFocusStatus = false;
 
     @Override
     public int getLayoutId() {
@@ -81,6 +82,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         nickName = intent.getStringExtra("nickName");
         isCollectionSum = intent.getStringExtra("isCollectionSum");
         isGiveNum = intent.getStringExtra("isGiveNum");
+        isFocus = intent.getStringExtra("isFocus");
         titleUser.setText(nickName);
         title.setText(StringContent);
         Glide.with(this).load(userUrl).into(userLogo);
@@ -116,6 +118,13 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         } else {
             isGiveNumStatus = false;
             zan.setBackgroundResource(R.mipmap.white_zan);
+        }
+        if(isFocus.equals("1")){
+            isFocusStatus = true;
+             collect.setBackgroundResource(R.mipmap.collect_black);
+        }else {
+            isFocusStatus = false;
+            collect.setBackgroundResource(R.mipmap.collect);
         }
         bigImgVp.setAdapter(new PagerAdapter() {
             @Override
@@ -175,7 +184,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     }
 
     public void zanResult(int status,long type) {
-        if(type == 0 || status == 0){
+        if(type == 0 && status == 0){
             if (isGiveNumStatus == false) {
                 zan.setBackgroundResource(R.mipmap.zan_black);
                 isGiveNumStatus = true;
@@ -183,12 +192,14 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                 zan.setBackgroundResource(R.mipmap.white_zan);
                 isGiveNumStatus = false;
             }
-        }else if(type == 1 || status == 0){
-            collect.setBackgroundResource(R.mipmap.collect_black);
-            isGiveNumStatus = true;
-        } else {
-            zan.setBackgroundResource(R.mipmap.collect);
-            isGiveNumStatus = false;
+        }else if(type == 1 && status == 0){
+            if(isFocusStatus == false) {
+                collect.setBackgroundResource(R.mipmap.collect_black);
+                isFocusStatus = true;
+            }else {
+                collect.setBackgroundResource(R.mipmap.collect);
+                isFocusStatus = false;
+            }
         }
 
 
@@ -240,8 +251,6 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             case R.id.titl1:
                 token = Utils.getAuthorization(this);
                 mPresenter.Fouces(this, token, finderid, Long.parseLong(userIds));
-                Log.d("dwdwagtdjhdr", String.valueOf(finderid));
-                Log.d("dwdwagtdjhdrs", userIds);
 
                 break;
             case R.id.zan:

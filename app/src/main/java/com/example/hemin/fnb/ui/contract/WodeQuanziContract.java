@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.hemin.fnb.ui.base.BaseView;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.FansBean;
 
 import java.util.Map;
 
@@ -23,6 +24,9 @@ public interface WodeQuanziContract  {
        Flowable<BaseObjectBean> Remove(Context context,Map token,String fuId);
 
     }
+    interface mdle6{
+        Flowable<BaseObjectBean<FansBean.DataBean>> getFansAndFocusSum(Context context, Map token);
+    }
     interface  Collect{
         Flowable<BaseObjectBean>  MyCollect(Context context,Map token,long current,long size,long userId);
     }
@@ -36,7 +40,7 @@ public interface WodeQuanziContract  {
         void Date(Object object,int index);
         @Override
         void onError(Throwable throwable);
-        void DateUserId(Object object,String userId,String content,String url,String nickName,String isGiveNum);
+        void DateUserId(Object object,String userId,String content,String url,String nickName,String isGiveNum,String isFocus);
         void onSuccess(BaseObjectBean bean);
     }
     interface Presenter {
@@ -48,6 +52,7 @@ public interface WodeQuanziContract  {
         void getFidner(Context context,Map token, long friendId,int userId);
         void  Remove(Context context,Map token,String fuid);
         void  MyCollect(Context context,Map token,long current,long size,long userId,int status);
+        void getFansAndFocusSum(Context context,Map token);
     }
 
 }

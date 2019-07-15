@@ -104,10 +104,11 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         token = Utils.getAuthorization(getActivity());
         userId = sp.getString("userId", "");
+        mPresenter.getFansAndFocusSum(getActivity(),token);
         if (index == 0) {//我的发布
            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
         } else{///我的收藏
-          mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),0);
+//          mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),0);
 //            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
         }
 
@@ -170,13 +171,13 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     }
 
     @Override
-    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName, String isGiveNum) {
+    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName, String isGiveNum,String isFocus) {
 
-        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName, isGiveNum);
+        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName, isGiveNum,isFocus);
 
     }
 
-    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName, String isGiveNum) {
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName, String isGiveNum,String isFocus) {
         recordPaths.clear();
         for (int i = 0; i < object.size(); i++) {
             String path = object.get(i).getImagesUrl();
@@ -191,6 +192,7 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         imgIntent.putExtra("position", object.size());
         imgIntent.putExtra("finderid", finderid);
         imgIntent.putExtra("userId", userId);
+        imgIntent.putExtra("isFocus",isFocus);
         imgIntent.putExtra("StringContent", content);
         imgIntent.putExtra("userUrl", userUrl);
         imgIntent.putExtra("nickName", nickName);
