@@ -328,9 +328,9 @@ public interface APIService {
   /**
    * 我的收藏
    * */
-  @GET("/app/user/myCollection/{current}/{size}/{userId}")
+  @GET("/app/friend/myCollection/{current}/{size}/{userId}")
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
-  Flowable<BaseObjectBean>  MyCollect(@HeaderMap Map<String,String> heard , @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
+  Flowable<BaseObjectBean<ReleaseBean.DataBean>>  MyCollect(@HeaderMap Map<String,String> heard , @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
 
 
 

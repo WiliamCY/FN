@@ -28,11 +28,10 @@ public class ProgressDialog {
 
     public void show(Context mContext) {
         materialDialog = new MaterialDialog.Builder(mContext)
-//                .title(R.string.progress_dialog_title)
                 .content(R.string.progress_please_wait)
                 .progress(true, 0)
                 .cancelable(false)
-                .progressIndeterminateStyle(false)
+                .progressIndeterminateStyle(true)
                 .show();
 
     }

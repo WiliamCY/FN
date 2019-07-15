@@ -41,6 +41,7 @@ import com.example.hemin.fnb.ui.contract.FindContract;
 import com.example.hemin.fnb.ui.interfaces.OnFindClickListener;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.FindPresenter;
+import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 
 import java.util.ArrayList;
@@ -63,8 +64,6 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
     Unbinder unbinder1;
     @BindView(R.id.find_logo)
     ImageView findLogo;
-//    @BindView(R.id.lay1)
-//    LinearLayout lay1;
     private int sendPost = 0;
     private Map Authorization = new HashMap();
     private String userId;
@@ -95,6 +94,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         SharedPreferences sp = getActivity().getSharedPreferences("userDate", Context.MODE_PRIVATE);
         Authorization = Utils.getAuthorization(getActivity());
         userId = sp.getString("userId", "");
+        showLoading();
         mPresenter.pageListHuo(getActivity(), Authorization, 1, 3);
 
 
@@ -119,6 +119,7 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
 
     private void initNetWork(int sendPost) {
         Log.d("sendPost", String.valueOf(sendPost));
+
         if (sendPost == 1) {
             mPresenter.addHua(getActivity(), Authorization, 1, 1);
             return;
@@ -140,17 +141,18 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
 
     @Override
     public void showLoading() {
-
+        ProgressDialog.getInstance().show(getContext());
     }
 
     @Override
     public void hideLoading() {
-
+       ProgressDialog.getInstance().dismiss();
     }
 
 
     @Override
     public void Date(Object bean, int status) {
+
         if (status == 1) {
             findBeanList = (List<FindBean>) bean;
         } else if (status == 2) {
@@ -164,6 +166,8 @@ public class TabFindFragment extends BaseMvpFragment<FindPresenter> implements F
         } else if (status == 6) {
             zzList = (List<MessageBean1.DataBean.RecordsBean>) bean;
             initRecyclerView(findBeanList, find2List, find3List, find4List, find5List, zzList);
+            hideLoading();
+
         }
 
     }

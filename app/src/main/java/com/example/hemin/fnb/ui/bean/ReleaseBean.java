@@ -97,8 +97,9 @@ public class ReleaseBean {
             private String userUrl;
             private String nickname;
             private String giveNum;
-            private Object isGiveNum;
+            private int isGiveNum;
             private int roleId;
+
 
             public int getFriendId() {
                 return friendId;
@@ -148,11 +149,11 @@ public class ReleaseBean {
                 this.giveNum = giveNum;
             }
 
-            public Object getIsGiveNum() {
+            public int getIsGiveNum() {
                 return isGiveNum;
             }
 
-            public void setIsGiveNum(Object isGiveNum) {
+            public void setIsGiveNum(int isGiveNum) {
                 this.isGiveNum = isGiveNum;
             }
 

@@ -94,7 +94,7 @@ public class MessageBean2 {
             private String userUrl;
             private String nickname;
             private String giveNum;
-            private String isGiveNum;
+            private int isGiveNum;
             private long roleId;
 
             public long getFriendId() {
@@ -145,11 +145,11 @@ public class MessageBean2 {
                 this.giveNum = giveNum;
             }
 
-            public String getIsGiveNum() {
+            public int getIsGiveNum() {
                 return isGiveNum;
             }
 
-            public void setIsGiveNum(String isGiveNum) {
+            public void setIsGiveNum(int isGiveNum) {
                 this.isGiveNum = isGiveNum;
             }
 

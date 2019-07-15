@@ -70,6 +70,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
+
                         FindHuoListBean.DataBean bean1 = (FindHuoListBean.DataBean) bean.getResult();
                         List<FindHuoListBean.DataBean.RecordsBean> list = bean1.getRecords();
                         for (int i = 0; i < list.size() && list.size() < 4; i++) {
@@ -86,6 +87,8 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                         public void accept(Throwable throwable) throws Exception {
                             mView.onError(throwable);
+                            mView.hideLoading();
+
 
                     }
                 });
@@ -102,6 +105,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
         if (!isViewAttached()) {
             return;
         }
+
         modle3.addHua(context, heard, current, size)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -109,6 +113,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
+
                         Find2Bean.DataBean beans = (Find2Bean.DataBean) bean.getResult();
                         List<Find2Bean.DataBean.RecordsBean> list = beans.getRecords();
                         mView.Date(list, 2);
@@ -117,7 +122,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-
+                        mView.hideLoading();
                     }
                 });
 
@@ -133,6 +138,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
         if (!isViewAttached()) {
             return;
         }
+
         modle5.getDaily(context, heard, userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -141,6 +147,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     public void accept(BaseObjectBean bean) throws Exception {
                         deilyUrlList.clear();
                         mView.onSuccess(bean);
+
                         FindDeilyBean.DataBean bean1 = (FindDeilyBean.DataBean) bean.getResult();
 //                        List<FindDeilyBean.DataBean.ListBean> list = bean1.getList();
                         mView.Date(bean1, 3);
@@ -149,7 +156,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-
+                        mView.hideLoading();
                     }
                 });
     }
@@ -167,6 +174,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
+
                         List<Find4Bean.DataBean> list = (List<Find4Bean.DataBean>) bean.getResult();
                         mView.Date(list.get(0), 4);
 
@@ -176,7 +184,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-
+                        mView.hideLoading();
                     }
                 });
     }
@@ -194,6 +202,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
+
                         Find5Bean.DataBean bean1 = (Find5Bean.DataBean) bean.getResult();
                         List<Find5Bean.DataBean.RecordsBean> list = bean1.getRecords();
                         mView.Date(list.get(1), 5);
@@ -202,7 +211,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-
+                        mView.hideLoading();
                     }
                 });
     }
@@ -217,7 +226,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
         if (!isViewAttached()) {
             return;
         }
-        mView.showLoading();
+
         za.getMaga(context, token, current, size, type)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -225,7 +234,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+
                         MessageBean1.DataBean bean1 = (MessageBean1.DataBean) bean.getData();
                         List<MessageBean1.DataBean.RecordsBean> list = bean1.getRecords();
                         mView.Date(list, 6);
@@ -246,7 +255,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
         if (!isViewAttached()) {
             return;
         }
-        mView.showLoading();
+
         dcy.getDCX(context, token, type, dailyId, userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -254,7 +263,7 @@ public class FindPresenter extends BasePresenter<FindContract.View> implements F
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+
                       mView.Date("111",7);
 
 

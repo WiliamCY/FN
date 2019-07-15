@@ -132,7 +132,6 @@ public class MyAppraisa extends BaseActivity {
                 title2.getPaint().setFakeBoldText(false);
                 title2.setTextColor(Color.rgb(176, 176, 176));
                 title1.setTextColor(Color.rgb(255, 255, 255));
-//                initFragment(0, true);
                 initView2(mDataList2, true);
                 break;
             case R.id.title2:

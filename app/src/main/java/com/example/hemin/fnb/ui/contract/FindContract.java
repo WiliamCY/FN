@@ -67,7 +67,7 @@ public interface FindContract {
 
         @Override
         void hideLoading();
-            void Date(Object bean, int status);
+        void Date(Object bean, int status);
 
         @Override
         void onError(Throwable throwable);

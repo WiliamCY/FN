@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
@@ -106,7 +107,7 @@ public class TabMyFragment extends BaseFragment {
     TextView title1;
 
     private String birthday, nicknames, signature, url, userid, sex;
-    private final String[] date = new String[]{"发布", "收藏", "想要"};
+    private final String[] date = new String[]{"发布", "收藏"};
     private final List<String> dates = Arrays.asList(date);
     int toolBarPositionY = 0;
     private int mOffset = 0;
@@ -144,6 +145,7 @@ public class TabMyFragment extends BaseFragment {
                 mOffset = offset / 2;
                 ivHeader.setTranslationY(mOffset - mScrollY);
                 toolbar.setAlpha(1 - Math.min(percent, 1));
+
             }
 
 
@@ -152,6 +154,7 @@ public class TabMyFragment extends BaseFragment {
                 mOffset = offset / 2;
                 ivHeader.setTranslationY(mOffset - mScrollY);
                 toolbar.setAlpha(1 - Math.min(percent, 1));
+                Toast.makeText(getContext(),"222",Toast.LENGTH_SHORT).show();
             }
         });
         toolbar.post(new Runnable() {

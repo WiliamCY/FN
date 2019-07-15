@@ -32,6 +32,7 @@ import com.example.hemin.fnb.ui.bean.MessageBean3;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
 import com.example.hemin.fnb.ui.contract.MessageContract;
 import com.example.hemin.fnb.ui.presenter.MessagePresenter;
+import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -70,19 +71,6 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     private Message3Apdater adapter3 = new Message3Apdater(R.layout.message_adapter, data3);
     private int pageIndex = 1;
 
-//
-//    @Override
-//    protected void initView(View view) {
-//        mPresenter = new MessagePresenter();
-//        mPresenter.attachView(this);
-//        int index = this.getArguments().getInt("index");
-//        Log.d("MessageIndex", String.valueOf(index));
-//        map = Utils.getAuthorization(getActivity());
-//        initDate(index);
-//
-//
-//    }
-@Override
 protected int getLayoutId() {
     return R.layout.message;
 }
@@ -341,12 +329,12 @@ protected int getLayoutId() {
 
     @Override
     public void showLoading() {
-
+        ProgressDialog.getInstance().show(getActivity());
     }
 
     @Override
     public void hideLoading() {
-
+        ProgressDialog.getInstance().dismiss();
     }
 
     @Override

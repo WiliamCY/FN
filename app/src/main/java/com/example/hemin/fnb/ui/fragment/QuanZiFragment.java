@@ -70,8 +70,6 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     private RelaseApdater adapters = new RelaseApdater(R.layout.message_adapters, dates);
     private int finderid;
     private String userId;
-    //    private TranslateAdapter adapter = new TranslateAdapter();
-//    private RelaseApdater adapters = new RelaseApdater();
     private Map token = new HashMap();
     private TextView t1;
 
@@ -87,7 +85,6 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
             bundle.putInt("index", 0);
         } else if (i == "收藏") {
               bundle.putInt("index",1);
-        } else if (i == "想要") {
 
         }
 
@@ -108,8 +105,7 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         if (index == 0) {//我的发布
            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
         } else{///我的收藏
-//          mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),0);
-//            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
+          mPresenter.MyCollect(getActivity(),token,pageIndex,10,Long.parseLong(userId),1);
         }
 
 
@@ -141,10 +137,11 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     @Override
     public void Date(Object object, int index) {
         if (index == 1) {
-            initAdapterGZ((List<GuanZhuBean.DataBean.RecordsBean>) object);
+            initAdapterFB((List<ReleaseBean.DataBean.RecordsBean>) object);
         } else if (index == 2) {
             initAdapterFB((List<ReleaseBean.DataBean.RecordsBean>) object);
-        } else if (index == 11) {
+        }
+        else if (index == 11) {
             adapter.replaceData((List<GuanZhuBean.DataBean.RecordsBean>) object);
             refreshLayout.finishRefresh(100);
         } else if (index == 12) {
@@ -164,7 +161,8 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
                 adapters.addData((List<ReleaseBean.DataBean.RecordsBean>) object);
             }
             refreshLayout.finishLoadMore(100);
-        } else {
+        }
+        else {
             t1.setText("未关注");
 
         }
@@ -201,50 +199,50 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
 
     }
 
-    private void initAdapterGZ(final List<GuanZhuBean.DataBean.RecordsBean> beans) {
-        if (beans.size() == 0) {
-            refreshLayout.setVisibility(View.GONE);
-            logos.setVisibility(View.VISIBLE);
-            logos.setBackgroundResource(R.mipmap.guanzhu);
-            logoTitle.setVisibility(View.VISIBLE);
-            logoTitle.setText("快点去关注些什么吧～");
-
-        }
-        Log.d("TransSize:", String.valueOf(beans.size()));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        aprRecylcerview.setLayoutManager(layoutManager);
-        layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        adapter = new TranslateAdapter(R.layout.gz_adapter, beans);
-        aprRecylcerview.setAdapter(adapter);
-        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                pageIndex = 1;
-                mPresenter.myGuanzhu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 11);
-            }
-        });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                pageIndex++;
-                Log.d("pageIndex", String.valueOf(pageIndex));
-                mPresenter.myGuanzhu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 12);
-            }
-        });
-
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String userId = beans.get(position).getFuId();
-                Log.d("XrecyclerviewUserId", userId);
-                mPresenter.Remove(getActivity(), token, userId);
-                t1 = (TextView) adapter.getViewByPosition(aprRecylcerview, position, R.id.t_3);
-
-            }
-        });
-
-    }
+//    private void initAdapterGZ(final List<GuanZhuBean.DataBean.RecordsBean> beans) {
+//        if (beans.size() == 0) {
+//            refreshLayout.setVisibility(View.GONE);
+//            logos.setVisibility(View.VISIBLE);
+//            logos.setBackgroundResource(R.mipmap.guanzhu);
+//            logoTitle.setVisibility(View.VISIBLE);
+//            logoTitle.setText("快点去关注些什么吧～");
+//
+//        }
+//        Log.d("TransSize:", String.valueOf(beans.size()));
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+//        aprRecylcerview.setLayoutManager(layoutManager);
+//        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+//        adapter = new TranslateAdapter(R.layout.gz_adapter, beans);
+//        aprRecylcerview.setAdapter(adapter);
+//        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+//        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+//            @Override
+//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                pageIndex = 1;
+//                mPresenter.myGuanzhu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 11);
+//            }
+//        });
+//        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+//                pageIndex++;
+//                Log.d("pageIndex", String.valueOf(pageIndex));
+//                mPresenter.myGuanzhu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 12);
+//            }
+//        });
+//
+//        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                String userId = beans.get(position).getFuId();
+//                Log.d("XrecyclerviewUserId", userId);
+//                mPresenter.Remove(getActivity(), token, userId);
+//                t1 = (TextView) adapter.getViewByPosition(aprRecylcerview, position, R.id.t_3);
+//
+//            }
+//        });
+//
+//    }
 
     private void initAdapterFB(final List<ReleaseBean.DataBean.RecordsBean> beans) {
         if (beans.size() == 0) {

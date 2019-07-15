@@ -32,6 +32,11 @@ public class RelaseApdater extends BaseQuickAdapter<ReleaseBean.DataBean.Records
         Glide.with(mContext).load(item.getImagesUrl()).into((ImageView) viewHolder.getView(R.id.image1));
         Glide.with(mContext).load(item.getUserUrl()).into((ImageView) viewHolder.getView(R.id.image2));
         viewHolder.setText(R.id.title1,item.getFriendHead()).setText(R.id.title2,item.getNickname()).setText(R.id.title3,item.getGiveNum());
+        if(item.getIsGiveNum() >0) {
+            viewHolder.setBackgroundRes(R.id.image3, R.mipmap.zan_black);
+        }else if(item.getIsGiveNum() == 0){
+            viewHolder.setBackgroundRes(R.id.image3, R.mipmap.zan);
+        }
 
     }
 //    private Context context;

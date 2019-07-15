@@ -74,7 +74,6 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
         if(!isViewAttached()){
             return;
         }
-//        mView.showLoading();
         mode2.myFaBu(context, map,current,size,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -157,11 +156,11 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
     }
 
     @Override
-    public void MyCollect(Context context, Map token, long current, long size, long userId,int status) {
+    public void MyCollect(Context context, Map token, long current, long size, long userId, final int status) {
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         modle6.MyCollect(context, token,current,size,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -169,7 +168,10 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+//                        mView.hideLoading();
+                        ReleaseBean.DataBean bean1 = (ReleaseBean.DataBean) bean.getResult();
+                        List<ReleaseBean.DataBean.RecordsBean> list = bean1.getRecords();
+                        mView.Date(list, status);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
