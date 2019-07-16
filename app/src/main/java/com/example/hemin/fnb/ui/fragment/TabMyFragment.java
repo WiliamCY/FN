@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -38,6 +39,8 @@ import com.example.hemin.fnb.ui.view.JudgeNestedScrollView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -105,6 +108,7 @@ public class TabMyFragment extends BaseFragment {
     TextView toolbarUsername;
     @BindView(R.id.title1)
     TextView title1;
+    private  int indexStatus;
 
     private String birthday, nicknames, signature, url, userid, sex;
     private final String[] date = new String[]{"发布", "收藏"};
@@ -113,6 +117,7 @@ public class TabMyFragment extends BaseFragment {
     private int mOffset = 0;
     private int mScrollY = 0;
     private ExamplePagerAdapter adapter = new ExamplePagerAdapter(dates);
+    private String c = "发布";
 
     @Override
     protected void initView(View view) {
@@ -138,7 +143,6 @@ public class TabMyFragment extends BaseFragment {
     }
 
     private void initViewss() {
-
         refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
             @Override
             public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int bottomHeight, int extendHeight) {
@@ -146,15 +150,21 @@ public class TabMyFragment extends BaseFragment {
                 ivHeader.setTranslationY(mOffset - mScrollY);
                 toolbar.setAlpha(1 - Math.min(percent, 1));
 
+
             }
 
+//            @Override
+//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                super.onRefresh(refreshLayout);
+//
+//                EventBus.getDefault().post(43,"1");
+//            }
 
             @Override
             public void onFooterMoving(RefreshFooter footer, boolean isDragging, float percent, int offset, int footerHeight, int maxDragHeight) {
                 mOffset = offset / 2;
                 ivHeader.setTranslationY(mOffset - mScrollY);
                 toolbar.setAlpha(1 - Math.min(percent, 1));
-                Toast.makeText(getContext(),"222",Toast.LENGTH_SHORT).show();
             }
         });
         toolbar.post(new Runnable() {
@@ -199,9 +209,15 @@ public class TabMyFragment extends BaseFragment {
                 lastScrollY = scrollY;
             }
         });
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                EventBus.getDefault().post(43,"1");
+
+            }
+        });
         buttonBarLayout.setAlpha(0);
         toolbar.setBackgroundColor(0);
-
         viewPager.setAdapter(new ComFragmentAdapter(getActivity().getSupportFragmentManager(), getFragments()));
         viewPager.setOffscreenPageLimit(10);
         viewPager.setOffscreenPageLimit(10);
@@ -244,6 +260,7 @@ public class TabMyFragment extends BaseFragment {
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         viewPager.setCurrentItem(index);
                     }
                 });
@@ -281,6 +298,7 @@ public class TabMyFragment extends BaseFragment {
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         viewPager.setCurrentItem(index);
                     }
                 });
@@ -365,9 +383,14 @@ public class TabMyFragment extends BaseFragment {
     public void fans(Map map) {
         String focus = (String) map.get("focus");
         String fans = (String) map.get("fans");
-    title1.setText(" 关注 "+focus+"  |  "+" 粉丝 "+fans);
+     title1.setText(" 关注 "+focus+"  |  "+" 粉丝 "+fans);
 
     }
+    @Subscribe(id = 44)
+    public void fanss(String map) {
+    refreshLayout.finishRefresh();
+    }
+
 
     @Override
     public void onDestroyView() {

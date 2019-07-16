@@ -157,13 +157,13 @@ protected int getLayoutId() {
     }
 
     @Override
-    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName,String isCollectionSum,String isGiveNum,String isFocus ) {
+    public void DateUserId(Object object, String userId, String content, String userUrl, String nickName,String isCollectionSum,String isGiveNum,String isFocus,int focusNum ,int giveNum  ) {
 
-        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName,isCollectionSum,isGiveNum,isFocus);
+        Images((List<MessageImageBean.DataBean.ImagesBean>) object, userId, content, userUrl, nickName,isCollectionSum,isGiveNum,isFocus,focusNum,giveNum);
 
     }
 
-    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName,String isCollectionSum,String isGiveNum,String isFocus ) {
+    private void Images(List<MessageImageBean.DataBean.ImagesBean> object, String userId, String content, String userUrl, String nickName,String isCollectionSum,String isGiveNum,String isFocus,int focusNum ,int giveNum) {
         recordPaths.clear();
         for (int i = 0; i < object.size(); i++) {
             String path = object.get(i).getImagesUrl();
@@ -184,6 +184,8 @@ protected int getLayoutId() {
         imgIntent.putExtra("nickName", nickName);
         imgIntent.putExtra("isCollectionSum",isCollectionSum);
         imgIntent.putExtra("isGiveNum",isGiveNum);
+        imgIntent.putExtra("focusNum",focusNum);
+        imgIntent.putExtra("giveNum",giveNum);
         startActivity(imgIntent);
 
     }

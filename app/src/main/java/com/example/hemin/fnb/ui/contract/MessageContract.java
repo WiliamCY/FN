@@ -39,7 +39,7 @@ public interface MessageContract  {
         @Override
         void hideLoading();
         void Date(Object object,int index);
-        void DateUserId(Object object,String userId,String content,String userUrl,String nickName,String isCollectionSum,String isGiveNum,String isFocus);
+        void DateUserId(Object object,String userId,String content,String userUrl,String nickName,String isCollectionSum,String isGiveNum,String isFocus,int focusNum ,int giveNum );
         @Override
         void onError(Throwable throwable);
 

@@ -65,7 +65,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         modle2.getTuiJian(context, token,current,size,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -73,7 +73,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         MessageBean2.DataBean bean2 = (MessageBean2.DataBean) bean.getResult();
                         List<MessageBean2.DataBean.RecordsBean> list = bean2.getRecords();
                         mView.Date(list,status);
@@ -82,7 +82,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }
@@ -92,7 +92,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         modle3.getGuanZhu(context, token,current,size,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -100,7 +100,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         MessageBean3.DataBean bean3 = (MessageBean3.DataBean) bean.getResult();
                         List<MessageBean3.DataBean.RecordsBean> list = bean3.getRecords();
                         mView.Date(list,status);
@@ -109,7 +109,7 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }
@@ -137,8 +137,10 @@ public class MessagePresenter extends BasePresenter<MessageFragment>  implements
                         String isCollectionSum = bean1.getIsCollectionSum();
                         String isGiveNum = bean1.getIsGiveNum();
                         String isFocus = bean1.getIsFocus();
+                        int focusNum = bean1.getFocusNum();
+                        int giveNum = bean1.getGiveNum();
 
-                        mView.DateUserId(list,userid,contnet,urlImage,nickName,isCollectionSum,isGiveNum,isFocus);
+                        mView.DateUserId(list,userid,contnet,urlImage,nickName,isCollectionSum,isGiveNum,isFocus,focusNum,giveNum);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

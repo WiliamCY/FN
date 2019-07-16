@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
 
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,63 +14,94 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="0dp"
         >
 
-        <android.support.v7.widget.RecyclerView
+        <!--<android.support.v7.widget.RecyclerView-->
 
-            android:id="@+id/apr_recylcerview"
+            <!--android:id="@+id/apr_recylcerview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+
+            <!--/>-->
+
+        <LinearLayout
+            android:id="@+id/y1"
+            android:gravity="center"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/apr_recylcerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
 
-            />
+                />
+            <ImageView
+                android:id="@+id/image_1"
+
+                android:layout_width="@dimen/layout_width_100"
+                android:layout_height="@dimen/layout_height_100"
+                android:layout_marginTop="@dimen/marginTop_65"
+                android:background="@mipmap/gz_backgorund" />
+
+            <TextView
+                android:id="@+id/title_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingTop_22"
+                android:text="快点去关注些什么吧～" />
+        </LinearLayout>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/image"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/marginTop_65"
-        android:layout_width="@dimen/layout_width_100"
-        android:layout_height="@dimen/layout_height_100"
-        android:background="@mipmap/no_message"/>
-    <TextView
-        android:id="@+id/title"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/paddingTop_10"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image"
-        android:textSize="@dimen/text_size_15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="暂无数据"/>
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/logo"
-        android:layout_marginTop="@dimen/paddingTop_70"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:background="@mipmap/guanzhu"
-        android:layout_width="@dimen/layout_width_100"
-        android:layout_height="@dimen/layout_height_100" />
+<!--<android.support.constraint.ConstraintLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<ImageView-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/image"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--android:layout_marginTop="@dimen/marginTop_65"-->
+        <!--android:layout_width="@dimen/layout_width_100"-->
+        <!--android:layout_height="@dimen/layout_height_100"-->
+        <!--android:background="@mipmap/no_message"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/title"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_marginTop="@dimen/paddingTop_10"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/image"-->
+        <!--android:textSize="@dimen/text_size_15"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="暂无数据"/>-->
+    <!--<ImageView-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/logo"-->
+        <!--android:layout_marginTop="@dimen/paddingTop_70"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:background="@mipmap/guanzhu"-->
+        <!--android:layout_width="@dimen/layout_width_100"-->
+        <!--android:layout_height="@dimen/layout_height_100" />-->
 
-    <TextView
-        android:id="@+id/logo_title"
-        android:visibility="gone"
-        android:layout_marginTop="22dp"
-        android:textSize="@dimen/text_size_15"
-        android:textColor="@color/c999999"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="快点去关注些什么吧～"/>
+    <!--<TextView-->
+        <!--android:id="@+id/logo_title"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_marginTop="22dp"-->
+        <!--android:textSize="@dimen/text_size_15"-->
+        <!--android:textColor="@color/c999999"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/logo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="快点去关注些什么吧～"/>-->
+<!--</android.support.constraint.ConstraintLayout>-->
 </android.support.constraint.ConstraintLayout>
-</LinearLayout>

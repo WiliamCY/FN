@@ -1,29 +1,18 @@
 package com.example.hemin.fnb.ui.activity;
 
 import android.Manifest;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -35,24 +24,16 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.adapter.ImageViewAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
-import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.MessageFinderAddContract;
-import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 import com.example.hemin.fnb.ui.presenter.MessageAddPresenter;
 import com.example.hemin.fnb.ui.util.AppUtils;
 import com.example.hemin.fnb.ui.util.ImageBean;
 import com.example.hemin.fnb.ui.util.Loader;
-import com.example.hemin.fnb.ui.util.MyGlideEngine;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.yzs.imageshowpickerview.ImageShowPickerBean;
 import com.yzs.imageshowpickerview.ImageShowPickerListener;
 import com.yzs.imageshowpickerview.ImageShowPickerView;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.filter.Filter;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -89,6 +70,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     @BindView(R.id.it_picker_view)
     ImageShowPickerView itPickerView;
     private static final int REQUEST_CODE_CHOOSE = 233;
+    @BindView(R.id.e1)
+    EditText e1;
     private String[] mPerms = {Manifest.permission.CAMERA};
     private static final int PERMISSIONS = 100;
     private ImageViewAdapter adapter = new ImageViewAdapter();
@@ -97,7 +80,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     private Map<String, String> map = new HashMap<>();
     private static final String[] date2 = new String[]{"相册", "拍摄"};
     private List<String> mDataList2 = Arrays.asList(date2);
-    private static final String[] date3 = new String[]{ "拍摄"};
+    private static final String[] date3 = new String[]{"拍摄"};
     private List<String> mDataList3 = Arrays.asList(date3);
     private PopupWindow popupWindow;
     private ImageView imageView1, imageView2, imageView3, dissmissage;
@@ -105,7 +88,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     ArrayList<String> infoList = new ArrayList<String>();
     private List<String> returnList = new ArrayList<>();
     private int status = 0;
-    private  int statusType = 0;
+    private int statusType = 0;
 
 
     @Override
@@ -131,9 +114,9 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         itPickerView.setPickerListener(new ImageShowPickerListener() {
             @Override
             public void addOnClickListener(int remainNum) {
-                if(statusType == 0 || statusType == 1){
+                if (statusType == 0 || statusType == 1) {
                     initOptionPicker(mDataList2);
-                }else if(statusType == 2){
+                } else if (statusType == 2) {
                     initOptionPicker(mDataList3);
                 }
 
@@ -150,31 +133,30 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         });
         itPickerView.show();
         String path = getIntent().getStringExtra("path");
-        if(path != null){
+        if (path != null) {
             imageUrls.add(path);
-            postFile(path,1);
+            postFile(path, 1);
 //            itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(path))));
             statusType = 1;
         }
         infoList = getIntent().getStringArrayListExtra("paths");
-        if(infoList != null) {
+        if (infoList != null) {
             for (int i = 0; i < infoList.size(); i++) {
                 imageUrls.add(infoList.get(i));
-                postFile(infoList.get(i),1);
+                postFile(infoList.get(i), 1);
 //                itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(infoList.get(i)))));
                 statusType = 1;
             }
         }
         String videopath = getIntent().getStringExtra("videopath");
         String video = getIntent().getStringExtra("videoUrl");
-        if(video != null && videopath != null){
+        if (video != null && videopath != null) {
             imageUrls.add(video);
-            postFile(video,2);
+            postFile(video, 2);
             itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(videopath))));
             statusType = 2;
         }
     }
-
 
 
 //    private void initPopwdowns() {
@@ -241,10 +223,10 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
-                 finish();
+                finish();
                 break;
             case R.id.add:
-                if (TextUtils.isEmpty(getEdittext())) {
+                if (TextUtils.isEmpty(getEdittext()) && TextUtils.isEmpty(getEdittextHeard())) {
                     Utils.showMyToast(Toast.makeText(this, "请输入完整", Toast.LENGTH_SHORT), 400);
                     return;
                 } else if (returnList.size() < 1 || returnList.size() > 9) {
@@ -260,8 +242,9 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                 String id = sp.getString("userId", "");
                 HashMap map2 = new HashMap<>();
                 map2.put("friendContent", getEdittext());
+                map2.put("friendHead", getEdittextHeard());
                 Log.d("messageFinder", getEdittext());
-                map2.put("friendType",status);
+                map2.put("friendType", status);
                 map2.put("friendUrl", dates);
                 Log.d("messageFinder1", dates);
                 map2.put("userId", id);
@@ -277,6 +260,9 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         }
     }
 
+    public String getEdittextHeard(){
+     return    e1.getText().toString().trim();
+    }
     private void initOptionPicker(final List<String> typeName) {
         OptionsPickerView optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
@@ -289,9 +275,9 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                     startActivityForResult(intent2, 0);
 
                 } else if (sexs.equals("拍摄")) {
-                    Intent intent  = new Intent(AppUtils.getContext(),MediaRecordActivity.class);
-                    intent.putExtra("StatusType",statusType);
-                    startActivityForResult(intent,100);
+                    Intent intent = new Intent(AppUtils.getContext(), MediaRecordActivity.class);
+                    intent.putExtra("StatusType", statusType);
+                    startActivityForResult(intent, 100);
 //                    startActivityForResult(new Intent(AppUtils.getContext(), MediaRecordActivity.class), 100);
                 }
 
@@ -321,8 +307,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     @Override
     public void Status(int index) {
         if (index == 1) {
-         Intent intent = new Intent(this,MainActivity.class);
-         startActivity(intent);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -346,7 +332,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 
     }
 
-    public void getPostImageUrls(String urils,int statu) {
+    public void getPostImageUrls(String urils, int statu) {
 
         returnList.add(urils);
         status = statu;
@@ -365,7 +351,6 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -376,7 +361,7 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 //                        itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(paths.get(i)))));
 //                        String path = paths.get(i);
 //                        Log.d("pathsss:", path);
-                        postFile(paths.get(i),1);
+                        postFile(paths.get(i), 1);
                     }
                 }
                 break;
@@ -385,13 +370,13 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
                     String photoPath = data.getStringExtra("path");
 //                    imageUrls.add(photoPath);
 //                    itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(photoPath))));
-                     postFile(photoPath,1);
+                    postFile(photoPath, 1);
                 } else if (resultCode == 102) {
                     String firstVideoPicture = data.getStringExtra("videopath");
                     imageUrls.add(firstVideoPicture);
                     String videoPath = data.getStringExtra("videoUrl");
                     itPickerView.addData(new ImageBean(Utils.getRealFilePath(this, Uri.parse(firstVideoPicture))));
-                   postFile(videoPath,2);
+                    postFile(videoPath, 2);
 
                 }
                 break;
@@ -400,18 +385,19 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-    private  void postFile(String path,int type){
+
+    private void postFile(String path, int type) {
         File file = new File(path);
         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), imageBody);
         //1.相机  2视频
-           if(type == 1){
-               mPresenter.postImage(this, map, imageBodyPart);
-           }else if(type == 2){
-               RequestBody descriptions = RequestBody.create(MediaType.parse("video/mp4"), file);
-               MultipartBody.Part imageBodyParts = MultipartBody.Part.createFormData("file", file.getName(), descriptions);
-               mPresenter.postMp4(this,map,descriptions ,imageBodyParts);
-           }
+        if (type == 1) {
+            mPresenter.postImage(this, map, imageBodyPart);
+        } else if (type == 2) {
+            RequestBody descriptions = RequestBody.create(MediaType.parse("video/mp4"), file);
+            MultipartBody.Part imageBodyParts = MultipartBody.Part.createFormData("file", file.getName(), descriptions);
+            mPresenter.postMp4(this, map, descriptions, imageBodyParts);
+        }
     }
 
     @Subscribe(id = 4)
@@ -551,5 +537,12 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -22,6 +22,7 @@ import com.example.hemin.fnb.ui.contract.FoucesContract;
 import com.example.hemin.fnb.ui.presenter.FoucrsPresenter;
 import com.example.hemin.fnb.ui.util.CircleImageView;
 import com.example.hemin.fnb.ui.util.HackyViewPager;
+import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.github.chrisbanes.photoview.PhotoView;
 
@@ -51,14 +52,20 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     ImageView zan;
     @BindView(R.id.collect)
     ImageView collect;
+    @BindView(R.id.zanNumber)
+    TextView zanNumber;
+    @BindView(R.id.collectNumber)
+    TextView collectNumber;
     private int position = 0;
     private ArrayList<String> paths;
     private long finderid, finderids;
-    private String userId, userIds, StringContent, userUrl, nickName, isCollectionSum, isGiveNum,isFocus;
+    private String userId, userIds, StringContent, userUrl, nickName, isCollectionSum, isGiveNum, isFocus;
     private Map token = new HashMap();
     private Boolean isGiveNumStatus = false;
     private Boolean FocuseStatus = false;
     private Boolean isFocusStatus = false;
+    private int focusNum, giveNum;
+   private int zNumber,zCollectNumber;
 
     @Override
     public int getLayoutId() {
@@ -83,6 +90,12 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         isCollectionSum = intent.getStringExtra("isCollectionSum");
         isGiveNum = intent.getStringExtra("isGiveNum");
         isFocus = intent.getStringExtra("isFocus");
+        focusNum = intent.getIntExtra("focusNum", 0);
+        giveNum = intent.getIntExtra("giveNum", 0);
+        zNumber = giveNum;
+        zCollectNumber = focusNum;
+        zanNumber.setText(String.valueOf(giveNum));
+        collectNumber.setText(String.valueOf(focusNum));
         titleUser.setText(nickName);
         title.setText(StringContent);
         Glide.with(this).load(userUrl).into(userLogo);
@@ -119,10 +132,10 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             isGiveNumStatus = false;
             zan.setBackgroundResource(R.mipmap.white_zan);
         }
-        if(isFocus.equals("1")){
+        if (isFocus.equals("1")) {
             isFocusStatus = true;
-             collect.setBackgroundResource(R.mipmap.collect_black);
-        }else {
+            collect.setBackgroundResource(R.mipmap.collect_black);
+        } else {
             isFocusStatus = false;
             collect.setBackgroundResource(R.mipmap.collect);
         }
@@ -183,22 +196,30 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
 
     }
 
-    public void zanResult(int status,long type) {
-        if(type == 0 && status == 0){
+    public void zanResult(int status, long type) {
+        if (type == 0 && status == 0) {
             if (isGiveNumStatus == false) {
                 zan.setBackgroundResource(R.mipmap.zan_black);
                 isGiveNumStatus = true;
+                   zNumber++;
+                zanNumber.setText(String.valueOf(zNumber));
             } else {
+               zNumber--;
                 zan.setBackgroundResource(R.mipmap.white_zan);
                 isGiveNumStatus = false;
+                zanNumber.setText(String.valueOf(zNumber));
             }
-        }else if(type == 1 && status == 0){
-            if(isFocusStatus == false) {
+        } else if (type == 1 && status == 0) {
+            if (isFocusStatus == false) {
                 collect.setBackgroundResource(R.mipmap.collect_black);
                 isFocusStatus = true;
-            }else {
+                zCollectNumber++;
+                collectNumber.setText(String.valueOf(zCollectNumber));
+            } else {
+                zCollectNumber--;
                 collect.setBackgroundResource(R.mipmap.collect);
                 isFocusStatus = false;
+                collectNumber.setText(String.valueOf(zCollectNumber));
             }
         }
 
@@ -224,12 +245,12 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
 
     @Override
     public void showLoading() {
-
+        ProgressDialog.getInstance().show(this);
     }
 
     @Override
     public void hideLoading() {
-
+        ProgressDialog.getInstance().dismiss();
     }
 
 
@@ -263,7 +284,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             case R.id.collect:
                 token = Utils.getAuthorization(getApplication());
                 mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 1);
-               break;
+                break;
 
         }
     }

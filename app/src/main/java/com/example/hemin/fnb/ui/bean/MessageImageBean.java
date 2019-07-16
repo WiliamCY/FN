@@ -60,6 +60,15 @@ public class MessageImageBean {
         private String isCollectionSum;
         private List<ImagesBean> images;
        private String isFocus;
+       private int focusNum;
+
+        public int getFocusNum() {
+            return focusNum;
+        }
+
+        public void setFocusNum(int focusNum) {
+            this.focusNum = focusNum;
+        }
 
         public String getIsFocus() {
             return isFocus;

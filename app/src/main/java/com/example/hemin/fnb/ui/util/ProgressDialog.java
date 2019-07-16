@@ -31,7 +31,7 @@ public class ProgressDialog {
                 .content(R.string.progress_please_wait)
                 .progress(true, 0)
                 .cancelable(false)
-                .progressIndeterminateStyle(true)
+                .progressIndeterminateStyle(false)
                 .show();
 
     }
