@@ -2,7 +2,6 @@ package com.example.hemin.fnb.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,18 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.hemin.fnb.R;
-import com.example.hemin.fnb.ui.bean.GuanZhuBean;
-import com.example.hemin.fnb.ui.bean.MessageBean2;
 import com.example.hemin.fnb.ui.bean.ReleaseBean;
 import com.example.hemin.fnb.ui.interfaces.OnRecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RelaseApdater extends RecyclerView.Adapter<RelaseApdater.ViewHolder> {
+public class RelaseApdaters extends RecyclerView.Adapter<RelaseApdaters.ViewHolder> {
 //public class RelaseApdater extends BaseQuickAdapter<ReleaseBean.DataBean.RecordsBean, BaseViewHolder> {
 //    private List<ReleaseBean.DataBean.RecordsBean> list = new ArrayList<>();
 //    public RelaseApdater(int layoutResId, @Nullable List<ReleaseBean.DataBean.RecordsBean> data) {
@@ -59,18 +54,18 @@ public class RelaseApdater extends RecyclerView.Adapter<RelaseApdater.ViewHolder
         monItemClickListener = listener;
     }
 
-    public RelaseApdater(Context context, List<ReleaseBean.DataBean.RecordsBean> list) {
+    public RelaseApdaters(Context context, List<ReleaseBean.DataBean.RecordsBean> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void addtDatac(List<ReleaseBean.DataBean.RecordsBean> list) {
+    public void addtDatas(List<ReleaseBean.DataBean.RecordsBean> list) {
         if (null != list) {
             this.list.addAll(list);
             notifyDataSetChanged();
         }
     }
-    public void setDatas(List<ReleaseBean.DataBean.RecordsBean> list) {
+    public void setDatass(List<ReleaseBean.DataBean.RecordsBean> list) {
         if (null != list) {
             this.list.clear();
             this.list.addAll(list);
@@ -79,14 +74,14 @@ public class RelaseApdater extends RecyclerView.Adapter<RelaseApdater.ViewHolder
     }
     @NonNull
     @Override
-    public RelaseApdater.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RelaseApdaters.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.message_adapters, viewGroup, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RelaseApdater.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RelaseApdaters.ViewHolder holder, int position) {
         ReleaseBean.DataBean.RecordsBean bean = list.get(position);
         Glide.with(context).load(bean.getImagesUrl()).into(holder.imageView1);
         holder.textView1.setText(bean.getFriendHead());

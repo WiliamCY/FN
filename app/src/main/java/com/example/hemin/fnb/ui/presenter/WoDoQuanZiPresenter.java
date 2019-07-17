@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.hemin.fnb.ui.activity.MyAppraisaS;
 import com.example.hemin.fnb.ui.base.BasePresenter;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
+import com.example.hemin.fnb.ui.bean.FansAndGzBean;
 import com.example.hemin.fnb.ui.bean.FansBean;
 import com.example.hemin.fnb.ui.bean.GuanZhuBean;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
@@ -196,7 +197,7 @@ public class WoDoQuanZiPresenter extends BasePresenter<QuanZiFragment> implement
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
-                        FansBean.DataBean bean1 = (FansBean.DataBean) bean.getData();
+                        FansAndGzBean.DataBean bean1 = (FansAndGzBean.DataBean) bean.getData();
                         String focus = bean1.getFocus();
                         String fans = bean1.getFans();
                         Map<String,String> map = new HashMap<>();

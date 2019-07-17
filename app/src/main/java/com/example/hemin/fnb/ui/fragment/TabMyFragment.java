@@ -19,11 +19,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.MyAppraisa;
+import com.example.hemin.fnb.ui.activity.MyFans;
 import com.example.hemin.fnb.ui.activity.UserSetting;
 import com.example.hemin.fnb.ui.adapter.ComFragmentAdapter;
 import com.example.hemin.fnb.ui.base.BaseFragment;
@@ -108,7 +108,9 @@ public class TabMyFragment extends BaseFragment {
     TextView toolbarUsername;
     @BindView(R.id.title1)
     TextView title1;
-    private  int indexStatus;
+    @BindView(R.id.title2)
+    TextView title2;
+    private int indexStatus;
 
     private String birthday, nicknames, signature, url, userid, sex;
     private final String[] date = new String[]{"发布", "收藏"};
@@ -212,7 +214,7 @@ public class TabMyFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                EventBus.getDefault().post(43,"1");
+                EventBus.getDefault().post(43, "1");
 
             }
         });
@@ -323,7 +325,7 @@ public class TabMyFragment extends BaseFragment {
         return R.layout.fragment_tab_my;
     }
 
-    @OnClick({R.id.setting, R.id.user_logo, R.id.qm, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.iv_menu})
+    @OnClick({R.id.setting, R.id.user_logo, R.id.qm, R.id.lay1, R.id.lay2, R.id.lay3, R.id.lay4, R.id.iv_menu, R.id.title1, R.id.title2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
@@ -347,6 +349,17 @@ public class TabMyFragment extends BaseFragment {
             case R.id.iv_menu:
                 Intent intent2 = new Intent(getActivity(), UserSetting.class);
                 startActivity(intent2);
+                break;
+            case R.id.title1:
+                Intent intent3 = new Intent(getActivity(), MyFans.class);
+                intent3.putExtra("status", 1);
+                startActivity(intent3);
+                break;
+            case R.id.title2:
+                Intent intent4 = new Intent(getActivity(), MyFans.class);
+                intent4.putExtra("status", 2);
+                startActivity(intent4);
+                break;
 
         }
     }
@@ -383,12 +396,15 @@ public class TabMyFragment extends BaseFragment {
     public void fans(Map map) {
         String focus = (String) map.get("focus");
         String fans = (String) map.get("fans");
-     title1.setText(" 关注 "+focus+"  |  "+" 粉丝 "+fans);
+        title1.setText("关注 "+ focus);
+        title2.setText("粉丝 "+fans);
+
 
     }
+
     @Subscribe(id = 44)
     public void fanss(String map) {
-    refreshLayout.finishRefresh();
+        refreshLayout.finishRefresh();
     }
 
 

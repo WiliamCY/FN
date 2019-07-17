@@ -13,7 +13,6 @@
         android:background="@color/cffffff"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
-
         <ImageView
             android:id="@+id/header_left_img"
 
@@ -24,12 +23,11 @@
             android:src="@mipmap/black_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
-
         <com.example.hemin.fnb.ui.util.CircleImageView
             android:id="@+id/user_logo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="@dimen/marginLeft_15"
+            android:layout_marginLeft="@dimen/marginLeft_25"
             android:layout_marginBottom="@dimen/marginBottom_5"
             android:scaleType="fitXY"
             android:src="@mipmap/logo"

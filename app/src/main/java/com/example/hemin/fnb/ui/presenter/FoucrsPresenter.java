@@ -25,7 +25,7 @@ public class FoucrsPresenter extends BasePresenter<TaskBigImgActivity> implement
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         modle.Fouces(context, token,finder,userId)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -33,14 +33,14 @@ public class FoucrsPresenter extends BasePresenter<TaskBigImgActivity> implement
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean,0);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         mView.FoucesStatus(bean.getErrorCode());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
 
@@ -51,7 +51,7 @@ public class FoucrsPresenter extends BasePresenter<TaskBigImgActivity> implement
         if(!isViewAttached()){
             return;
         }
-        mView.showLoading();
+//        mView.showLoading();
         modle2.getZan(context, token,finder,userId,type)
                 .compose(RxScheduler.<BaseObjectBean>Flo_io_main())
                 .as(mView.<BaseObjectBean>bindAutoDispose())
@@ -59,14 +59,14 @@ public class FoucrsPresenter extends BasePresenter<TaskBigImgActivity> implement
                     @Override
                     public void accept(BaseObjectBean bean) throws Exception {
                         mView.onSuccess(bean,1);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                         mView.zanResult(bean.getErrorCode(),type);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+//                        mView.hideLoading();
                     }
                 });
     }

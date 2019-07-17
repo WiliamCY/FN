@@ -7,13 +7,28 @@ public class GuanZhuBean {
     /**
      * code : 0
      * msg : 请求成功
-     * data : {"total":1,"size":10,"pages":1,"current":1,"records":[{"fuId":19,"userId":22,"userUrl":"https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/w3kxbpgcn5","nickname":"130****2969","focusSum":1,"roleId":2}]}
+     * data : {"total":1,"size":10,"pages":1,"current":1,"records":[{"fuId":39,"userId":3,"userUrl":"https://funwl.oss-cn-hangzhou.aliyuncs.com/images/u%3D1229021758%2C2220622610%26fm%3D27%26gp%3D0.jpg","nickname":"Boom ","signature":"啦啦啦","roleId":2}]}
      */
 
-
+    private int code;
+    private String msg;
     private DataBean data;
 
+    public int getCode() {
+        return code;
+    }
 
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public DataBean getData() {
         return data;
@@ -29,7 +44,7 @@ public class GuanZhuBean {
          * size : 10
          * pages : 1
          * current : 1
-         * records : [{"fuId":19,"userId":22,"userUrl":"https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/w3kxbpgcn5","nickname":"130****2969","focusSum":1,"roleId":2}]
+         * records : [{"fuId":39,"userId":3,"userUrl":"https://funwl.oss-cn-hangzhou.aliyuncs.com/images/u%3D1229021758%2C2220622610%26fm%3D27%26gp%3D0.jpg","nickname":"Boom ","signature":"啦啦啦","roleId":2}]
          */
 
         private int total;
@@ -80,34 +95,34 @@ public class GuanZhuBean {
 
         public static class RecordsBean {
             /**
-             * fuId : 19
-             * userId : 22
-             * userUrl : https://wan-jian.oss-cn-hangzhou.aliyuncs.com/images/w3kxbpgcn5
-             * nickname : 130****2969
-             * focusSum : 1
+             * fuId : 39
+             * userId : 3
+             * userUrl : https://funwl.oss-cn-hangzhou.aliyuncs.com/images/u%3D1229021758%2C2220622610%26fm%3D27%26gp%3D0.jpg
+             * nickname : Boom
+             * signature : 啦啦啦
              * roleId : 2
              */
 
-            private String fuId;
-            private String userId;
+            private int fuId;
+            private int userId;
             private String userUrl;
             private String nickname;
-            private String focusSum;
+            private String signature;
             private int roleId;
 
-            public String getFuId() {
+            public int getFuId() {
                 return fuId;
             }
 
-            public void setFuId(String fuId) {
+            public void setFuId(int fuId) {
                 this.fuId = fuId;
             }
 
-            public String getUserId() {
+            public int getUserId() {
                 return userId;
             }
 
-            public void setUserId(String userId) {
+            public void setUserId(int userId) {
                 this.userId = userId;
             }
 
@@ -127,12 +142,12 @@ public class GuanZhuBean {
                 this.nickname = nickname;
             }
 
-            public String getFocusSum() {
-                return focusSum;
+            public String getSignature() {
+                return signature;
             }
 
-            public void setFocusSum(String focusSum) {
-                this.focusSum = focusSum;
+            public void setSignature(String signature) {
+                this.signature = signature;
             }
 
             public int getRoleId() {

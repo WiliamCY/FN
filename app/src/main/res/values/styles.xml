@@ -32,7 +32,6 @@
         <!--<item name="android:typeface">serif</item>-->
 
 
-
         <!-- Customize your theme here.就是自定义的颜色 -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
@@ -60,25 +59,25 @@
     </style>
 
 
-    <style parent="@android:style/Theme.Dialog" name="AlertDialogStyle">
+    <style name="AlertDialogStyle" parent="@android:style/Theme.Dialog">
 
-    <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
 
-    <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
 
-    <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsFloating">true</item>
 
-    <item name="android:windowFrame">@null</item>
+        <item name="android:windowFrame">@null</item>
 
-    <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
 
-    <item name="android:windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
 
-    <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">true</item>
 
 
+    </style>
 
-</style>
     <style name="AppTheme.Toolbar" parent="Widget.AppCompat.ActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
@@ -91,6 +90,7 @@
         <item name="android:layout_height">@dimen/thirty_two</item>
         <item name="android:layout_marginEnd">@dimen/five</item>
     </style>
+
     <style name="LineEight">
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/colorGray</item>
@@ -110,7 +110,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:textSize">16.0sp</item> <!-- 字体大小 -->
         <item name="android:textColor">#ff555555</item> <!-- 字体颜色 -->
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item> <!-- 动画样式 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog
+        </item> <!-- 动画样式 -->
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
         <item name="android:windowBackground">@android:color/transparent</item> <!-- 背景 -->
@@ -141,6 +142,14 @@
         <item name="android:taskToBackExitAnimation">@null</item>
     </style>
 
+    <style name="MyToolbartheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MyToolbartheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyToolbartheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

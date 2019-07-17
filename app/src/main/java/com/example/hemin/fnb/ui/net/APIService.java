@@ -6,6 +6,7 @@ import com.example.hemin.fnb.ui.bean.AppraisaBean;
 import com.example.hemin.fnb.ui.bean.AppraisasBean;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.ColletionBean;
+import com.example.hemin.fnb.ui.bean.FansAndGzBean;
 import com.example.hemin.fnb.ui.bean.FansBean;
 import com.example.hemin.fnb.ui.bean.Find2Bean;
 import com.example.hemin.fnb.ui.bean.Find4Bean;
@@ -275,6 +276,14 @@ public interface APIService {
   @Headers({ "Content-Type: application/json;charset=UTF-8"})
   Flowable<BaseObjectBean<GuanZhuBean.DataBean>> myGuanzhu(@HeaderMap Map<String,String> heard, @Path("current") long current, @Path("size") long size, @Path("userId") long userId);
 
+  /**
+   * 我的粉丝
+   * */
+
+  @GET("/app/friend/getFansList/{current}/{size}")
+  @Headers({ "Content-Type: application/json;charset=UTF-8"})
+  Flowable<BaseObjectBean<GuanZhuBean.DataBean>> myFans(@HeaderMap Map<String,String> heard, @Path("current") long current,  @Path("size") long userId);
+
 
   /**
    * 我的发布
@@ -355,5 +364,5 @@ public interface APIService {
    * 粉丝数，关注数
    * */
   @GET("/app/friend/getFansAndFocusSum")
-  Flowable<BaseObjectBean<FansBean.DataBean>> getFansAndFocusSum(@HeaderMap Map<String,String> heard);
+  Flowable<BaseObjectBean<FansAndGzBean.DataBean>> getFansAndFocusSum(@HeaderMap Map<String,String> heard);
 }

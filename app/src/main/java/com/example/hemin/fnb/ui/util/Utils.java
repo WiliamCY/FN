@@ -167,6 +167,13 @@ public class Utils {
                String heard = token_type+Authorization;
                return heard;
     }
+
+    public static String getUserId(final Context context) {
+        SharedPreferences sp = context.getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        String useId = sp.getString("userId", "");
+        String id = useId;
+        return id;
+    }
     /**
      * 删除单个文件
      *

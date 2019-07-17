@@ -33,7 +33,7 @@ public class TranslateAdapter extends BaseQuickAdapter<GuanZhuBean.DataBean.Reco
     protected void convert(BaseViewHolder viewHolder, final GuanZhuBean.DataBean.RecordsBean item) {
         Glide.with(mContext).load(item.getUserUrl()).into((ImageView) viewHolder.getView(R.id.q_1));
         viewHolder.setText(R.id.t_1,item.getNickname());
-        viewHolder.setText(R.id.t_2,item.getFocusSum()).addOnClickListener(R.id.t_3);
+//        viewHolder.setText(R.id.t_2,item.getFocusSum()).addOnClickListener(R.id.t_3);
 
 
 

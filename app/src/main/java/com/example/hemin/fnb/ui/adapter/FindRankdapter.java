@@ -45,6 +45,7 @@ public class FindRankdapter extends ItemViewBinder<RankItem, FindRankdapter.Find
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AppUtils.getContext(), PHBActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                 AppUtils.getContext().startActivity(intent);
 
             }

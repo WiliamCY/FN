@@ -46,9 +46,9 @@ public class AppraisaFragment extends BaseMvpFragment<AppraisaPresenter> impleme
 
     @BindView(R.id.apr_recylcerview)
     RecyclerView aprRecylcerview;
-    @BindView(R.id.image)
+    @BindView(R.id.image_1)
     ImageView image;
-    @BindView(R.id.title)
+    @BindView(R.id.title_1)
     TextView title;
     Unbinder unbinder;
     @BindView(R.id.refreshLayout)

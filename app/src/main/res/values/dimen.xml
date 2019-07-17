@@ -82,6 +82,7 @@
     <dimen name="marginTop_25">25dp</dimen>
     <dimen name="marginTop_28">28dp</dimen>
     <dimen name="marginTop_30">30dp</dimen>
+    <dimen name="marginTop_34">34dp</dimen>
     <dimen name="marginTop_35">35dp</dimen>
     <dimen name="marginTop_40">40dp</dimen>
     <dimen name="marginTop_45">45dp</dimen>

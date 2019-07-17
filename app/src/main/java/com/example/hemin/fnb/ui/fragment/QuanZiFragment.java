@@ -21,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.activity.TaskBigImgActivity;
 import com.example.hemin.fnb.ui.adapter.RelaseApdater;
+import com.example.hemin.fnb.ui.adapter.RelaseApdaters;
 import com.example.hemin.fnb.ui.base.BaseMvpFragment;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.MessageImageBean;
@@ -62,8 +63,9 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
     LinearLayout y1;
 
     private ArrayList<String> recordPaths = new ArrayList<>();
-    private List<ReleaseBean.DataBean.RecordsBean> dates = new ArrayList();
-    private RelaseApdater adapters = new RelaseApdater(getActivity(), dates);
+    private List<ReleaseBean.DataBean.RecordsBean> date = new ArrayList();
+    private RelaseApdater adapter = new RelaseApdater(getActivity(), date);
+    private RelaseApdaters adapters = new RelaseApdaters(getActivity(), date);
     private int finderid;
     private String userId;
     private Map token = new HashMap();
@@ -104,9 +106,9 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         userId = sp.getString("userId", "");
         mPresenter.getFansAndFocusSum(getActivity(), token);
         if (index == 0) {//我的发布
-            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 2);
+            mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 1);
         } else {///我的收藏
-            mPresenter.MyCollect(getActivity(), token, pageIndexs, 10, Long.parseLong(userId), 1);
+            mPresenter.MyCollect(getActivity(), token, pageIndexs, 10, Long.parseLong(userId), 2);
         }
 
 
@@ -123,24 +125,29 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         if (index == 1) {
             initAdapterFB((List<ReleaseBean.DataBean.RecordsBean>) object, index);
         } else if (index == 2) {
-            initAdapterFB((List<ReleaseBean.DataBean.RecordsBean>) object, index);
+            initAdapterFBS((List<ReleaseBean.DataBean.RecordsBean>) object, index);
         } else if (index == 11) {
-            adapters.setDatas((List<ReleaseBean.DataBean.RecordsBean>) object);
+            adapter.setDatas((List<ReleaseBean.DataBean.RecordsBean>) object);
             pageIndexs = 1;
             mPresenter.MyCollect(getActivity(), token, pageIndexs, 10, Long.parseLong(userId), 12);
         } else if (index == 22) {
             if (((List<ReleaseBean.DataBean.RecordsBean>) object).size() == 0) {
                 Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
             } else {
-                adapters.addtDatas((List<ReleaseBean.DataBean.RecordsBean>) object);
+                adapter.addtDatac((List<ReleaseBean.DataBean.RecordsBean>) object);
             }
             refreshLayout.finishLoadMore(100);
         } else if(index == 12){
-//            adapter.setDatasE((List<ReleaseBeanS.DataBean.RecordsBean>) object);
-            adapters.setDatas((List<ReleaseBean.DataBean.RecordsBean>) object);
+            adapters.setDatass((List<ReleaseBean.DataBean.RecordsBean>) object);
             EventBus.getDefault().post(44,"dwd");
-        }else {
-            t1.setText("未关注");
+
+        }else if(index == 23){
+            if (((List<ReleaseBean.DataBean.RecordsBean>) object).size() == 0) {
+                Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
+            } else {
+                adapters.addtDatas((List<ReleaseBean.DataBean.RecordsBean>) object);
+            }
+            refreshLayout.finishLoadMore(100);
         }
     }
 
@@ -208,21 +215,65 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         aprRecylcerview.setLayoutManager(layoutManager);
-         adapters = new RelaseApdater(getActivity(), beans);
+         adapter = new RelaseApdater(getActivity(), beans);
+        aprRecylcerview.setAdapter(adapter);
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                pageIndex++;
+                mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 22);
+//
+
+//
+
+
+//
+//                    pageIndexs++;
+//                    mPresenter.MyCollect(getActivity(), token, pageIndexs, 10, Long.parseLong(userId), 22);
+
+            }
+        });
+        adapter.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int Position, String path) {
+
+            }
+
+            @Override
+            public void onItemClick(int Position) {
+                finderid = beans.get(Position).getFriendId();
+                mPresenter.getFidner(getActivity(), token, finderid, Integer.parseInt(userId));
+            }
+        });
+
+    }
+
+    private void initAdapterFBS(final List<ReleaseBean.DataBean.RecordsBean> beans, final int index) {
+        if (beans.size() == 0) {
+            aprRecylcerview.setVisibility(View.GONE);
+            image1.setVisibility(View.VISIBLE);
+            title1.setText("暂无数据");
+            title1.setVisibility(View.VISIBLE);
+        } else {
+            aprRecylcerview.setVisibility(View.VISIBLE);
+            image1.setVisibility(View.GONE);
+            title1.setVisibility(View.GONE);
+        }
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+        aprRecylcerview.setLayoutManager(layoutManager);
+        adapters = new RelaseApdaters(getActivity(), beans);
         aprRecylcerview.setAdapter(adapters);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                pageIndexs++;
+                mPresenter.MyCollect(getActivity(), token, pageIndexs, 10, Long.parseLong(userId), 23);
 
-                if (index == 2) {
-                    pageIndex++;
-                    mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 22);
-                } else if (index == 1) {
-                    pageIndexs++;
-                    mPresenter.MyCollect(getActivity(), token, pageIndexs, 10, Long.parseLong(userId), 22);
-                }
             }
         });
         adapters.setRecyclerItemClickListener(new OnRecyclerItemClickListener() {
@@ -237,27 +288,6 @@ public class QuanZiFragment extends BaseMvpFragment<WoDoQuanZiPresenter> impleme
                 mPresenter.getFidner(getActivity(), token, finderid, Integer.parseInt(userId));
             }
         });
-//        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-//            @Override
-//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-//                 if(index == 2){
-//                     pageIndex = 1;
-//                     mPresenter.myFaBu(getActivity(), token, pageIndex, 10, Long.parseLong(userId), 11);
-//                 }else if(index == 1){
-//                     pageIndexs = 1;
-//                     mPresenter.MyCollect(getActivity(), token, pageIndexs, 10, Long.parseLong(userId), 11);
-//                 }
-//            }
-//        });
-//
-//        adapters.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                finderid = beans.get(position).getFriendId();
-//                mPresenter.getFidner(getActivity(), token, finderid, Integer.parseInt(userId));
-//            }
-//        });
-
 
     }
 
