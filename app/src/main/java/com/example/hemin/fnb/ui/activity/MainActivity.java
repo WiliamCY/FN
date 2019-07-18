@@ -89,6 +89,7 @@ public class MainActivity extends BaseActivity {
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private Fragment currentFragment;
+    private boolean network = false;
 
 
     @Override
@@ -116,6 +117,7 @@ public class MainActivity extends BaseActivity {
             startActivity(intent);
             finish();
         }
+
 
         rgOper.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

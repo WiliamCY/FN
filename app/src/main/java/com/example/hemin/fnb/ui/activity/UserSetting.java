@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,8 +40,8 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
     TextView button1;
     @BindView(R.id.button2)
     TextView button2;
-    @BindView(R.id.header_left_img)
-    ImageView headerLeftImg;
+    //    @BindView(R.id.header_left_img)
+//    ImageView headerLeftImg;
     @BindView(R.id.r1)
     RelativeLayout r1;
     @BindView(R.id.about)
@@ -49,6 +50,10 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
     RelativeLayout mobileRegister;
     @BindView(R.id.notic)
     RelativeLayout notic;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
 
     @Override
     public int getLayoutId() {
@@ -62,11 +67,12 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
         mPresenter = new UserPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
+        title.setText("设置");
 
     }
 
 
-    @OnClick({R.id.setting_button4, R.id.cis_exit_button, R.id.fix_password, R.id.button2, R.id.header_left_img, R.id.r1, R.id.about,R.id.mobileRegister,R.id.notic})
+    @OnClick({R.id.setting_button4, R.id.cis_exit_button, R.id.fix_password, R.id.button2, R.id.lay_back, R.id.r1, R.id.about, R.id.mobileRegister, R.id.notic})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting_button4:
@@ -99,7 +105,7 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
 //                Intent intent1 = new Intent(this,ChangeUserNoticSetting.class);
 //                startActivity(intent1);
                 break;
-            case R.id.header_left_img:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.r1:
@@ -111,11 +117,11 @@ public class UserSetting extends BaseMvpActivity<UserPresenter> implements UserC
                 startActivity(about);
                 break;
             case R.id.mobileRegister:
-                Intent reregisterM= new Intent(this,MobileRegister.class);
+                Intent reregisterM = new Intent(this, MobileRegister.class);
                 startActivity(reregisterM);
                 break;
             case R.id.notic:
-                Intent notic = new Intent(this,NoticActivity.class);
+                Intent notic = new Intent(this, NoticActivity.class);
                 startActivity(notic);
         }
 

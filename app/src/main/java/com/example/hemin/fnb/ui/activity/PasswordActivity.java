@@ -2,9 +2,6 @@ package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Selection;
-import android.text.Spannable;
-import android.text.method.HideReturnsTransformationMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -71,10 +68,36 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     ImageView select;
     @BindView(R.id.user_message)
     TextView userMessage;
-    @BindView(R.id.user_toolbar)
-    LinearLayout userToolbar;
+//    @BindView(R.id.user_toolbar)
+//    LinearLayout userToolbar;
     @BindView(R.id.image_see)
     ImageView title6s;
+    @BindView(R.id.back)
+    ImageView back;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.title_3_down)
+    ImageView title3Down;
+    @BindView(R.id.lay1)
+    LinearLayout lay1;
+    @BindView(R.id.view1)
+    View view1;
+    @BindView(R.id.lay2)
+    LinearLayout lay2;
+    @BindView(R.id.view2)
+    View view2;
+    @BindView(R.id.lay3)
+    LinearLayout lay3;
+    @BindView(R.id.view3)
+    View view3;
+    @BindView(R.id.image_sees)
+    ImageView imageSees;
+    @BindView(R.id.lay4)
+    LinearLayout lay4;
+    @BindView(R.id.view4)
+    View view4;
 
 
     @Override
@@ -91,14 +114,10 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
     }
 
     private void initViews() {
-        userToolbar.setVisibility(View.GONE);
+//        userToolbar.setVisibility(View.GONE);
         title1.setText("密码登录");
-//        title4.setVisibility(View.GONE);
-//        cGetCode.setVisibility(View.GONE);
-//        cCode.setVisibility(View.GONE);
-//        title5.setVisibility(View.VISIBLE);
-//        cPasswords.setVisibility(View.VISIBLE);
-//        cPassword.setText("忘记密码");
+        layBack.setVisibility(View.GONE);
+        title.setVisibility(View.GONE);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
     }
@@ -135,13 +154,13 @@ public class PasswordActivity extends BaseMvpActivity<PasswordPresenter> impleme
 
                 break;
             case R.id.image_see:
-                Utils.PwdShow(cPasswords,title6,title6s);
+                Utils.PwdShow(cPasswords, title6, title6s);
 
                 break;
             case R.id.title_6:
-                Utils.PwdHide(cPasswords,title6,title6s);
+                Utils.PwdHide(cPasswords, title6, title6s);
                 break;
-                }
+        }
 
 
     }

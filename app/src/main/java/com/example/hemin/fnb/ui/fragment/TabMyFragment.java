@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -142,6 +143,13 @@ public class TabMyFragment extends BaseFragment {
         Glide.with(this).load(url).into(userLogo);
         viewPager.setAdapter(adapter);
         initViewss();
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserSetting.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViewss() {
@@ -202,6 +210,7 @@ public class TabMyFragment extends BaseFragment {
                     ivHeader.setTranslationY(mOffset - mScrollY);
                 }
                 if (scrollY == 0) {
+
                     ivMenu.setVisibility(View.GONE);
                 } else {
                     ivMenu.setVisibility(View.VISIBLE);
@@ -396,8 +405,8 @@ public class TabMyFragment extends BaseFragment {
     public void fans(Map map) {
         String focus = (String) map.get("focus");
         String fans = (String) map.get("fans");
-        title1.setText("关注 "+ focus);
-        title2.setText("粉丝 "+fans);
+        title1.setText("关注 " + focus);
+        title2.setText("粉丝 " + fans);
 
 
     }

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,8 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
     private static final int REQUEST_CODE_CHOOSE = 233;
     @BindView(R.id.e1)
     EditText e1;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
     private String[] mPerms = {Manifest.permission.CAMERA};
     private static final int PERMISSIONS = 100;
     private ImageViewAdapter adapter = new ImageViewAdapter();
@@ -219,10 +222,10 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
 //        }
 //    }
 
-    @OnClick({R.id.back, R.id.add})
+    @OnClick({R.id.lay_back, R.id.add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.add:
@@ -260,9 +263,10 @@ public class MessageAdd extends BaseMvpActivity<MessageAddPresenter> implements 
         }
     }
 
-    public String getEdittextHeard(){
-     return    e1.getText().toString().trim();
+    public String getEdittextHeard() {
+        return e1.getText().toString().trim();
     }
+
     private void initOptionPicker(final List<String> typeName) {
         OptionsPickerView optionsPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override

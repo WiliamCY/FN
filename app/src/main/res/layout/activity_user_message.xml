@@ -8,43 +8,46 @@
     tools:context=".ui.activity.UserMessage"
     tools:ignore="MissingConstraints">
 
-    <LinearLayout
-        android:id="@+id/user_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/cffffff"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/user_toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:background="@color/cffffff"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingBottom="8dp">-->
 
-        <ImageView
-            android:layout_marginLeft="@dimen/marginLeft_16"
-            android:id="@+id/back"
-            android:layout_width="9dp"
-            android:layout_height="16dp"
-            android:layout_gravity="bottom"
-            android:scaleType="fitXY"
-            android:src="@mipmap/black_right" />
+        <!--<ImageView-->
+            <!--android:layout_marginLeft="@dimen/marginLeft_16"-->
+            <!--android:id="@+id/back"-->
+            <!--android:layout_width="9dp"-->
+            <!--android:layout_height="16dp"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@mipmap/black_right" />-->
 
-        <TextView
+        <!--<TextView-->
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginRight="30dp"
-            android:gravity="center"
-            android:text="个人信息"
-            android:textColor="@color/c333333"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_18" />
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="个人信息"-->
+            <!--android:textColor="@color/c333333"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textSize="@dimen/text_size_18" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_15"
         android:layout_marginTop="@dimen/paddingTop_30"
-        app:layout_constraintTop_toBottomOf="@id/user_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/c1"

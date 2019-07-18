@@ -6,10 +6,10 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,9 +27,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TaskBigImgActivityS extends BaseActivity {
-    @BindView(R.id.titl1)
-    TextView headerTitle;
-    @BindView(R.id.header_left_img)
+    //    @BindView(R.id.titl1)
+//    TextView headerTitle;
+//    @BindView(R.id.header_left_img)
     ImageView headerLeftImg;
     @BindView(R.id.big_img_vp)
     HackyViewPager bigImgVp;
@@ -37,6 +37,10 @@ public class TaskBigImgActivityS extends BaseActivity {
     TextView headerRightTv;
     @BindView(R.id.number1)
     TextView number1;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
 
 
     private int position = 0;
@@ -59,7 +63,7 @@ public class TaskBigImgActivityS extends BaseActivity {
         paths = intent.getStringArrayListExtra("paths");
         String titles = intent.getStringExtra("title");
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        headerTitle.setText(titles);
+        title.setText(titles);
         number1.setText(1 + "/" + paths.size());
         bigImgVp.setAdapter(new PagerAdapter() {
             @Override
@@ -113,17 +117,17 @@ public class TaskBigImgActivityS extends BaseActivity {
 
     }
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.header_left_img, R.id.titl1})
+    @OnClick({R.id.lay_back, R.id.titl1})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.header_left_img:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.titl1:

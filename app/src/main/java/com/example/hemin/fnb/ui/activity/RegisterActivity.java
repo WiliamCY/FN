@@ -66,14 +66,18 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     ImageView select;
     @BindView(R.id.user_message)
     TextView userMessage;
-    @BindView(R.id.backs)
-    ImageView back;
+    //    @BindView(R.id.backs)
+//    ImageView back;
     @BindView(R.id.image_see)
     ImageView imageSee;
     @BindView(R.id.lay2)
     LinearLayout lay2;
     @BindView(R.id.view2)
     View view2;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
     private Utils.TimeCount timeCount;
 
     @Override
@@ -106,16 +110,17 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
 //        cPasswords.setVisibility(View.VISIBLE);
         cRegister.setVisibility(View.GONE);
         cPassword.setVisibility(View.GONE);
+        title.setVisibility(View.GONE);
 //        title6.setBackgroundResource(R.mipmap.passwords);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
     }
 
-    @OnClick({R.id.c_getCode, R.id.title_6, R.id.c_login_button, R.id.user_message, R.id.backs, R.id.image_see})
+    @OnClick({R.id.c_getCode, R.id.title_6, R.id.c_login_button, R.id.user_message, R.id.lay_back, R.id.image_see})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
@@ -141,7 +146,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                 break;
             case R.id.user_message:
                 break;
-            case R.id.backs:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.image_see:

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,28 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
     TextView title;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title2)
+    TextView title2;
+    @BindView(R.id.view1)
+    View view1;
+    @BindView(R.id.title3)
+    TextView title3;
+    @BindView(R.id.step_2)
+    ImageView step2;
+    @BindView(R.id.view2)
+    View view2;
+    @BindView(R.id.title4)
+    TextView title4;
+    @BindView(R.id.image1)
+    ImageView image1;
+    @BindView(R.id.titles1)
+    TextView titles1;
+    @BindView(R.id.image2)
+    ImageView image2;
+    @BindView(R.id.image3)
+    ImageView image3;
 
 //    @BindView(R.id.collect_recyclerview)
 //    RecyclerView recyclerView;
@@ -134,10 +157,10 @@ public class CollectionInformationMessage extends BaseMvpActivity<CollectionPres
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.back, R.id.title})
+    @OnClick({R.id.lay_back, R.id.title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.title:

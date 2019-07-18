@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,8 +38,8 @@ import butterknife.OnClick;
 public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> implements FoucesContract.View {
     @BindView(R.id.titl1)
     TextView headerTitle;
-    @BindView(R.id.header_left_img)
-    ImageView headerLeftImg;
+    //    @BindView(R.id.header_left_img)
+//    ImageView headerLeftImg;
     @BindView(R.id.big_img_vp)
     HackyViewPager bigImgVp;
     TextView headerRightTv;
@@ -56,6 +57,8 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     TextView zanNumber;
     @BindView(R.id.collectNumber)
     TextView collectNumber;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
     private int position = 0;
     private ArrayList<String> paths;
     private long finderid, finderids;
@@ -65,7 +68,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     private Boolean FocuseStatus = false;
     private Boolean isFocusStatus = false;
     private int focusNum, giveNum;
-   private int zNumber,zCollectNumber;
+    private int zNumber, zCollectNumber;
 
     @Override
     public int getLayoutId() {
@@ -101,7 +104,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         Glide.with(this).load(userUrl).into(userLogo);
         Log.d("TaskFinderId", String.valueOf(finderid));
         headerTitle.setText(titles);
-        headerLeftImg.setVisibility(View.VISIBLE);
+//        headerLeftImg.setVisibility(View.VISIBLE);
         userIds = sp.getString("userId", "");
         if (userIds.equals(userId)) {
             headerTitle.setVisibility(View.GONE);
@@ -201,10 +204,10 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             if (isGiveNumStatus == false) {
                 zan.setBackgroundResource(R.mipmap.zan_black);
                 isGiveNumStatus = true;
-                   zNumber++;
+                zNumber++;
                 zanNumber.setText(String.valueOf(zNumber));
             } else {
-               zNumber--;
+                zNumber--;
                 zan.setBackgroundResource(R.mipmap.white_zan);
                 isGiveNumStatus = false;
                 zanNumber.setText(String.valueOf(zNumber));
@@ -266,7 +269,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.titl1, R.id.zan, R.id.header_left_img, R.id.collect})
+    @OnClick({R.id.titl1, R.id.zan, R.id.lay_back, R.id.collect})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.titl1:
@@ -278,7 +281,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                 token = Utils.getAuthorization(getApplication());
                 mPresenter.getZan(getApplication(), token, finderid, Long.parseLong(userIds), 0);
                 break;
-            case R.id.header_left_img:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.collect:

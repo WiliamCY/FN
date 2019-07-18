@@ -2,14 +2,11 @@ package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
+import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseActivity;
@@ -21,12 +18,16 @@ import butterknife.OnClick;
 
 //跳转到官网链接
 public class UserAbout extends BaseActivity {
-    @BindView(R.id.back)
-    ImageView back;
-    @BindView(R.id.user_toolbar)
-    LinearLayout userToolbar;
+    //    @BindView(R.id.back)
+//    ImageView back;
+//    @BindView(R.id.user_toolbar)
+//    LinearLayout userToolbar;
     @BindView(R.id.webview)
     ProgressWebView mWebView;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
 
     private String TAG = "UserAbout";
 
@@ -43,9 +44,10 @@ public class UserAbout extends BaseActivity {
         mWebView = findViewById(R.id.webview);
         Intent intent = getIntent();
         String url = intent.getStringExtra("path");
-        Log.d("findIntentUrl",url);
+        Log.d("findIntentUrl", url);
         mWebView.loadUrl(url);//加载网址
         mWebView.setFocusable(true);//设置有焦点
+        title.setText("玩鉴");
         mWebView.setFocusableInTouchMode(true);//设置可触摸
     }
 
@@ -67,13 +69,20 @@ public class UserAbout extends BaseActivity {
         return false;
     }
 
-    @OnClick({R.id.back})
+    @OnClick({R.id.lay_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
 
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

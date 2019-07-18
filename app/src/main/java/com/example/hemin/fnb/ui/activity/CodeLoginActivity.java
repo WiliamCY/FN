@@ -2,13 +2,11 @@ package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,14 +17,12 @@ import com.example.hemin.fnb.ui.contract.LoginContract;
 import com.example.hemin.fnb.ui.presenter.LoginPresenter;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
 import com.example.hemin.fnb.ui.util.Utils;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.RequestBody;
 
 public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginContract.View {
     @BindView(R.id.c_phone)
@@ -47,6 +43,12 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
     ImageView qq;
     @BindView(R.id.alipay)
     ImageView alipay;
+    @BindView(R.id.back)
+    ImageView back;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
     private Utils.TimeCount timeCount;
 
     @Override
@@ -59,43 +61,42 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
         mPresenter = new LoginPresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
+        title.setVisibility(View.GONE);
 
     }
-
-
 
 
     @OnClick({R.id.c_getCode, R.id.c_register, R.id.c_password, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
-                if(getPhone() == null || Utils.isPhoneNumber(getPhone())== false) {
+                if (getPhone() == null || Utils.isPhoneNumber(getPhone()) == false) {
 
-                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机格式有误",Toast.LENGTH_SHORT),400);
+                    Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入的手机格式有误", Toast.LENGTH_SHORT), 400);
                     return;
                 }
-                mPresenter.getCode(this,getPhone());
-                timeCount = new Utils.TimeCount(60000,1000, cGetCode);
+                mPresenter.getCode(this, getPhone());
+                timeCount = new Utils.TimeCount(60000, 1000, cGetCode);
                 timeCount.start();
                 break;
             case R.id.c_register:
-                Intent register = new Intent(this,RegisterActivity.class);
+                Intent register = new Intent(this, RegisterActivity.class);
                 startActivity(register);
                 break;
             case R.id.c_password:
-                Intent password = new Intent(this,PasswordActivity.class);
+                Intent password = new Intent(this, PasswordActivity.class);
                 startActivity(password);
                 break;
             case R.id.c_login_button:
-                if(getCode()== null || getPhone()==null || Utils.isPhoneNumber(getPhone()) == false){
-                    Utils.showMyToast(Toast.makeText(this,"请输入完整或者输入的手机号格式错误",Toast.LENGTH_SHORT),400);
+                if (getCode() == null || getPhone() == null || Utils.isPhoneNumber(getPhone()) == false) {
+                    Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入的手机号格式错误", Toast.LENGTH_SHORT), 400);
                     return;
                 }
-                HashMap<String,String> paramsMap= new HashMap<>();
-                paramsMap.put("mobile",getPhone());
-                paramsMap.put("password",getCode());
-                paramsMap.put("code",getCode());
-                mPresenter.login(this,getPhone(),getCode());
+                HashMap<String, String> paramsMap = new HashMap<>();
+                paramsMap.put("mobile", getPhone());
+                paramsMap.put("password", getCode());
+                paramsMap.put("code", getCode());
+                mPresenter.login(this, getPhone(), getCode());
                 break;
             case R.id.c_wechat:
                 break;
@@ -127,12 +128,18 @@ public class CodeLoginActivity extends BaseMvpActivity<LoginPresenter> implement
     }
 
 
-
-    private String getPhone(){
-       return cPhone.getText().toString().trim();
+    private String getPhone() {
+        return cPhone.getText().toString().trim();
     }
-    private String getCode(){
+
+    private String getCode() {
         return cCode.getText().toString().trim();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

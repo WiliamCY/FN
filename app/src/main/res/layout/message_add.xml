@@ -13,15 +13,29 @@
         android:background="@color/cffffff"
         android:paddingBottom="8dp"
         tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginLeft="@dimen/marginLeft_10"
-            android:src="@mipmap/black_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+        <LinearLayout
+            android:id="@+id/lay_back"
+            android:layout_width="@dimen/layout_width_50"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_marginBottom="@dimen/marginBottom_5"
+                android:layout_marginLeft="@dimen/paddingLeft_12"
+                android:scaleType="fitXY"
+                android:id="@+id/back"
+                android:layout_gravity="bottom"
+                android:src="@mipmap/black_right"
+                android:layout_width="9dp"
+                android:layout_height="16dp"
+                />
+        </LinearLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/back"-->
+            <!--android:layout_width="16dp"-->
+            <!--android:layout_height="16dp"-->
+            <!--android:layout_marginLeft="@dimen/marginLeft_10"-->
+            <!--android:src="@mipmap/black_right"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent" />-->
 
         <TextView
             android:id="@+id/add"

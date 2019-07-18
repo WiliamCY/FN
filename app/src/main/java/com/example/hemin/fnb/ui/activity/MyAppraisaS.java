@@ -7,10 +7,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.adapter.BaseViewPagerAdapter;
@@ -41,17 +41,25 @@ import butterknife.OnClick;
 public class MyAppraisaS extends BaseActivity {
     @BindView(R.id.magic_indicator2)
     MagicIndicator magicIndicator;
-    @BindView(R.id.header_left_img)
-    ImageView headerLeftImg;
+    //    @BindView(R.id.header_left_img)
+//    ImageView headerLeftImg;
     private static final String[] date2 = new String[]{"我的关注", "我的发布"};
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    @BindView(R.id.back)
+    ImageView back;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.user_toolbar)
+    LinearLayout userToolbar;
     private List<String> mDataList2 = Arrays.asList(date2);
     List<Fragment> fragmentList = new ArrayList<>();
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
 
     private void initDate() {
-        for(int i = 0;i<mDataList2.size();i++){
+        for (int i = 0; i < mDataList2.size(); i++) {
             fragmentList.add(QuanZiFragment.getInstance(mDataList2.get(i)));
         }
 
@@ -59,7 +67,7 @@ public class MyAppraisaS extends BaseActivity {
     }
 
     private void initView2() {
-       viewPager.setAdapter(new BaseViewPagerAdapter(getSupportFragmentManager(),fragmentList));
+        viewPager.setAdapter(new BaseViewPagerAdapter(getSupportFragmentManager(), fragmentList));
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -104,16 +112,16 @@ public class MyAppraisaS extends BaseActivity {
             }
         });
         mFragmentContainerHelper.attachMagicIndicator(magicIndicator);
-        ViewPagerHelper.bind(magicIndicator,viewPager);
+        ViewPagerHelper.bind(magicIndicator, viewPager);
 
     }
 
 
     @SuppressLint("ResourceAsColor")
-    @OnClick({R.id.header_left_img})
+    @OnClick({R.id.lay_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.header_left_img:
+            case R.id.lay_back:
                 finish();
                 break;
         }
@@ -130,7 +138,6 @@ public class MyAppraisaS extends BaseActivity {
         ButterKnife.bind(this);
         initDate();
     }
-
 
 
     @Override

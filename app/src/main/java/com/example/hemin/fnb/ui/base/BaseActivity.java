@@ -2,6 +2,7 @@ package com.example.hemin.fnb.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.hemin.fnb.ui.net.NetworkChange;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.lang.reflect.Field;
@@ -25,6 +27,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     //记录用户首次点击返回键的时间
     private long firstTime = 0;
     private Unbinder unbinder;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +46,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
         initView();
         initSystemBar();
+
+
+
 
     }
 

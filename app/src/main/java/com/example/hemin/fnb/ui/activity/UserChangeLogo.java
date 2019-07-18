@@ -1,26 +1,20 @@
 package com.example.hemin.fnb.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.ChangeLogoContract;
-import com.example.hemin.fnb.ui.net.RetrofitClient;
 import com.example.hemin.fnb.ui.presenter.ChangeLogoPresenter;
-import com.example.hemin.fnb.ui.presenter.RegisterPresenter;
 import com.example.hemin.fnb.ui.util.MessageEvent;
 import com.example.hemin.fnb.ui.util.Utils;
 import com.zzti.fengyongge.imagepicker.PhotoSelectorActivity;
@@ -50,6 +44,8 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
     TextView changeButton1;
     @BindView(R.id.change_button2)
     TextView changeButton2;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
     private String urls;
 
 
@@ -67,10 +63,10 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
 
     }
 
-    @OnClick({R.id.back, R.id.change_button1, R.id.change_button2})
+    @OnClick({R.id.lay_back, R.id.change_button1, R.id.change_button2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.change_button1:
@@ -116,12 +112,14 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
             finish();
         }
     }
-  public  void sendUrl(int status){
-        if(status == 1){
 
-            EventBus.getDefault().post(2,new MessageEvent(urls));
+    public void sendUrl(int status) {
+        if (status == 1) {
+
+            EventBus.getDefault().post(2, new MessageEvent(urls));
         }
-  }
+    }
+
     @Override
     public void showLoading() {
 
@@ -147,5 +145,12 @@ public class UserChangeLogo extends BaseMvpActivity<ChangeLogoPresenter> impleme
         map2.put("userId", id);
         Log.d("ChageLogo", url + id);
         mPresenter.changeImage(this, token, Utils.RetrofitHead(map2));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

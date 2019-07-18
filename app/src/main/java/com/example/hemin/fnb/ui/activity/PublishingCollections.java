@@ -2,7 +2,6 @@ package com.example.hemin.fnb.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,6 +90,14 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     TextView imageViewNumber;
     @BindView(R.id.back)
     ImageView back;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.linear)
+    LinearLayout linear;
+    @BindView(R.id.c1)
+    LinearLayout c1;
     private Button button;
     private String cachePath;
     private List<String> imagePath = new ArrayList<String>();
@@ -97,8 +105,7 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
     private ImageViewAdapter adapter = new ImageViewAdapter();
     private String typeIds;
     private int i = 0;
-    private Map<String ,String> map = new HashMap<>();
-
+    private Map<String, String> map = new HashMap<>();
 
 
     @Override
@@ -116,12 +123,13 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
         mPresenter = new GetTypePresenter();
         mPresenter.attachView(this);
         ButterKnife.bind(this);
+        title.setText("我的收藏");
         cachePath = getExternalFilesDir(null) + "/mypics/photos/";
 
     }
 
 
-    @OnClick({R.id.pc_photo, R.id.pc_button, R.id.submission, R.id.image_add_button,R.id.back})
+    @OnClick({R.id.pc_photo, R.id.pc_button, R.id.submission, R.id.image_add_button, R.id.lay_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.pc_photo:
@@ -172,10 +180,11 @@ public class PublishingCollections extends BaseMvpActivity<GetTypePresenter> imp
                 intent2.putExtra("limit", 12 - adapter.getItemCount());//number是选择图片的数量
                 startActivityForResult(intent2, 0);
                 break;
-            case R.id.back:
+            case R.id.lay_back:
 //             Intent intent1 = new Intent(this,MainActivity.class);
 //             startActivity(intent1);
                 finish();
+                break;
         }
 
     }

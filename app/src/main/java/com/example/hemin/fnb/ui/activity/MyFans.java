@@ -52,6 +52,8 @@ public class MyFans extends BaseMvpActivity<FansPresenter> implements FanContrac
     LinearLayout userToolbar;
     @BindView(R.id.y1)
     LinearLayout y1;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
     private int status;
     private int page = 1, size = 10;
     private List<GuanZhuBean.DataBean.RecordsBean> bean = new ArrayList<>();
@@ -75,20 +77,20 @@ public class MyFans extends BaseMvpActivity<FansPresenter> implements FanContrac
         final Map map = Utils.getAuthorization(this);
         if (status == 1) {
             title.setText("我的关注");
-            mPresenter.GZ(map, page, size, Integer.parseInt(Utils.getUserId(this)),0);
+            mPresenter.GZ(map, page, size, Integer.parseInt(Utils.getUserId(this)), 0);
         } else if (status == 2) {
             title.setText("我的发布");
-            mPresenter.fs(map, page, size,0);
+            mPresenter.fs(map, page, size, 0);
         }
         refreshLayout.setRefreshHeader(new ClassicsHeader(this));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                    if(status == 1){
-                        mPresenter.GZ(map, page, size, Integer.parseInt(Utils.getUserId(AppUtils.getContext())),1);
-                    }else if(status == 2){
-                        mPresenter.fs(map, page, size,1);
-                    }
+                if (status == 1) {
+                    mPresenter.GZ(map, page, size, Integer.parseInt(Utils.getUserId(AppUtils.getContext())), 1);
+                } else if (status == 2) {
+                    mPresenter.fs(map, page, size, 1);
+                }
             }
         });
     }
@@ -110,24 +112,24 @@ public class MyFans extends BaseMvpActivity<FansPresenter> implements FanContrac
 
     @Override
     public void onSuccess(BaseObjectBean beans) {
-         if(beans.getErrorCode() != 0){
-             Toast.makeText(this,beans.getErrorMsg(),Toast.LENGTH_SHORT).show();
-         }
+        if (beans.getErrorCode() != 0) {
+            Toast.makeText(this, beans.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        }
 
     }
 
-    public void date(List<GuanZhuBean.DataBean.RecordsBean> list,int statu) {
+    public void date(List<GuanZhuBean.DataBean.RecordsBean> list, int statu) {
         if (list.size() > 0) {
             recylcerview.setVisibility(View.VISIBLE);
             title1.setVisibility(View.GONE);
             image1.setVisibility(View.GONE);
-            if(statu == 0){
+            if (statu == 0) {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recylcerview.setLayoutManager(linearLayoutManager);
                 FansAdapter adapter = new FansAdapter(R.layout.gz_adapter, list);
                 recylcerview.setAdapter(adapter);
-            }else if(statu == 1) {
+            } else if (statu == 1) {
                 adapter.replaceData(list);
                 refreshLayout.finishRefresh();
 
@@ -142,10 +144,10 @@ public class MyFans extends BaseMvpActivity<FansPresenter> implements FanContrac
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.back, R.id.user_toolbar})
+    @OnClick({R.id.lay_back, R.id.user_toolbar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.user_toolbar:

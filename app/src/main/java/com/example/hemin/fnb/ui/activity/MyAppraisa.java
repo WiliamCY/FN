@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,9 +24,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
 
@@ -49,12 +46,16 @@ public class MyAppraisa extends BaseActivity {
     MagicIndicator magicIndicator;
     @BindView(R.id.fragment_container)
     FrameLayout fragmentContainer;
-    @BindView(R.id.header_left_img)
-    ImageView headerLeftImg;
+    //    @BindView(R.id.header_left_img)
+//    ImageView headerLeftImg;
     @BindView(R.id.view1)
     View view1;
     @BindView(R.id.view2)
     View view2;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
     private List<String> mDataList2 = Arrays.asList(date2);
     private static final String[] date2 = new String[]{"全部", "审核中", "鉴定中", "鉴定失败"};
     private List<String> mDataList3 = Arrays.asList(date3);
@@ -65,6 +66,7 @@ public class MyAppraisa extends BaseActivity {
     private void initDate() {
         initFragment(0, status);
         initView2(mDataList2, status);
+        title.setText("我的鉴定");
     }
 
     private void initView2(final List<String> date, final boolean status) {
@@ -121,7 +123,7 @@ public class MyAppraisa extends BaseActivity {
 
 
     @SuppressLint("ResourceAsColor")
-    @OnClick({R.id.title1, R.id.title2, R.id.header_left_img})
+    @OnClick({R.id.title1, R.id.title2, R.id.lay_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title1:
@@ -145,7 +147,7 @@ public class MyAppraisa extends BaseActivity {
 //                initFragment(0, false);
                 initView2(mDataList3, false);
                 break;
-            case R.id.header_left_img:
+            case R.id.lay_back:
                 finish();
                 break;
         }

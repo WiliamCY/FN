@@ -34,6 +34,8 @@ public class NoticActivity extends BaseActivity {
     TextView titl6;
     @BindView(R.id.titl7)
     TextView titl7;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
 
     @Override
     public int getLayoutId() {
@@ -42,7 +44,7 @@ public class NoticActivity extends BaseActivity {
 
     @Override
     public void initView() {
-         title.setText("通知设置");
+        title.setText("通知设置");
     }
 
     @Override
@@ -52,10 +54,10 @@ public class NoticActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.back, R.id.title})
+    @OnClick({R.id.lay_back, R.id.title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.title:

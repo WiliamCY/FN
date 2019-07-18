@@ -16,8 +16,6 @@ import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.UpdateAboutContract;
 import com.example.hemin.fnb.ui.presenter.FixNickNameAboutPresenter;
-import com.example.hemin.fnb.ui.presenter.RegisterPresenter;
-import com.example.hemin.fnb.ui.presenter.UpdateAboutPresenter;
 import com.example.hemin.fnb.ui.util.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,10 +40,12 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
     TextView title;
     @BindView(R.id.fixNickName)
     Button fixNickName;
-    private Map<String,String> token = new HashMap<>();
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    private Map<String, String> token = new HashMap<>();
     private int status;
 
-    private String birthday,nicknames,signature,url,userid,sex;
+    private String birthday, nicknames, signature, url, userid, sex;
 
     @Override
     public int getLayoutId() {
@@ -56,7 +56,7 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
     public void initView() {
         mPresenter = new FixNickNameAboutPresenter();
         mPresenter.attachView(this);
-         status = getIntent().getIntExtra("status", 0);
+        status = getIntent().getIntExtra("status", 0);
         if (status == 0) {
             e1.setVisibility(View.VISIBLE);
             e2.setVisibility(View.GONE);
@@ -67,28 +67,27 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
             title.setText("修改签名");
         }
         token = Utils.getAuthorization(this);
-        SharedPreferences sp  = getSharedPreferences("userDate", Context.MODE_PRIVATE);
-        birthday = sp.getString("birthday","");
-        nicknames = sp.getString("nickName","");
-        sex = sp.getString("sex","");
-        signature = sp.getString("signature","");
-        url = sp.getString("url","");
-        userid = sp.getString("userId","");
-
+        SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        birthday = sp.getString("birthday", "");
+        nicknames = sp.getString("nickName", "");
+        sex = sp.getString("sex", "");
+        signature = sp.getString("signature", "");
+        url = sp.getString("url", "");
+        userid = sp.getString("userId", "");
 
 
     }
 
 
-    @OnClick({R.id.back,R.id.fixNickName})
+    @OnClick({R.id.lay_back, R.id.fixNickName})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.fixNickName:
-                if(status == 0) {
-                    if (getNick().equals("") || getNick().length()<4 || getNick().length()>24 ) {
+                if (status == 0) {
+                    if (getNick().equals("") || getNick().length() < 4 || getNick().length() > 24) {
                         Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入昵称字数不正确", Toast.LENGTH_SHORT), 400);
                     } else {
                         HashMap<String, String> map = new HashMap<>();
@@ -101,16 +100,16 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
                         mPresenter.updateAbout(token, Utils.RetrofitHead(map), 1);
 
                     }
-                }else {
-                    if (getNicks().equals("") || getNicks().length()>100) {
+                } else {
+                    if (getNicks().equals("") || getNicks().length() > 100) {
                         Utils.showMyToast(Toast.makeText(this, "请输入完整或者输入签名超过100字数", Toast.LENGTH_SHORT), 400);
-                             return;
+                        return;
                     } else {
                         HashMap<String, String> map = new HashMap<>();
 //                         map.put("birthday",birthday);
                         map.put("nickname", nicknames);
 //                         map.put("sex",sex);
-                         map.put("signature",getNicks());
+                        map.put("signature", getNicks());
 //                         map.put("url",url);
                         map.put("userId", userid);
                         mPresenter.updateAbout(token, Utils.RetrofitHead(map), 2);
@@ -121,12 +120,13 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
 
         }
     }
-   public  String getNick(){
-        return  e1.getText().toString().trim();
-   }
 
-    public  String getNicks(){
-        return  e2.getText().toString().trim();
+    public String getNick() {
+        return e1.getText().toString().trim();
+    }
+
+    public String getNicks() {
+        return e2.getText().toString().trim();
     }
 
     @Override
@@ -153,26 +153,26 @@ public class FixNickName extends BaseMvpActivity<FixNickNameAboutPresenter> impl
     }
 
     @Override
-    public void onSuccess(BaseObjectBean bean,int status) {
-        if(bean.getCode() == 0 && status == 1){
-            EventBus.getDefault().post(1,getNick());
-            SharedPreferences.Editor sp = this.getSharedPreferences("userDate",Context.MODE_PRIVATE).edit();
-             sp.putString("nickName",getNick());
-             sp.commit();
-             finish();
-
-        }else if(bean.getCode() == 0 && status == 2){
-            EventBus.getDefault().post(3,getNicks());
-            SharedPreferences.Editor sp = this.getSharedPreferences("userDate",Context.MODE_PRIVATE).edit();
-            sp.putString("signature",getNicks());
+    public void onSuccess(BaseObjectBean bean, int status) {
+        if (bean.getCode() == 0 && status == 1) {
+            EventBus.getDefault().post(1, getNick());
+            SharedPreferences.Editor sp = this.getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
+            sp.putString("nickName", getNick());
             sp.commit();
             finish();
-        }else {
-            Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT).show();
-        }
-        }
 
+        } else if (bean.getCode() == 0 && status == 2) {
+            EventBus.getDefault().post(3, getNicks());
+            SharedPreferences.Editor sp = this.getSharedPreferences("userDate", Context.MODE_PRIVATE).edit();
+            sp.putString("signature", getNicks());
+            sp.commit();
+            finish();
+        } else {
+            Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        }
     }
+
+}
 
 
 

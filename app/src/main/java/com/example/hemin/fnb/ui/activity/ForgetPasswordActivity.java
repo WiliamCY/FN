@@ -66,8 +66,8 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     ImageView select;
     @BindView(R.id.user_message)
     TextView userMessage;
-    @BindView(R.id.backs)
-    ImageView backs;
+    //    @BindView(R.id.backs)
+//    ImageView backs;
     @BindView(R.id.image_see)
     ImageView imageSee;
     @BindView(R.id.image_sees)
@@ -93,6 +93,10 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
     LinearLayout lay1;
     @BindView(R.id.view1)
     View view1;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
     private Utils.TimeCount timeCount;
 
 
@@ -129,12 +133,13 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
         lay4.setVisibility(View.VISIBLE);
         view2.setVisibility(View.VISIBLE);
         view4.setVisibility(View.VISIBLE);
+        title.setVisibility(View.GONE);
 //        cUserPassword.setVisibility(View.VISIBLE);
 //        cPasswords.setVisibility(View.VISIBLE);
 
     }
 
-    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay, R.id.backs, R.id.image_see, R.id.image_sees})
+    @OnClick({R.id.c_getCode, R.id.title_6, R.id.title_8, R.id.c_login_button, R.id.c_wechat, R.id.qq, R.id.alipay, R.id.lay_back, R.id.image_see, R.id.image_sees})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c_getCode:
@@ -174,7 +179,7 @@ public class ForgetPasswordActivity extends BaseMvpActivity<ForgetPresenter> imp
                 break;
             case R.id.alipay:
                 break;
-            case R.id.backs:
+            case R.id.lay_back:
                 finish();
             case R.id.image_see:
                 Utils.PwdShow(cPasswords, title6, imageSee);

@@ -8,34 +8,37 @@
     android:layout_height="match_parent"
     android:id="@+id/c1"
     tools:ignore="MissingConstraints">
-    <LinearLayout
-        android:paddingBottom="8dp"
-        android:orientation="horizontal"
-        android:id="@+id/user_toolbar"
-        android:background="@color/cffffff"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_height_60">
-        <ImageView
+    <!--<LinearLayout-->
+        <!--android:paddingBottom="8dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:id="@+id/user_toolbar"-->
+        <!--android:background="@color/cffffff"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/layout_height_60">-->
+        <!--<ImageView-->
 
-           android:layout_marginLeft="@dimen/marginLeft_10"
-            android:id="@+id/back"
-            android:layout_gravity="bottom"
-            android:src="@mipmap/black_right"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            />
-        <TextView
+           <!--android:layout_marginLeft="@dimen/marginLeft_10"-->
+            <!--android:id="@+id/back"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:src="@mipmap/black_right"-->
+            <!--android:layout_width="16dp"-->
+            <!--android:layout_height="16dp"-->
+            <!--/>-->
+        <!--<TextView-->
 
-            android:textSize="20sp"
-            android:layout_marginRight="30dp"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:textColor="@color/cffffff"
-            android:text="发布藏品"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <!--android:textSize="20sp"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:textColor="@color/cffffff"-->
+            <!--android:text="发布藏品"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -13,26 +13,41 @@
         android:background="@color/cffffff"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:id="@+id/lay_back"
+            android:layout_width="@dimen/layout_width_50"
+            android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/header_left_img"
-
+            android:layout_marginBottom="@dimen/marginBottom_10"
+            android:layout_marginLeft="@dimen/paddingLeft_12"
+            android:scaleType="fitXY"
+            android:id="@+id/back"
+            android:layout_gravity="bottom"
+            android:src="@mipmap/black_right"
             android:layout_width="9dp"
             android:layout_height="16dp"
-            android:layout_marginLeft="@dimen/paddingLeft_20"
-            android:layout_marginBottom="@dimen/marginBottom_10"
-            android:src="@mipmap/black_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            />
+        <!--<ImageView-->
+            <!--android:id="@+id/header_left_img"-->
+
+            <!--android:layout_width="9dp"-->
+            <!--android:layout_height="16dp"-->
+            <!--android:layout_marginLeft="@dimen/paddingLeft_20"-->
+            <!--android:layout_marginBottom="@dimen/marginBottom_10"-->
+            <!--android:src="@mipmap/black_right"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent" />-->
+        </LinearLayout>
         <com.example.hemin.fnb.ui.util.CircleImageView
             android:id="@+id/user_logo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="@dimen/marginLeft_25"
+
             android:layout_marginBottom="@dimen/marginBottom_5"
             android:scaleType="fitXY"
             android:src="@mipmap/logo"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/header_left_img" />
+            app:layout_constraintLeft_toRightOf="@id/lay_back" />
 
         <TextView
             android:layout_marginTop="@dimen/paddingTop_5"
@@ -56,7 +71,7 @@
             android:textSize="@dimen/text_size_15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/header_left_img" />
+            />
 
         <!--<TextView-->
         <!--android:id="@+id/header_right_tv"-->

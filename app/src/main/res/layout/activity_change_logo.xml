@@ -6,37 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.ChangeLogo"
     tools:ignore="MissingConstraints">
-    <LinearLayout
-        android:paddingBottom="8dp"
-        android:orientation="horizontal"
-        android:id="@+id/user_toolbar"
-        android:background="@color/cffffff"
-        android:layout_width="match_parent"
-        android:layout_height="70dp">
-        <ImageView
+    <!--<LinearLayout-->
+        <!--android:paddingBottom="8dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:id="@+id/user_toolbar"-->
+        <!--android:background="@color/cffffff"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp">-->
+        <!--<ImageView-->
 
-            android:layout_marginLeft="@dimen/paddingLeft_5"
-            android:scaleType="fitXY"
-            android:id="@+id/back"
-            android:layout_gravity="bottom"
-            android:src="@mipmap/black_right"
-            android:layout_width="9dp"
-            android:layout_height="16dp"
-            />
-        <TextView
+            <!--android:layout_marginLeft="@dimen/paddingLeft_5"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:id="@+id/back"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:src="@mipmap/black_right"-->
+            <!--android:layout_width="9dp"-->
+            <!--android:layout_height="16dp"-->
+            <!--/>-->
+        <!--<TextView-->
 
-            android:textSize="20sp"
-            android:layout_marginRight="30dp"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:textColor="@color/c333333"
-            android:text="更换图片"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <!--android:textSize="20sp"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:textColor="@color/c333333"-->
+            <!--android:text="更换图片"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <ImageView
-        app:layout_constraintTop_toBottomOf="@id/user_toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:id="@+id/change_user_logo"
         android:layout_width="match_parent"
         android:layout_height="375dp"

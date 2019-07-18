@@ -30,6 +30,7 @@ import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.bean.JsonBean;
 import com.example.hemin.fnb.ui.contract.UpdateAboutContract;
 import com.example.hemin.fnb.ui.presenter.UpdateAboutPresenter;
+import com.example.hemin.fnb.ui.util.CircleImageView;
 import com.example.hemin.fnb.ui.util.GetJsonDataUtil;
 import com.example.hemin.fnb.ui.util.GlideLoadUtils;
 import com.example.hemin.fnb.ui.util.MessageEvent;
@@ -57,14 +58,14 @@ import butterknife.OnClick;
 //import org.greenrobot.eventbus.ThreadMode;
 
 public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> implements UpdateAboutContract.View {
-    @BindView(R.id.back)
-    ImageView back;
-    @BindView(R.id.user_toolbar)
-    LinearLayout userToolbar;
-    @BindView(R.id.title1)
-    TextView title1;
-    @BindView(R.id.user_logo)
-    ImageView userLogo;
+    //    @BindView(R.id.back)
+//    ImageView back;
+//    @BindView(R.id.user_toolbar)
+//    LinearLayout userToolbar;
+//    @BindView(R.id.title1)
+//    TextView title1;
+//    @BindView(R.id.user_logo)
+//    ImageView userLogo;
     @BindView(R.id.user_right1)
     ImageView userRight1;
     @BindView(R.id.view1)
@@ -119,6 +120,16 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
     ImageView userRigh6;
     @BindView(R.id.c6)
     ConstraintLayout c6;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.user_toolbar)
+    LinearLayout userToolbar;
+    @BindView(R.id.title1)
+    TextView title1;
+    @BindView(R.id.user_logo)
+    CircleImageView userLogo;
     private TimePickerView pickerView;
     private static final String[] date2 = new String[]{"男", "女"};
     private List<String> mDataList2 = Arrays.asList(date2);
@@ -150,6 +161,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        title.setText("个人信息");
         SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
         nicknames = sp.getString("nickName", "");
         url = sp.getString("url", "").trim();
@@ -201,7 +213,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.c1, R.id.c2, R.id.c3, R.id.c4, R.id.c5, R.id.back, R.id.c6})
+    @OnClick({R.id.c1, R.id.c2, R.id.c3, R.id.c4, R.id.c5, R.id.lay_back, R.id.c6})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.c1:
@@ -232,7 +244,7 @@ public class ActivityUserMessage extends BaseMvpActivity<UpdateAboutPresenter> i
                     Toast.makeText(ActivityUserMessage.this, "Please waiting until the data is parsed", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
         }

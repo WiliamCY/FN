@@ -15,7 +15,6 @@ import com.example.hemin.fnb.R;
 import com.example.hemin.fnb.ui.adapter.PHBAdapter;
 import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
-import com.example.hemin.fnb.ui.bean.Find5Bean;
 import com.example.hemin.fnb.ui.bean.PHBBean;
 import com.example.hemin.fnb.ui.contract.PHBContract;
 import com.example.hemin.fnb.ui.presenter.PHBPresenter;
@@ -39,6 +38,8 @@ public class PHBActivity extends BaseMvpActivity<PHBPresenter> implements PHBCon
     LinearLayout userToolbar;
     @BindView(R.id.phb_recycletview)
     RecyclerView phbRecycletview;
+    @BindView(R.id.lay_back)
+    LinearLayout layBack;
 
     @Override
     public int getLayoutId() {
@@ -58,9 +59,9 @@ public class PHBActivity extends BaseMvpActivity<PHBPresenter> implements PHBCon
 
     @Override
     public void onSuccess(BaseObjectBean bean) {
-    if(bean.getErrorCode() != 0){
-        Utils.showMyToast(Toast.makeText(this,bean.getErrorMsg(),Toast.LENGTH_SHORT),400);
-    }
+        if (bean.getErrorCode() != 0) {
+            Utils.showMyToast(Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT), 400);
+        }
 
 
     }
@@ -74,7 +75,8 @@ public class PHBActivity extends BaseMvpActivity<PHBPresenter> implements PHBCon
     public void hideLoading() {
 
     }
-    public  void Date(List<PHBBean> list){
+
+    public void Date(List<PHBBean> list) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         phbRecycletview.setLayoutManager(linearLayoutManager);
@@ -94,10 +96,10 @@ public class PHBActivity extends BaseMvpActivity<PHBPresenter> implements PHBCon
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.back, R.id.title})
+    @OnClick({R.id.lay_back, R.id.title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.lay_back:
                 finish();
                 break;
             case R.id.title:
