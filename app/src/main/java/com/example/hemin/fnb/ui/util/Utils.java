@@ -1,5 +1,6 @@
 package com.example.hemin.fnb.ui.util;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -9,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.ParseException;
@@ -457,4 +460,65 @@ public class Utils {
         }
         return false;
     }
+
+
+    /**
+     * 获取网络视频第一帧
+     * @param
+     * @return
+     */
+    public static Bitmap getNetVideoBitmap(String videoUrl) {
+        Bitmap bitmap = null;
+
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            //根据url获取缩略图
+            retriever.setDataSource(videoUrl, new HashMap());
+            //获得第一帧图片
+            bitmap = retriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } finally {
+            retriever.release();
+        }
+        return bitmap;
+    }
+//    public  static Bitmap getVideoThumb(String path) {
+//
+//        MediaMetadataRetriever media = new MediaMetadataRetriever();
+//
+//        media.setDataSource("https://dy-frontend.video.ums.uc.cn/w/1563271834/video/wemedia/2d4108576c4841fba24829ca78b5cef3/d143e5255a4ca4aafdaaec30295e81e1-1685017267-6-0-3.mp4?auth_key=1563439068-bf9342495e1c4315aa6d9dd799f744a5-0-daed6cea98e37420243f8617125de83c", new HashMap());
+//
+//        return  media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+//
+//    }
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+private static  Bitmap createVideoThumbnail(String url, int width, int height) {
+    Bitmap bitmap = null;
+    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+    int kind = MediaStore.Video.Thumbnails.MINI_KIND;
+    try {
+        if (Build.VERSION.SDK_INT >= 14) {
+            retriever.setDataSource(url, new HashMap<String, String>());
+        } else {
+            retriever.setDataSource(url);
+        }
+        bitmap = retriever.getFrameAtTime();
+    } catch (IllegalArgumentException ex) {
+        // Assume this is a corrupt video file
+    } catch (RuntimeException ex) {
+        // Assume this is a corrupt video file.
+    } finally {
+        try {
+            retriever.release();
+        } catch (RuntimeException ex) {
+            // Ignore failures while cleaning up.
+        }
+    }
+    if (kind == MediaStore.Images.Thumbnails.MICRO_KIND && bitmap != null) {
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+    }
+    return bitmap;
+}
+
 }

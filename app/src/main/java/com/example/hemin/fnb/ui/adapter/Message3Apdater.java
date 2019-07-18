@@ -30,8 +30,15 @@ public class Message3Apdater extends BaseQuickAdapter<MessageBean3.DataBean.Reco
 
     @Override
     protected void convert(BaseViewHolder viewHolder, MessageBean3.DataBean.RecordsBean item) {
+        if(item.getImagesUrl().contains("/MP4/")){
+            Glide.with(mContext).load(item.getImagesUrl()+"?x-oss-process=video/snapshot,t_5000,f_jpg,w_0,h_0,m_fast,ar_auto").into((ImageView) viewHolder.getView(R.id.image1));
+            viewHolder.getView(R.id.play).setVisibility(View.VISIBLE);
+        }else if(item.getImagesUrl().contains("/images/")) {
+
+            Glide.with(mContext).load(item.getImagesUrl()).into((ImageView) viewHolder.getView(R.id.image1));
+            viewHolder.getView(R.id.play).setVisibility(View.GONE);
+        }
         Glide.with(mContext).load(item.getUserUrl()).into((ImageView) viewHolder.getView(R.id.image2));
-        Glide.with(mContext).load(item.getImagesUrl()).into((ImageView) viewHolder.getView(R.id.image1));
         viewHolder.setText(R.id.title1,item.getFriendHead()).setText(R.id.title2,item.getNickname()).setText(R.id.title3,item.getGiveNum());
 
     }

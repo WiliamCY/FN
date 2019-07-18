@@ -70,6 +70,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     private MessagesApdater adapter2 = new MessagesApdater(R.layout.message_adapters, data);
     private Message3Apdater adapter3 = new Message3Apdater(R.layout.message_adapter, data3);
     private int pageIndex = 1;
+    private  int statuss = 0;
 
 protected int getLayoutId() {
     return R.layout.message;
@@ -167,7 +168,11 @@ protected int getLayoutId() {
         recordPaths.clear();
         for (int i = 0; i < object.size(); i++) {
             String path = object.get(i).getImagesUrl();
-            Log.d("messageAdapter3", path);
+            if(path.contains("/MP4/")){
+                statuss = 0;
+            }else if(path.contains("/images/")){
+                statuss = 1;
+            }
             recordPaths.add(path);
         }
 
@@ -186,6 +191,7 @@ protected int getLayoutId() {
         imgIntent.putExtra("isGiveNum",isGiveNum);
         imgIntent.putExtra("focusNum",focusNum);
         imgIntent.putExtra("giveNum",giveNum);
+        imgIntent.putExtra("statuss",statuss);
         startActivity(imgIntent);
 
     }

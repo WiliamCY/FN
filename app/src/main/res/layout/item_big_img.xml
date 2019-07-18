@@ -9,6 +9,16 @@
     android:orientation="vertical"
     tools:ignore="MissingConstraints">
 
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/plays"
+        app:layout_constraintBottom_toBottomOf="@id/flaw_img"
+        app:layout_constraintTop_toTopOf="@id/flaw_img"
+        app:layout_constraintRight_toRightOf="@id/flaw_img"
+        app:layout_constraintLeft_toLeftOf="@id/flaw_img"
+        android:src="@mipmap/plays"
+        android:layout_width="@dimen/layout_width_50"
+        android:layout_height="@dimen/layout_height_50" />
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/flaw_img"
         android:layout_width="match_parent"

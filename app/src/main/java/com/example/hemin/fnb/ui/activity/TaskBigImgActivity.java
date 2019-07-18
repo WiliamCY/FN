@@ -68,7 +68,8 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
     private Boolean FocuseStatus = false;
     private Boolean isFocusStatus = false;
     private int focusNum, giveNum;
-    private int zNumber, zCollectNumber;
+    private int zNumber, zCollectNumber,statuss;
+
 
     @Override
     public int getLayoutId() {
@@ -82,7 +83,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         ButterKnife.bind(this);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         Intent intent = getIntent();
-        SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
+        final SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
         paths = intent.getStringArrayListExtra("paths");
         String titles = intent.getStringExtra("title");
         userId = intent.getStringExtra("userId");
@@ -95,6 +96,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         isFocus = intent.getStringExtra("isFocus");
         focusNum = intent.getIntExtra("focusNum", 0);
         giveNum = intent.getIntExtra("giveNum", 0);
+        statuss = intent.getIntExtra("statuss",0);
         zNumber = giveNum;
         zCollectNumber = focusNum;
         zanNumber.setText(String.valueOf(giveNum));
@@ -158,12 +160,21 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                 Log.d("messaePaths", paths.toString());
                 View adView = LayoutInflater.from(TaskBigImgActivity.this).inflate(R.layout.item_big_img, null);
                 PhotoView icon = (PhotoView) adView.findViewById(R.id.flaw_img);
+                ImageView plays = adView.findViewById(R.id.plays);
                 headerRightTv = adView.findViewById(R.id.header_right_tv);
                 headerRightTv.setText(1 + "/" + paths.size());
                 icon.setBackgroundColor(getResources().getColor(R.color.c333333));
-                Glide.with(TaskBigImgActivity.this)
-                        .load(paths.get(position).trim())
-                        .into(icon);
+                if(statuss == 0){
+                    Glide.with(TaskBigImgActivity.this)
+                            .load(paths.get(position).trim()+"?x-oss-process=video/snapshot,t_5000,f_jpg,w_0,h_0,m_fast,ar_auto")
+                            .into(icon);
+                    plays.setVisibility(View.VISIBLE);
+                }else if(statuss == 1) {
+                    Glide.with(TaskBigImgActivity.this)
+                            .load(paths.get(position).trim())
+                            .into(icon);
+                    plays.setVisibility(View.GONE);
+                }
                 container.addView(adView);
                 return adView;
             }

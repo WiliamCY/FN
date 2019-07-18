@@ -52,6 +52,7 @@ public class FindZaZhiSAdapter extends ItemViewBinder<ZZSItem, FindZaZhiSAdapter
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(AppUtils.getContext(), UserAbout.class);
                 intent.putExtra("path",item.bean.get(position).getMagazineContent());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 AppUtils.getContext().startActivity(intent);
             }
         });

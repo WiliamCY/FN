@@ -10,8 +10,18 @@
     <ImageView
         android:scaleType="fitXY"
         android:id="@+id/image1"
-        android:layout_width="172dp"
-        android:layout_height="129dp"></ImageView>
+        android:layout_width="167dp"
+        android:layout_height="125dp"></ImageView>
+  <ImageView
+      android:visibility="gone"
+      android:id="@+id/play"
+      app:layout_constraintTop_toTopOf="@id/image1"
+      app:layout_constraintBottom_toBottomOf="@id/image1"
+      app:layout_constraintLeft_toLeftOf="@id/image1"
+      app:layout_constraintRight_toRightOf="@id/image1"
+      android:background="@mipmap/play"
+      android:layout_width="@dimen/layout_width_25"
+      android:layout_height="@dimen/layout_height_25" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="172dp"

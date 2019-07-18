@@ -96,7 +96,7 @@
             android:background="@mipmap/fxs"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/header_left_img" />
+           />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v4.widget.NestedScrollView
