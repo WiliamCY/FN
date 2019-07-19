@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hemin.fnb.R;
@@ -176,6 +177,12 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                     plays.setVisibility(View.GONE);
                 }
                 container.addView(adView);
+                plays.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplication(),"1",Toast.LENGTH_SHORT).show();
+                    }
+                });
                 return adView;
             }
 
@@ -202,6 +209,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             }
 
         });
+
     }
 
     @Override
