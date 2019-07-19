@@ -3,4 +3,5 @@
     <string name="progress_please_wait">正在加载.....</string>
     <string name="app_fileprovider_authorities">com.sample.fileprovider</string>
     <string name="title_activity_my_fans">MyFans</string>
+    <string name="title_activity_play_viedeo">PlayViedeo</string>
 </resources>

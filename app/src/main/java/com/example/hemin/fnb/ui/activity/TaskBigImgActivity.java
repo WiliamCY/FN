@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.example.hemin.fnb.ui.base.BaseMvpActivity;
 import com.example.hemin.fnb.ui.bean.BaseObjectBean;
 import com.example.hemin.fnb.ui.contract.FoucesContract;
 import com.example.hemin.fnb.ui.presenter.FoucrsPresenter;
+import com.example.hemin.fnb.ui.util.AppUtils;
 import com.example.hemin.fnb.ui.util.CircleImageView;
 import com.example.hemin.fnb.ui.util.HackyViewPager;
 import com.example.hemin.fnb.ui.util.ProgressDialog;
@@ -83,7 +85,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
         mPresenter.attachView(this);
         ButterKnife.bind(this);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         final SharedPreferences sp = getSharedPreferences("userDate", Context.MODE_PRIVATE);
         paths = intent.getStringArrayListExtra("paths");
         String titles = intent.getStringExtra("title");
@@ -157,7 +159,7 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
             }
 
             @Override
-            public Object instantiateItem(ViewGroup container, int position) {
+            public Object instantiateItem(ViewGroup container, final int position) {
                 Log.d("messaePaths", paths.toString());
                 View adView = LayoutInflater.from(TaskBigImgActivity.this).inflate(R.layout.item_big_img, null);
                 PhotoView icon = (PhotoView) adView.findViewById(R.id.flaw_img);
@@ -169,18 +171,24 @@ public class TaskBigImgActivity extends BaseMvpActivity<FoucrsPresenter> impleme
                     Glide.with(TaskBigImgActivity.this)
                             .load(paths.get(position).trim()+"?x-oss-process=video/snapshot,t_5000,f_jpg,w_0,h_0,m_fast,ar_auto")
                             .into(icon);
+                    headerRightTv.setVisibility(View.GONE);
                     plays.setVisibility(View.VISIBLE);
                 }else if(statuss == 1) {
                     Glide.with(TaskBigImgActivity.this)
                             .load(paths.get(position).trim())
                             .into(icon);
+                    headerRightTv.setVisibility(View.VISIBLE);
                     plays.setVisibility(View.GONE);
                 }
                 container.addView(adView);
                 plays.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplication(),"1",Toast.LENGTH_SHORT).show();
+                      Intent intent1 = new Intent(AppUtils.getContext(),PlayViedeo.class);
+                      String index = paths.get(position).trim();
+                      intent1.putExtra("urlpath",index);
+                      intent1.putExtra("StringContent",StringContent);
+                      startActivity(intent1);
                     }
                 });
                 return adView;
